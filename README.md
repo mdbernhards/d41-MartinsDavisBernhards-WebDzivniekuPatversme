@@ -20,7 +20,7 @@ Projektā izmantotās tehnoloģijas:
 - CSS
 
 ## Izmantotie avoti
--Stack Overflow
+- Stack Overflow
 
 ## Uzstādīšanas instrukcijas
-Projekta apskate github pages, link: xxx
+- Projekta apskate github pages, link: xxx
