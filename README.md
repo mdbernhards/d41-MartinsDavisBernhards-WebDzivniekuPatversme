@@ -1,28 +1,26 @@
-# Issue Tracking Software
+# Dzivnieku patversmes mājaslapa
 
 ## Projekta apraksts
-Šis ir projekts veidots PIKC "Rīgas Valsts tehnikums" kvalifikācijas darbam. Programma 'bug' izsekošanai, novēršanai un projekta plānošanai. 
+Šis ir projekts veidots PIKC "Rīgas Valsts tehnikums" kvalifikācijas darbam. Mājaslapa domāta dzivnieku patversmei ar datubāzi. Var saglabāt dzivniekus, viņu raksturu un slimības, informāciju var mainīt.
+Var apskatīt šos dzivniekus, kontaktēt patversmi par tiem. Apskatīt informāciju par pašu patversmi
 
 Funkcijas:
-- bug tracking
-- planning utt.
--
--
+- Dzivnieku informācijas saglabāšana datubāzē
+- Informācijas rediģēšana
+- Dzivnieku meklēšana ar filtriem
+- Informācijas apskate par patversmi
+- Mājaslapas kontrole, kā Administratoram un kā Lietotājam.
 
 ## Izmantotās tehnoloģijas
-Projektā tiek izmantots:
-
-Frameworks:
-- ASP.NET Core
-Valodas:
+Projektā izmantotās tehnoloģijas:
 - C#
+- ASP.NET MVC
 - SQL
 - HTML
 - CSS
-## Izmantotie avoti
 
+## Izmantotie avoti
+-Stack Overflow
 
 ## Uzstādīšanas instrukcijas
-
-
-//Work in progress
+Projekta apskate github pages, link: xxx
