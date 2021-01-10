@@ -23,4 +23,4 @@ Projektā izmantotās tehnoloģijas:
 - Stack Overflow
 
 ## Uzstādīšanas instrukcijas
-- Projekta apskate github pages, link: xxx
+- Vel nav
