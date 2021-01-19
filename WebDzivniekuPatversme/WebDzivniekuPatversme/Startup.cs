@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebDzivniekuPatversme.Models.Database;
 
 namespace WebDzivniekuPatversme
 {
@@ -19,6 +20,7 @@ namespace WebDzivniekuPatversme
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.Add(new ServiceDescriptor(typeof(ShelterDatabaseContext), new ShelterDatabaseContext(Configuration.GetConnectionString("DefaultConnection"))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
