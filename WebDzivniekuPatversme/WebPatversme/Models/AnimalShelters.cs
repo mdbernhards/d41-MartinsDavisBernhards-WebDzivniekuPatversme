@@ -4,7 +4,7 @@ namespace WebPatversme.Models
 {
     public class AnimalShelters
     {
-        private ShelterDatabaseContext context;
+        public ShelterRepository context;
 
         public int AnimalShelterID;
 
@@ -16,6 +16,6 @@ namespace WebPatversme.Models
 
         public int AnimalCapacity;
 
-        //public int image; ??
+        public string ImagePath;
     }
 }

@@ -1,18 +1,19 @@
-﻿using WebPatversme.Models.Database;
+﻿using System;
+using WebPatversme.Models.Database;
 
 namespace WebPatversme.Models
 {
     public class News
     {
-        private ShelterDatabaseContext context;
+        private ShelterRepository context;
 
         public int NewsID;
 
         public string Text;
 
-        public string DateCreated; //DateTime
+        public DateTime DateCreated;
 
-        //public int image; ??
+        public string ImagePath;
 
         public int FKUsersID;
     }

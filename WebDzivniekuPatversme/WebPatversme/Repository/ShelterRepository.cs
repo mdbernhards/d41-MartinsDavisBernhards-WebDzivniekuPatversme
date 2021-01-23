@@ -1,13 +1,15 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebPatversme.Models.Database
 {
-    public class ShelterDatabaseContext
+    public class ShelterRepository : IShelterRepository
     {
         public string ConnectionString { get; set; }
 
-        public ShelterDatabaseContext(string connectionString)
+        public ShelterRepository(string connectionString)
         {
             ConnectionString = connectionString;
         }
@@ -27,7 +29,12 @@ namespace WebPatversme.Models.Database
                     {
                         list.Add(new AnimalShelters()
                         {
-                            //AnimalShelterID 
+                            AnimalShelterID = Convert.ToInt32(reader["ID"]),
+                            AnimalCapacity = Convert.ToInt32(reader["AnimalCapacity"]),
+                            Name = Convert.ToString(reader["Name"]),
+                            Address = Convert.ToString(reader["Address"]),
+                            PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
+                            ImagePath = Convert.ToString(reader["ImagePath"]),
                         });
                     }
                 }

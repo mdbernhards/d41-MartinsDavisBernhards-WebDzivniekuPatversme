@@ -1,10 +1,11 @@
-﻿using WebPatversme.Models.Database;
+﻿using System;
+using WebPatversme.Models.Database;
 
 namespace WebPatversme.Models
 {
     public class Animals
     {
-        private ShelterDatabaseContext context;
+        private ShelterRepository context;
 
         public int AnimalID;
 
@@ -12,7 +13,7 @@ namespace WebPatversme.Models
 
         public int Age;
 
-        public string BirthDate;//date
+        public DateTime BirthDate;
 
         public string Species;
 
@@ -20,11 +21,11 @@ namespace WebPatversme.Models
 
         public string About;
 
-        //public string image;
+        public string ImagePath;
 
         public int Weight;
 
-        public int DateAdded; //DateTime
+        public DateTime DateAdded;
 
         public int FKAnimalSheltersID;
     }

@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using WebPatversme.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using WebPatversme.Models.Database;
 
 namespace WebPatversme.Controllers
 {
@@ -16,7 +17,9 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            AnimalsRepository context = HttpContext.RequestServices.GetService(typeof(AnimalsRepository)) as AnimalsRepository;
+
+            return View(context.GetAllAnimals());
         }
 
         public IActionResult Privacy()

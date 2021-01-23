@@ -1,10 +1,11 @@
-﻿using WebPatversme.Models.Database;
+﻿using System;
+using WebPatversme.Models.Database;
 
 namespace WebPatversme.Models
 {
     public class Users
     {
-        private ShelterDatabaseContext context;
+        private ShelterRepository context;
 
         public int UserID;
 
@@ -20,8 +21,8 @@ namespace WebPatversme.Models
 
         public string PhoneNumber;
 
-        //public int image; ??
+        public string ImagePath;
 
-        public int DateAdded; //DateTime
+        public DateTime DateAdded;
     }
 }

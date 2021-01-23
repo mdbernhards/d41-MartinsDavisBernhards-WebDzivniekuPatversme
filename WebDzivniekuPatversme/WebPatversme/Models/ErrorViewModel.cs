@@ -1,5 +1,3 @@
-using System;
-
 namespace WebPatversme.Models
 {
     public class ErrorViewModel

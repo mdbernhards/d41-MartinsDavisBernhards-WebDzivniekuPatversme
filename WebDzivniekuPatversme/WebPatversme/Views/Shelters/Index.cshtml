@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<WebPatversme.Models.AnimalShelters>
+@{
     ViewData["Title"] = "Patversmes";
 }
 
@@ -6,3 +7,36 @@
     <h1 class="display-4">Patversmes!</h1>
     <p>Saraksts ar Patversmēm</p>
 </div>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>AnimalCapacity</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>PhoneNumber</th>
+        <th>ImagePath</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.AnimalShelterID)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.ImagePath)
+            </td>
+        </tr>
+    }
+</table>
