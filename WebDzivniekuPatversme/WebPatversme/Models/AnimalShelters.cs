@@ -4,7 +4,7 @@ namespace WebPatversme.Models
 {
     public class AnimalShelters
     {
-        public ShelterRepository context;
+        public ShelterServices context;
 
         public int AnimalShelterID;
 

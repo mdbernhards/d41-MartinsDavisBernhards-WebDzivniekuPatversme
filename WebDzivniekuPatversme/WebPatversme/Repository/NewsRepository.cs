@@ -14,27 +14,26 @@ namespace WebPatversme.Models.Database
             ConnectionString = connectionString;
         }
 
-        public List<AnimalShelters> GetAllAnimalShelters()
+        public List<News> GetAllNews()
         {
-            List<AnimalShelters> list = new List<AnimalShelters>();
+            List<News> list = new List<News>();
 
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from Animals", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from News", conn);
 
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        list.Add(new AnimalShelters()
+                        list.Add(new News()
                         {
-                            AnimalShelterID = Convert.ToInt32(reader["ID"]),
-                            AnimalCapacity = Convert.ToInt32(reader["AnimalCapacity"]),
-                            Name = Convert.ToString(reader["Name"]),
-                            Address = Convert.ToString(reader["Address"]),
-                            PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
+                            NewsID = Convert.ToInt32(reader["ID"]),
+                            DateCreated = Convert.ToDateTime(reader["DateCreated"]),
+                            Text = Convert.ToString(reader["Text"]),
                             ImagePath = Convert.ToString(reader["ImagePath"]),
+                            FKUsersID = Convert.ToInt32(reader["UsersID"]),
                         });
                     }
                 }

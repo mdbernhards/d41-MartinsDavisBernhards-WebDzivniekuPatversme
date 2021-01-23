@@ -3,16 +3,21 @@ using WebPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebPatversme.Models.Database;
+using WebDzivniekuPatversme.Services.Interfaces;
 
 namespace WebPatversme.Controllers
 {
     public class AnimalsController : Controller
     {
         private readonly ILogger<AnimalsController> _logger;
+        private readonly IAnimalsServices _animalsServices;
 
-        public AnimalsController(ILogger<AnimalsController> logger)
+        public AnimalsController(
+            ILogger<AnimalsController> logger,
+            IAnimalsServices animalsServices)
         {
             _logger = logger;
+            _animalsServices = animalsServices;
         }
 
         public IActionResult Index()

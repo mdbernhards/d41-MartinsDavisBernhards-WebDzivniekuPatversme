@@ -11,7 +11,7 @@ namespace WebDzivniekuPatversme.Repository
             ConnectionString = connectionString;
         }
 
-        private MySqlConnection GetConnection()
+        public MySqlConnection GetConnection()
         {
             return new MySqlConnection(ConnectionString);
         }

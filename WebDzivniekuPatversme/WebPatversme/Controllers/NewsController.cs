@@ -2,16 +2,21 @@
 using WebPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebDzivniekuPatversme.Services.Interfaces;
 
 namespace WebPatversme.Controllers
 {
     public class NewsController : Controller
     {
         private readonly ILogger<NewsController> _logger;
+        private readonly INewsServices _newsServices;
 
-        public NewsController(ILogger<NewsController> logger)
+        public NewsController(
+            ILogger<NewsController> logger,
+            INewsServices newsServices)
         {
             _logger = logger;
+            _newsServices = newsServices;
         }
 
         public IActionResult Index()

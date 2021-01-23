@@ -5,7 +5,7 @@ namespace WebPatversme.Models
 {
     public class News
     {
-        private ShelterRepository context;
+        private ShelterServices context;
 
         public int NewsID;
 

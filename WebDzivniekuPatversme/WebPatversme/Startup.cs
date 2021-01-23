@@ -1,5 +1,4 @@
 using WebPatversme.Data;
-using WebPatversme.Models.Database;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme
 {
@@ -22,11 +22,12 @@ namespace WebPatversme
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Add(new ServiceDescriptor(typeof(ShelterRepository), new ShelterRepository(Configuration.GetConnectionString("ShelterConnection"))));
+            services.Add(new ServiceDescriptor(typeof(WebShelterDbContext), new WebShelterDbContext(Configuration.GetConnectionString("ShelterConnection"))));
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

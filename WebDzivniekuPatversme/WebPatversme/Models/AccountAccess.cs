@@ -4,7 +4,7 @@ namespace WebPatversme.Models
 {
     public class AccountAccess
     {
-        private ShelterRepository context;
+        private ShelterServices context;
 
         public int AccountAccessID;
 
