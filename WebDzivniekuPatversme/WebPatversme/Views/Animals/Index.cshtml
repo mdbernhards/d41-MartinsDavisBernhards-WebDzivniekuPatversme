@@ -1,9 +1,63 @@
-﻿@{
+﻿@model IEnumerable<WebPatversme.Models.Animals>
+@{
     ViewData["Title"] = "Dzivnieki";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Dzivnieki</h1>
-    <h2 class="display-3">Filtri dzivnieku izvelei</h2>
+    <h1 class="display-4">Dzīvnieki!</h1>
+    <h2 class="display-3">*Filtri dzīvnieku izvēlei*</h2>
     <p>Saraksts ar Dzīvniekiem</p>
 </div>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Age</th>
+        <th>Weight</th>
+        <th>BirthDate</th>
+        <th>DateAdded</th>
+        <th>About</th>
+        <th>Name</th>
+        <th>Species</th>
+        <th>Colour</th>
+        <th>ImagePath</th>
+        <th>AnimalShelterID</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.AnimalID)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.About)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Species)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.Colour)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.ImagePath)
+            </td>
+            <td>
+                @Html.DisplayTextFor(modelItem => item.FKAnimalSheltersID)
+            </td>
+        </tr>
+    }
+</table>

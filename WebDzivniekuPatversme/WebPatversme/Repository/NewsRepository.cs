@@ -1,24 +1,26 @@
 ﻿using System;
+using WebPatversme.Models;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
-namespace WebPatversme.Models.Database
+namespace WebDzivniekuPatversme.Repository
 {
     public class NewsRepository : INewsRepository
     {
-        public string ConnectionString { get; set; }
+        private readonly WebShelterDbContext _dbcontext;
 
-        public NewsRepository(string connectionString)
+        public NewsRepository(
+            WebShelterDbContext dbContext)
         {
-            ConnectionString = connectionString;
+            _dbcontext = dbContext;
         }
 
         public List<News> GetAllNews()
         {
             List<News> list = new List<News>();
 
-            using (MySqlConnection conn = GetConnection())
+            using (MySqlConnection conn = _dbcontext.GetConnection())
             {
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from News", conn);
@@ -39,11 +41,6 @@ namespace WebPatversme.Models.Database
                 }
             }
             return list;
-        }
-
-        private MySqlConnection GetConnection()
-        {
-            return new MySqlConnection(ConnectionString);
         }
     }
 }

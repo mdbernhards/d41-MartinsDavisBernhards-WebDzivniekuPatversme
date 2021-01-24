@@ -1,4 +1,8 @@
 using WebPatversme.Data;
+using WebDzivniekuPatversme.Services;
+using WebDzivniekuPatversme.Repository;
+using WebDzivniekuPatversme.Services.Interfaces;
+using WebDzivniekuPatversme.Repository.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme
 {
@@ -24,6 +27,21 @@ namespace WebPatversme
         {
             services.Add(new ServiceDescriptor(typeof(WebShelterDbContext), new WebShelterDbContext(Configuration.GetConnectionString("ShelterConnection"))));
 
+            services.AddScoped<IAnimalsServices, AnimalsServices>();
+            services.AddScoped<IAnimalsRepository, AnimalsRepository>();
+
+            services.AddScoped<IContactsServices, ContactsServices>();
+            services.AddScoped<IContactsRepository, ContactsRepository>();
+
+            services.AddScoped<INewsServices, NewsServices>();
+            services.AddScoped<INewsRepository, NewsRepository>();
+
+            services.AddScoped<IShelterServices, ShelterServices>();
+            services.AddScoped<IShelterRepository, ShelterRepository>();
+
+            services.AddScoped<IHomeServices, HomeServices>();
+            services.AddScoped<IHomeRepository, HomeRepository>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -31,6 +49,7 @@ namespace WebPatversme
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddMvc();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

@@ -1,24 +1,26 @@
 ﻿using System;
+using WebPatversme.Models;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
-namespace WebPatversme.Models.Database
+namespace WebDzivniekuPatversme.Repository
 {
     public class ShelterRepository : IShelterRepository
     {
-        public string ConnectionString { get; set; }
+        private readonly WebShelterDbContext _dbcontext;
 
-        public ShelterRepository(string connectionString)
+        public ShelterRepository(
+            WebShelterDbContext dbContext)
         {
-            ConnectionString = connectionString;
+            _dbcontext = dbContext;
         }
 
         public List<AnimalShelters> GetAllAnimalShelters()
         {
             List<AnimalShelters> list = new List<AnimalShelters>();
 
-            using (MySqlConnection conn = GetConnection())
+            using (MySqlConnection conn = _dbcontext.GetConnection())
             {
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from AnimalShelters", conn);
@@ -40,11 +42,6 @@ namespace WebPatversme.Models.Database
                 }
             }
             return list;
-        }
-
-        private MySqlConnection GetConnection()
-        {
-            return new MySqlConnection(ConnectionString);
         }
     }
 }

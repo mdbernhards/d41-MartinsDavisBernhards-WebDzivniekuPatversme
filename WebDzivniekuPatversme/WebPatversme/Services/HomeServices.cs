@@ -1,7 +1,7 @@
 ﻿using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
-namespace WebPatversme.Models.Database
+namespace WebDzivniekuPatversme.Services
 {
     public class HomeServices : IHomeServices
     {

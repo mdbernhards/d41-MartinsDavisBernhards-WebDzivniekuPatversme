@@ -1,11 +1,11 @@
 ﻿using System;
-using WebPatversme.Models.Database;
+using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme.Models
 {
     public class Animals
     {
-        private ShelterServices context;
+        private WebShelterDbContext context;
 
         public int AnimalID;
 

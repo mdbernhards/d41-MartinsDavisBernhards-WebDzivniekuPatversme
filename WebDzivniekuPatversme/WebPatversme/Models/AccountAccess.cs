@@ -1,10 +1,10 @@
-﻿using WebPatversme.Models.Database;
+﻿using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme.Models
 {
     public class AccountAccess
     {
-        private ShelterServices context;
+        private WebShelterDbContext context;
 
         public int AccountAccessID;
 

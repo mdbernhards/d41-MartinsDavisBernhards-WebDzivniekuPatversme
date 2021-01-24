@@ -1,7 +1,9 @@
 ﻿using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
+using System.Collections.Generic;
+using WebPatversme.Models;
 
-namespace WebPatversme.Models.Database
+namespace WebDzivniekuPatversme.Services
 {
     public class ShelterServices : IShelterServices
     {
@@ -11,6 +13,11 @@ namespace WebPatversme.Models.Database
             IShelterRepository shelterRepository)
         {
             _shelterRepository = shelterRepository;
+        }
+
+        public List<AnimalShelters> AnimalShelterTable()
+        {
+            return _shelterRepository.GetAllAnimalShelters();
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using WebPatversme.Models.Database;
+﻿using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme.Models
 {
     public class AnimalShelters
     {
-        public ShelterServices context;
+        public WebShelterDbContext context;
 
         public int AnimalShelterID;
 

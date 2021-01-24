@@ -14,6 +14,18 @@ Funkcijas:
 - Mājaslapas kontrole, kā Administratoram un kā Lietotājam,
 - Var rakstīt rakstus par patversmes jaunākajām ziņām.
 
+## Izmantotās Valodas
+Angļu valoda:
+- Datubāzes, tās tabulu un lauku nosaukumi
+- Programas failu nosaukumi
+- Kods(funkcijas, metodes, objekti, u.c.)
+- "Commit messages"
+
+Latviešu valoda:
+- Dati datubāzē
+- Teksts kodā ("string")
+- Viss ko parasts lietotājs var redzēt
+
 ## Izmantotās tehnoloģijas
 Projektā izmantotās tehnoloģijas:
 - C#

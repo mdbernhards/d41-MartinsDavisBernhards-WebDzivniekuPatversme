@@ -1,7 +1,9 @@
-﻿using WebDzivniekuPatversme.Services.Interfaces;
+﻿using WebPatversme.Models;
+using System.Collections.Generic;
+using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
-namespace WebPatversme.Models.Database
+namespace WebDzivniekuPatversme.Services
 {
     public class NewsServices : INewsServices
     {
@@ -11,6 +13,11 @@ namespace WebPatversme.Models.Database
             INewsRepository newsRepository)
         {
             _newsRepository = newsRepository;
+        }
+
+        public List<News> NewsTable()
+        {
+            return _newsRepository.GetAllNews();
         }
     }
 }

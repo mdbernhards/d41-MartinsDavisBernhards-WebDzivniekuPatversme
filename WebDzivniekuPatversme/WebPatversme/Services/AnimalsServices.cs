@@ -1,7 +1,9 @@
-﻿using WebDzivniekuPatversme.Services.Interfaces;
+﻿using WebPatversme.Models;
+using System.Collections.Generic;
+using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
-namespace WebPatversme.Models.Database
+namespace WebDzivniekuPatversme.Services
 {
     public class AnimalsServices : IAnimalsServices
     {
@@ -11,6 +13,11 @@ namespace WebPatversme.Models.Database
             IAnimalsRepository animalsRepository)
         {
             _animalsRepository = animalsRepository;
+        }
+
+        public List<Animals> AnimalsTable()
+        {
+            return _animalsRepository.GetAllAnimals();
         }
     }
 }
