@@ -6,5 +6,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
     public interface IAnimalsServices
     {
         List<Animals> AnimalsTable();
+
+        void AddNewAnimal(Animals animal);
     }
 }

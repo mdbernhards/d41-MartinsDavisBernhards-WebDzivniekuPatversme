@@ -43,5 +43,19 @@ namespace WebDzivniekuPatversme.Repository
             }
             return list;
         }
+
+        public void CreateNewAnimal(AnimalShelters newAnimalShelters)
+        {
+            using (MySqlConnection conn = _dbcontext.GetConnection())
+            {
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO AnimalsShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath) " +
+                                                    "VALUES ("  + newAnimalShelters.AnimalShelterID    + ", " + newAnimalShelters.AnimalCapacity  + ", \"" + newAnimalShelters.Name + "\", \"" 
+                                                                + newAnimalShelters.Address + "\", \"" + newAnimalShelters.PhoneNumber + "\", \"" + newAnimalShelters.ImagePath + "\"", conn);
+
+                var reader = cmd.ExecuteReader();
+            }
+        }
     }
 }

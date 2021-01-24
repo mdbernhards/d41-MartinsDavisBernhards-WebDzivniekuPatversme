@@ -1,0 +1,44 @@
+﻿@model WebPatversme.Models.News
+
+@using (Html.BeginForm("Create", "News", FormMethod.Post))
+{
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th colspan="2" align="center">Add News</th>
+        </tr>
+        <tr>
+            <td>ID: </td>
+            <td>
+                @Html.TextBoxFor(model => model.NewsID)
+            </td>
+        </tr>
+        <tr>
+            <td>DateCreated: </td>
+            <td>
+                @Html.TextBoxFor(model => model.DateCreated)
+            </td>
+        </tr>
+        <tr>
+            <td>Text: </td>
+            <td>
+                @Html.TextBoxFor(model => model.Text)
+            </td>
+        </tr>
+        <tr>
+            <td>ImagePath: </td>
+            <td>
+                @Html.TextBoxFor(model => model.ImagePath)
+            </td>
+        </tr>
+        <tr>
+            <td>UsersID: </td>
+            <td>
+                @Html.TextBoxFor(model => model.FKUsersID)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create" /></td>
+        </tr>
+    </table>
+}

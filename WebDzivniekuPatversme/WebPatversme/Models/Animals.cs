@@ -1,32 +1,29 @@
 ﻿using System;
-using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme.Models
 {
     public class Animals
     {
-        private WebShelterDbContext context;
+        public int AnimalID { set; get; }
 
-        public int AnimalID;
+        public string Name { set; get; }
 
-        public string Name;
+        public int Age { set; get; }
 
-        public int Age;
+        public DateTime BirthDate { set; get; }
 
-        public DateTime BirthDate;
+        public string Species { set; get; }
 
-        public string Species;
+        public string Colour { set; get; }
 
-        public string Colour;
+        public string About { set; get; }
 
-        public string About;
+        public string ImagePath { set; get; }
 
-        public string ImagePath;
+        public int Weight { set; get; }
 
-        public int Weight;
+        public DateTime DateAdded { set; get; }
 
-        public DateTime DateAdded;
-
-        public int FKAnimalSheltersID;
+        public int FKAnimalSheltersID { set; get; }
     }
 }

@@ -19,5 +19,10 @@ namespace WebDzivniekuPatversme.Services
         {
             return _newsRepository.GetAllNews();
         }
+
+        public void AddNewNews(News news)
+        {
+            _newsRepository.CreateNewNews(news);
+        }
     }
 }

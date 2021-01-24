@@ -1,21 +1,17 @@
-﻿using WebDzivniekuPatversme.Repository;
-
-namespace WebPatversme.Models
+﻿namespace WebPatversme.Models
 {
     public class AnimalShelters
     {
-        public WebShelterDbContext context;
-
         public int AnimalShelterID;
 
-        public string Name;
+        public string Name { set; get; }
 
-        public string Address;
+        public string Address { set; get; }
 
-        public string PhoneNumber;
+        public string PhoneNumber { set; get; }
 
-        public int AnimalCapacity;
+        public int AnimalCapacity { set; get; }
 
-        public string ImagePath;
+        public string ImagePath { set; get; }
     }
 }

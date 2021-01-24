@@ -19,5 +19,10 @@ namespace WebDzivniekuPatversme.Services
         {
             return _animalsRepository.GetAllAnimals();
         }
+
+        public void AddNewAnimal(Animals animal)
+        {
+            _animalsRepository.CreateNewAnimal(animal);
+        }
     }
 }

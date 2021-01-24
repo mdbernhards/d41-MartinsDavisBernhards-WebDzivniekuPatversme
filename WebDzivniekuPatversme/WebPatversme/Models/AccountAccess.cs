@@ -1,15 +1,11 @@
-﻿using WebDzivniekuPatversme.Repository;
-
-namespace WebPatversme.Models
+﻿namespace WebPatversme.Models
 {
     public class AccountAccess
     {
-        private WebShelterDbContext context;
+        public int AccountAccessID { set; get; }
 
-        public int AccountAccessID;
+        public int FKUsersID { set; get; }
 
-        public int FKUsersID;
-
-        public int FKAnimalSheltersID;
+        public int FKAnimalSheltersID { set; get; }
     }
 }

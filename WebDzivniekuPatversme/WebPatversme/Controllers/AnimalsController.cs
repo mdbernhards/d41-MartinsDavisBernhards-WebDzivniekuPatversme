@@ -20,6 +20,21 @@ namespace WebPatversme.Controllers
             return View(_animalsServices.AnimalsTable());
         }
 
+        public IActionResult Animal()
+        {
+            Animals animal = new Animals();
+            return View(animal);
+        }
+
+
+        [HttpPost]
+        public IActionResult CreateAnimal(Animals animal)
+        {
+            _animalsServices.AddNewAnimal(animal);
+
+            return View("Index");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -38,6 +38,7 @@ Projektā izmantotās tehnoloģijas:
 ## Izmantotie avoti
 - Stack Overflow
 - Datubāzes pievienošana: https://www.c-sharpcorner.com/article/how-to-connect-mysql-with-asp-net-core/
+- ASP.NET Identity savienošana ar MySQL: https://www.c-sharpcorner.com/article/using-asp-net-core-3-0-identity-with-mysql/
 - Vispārīga informācija: https://docs.microsoft.com/en-us/aspnet/
 
 ## Uzstādīšanas instrukcijas

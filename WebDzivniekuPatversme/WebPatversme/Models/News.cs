@@ -1,20 +1,17 @@
 ﻿using System;
-using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme.Models
 {
     public class News
     {
-        private WebShelterDbContext context;
+        public int NewsID { set; get; }
 
-        public int NewsID;
+        public string Text { set; get; }
 
-        public string Text;
+        public DateTime DateCreated { set; get; }
 
-        public DateTime DateCreated;
+        public string ImagePath { set; get; }
 
-        public string ImagePath;
-
-        public int FKUsersID;
+        public int FKUsersID { set; get; }
     }
 }

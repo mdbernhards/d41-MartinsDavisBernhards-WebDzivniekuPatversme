@@ -1,28 +1,25 @@
 ﻿using System;
-using WebDzivniekuPatversme.Repository;
 
 namespace WebPatversme.Models
 {
     public class Users
     {
-        private WebShelterDbContext context;
+        public int UserID { set; get; }
 
-        public int UserID;
+        public string Name { set; get; }
 
-        public string Name;
+        public string Surname { set; get; }
 
-        public string Surname;
+        public string Password { set; get; }
 
-        public string Password;
+        public string Email { set; get; }
 
-        public string Email;
+        public int AccountType { set; get; }
 
-        public int AccountType;
+        public string PhoneNumber { set; get; }
 
-        public string PhoneNumber;
+        public string ImagePath { set; get; }
 
-        public string ImagePath;
-
-        public DateTime DateAdded;
+        public DateTime DateAdded { set; get; }
     }
 }

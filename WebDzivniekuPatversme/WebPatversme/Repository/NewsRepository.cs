@@ -42,5 +42,21 @@ namespace WebDzivniekuPatversme.Repository
             }
             return list;
         }
+
+        public void CreateNewNews(News newNews)
+        {
+            using (MySqlConnection conn = _dbcontext.GetConnection())
+            {
+                conn.Open();
+
+                string sqlQuerry = "INSERT INTO News (ID, DateCreated, Text, ImagePath, UsersID) " +
+                                   "VALUES (" + newNews.NewsID + ", \"" + newNews.DateCreated.Year + "-"+ newNews.DateCreated.Month + "-" + newNews.DateCreated.Day + "\", \"" + newNews.Text + "\", \"" + newNews.ImagePath + "\", " + newNews.FKUsersID + ");";
+
+                MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+
+
+                var reader = cmd.ExecuteReader();
+            }
+        }
     }
 }
