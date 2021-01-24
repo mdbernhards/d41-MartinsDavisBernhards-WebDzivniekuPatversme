@@ -43,8 +43,8 @@ namespace WebPatversme
             services.AddScoped<IHomeRepository, HomeRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySql(
+                    Configuration.GetConnectionString("ShelterConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
