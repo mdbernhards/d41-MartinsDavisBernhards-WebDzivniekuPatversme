@@ -7,10 +7,10 @@ namespace WebPatversme.Controllers
 {
     public class AnimalsController : Controller
     {
-        private readonly IAnimalsServices _animalsServices;
+        private readonly IAnimalsService _animalsServices;
 
         public AnimalsController(
-            IAnimalsServices animalsServices)
+            IAnimalsService animalsServices)
         {
             _animalsServices = animalsServices;
         }
@@ -20,19 +20,17 @@ namespace WebPatversme.Controllers
             return View(_animalsServices.AnimalsTable());
         }
 
-        public IActionResult Animal()
+        public IActionResult Create()
         {
-            Animals animal = new Animals();
-            return View(animal);
+            return View();
         }
 
-
         [HttpPost]
-        public IActionResult CreateAnimal(Animals animal)
+        public IActionResult Create(Animals model)
         {
-            _animalsServices.AddNewAnimal(animal);
+            _animalsServices.AddNewAnimal(model);
 
-            return View("Index");
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

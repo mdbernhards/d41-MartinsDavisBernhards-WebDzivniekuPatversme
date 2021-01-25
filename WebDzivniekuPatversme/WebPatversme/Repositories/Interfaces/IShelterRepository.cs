@@ -6,5 +6,7 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
     public interface IShelterRepository
     {
         List<AnimalShelters> GetAllAnimalShelters();
+
+        void CreateNewAnimalShelter(AnimalShelters newAnimalShelters);
     }
 }

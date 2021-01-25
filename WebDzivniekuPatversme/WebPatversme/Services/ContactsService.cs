@@ -3,11 +3,11 @@ using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {
-    public class ContactsServices : IContactsServices
+    public class ContactsService : IContactsService
     {
         private readonly IContactsRepository _contactsRepository;
 
-        public ContactsServices(
+        public ContactsService(
             IContactsRepository contactsRepository)
         {
             _contactsRepository = contactsRepository;

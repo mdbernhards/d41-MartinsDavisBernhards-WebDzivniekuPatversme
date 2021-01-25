@@ -5,11 +5,11 @@ using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {
-    public class AnimalsServices : IAnimalsServices
+    public class AnimalsService : IAnimalsService
     {
         private readonly IAnimalsRepository _animalsRepository;
 
-        public AnimalsServices(
+        public AnimalsService(
             IAnimalsRepository animalsRepository)
         {
             _animalsRepository = animalsRepository;

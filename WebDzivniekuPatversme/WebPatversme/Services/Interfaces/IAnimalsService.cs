@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
-    public interface IAnimalsServices
+    public interface IAnimalsService
     {
         List<Animals> AnimalsTable();
 

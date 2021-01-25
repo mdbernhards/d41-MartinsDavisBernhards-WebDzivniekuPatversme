@@ -56,9 +56,10 @@ namespace WebDzivniekuPatversme.Repository
                 conn.Open();
 
                 MySqlCommand cmd = new MySqlCommand("INSERT INTO Animals (ID, Age, Weight, BirthDate, DateAdded, About, Name, Species, Colour, ImagePath, AnimalShelterID) "   +
-                                                    "VALUES (" + newAnimal.AnimalID + ", " + newAnimal.Age + ", " + newAnimal.Weight + ", \"" + newAnimal.BirthDate + "\", \"" + 
-                                                    newAnimal.DateAdded  + "\", \"" + newAnimal.About + "\", \""  + newAnimal.Name + "\", \"" + newAnimal.Species + "\", \""   +
-                                                    newAnimal.Colour     + "\", \"" + newAnimal.ImagePath + "\", \"" + newAnimal.FKAnimalSheltersID + "\"", conn);
+                                                    "VALUES (" + newAnimal.AnimalID + ", " + newAnimal.Age + ", " + newAnimal.Weight + ", \"" + newAnimal.BirthDate.Year + "-" + newAnimal.BirthDate.Month
+                                                    + "-" + newAnimal.BirthDate.Day + "\", \"" + newAnimal.DateAdded.Year + "-" + newAnimal.DateAdded.Month  + "-"  + newAnimal.DateAdded.Day + "\", \"" +
+                                                    newAnimal.About + "\", \""  + newAnimal.Name + "\", \"" + newAnimal.Species + "\", \""  + newAnimal.Colour + "\", \"" + newAnimal.ImagePath + "\", " +
+                                                    newAnimal.FKAnimalSheltersID + ")", conn);
 
                 var reader = cmd.ExecuteReader();
             }

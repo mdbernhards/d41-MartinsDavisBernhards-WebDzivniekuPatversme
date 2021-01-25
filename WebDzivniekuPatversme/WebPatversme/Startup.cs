@@ -27,19 +27,19 @@ namespace WebPatversme
         {
             services.Add(new ServiceDescriptor(typeof(WebShelterDbContext), new WebShelterDbContext(Configuration.GetConnectionString("ShelterConnection"))));
 
-            services.AddScoped<IAnimalsServices, AnimalsServices>();
+            services.AddScoped<IAnimalsService, AnimalsService>();
             services.AddScoped<IAnimalsRepository, AnimalsRepository>();
 
-            services.AddScoped<IContactsServices, ContactsServices>();
+            services.AddScoped<IContactsService, ContactsService>();
             services.AddScoped<IContactsRepository, ContactsRepository>();
 
-            services.AddScoped<INewsServices, NewsServices>();
+            services.AddScoped<INewsService, NewsService>();
             services.AddScoped<INewsRepository, NewsRepository>();
 
-            services.AddScoped<IShelterServices, ShelterServices>();
+            services.AddScoped<IShelterService, ShelterService>();
             services.AddScoped<IShelterRepository, ShelterRepository>();
 
-            services.AddScoped<IHomeServices, HomeServices>();
+            services.AddScoped<IHomeService, HomeService>();
             services.AddScoped<IHomeRepository, HomeRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>

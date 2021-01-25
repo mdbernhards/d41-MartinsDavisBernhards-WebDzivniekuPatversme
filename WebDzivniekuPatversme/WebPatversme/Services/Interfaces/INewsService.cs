@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
-    public interface INewsServices
+    public interface INewsService
     {
         List<News> NewsTable();
 

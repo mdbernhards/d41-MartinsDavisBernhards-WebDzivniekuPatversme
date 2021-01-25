@@ -7,10 +7,10 @@ namespace WebPatversme.Controllers
 {
     public class SheltersController : Controller
     {
-        private readonly IShelterServices _sheltersServices;
+        private readonly IShelterService _sheltersServices;
 
         public SheltersController(
-            IShelterServices shelterServices)
+            IShelterService shelterServices)
         {
             _sheltersServices = shelterServices;
         }
@@ -18,6 +18,19 @@ namespace WebPatversme.Controllers
         public IActionResult Index()
         {
             return View(_sheltersServices.AnimalShelterTable());
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(AnimalShelters model)
+        {
+            _sheltersServices.AddNewShelter(model);
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -7,10 +7,10 @@ namespace WebPatversme.Controllers
 {
     public class NewsController : Controller
     {
-        private readonly INewsServices _newsServices;
+        private readonly INewsService _newsServices;
 
         public NewsController(
-            INewsServices newsServices)
+            INewsService newsServices)
         {
             _newsServices = newsServices;
         }

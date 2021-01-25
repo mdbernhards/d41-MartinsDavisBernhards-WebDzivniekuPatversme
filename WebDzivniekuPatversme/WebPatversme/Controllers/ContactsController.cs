@@ -7,10 +7,10 @@ namespace WebPatversme.Controllers
 {
     public class ContactsController : Controller
     {
-        private readonly IContactsServices _contactsServices;
+        private readonly IContactsService _contactsServices;
 
         public ContactsController(
-            IContactsServices contactsServices)
+            IContactsService contactsServices)
         {
             _contactsServices = contactsServices;
         }

@@ -7,10 +7,10 @@ namespace WebPatversme.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHomeServices _homeServices;
+        private readonly IHomeService _homeServices;
 
         public HomeController(
-            IHomeServices homeServices)
+            IHomeService homeServices)
         {
             _homeServices = homeServices;
         }

@@ -3,11 +3,11 @@ using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {
-    public class HomeServices : IHomeServices
+    public class HomeService : IHomeService
     {
         private readonly IHomeRepository _homeRepository;
 
-        public HomeServices(
+        public HomeService(
             IHomeRepository homeRepository)
         {
             _homeRepository = homeRepository;

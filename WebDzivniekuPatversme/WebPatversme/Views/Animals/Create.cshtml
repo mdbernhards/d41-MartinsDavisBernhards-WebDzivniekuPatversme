@@ -1,1 +1,80 @@
-﻿
+﻿@model WebPatversme.Models.Animals
+
+@using (Html.BeginForm("Create", "Animals", FormMethod.Post))
+{
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <th colspan="2" align="center">Add News</th>
+    </tr>
+    <tr>
+        <td>ID: </td>
+        <td>
+            @Html.TextBoxFor(model => model.AnimalID)
+        </td>
+    </tr>
+    <tr>
+        <td>Age: </td>
+        <td>
+            @Html.TextBoxFor(model => model.Age)
+        </td>
+    </tr>
+    <tr>
+        <td>Weight: </td>
+        <td>
+            @Html.TextBoxFor(model => model.Weight)
+        </td>
+    </tr>
+    <tr>
+        <td>Birth Date: </td>
+        <td>
+            @Html.TextBoxFor(model => model.BirthDate)
+        </td>
+    </tr>
+    <tr>
+        <td>Date Added: </td>
+        <td>
+            @Html.TextBoxFor(model => model.DateAdded)
+        </td>
+    </tr>
+    <tr>
+        <td>About: </td>
+        <td>
+            @Html.TextBoxFor(model => model.About)
+        </td>
+    </tr>
+    <tr>
+        <td>Name: </td>
+        <td>
+            @Html.TextBoxFor(model => model.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>Species: </td>
+        <td>
+            @Html.TextBoxFor(model => model.Species)
+        </td>
+    </tr>
+    <tr>
+        <td>Colour: </td>
+        <td>
+            @Html.TextBoxFor(model => model.Colour)
+        </td>
+    </tr>
+    <tr>
+        <td>ImagePath: </td>
+        <td>
+            @Html.TextBoxFor(model => model.ImagePath)
+        </td>
+    </tr>
+    <tr>
+        <td>AnimalShelterID: </td>
+        <td>
+            @Html.TextBoxFor(model => model.FKAnimalSheltersID)
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value="Create" /></td>
+    </tr>
+</table>
+}

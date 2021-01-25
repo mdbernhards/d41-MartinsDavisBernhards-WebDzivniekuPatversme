@@ -5,11 +5,11 @@ using WebPatversme.Models;
 
 namespace WebDzivniekuPatversme.Services
 {
-    public class ShelterServices : IShelterServices
+    public class ShelterService : IShelterService
     {
         private readonly IShelterRepository _shelterRepository;
 
-        public ShelterServices(
+        public ShelterService(
             IShelterRepository shelterRepository)
         {
             _shelterRepository = shelterRepository;
@@ -18,6 +18,11 @@ namespace WebDzivniekuPatversme.Services
         public List<AnimalShelters> AnimalShelterTable()
         {
             return _shelterRepository.GetAllAnimalShelters();
+        }
+
+        public void AddNewShelter(AnimalShelters shelter)
+        {
+            _shelterRepository.CreateNewAnimalShelter(shelter);
         }
     }
 }

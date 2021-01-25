@@ -5,11 +5,11 @@ using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {
-    public class NewsServices : INewsServices
+    public class NewsService : INewsService
     {
         private readonly INewsRepository _newsRepository;
 
-        public NewsServices(
+        public NewsService(
             INewsRepository newsRepository)
         {
             _newsRepository = newsRepository;

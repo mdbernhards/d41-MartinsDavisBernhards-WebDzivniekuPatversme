@@ -1,6 +1,6 @@
 ﻿namespace WebDzivniekuPatversme.Services.Interfaces
 {
-    public interface IContactsServices
+    public interface IHomeService
     {
     }
 }
