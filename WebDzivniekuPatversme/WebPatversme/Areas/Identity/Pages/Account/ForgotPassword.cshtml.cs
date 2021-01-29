@@ -28,7 +28,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "E-pasts ir obligāts.")]
             [EmailAddress]
             public string Email { get; set; }
         }

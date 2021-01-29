@@ -39,11 +39,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "E-pasts ir obligāts.")]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Parole ir obligāta.")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

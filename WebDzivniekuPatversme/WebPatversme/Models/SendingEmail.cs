@@ -1,10 +1,12 @@
-﻿namespace WebDzivniekuPatversme.Models
+﻿using WebDzivniekuPatversme.Services;
+
+namespace WebDzivniekuPatversme.Models
 {
     public class SendingEmail
     {
         public static string Username = "web.patversme@gmail.com";
 
-        public static string Password = ""; //remember
+        public static string Password = Decryption.Decrypt(System.IO.File.ReadAllLines("FileData/key.txt")[0]);
 
         public static string Host = "smtp.gmail.com";
 

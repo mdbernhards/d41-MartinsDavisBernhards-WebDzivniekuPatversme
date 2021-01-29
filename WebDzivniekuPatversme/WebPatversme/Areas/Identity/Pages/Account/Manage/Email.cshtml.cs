@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -100,14 +97,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Apstiprini savu E-pastu",
+                    $"Lūdzu apstiprini savu E-pastu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "Nosūtīta apstiprināšanas saite, lai mainītu E-pastu. Lūdzu pārbaudiet savu E-pastu.";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "Tavs E-pasts netika mainīts.";
             return RedirectToPage();
         }
 
@@ -136,10 +133,10 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "Apstiprini savu E-pastu",
+                $"Lūdzu apstiprini savu E-pastu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Verifikācijas E-pasts nosūtīts. Lūdzu pārbaudiet savu E-pastu.";
             return RedirectToPage();
         }
     }
