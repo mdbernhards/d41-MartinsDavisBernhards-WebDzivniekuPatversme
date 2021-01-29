@@ -48,7 +48,8 @@ namespace WebPatversme
                     Configuration.GetConnectionString("ShelterConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddErrorDescriber<IdentityErrorDescriberLV>();
 
             services.AddTransient<IEmailSender, EmailSender>();
 

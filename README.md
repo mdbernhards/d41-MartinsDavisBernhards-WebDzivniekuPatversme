@@ -40,6 +40,8 @@ Projektā izmantotās tehnoloģijas:
 - Datubāzes pievienošana: https://www.c-sharpcorner.com/article/how-to-connect-mysql-with-asp-net-core/
 - ASP.NET Identity savienošana ar MySQL: https://www.c-sharpcorner.com/article/using-asp-net-core-3-0-identity-with-mysql/
 - 'Scaffolding' izveidošana priekš Identity: https://stackoverflow.com/questions/50802781/where-are-the-login-and-register-pages-in-an-aspnet-core-scaffolded-app
+- Profila apstiprināšana ar nosūtītu E-pastu: https://docs.microsoft.com/lv-lv/aspnet/core/security/authentication/accconfirm?view=aspnetcore-5.0&tabs=visual-studio
+- Identity Paziņojumu priekš lietotāja tulkošana: https://stackoverflow.com/questions/19961648/how-to-localize-asp-net-identity-username-and-password-error-messages
 - Vispārīga informācija: https://docs.microsoft.com/en-us/aspnet/
 
 ## Uzstādīšanas instrukcijas

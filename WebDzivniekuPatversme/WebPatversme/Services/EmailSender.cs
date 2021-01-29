@@ -11,8 +11,6 @@ namespace WebDzivniekuPatversme.Services
     {
         public Task SendEmailAsync(string email, string subject, string body)
         {
-            body = body.Replace("amp;", "");
-
             return Execute(subject, body, email);
         }
 
@@ -33,6 +31,8 @@ namespace WebDzivniekuPatversme.Services
                 Subject = subject,
                 Body = body,
             };
+
+            message.IsBodyHtml = true;
 
             smtp.Send(message);
             smtp.Dispose();
