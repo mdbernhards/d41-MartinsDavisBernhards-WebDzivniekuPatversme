@@ -1,7 +1,8 @@
-﻿using WebDzivniekuPatversme.Services.Interfaces;
-using WebDzivniekuPatversme.Repository.Interfaces;
+﻿using System;
 using System.Collections.Generic;
 using WebPatversme.Models;
+using WebDzivniekuPatversme.Services.Interfaces;
+using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -15,13 +16,15 @@ namespace WebDzivniekuPatversme.Services
             _shelterRepository = shelterRepository;
         }
 
-        public List<AnimalShelters> AnimalShelterTable()
+        public List<Shelters> AnimalShelterTable()
         {
             return _shelterRepository.GetAllAnimalShelters();
         }
 
-        public void AddNewShelter(AnimalShelters shelter)
+        public void AddNewShelter(Shelters shelter)
         {
+            shelter.AnimalShelterID = Guid.NewGuid().ToString();
+
             _shelterRepository.CreateNewAnimalShelter(shelter);
         }
     }

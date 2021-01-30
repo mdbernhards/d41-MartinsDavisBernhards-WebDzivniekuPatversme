@@ -31,7 +31,7 @@ namespace WebDzivniekuPatversme.Repository
                     {
                         list.Add(new Animals()
                         {
-                            AnimalID = Convert.ToInt32(reader["ID"]),
+                            AnimalID = Convert.ToString(reader["ID"]),
                             Age = Convert.ToInt32(reader["Age"]),
                             Weight = Convert.ToInt32(reader["Weight"]),
                             BirthDate = Convert.ToDateTime(reader["BirthDate"]),
@@ -41,7 +41,7 @@ namespace WebDzivniekuPatversme.Repository
                             Species = Convert.ToString(reader["Species"]),
                             Colour = Convert.ToString(reader["Colour"]),
                             ImagePath = Convert.ToString(reader["ImagePath"]),
-                            FKAnimalSheltersID = Convert.ToInt32(reader["AnimalShelterID"]),
+                            FKAnimalSheltersID = Convert.ToString(reader["AnimalShelterID"]),
                         });
                     }
                 }
@@ -56,10 +56,10 @@ namespace WebDzivniekuPatversme.Repository
                 conn.Open();
 
                 MySqlCommand cmd = new MySqlCommand("INSERT INTO Animals (ID, Age, Weight, BirthDate, DateAdded, About, Name, Species, Colour, ImagePath, AnimalShelterID) "   +
-                                                    "VALUES (" + newAnimal.AnimalID + ", " + newAnimal.Age + ", " + newAnimal.Weight + ", \"" + newAnimal.BirthDate.Year + "-" + newAnimal.BirthDate.Month
+                                                    "VALUES (\"" + newAnimal.AnimalID + "\", " + newAnimal.Age + ", " + newAnimal.Weight + ", \"" + newAnimal.BirthDate.Year + "-" + newAnimal.BirthDate.Month
                                                     + "-" + newAnimal.BirthDate.Day + "\", \"" + newAnimal.DateAdded.Year + "-" + newAnimal.DateAdded.Month  + "-"  + newAnimal.DateAdded.Day + "\", \"" +
-                                                    newAnimal.About + "\", \""  + newAnimal.Name + "\", \"" + newAnimal.Species + "\", \""  + newAnimal.Colour + "\", \"" + newAnimal.ImagePath + "\", " +
-                                                    newAnimal.FKAnimalSheltersID + ")", conn);
+                                                    newAnimal.About + "\", \""  + newAnimal.Name + "\", \"" + newAnimal.Species + "\", \""  + newAnimal.Colour + "\", \"" + newAnimal.ImagePath + "\", \"" +
+                                                    newAnimal.FKAnimalSheltersID + "\")", conn);
 
                 var reader = cmd.ExecuteReader();
             }

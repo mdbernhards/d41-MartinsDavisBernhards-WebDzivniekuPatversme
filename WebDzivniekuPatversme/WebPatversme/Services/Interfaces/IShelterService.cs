@@ -5,8 +5,8 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface IShelterService
     {
-        List<AnimalShelters> AnimalShelterTable();
+        List<Shelters> AnimalShelterTable();
 
-        void AddNewShelter(AnimalShelters shelter);
+        void AddNewShelter(Shelters shelter);
     }
 }

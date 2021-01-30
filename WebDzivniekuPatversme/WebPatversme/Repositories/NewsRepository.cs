@@ -31,11 +31,10 @@ namespace WebDzivniekuPatversme.Repository
                     {
                         list.Add(new News()
                         {
-                            NewsID = Convert.ToInt32(reader["ID"]),
+                            NewsID = Convert.ToString(reader["ID"]),
                             DateCreated = Convert.ToDateTime(reader["DateCreated"]),
                             Text = Convert.ToString(reader["Text"]),
-                            ImagePath = Convert.ToString(reader["ImagePath"]),
-                            FKUsersID = Convert.ToInt32(reader["UsersID"]),
+                            ImagePath = Convert.ToString(reader["ImagePath"])
                         });
                     }
                 }
@@ -49,8 +48,8 @@ namespace WebDzivniekuPatversme.Repository
             {
                 conn.Open();
 
-                string sqlQuerry = "INSERT INTO News (ID, DateCreated, Text, ImagePath, UsersID) " +
-                                   "VALUES (" + newNews.NewsID + ", \"" + newNews.DateCreated.Year + "-"+ newNews.DateCreated.Month + "-" + newNews.DateCreated.Day + "\", \"" + newNews.Text + "\", \"" + newNews.ImagePath + "\", " + newNews.FKUsersID + ");";
+                string sqlQuerry = "INSERT INTO News (ID, DateCreated, Text, ImagePath) " +
+                                   "VALUES (\"" + newNews.NewsID + "\", \"" + newNews.DateCreated.Year + "-"+ newNews.DateCreated.Month + "-" + newNews.DateCreated.Day + "\", \"" + newNews.Text + "\", \"" + newNews.ImagePath + "\");";
 
                 MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
 

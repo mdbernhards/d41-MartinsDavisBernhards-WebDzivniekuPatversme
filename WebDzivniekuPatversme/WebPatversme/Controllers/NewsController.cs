@@ -28,8 +28,12 @@ namespace WebPatversme.Controllers
         [HttpPost]
         public IActionResult Create(News model)
         {
-            _newsServices.AddNewNews(model);
+            if (ModelState.IsValid)
+            {
+                _newsServices.AddNewNews(model);
 
+                return RedirectToAction("Index");
+            }
             return View(model);
         }
 

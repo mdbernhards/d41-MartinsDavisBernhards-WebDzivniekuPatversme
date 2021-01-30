@@ -1,4 +1,5 @@
-﻿using WebPatversme.Models;
+﻿using System;
+using WebPatversme.Models;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
@@ -22,6 +23,9 @@ namespace WebDzivniekuPatversme.Services
 
         public void AddNewNews(News news)
         {
+            news.NewsID = Guid.NewGuid().ToString();
+            news.DateCreated = DateTime.Now;
+
             _newsRepository.CreateNewNews(news);
         }
     }

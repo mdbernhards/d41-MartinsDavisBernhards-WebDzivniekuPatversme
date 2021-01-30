@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebPatversme.Models.AnimalShelters>
+﻿@model IEnumerable<WebPatversme.Models.Shelters>
 @{
     ViewData["Title"] = "Patversmes";
 }
@@ -8,13 +8,16 @@
     <h2 class="display-3">*Filtri patversmes izvēlei*</h2>
     <p>Saraksts ar Patversmēm</p>
 </div>
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Shelters" asp-action="Create">+ Pievienot dzīvnieku</a>
+</div>
 <table class="table">
     <tr>
         <th>ID</th>
-        <th>AnimalCapacity</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>PhoneNumber</th>
+        <th>Dzīvnieku kapacitāte</th>
+        <th>Vārds</th>
+        <th>Adrese</th>
+        <th>Telefona numurs</th>
         <th>ImagePath</th>
     </tr>
     @foreach (var item in Model)

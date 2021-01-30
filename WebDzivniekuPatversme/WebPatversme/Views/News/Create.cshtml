@@ -1,47 +1,39 @@
 ﻿@model WebPatversme.Models.News
+
 @{
-    ViewData["Title"] = "Pievienot ziņas";
+    ViewData["Title"] = "Izveidot ziņas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Create", "News", FormMethod.Post))
-{
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th colspan="2" align="center">Add News</th>
-        </tr>
-        <tr>
-            <td>ID: </td>
-            <td>
-                @Html.TextBoxFor(model => model.NewsID)
-            </td>
-        </tr>
-        <tr>
-            <td>DateCreated: </td>
-            <td>
-                @Html.TextBoxFor(model => model.DateCreated)
-            </td>
-        </tr>
-        <tr>
-            <td>Text: </td>
-            <td>
-                @Html.TextBoxFor(model => model.Text)
-            </td>
-        </tr>
-        <tr>
-            <td>ImagePath: </td>
-            <td>
-                @Html.TextBoxFor(model => model.ImagePath)
-            </td>
-        </tr>
-        <tr>
-            <td>UsersID: </td>
-            <td>
-                @Html.TextBoxFor(model => model.FKUsersID)
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Create" /></td>
-        </tr>
-    </table>
+<h1>Izveidot</h1>
+
+<h4>Ziņas</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Ziņu teksts</label>
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -26,10 +26,14 @@ namespace WebPatversme.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(AnimalShelters model)
+        public IActionResult Create(Shelters model)
         {
-            _sheltersServices.AddNewShelter(model);
+            if (ModelState.IsValid)
+            {
+                _sheltersServices.AddNewShelter(model);
 
+                return RedirectToAction("Index");
+            }
             return View(model);
         }
 

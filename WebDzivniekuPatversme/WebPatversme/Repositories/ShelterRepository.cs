@@ -16,9 +16,9 @@ namespace WebDzivniekuPatversme.Repository
             _dbcontext = dbContext;
         }
 
-        public List<AnimalShelters> GetAllAnimalShelters()
+        public List<Shelters> GetAllAnimalShelters()
         {
-            List<AnimalShelters> list = new List<AnimalShelters>();
+            List<Shelters> list = new List<Shelters>();
 
             using (MySqlConnection conn = _dbcontext.GetConnection())
             {
@@ -29,9 +29,9 @@ namespace WebDzivniekuPatversme.Repository
                 {
                     while (reader.Read())
                     {
-                        list.Add(new AnimalShelters()
+                        list.Add(new Shelters()
                         {
-                            AnimalShelterID = Convert.ToInt32(reader["ID"]),
+                            AnimalShelterID = Convert.ToString(reader["ID"]),
                             AnimalCapacity = Convert.ToInt32(reader["AnimalCapacity"]),
                             Name = Convert.ToString(reader["Name"]),
                             Address = Convert.ToString(reader["Address"]),
@@ -44,14 +44,14 @@ namespace WebDzivniekuPatversme.Repository
             return list;
         }
 
-        public void CreateNewAnimalShelter(AnimalShelters newAnimalShelters)
+        public void CreateNewAnimalShelter(Shelters newAnimalShelters)
         {
             using (MySqlConnection conn = _dbcontext.GetConnection())
             {
                 conn.Open();
 
                 MySqlCommand cmd = new MySqlCommand("INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath) " +
-                                                    "VALUES ("  + newAnimalShelters.AnimalShelterID    + ", " + newAnimalShelters.AnimalCapacity  + ", \"" + newAnimalShelters.Name + "\", \"" 
+                                                    "VALUES (\"" + newAnimalShelters.AnimalShelterID    + "\", " + newAnimalShelters.AnimalCapacity  + ", \"" + newAnimalShelters.Name + "\", \"" 
                                                                 + newAnimalShelters.Address + "\", \"" + newAnimalShelters.PhoneNumber + "\", \"" + newAnimalShelters.ImagePath + "\")", conn);
 
                 var reader = cmd.ExecuteReader();

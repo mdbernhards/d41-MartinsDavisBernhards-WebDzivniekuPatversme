@@ -1,53 +1,54 @@
-﻿@model WebPatversme.Models.AnimalShelters
+﻿@model WebPatversme.Models.Shelters
+
 @{
-    ViewData["Title"] = "Pievienot Patversmi";
+    ViewData["Title"] = "Pievienot patversmi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Create", "Shelters", FormMethod.Post))
-{
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th colspan="2" align="center">Add News</th>
-        </tr>
-        <tr>
-            <td>ID: </td>
-            <td>
-                @Html.TextBoxFor(model => model.AnimalShelterID)
-            </td>
-        </tr>
-        <tr>
-            <td>AnimalCapacity: </td>
-            <td>
-                @Html.TextBoxFor(model => model.AnimalCapacity)
-            </td>
-        </tr>
-        <tr>
-            <td>Name: </td>
-            <td>
-                @Html.TextBoxFor(model => model.Name)
-            </td>
-        </tr>
-        <tr>
-            <td>Address: </td>
-            <td>
-                @Html.TextBoxFor(model => model.Address)
-            </td>
-        </tr>
-        <tr>
-            <td>PhoneNumber: </td>
-            <td>
-                @Html.TextBoxFor(model => model.PhoneNumber)
-            </td>
-        </tr>
-        <tr>
-            <td>ImagePath: </td>
-            <td>
-                @Html.TextBoxFor(model => model.ImagePath)
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Create" /></td>
-        </tr>
-    </table>
+<h1>Create</h1>
+
+<h4>AnimalShelters</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Nosaukums</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Adrese</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Telefona numurs</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Dzīvnieku kapacitāte</label>
+                <input asp-for="AnimalCapacity" class="form-control" />
+                <span asp-validation-for="AnimalCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebPatversme.Models.Animals>
 @{
-    ViewData["Title"] = "Dzivnieki";
+    ViewData["Title"] = "Dzīvnieki";
 }
 
 <div class="text-center">
@@ -8,17 +8,20 @@
     <h2 class="display-3">*Filtri dzīvnieku izvēlei*</h2>
     <p>Saraksts ar Dzīvniekiem</p>
 </div>
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="Create">+ Pievienot dzīvnieku</a>
+</div>
 <table class="table">
     <tr>
         <th>ID</th>
-        <th>Age</th>
-        <th>Weight</th>
-        <th>BirthDate</th>
-        <th>DateAdded</th>
-        <th>About</th>
-        <th>Name</th>
-        <th>Species</th>
-        <th>Colour</th>
+        <th>Vecums</th>
+        <th>Svars</th>
+        <th>Dzimšanas datums</th>
+        <th>Pievienošanas datums</th>
+        <th>Apraksts</th>
+        <th>Vārds</th>
+        <th>Suga</th>
+        <th>Krāsa</th>
         <th>ImagePath</th>
         <th>AnimalShelterID</th>
     </tr>

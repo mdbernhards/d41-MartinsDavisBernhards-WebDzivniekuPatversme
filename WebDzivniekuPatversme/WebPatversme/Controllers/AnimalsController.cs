@@ -28,8 +28,12 @@ namespace WebPatversme.Controllers
         [HttpPost]
         public IActionResult Create(Animals model)
         {
-            _animalsServices.AddNewAnimal(model);
+            if (ModelState.IsValid)
+            {
+                _animalsServices.AddNewAnimal(model);
 
+                return RedirectToAction("Index");
+            }
             return View(model);
         }
 
