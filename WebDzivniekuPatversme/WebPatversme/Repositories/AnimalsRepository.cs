@@ -41,7 +41,7 @@ namespace WebDzivniekuPatversme.Repository
                             Species = Convert.ToString(reader["Species"]),
                             Colour = Convert.ToString(reader["Colour"]),
                             ImagePath = Convert.ToString(reader["ImagePath"]),
-                            FKAnimalSheltersID = Convert.ToString(reader["AnimalShelterID"]),
+                            AnimalShelterId = Convert.ToString(reader["AnimalShelterID"]),
                         });
                     }
                 }
@@ -59,7 +59,7 @@ namespace WebDzivniekuPatversme.Repository
                                                     "VALUES (\"" + newAnimal.AnimalID + "\", " + newAnimal.Age + ", " + newAnimal.Weight + ", \"" + newAnimal.BirthDate.Year + "-" + newAnimal.BirthDate.Month
                                                     + "-" + newAnimal.BirthDate.Day + "\", \"" + newAnimal.DateAdded.Year + "-" + newAnimal.DateAdded.Month  + "-"  + newAnimal.DateAdded.Day + "\", \"" +
                                                     newAnimal.About + "\", \""  + newAnimal.Name + "\", \"" + newAnimal.Species + "\", \""  + newAnimal.Colour + "\", \"" + newAnimal.ImagePath + "\", \"" +
-                                                    newAnimal.FKAnimalSheltersID + "\")", conn);
+                                                    newAnimal.AnimalShelterId + "\")", conn);
 
                 var reader = cmd.ExecuteReader();
             }

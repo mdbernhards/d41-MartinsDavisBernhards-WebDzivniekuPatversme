@@ -26,6 +26,6 @@ namespace WebPatversme.Models
 
         public DateTime DateAdded { set; get; }
 
-        public string FKAnimalSheltersID { set; get; }
+        public string AnimalShelterId { set; get; }
     }
 }

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Izveidot</h1>
+<h1>Pievienot</h1>
 
 <h4>Dzīvnieku</h4>
 <hr />
@@ -55,15 +55,21 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Patversme</label>
-                 @Html.DropDownListFor(
-                     x => x.AnimalShelterId,
-                     new SelectList(Model.AnimalShelters, "Name"),
-                     "-- Select --"
-                )
-                @Html.ValidationMessageFor(x => x.AnimalShelterId)
+                <div>
+                    @Html.DropDownListFor(
+                        x => x.AnimalShelterId,
+                        new SelectList(Model.AnimalShelters, "AnimalShelterID", "Name", Model.AnimalShelterId),
+                        "-- Izvēlies --",
+                        new {
+                                @id = "shelter",
+                                @class = "form-control"
+                            }
+                   )
+                    @Html.ValidationMessageFor(x => x.AnimalShelterId)
+                </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Pievienot" class="btn btn-primary" />
             </div>
         </form>
     </div>

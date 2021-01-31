@@ -43,6 +43,7 @@ Projektā izmantotās tehnoloģijas:
 - Profila apstiprināšana ar nosūtītu E-pastu: https://docs.microsoft.com/lv-lv/aspnet/core/security/authentication/accconfirm?view=aspnetcore-5.0&tabs=visual-studio
 - Identity Paziņojumu priekš lietotāja tulkošana: https://stackoverflow.com/questions/19961648/how-to-localize-asp-net-identity-username-and-password-error-messages
 - Vispārīga informācija: https://docs.microsoft.com/en-us/aspnet/
-
+- Automapper setup: https://stackoverflow.com/questions/40275195/how-to-set-up-automapper-in-asp-net-core
+- Creating a DropDownList for existing values in razor view + ViewModels: https://stackoverflow.com/questions/12519280/using-a-foreign-key-in-dropdown-in-mvc
 ## Uzstādīšanas instrukcijas
 - Vel nav

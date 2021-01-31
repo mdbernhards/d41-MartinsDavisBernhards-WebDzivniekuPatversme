@@ -4,8 +4,7 @@ namespace WebPatversme.Models
 {
     public class Shelters
     {
-        [Key]
-        public string AnimalShelterID;
+        public string AnimalShelterID { set; get; }
 
         public string Name { set; get; }
 

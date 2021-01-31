@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using AutoMapper;
 
 namespace WebPatversme
 {
@@ -52,6 +53,14 @@ namespace WebPatversme
                 .AddErrorDescriber<IdentityErrorDescriberLV>();
 
             services.AddTransient<IEmailSender, EmailSender>();
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddMvc();
             services.AddControllersWithViews();

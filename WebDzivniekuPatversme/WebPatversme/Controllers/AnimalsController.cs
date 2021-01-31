@@ -10,11 +10,14 @@ namespace WebPatversme.Controllers
     public class AnimalsController : Controller
     {
         private readonly IAnimalsService _animalsServices;
+        private readonly IMapper _mapper;
 
         public AnimalsController(
-            IAnimalsService animalsServices)
+            IAnimalsService animalsServices,
+            IMapper mapper)
         {
             _animalsServices = animalsServices;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -37,9 +40,7 @@ namespace WebPatversme.Controllers
         {
             if (ModelState.IsValid)
             {
-                Mapper mapper = new Mapper(null);
-
-                var mappedAnimal = mapper.Map<AnimalsViewModel, Animals>(model);
+                var mappedAnimal = _mapper.Map<Animals>(model);
 
                 _animalsServices.AddNewAnimal(mappedAnimal);
 
