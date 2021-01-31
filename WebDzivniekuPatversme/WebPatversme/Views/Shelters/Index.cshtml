@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<WebPatversme.Models.Shelters>
+
 @{
     ViewData["Title"] = "Patversmes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
@@ -8,20 +10,38 @@
     <h2 class="display-3">*Filtri patversmes izvēlei*</h2>
     <p>Saraksts ar Patversmēm</p>
 </div>
-<div>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Shelters" asp-action="Create">+ Pievienot dzīvnieku</a>
-</div>
+
+<p>
+    <a asp-action="Create">+ Pievienot patversmi</a>
+</p>
+
 <table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Dzīvnieku kapacitāte</th>
-        <th>Vārds</th>
-        <th>Adrese</th>
-        <th>Telefona numurs</th>
-        <th>ImagePath</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Dzīvnieku kapacitāte
+            </th>
+            <th>
+                Vārds
+            </th>
+            <th>
+                Adrese
+            </th>
+            <th>
+                Telefona numurs
+            </th>
+            <th>
+                ImagePath
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayTextFor(modelItem => item.AnimalShelterID)
@@ -41,6 +61,12 @@
             <td>
                 @Html.DisplayTextFor(modelItem => item.ImagePath)
             </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
         </tr>
-    }
+        }
+    </tbody>
 </table>

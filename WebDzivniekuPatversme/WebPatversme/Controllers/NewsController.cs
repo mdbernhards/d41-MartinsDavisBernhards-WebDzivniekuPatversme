@@ -37,6 +37,23 @@ namespace WebPatversme.Controllers
             return View(model);
         }
 
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(News news)
+        {
+            if (ModelState.IsValid)
+            {
+                _newsServices.AddNewNews(news);
+
+                return RedirectToAction("Index");
+            }
+            return View(news);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

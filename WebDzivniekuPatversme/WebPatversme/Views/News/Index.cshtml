@@ -1,25 +1,44 @@
 ﻿@model IEnumerable<WebPatversme.Models.News>
+
 @{
     ViewData["Title"] = "Ziņas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
     <h1 class="display-4">Ziņas!</h1>
     <h2 class="display-3">*Filtri Ziņu izvēlei*</h2>
+    <p>Saraksts ar Ziņām</p>
 </div>
-<div>
-    <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Create">+ Pievienot dzīvnieku</a>
-</div>
+
+<p>
+    <a asp-action="Create">+ Pievienot ziņas</a>
+</p>
+
 <table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Izveidošanas datums</th>
-        <th>Teksts</th>
-        <th>ImagePath</th>
-        <th>UserID</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Izveidošanas datums
+            </th>
+            <th>
+                Teksts
+            </th>
+            <th>
+                ImagePath
+            </th>
+            <th>
+                UserID
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayTextFor(modelItem => item.NewsID)
@@ -34,8 +53,11 @@
                 @Html.DisplayTextFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.FKUsersID)
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
-    }
+        }
+    </tbody>
 </table>

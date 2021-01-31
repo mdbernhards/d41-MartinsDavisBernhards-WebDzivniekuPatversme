@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<WebPatversme.Models.Animals>
+
 @{
     ViewData["Title"] = "Dzīvnieki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
@@ -8,59 +10,92 @@
     <h2 class="display-3">*Filtri dzīvnieku izvēlei*</h2>
     <p>Saraksts ar Dzīvniekiem</p>
 </div>
-<div>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Animals" asp-action="Create">+ Pievienot dzīvnieku</a>
-</div>
+
+<p>
+    <a asp-action="Create">+ Pievienot dzīvnieku</a>
+</p>
+
 <table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Vecums</th>
-        <th>Svars</th>
-        <th>Dzimšanas datums</th>
-        <th>Pievienošanas datums</th>
-        <th>Apraksts</th>
-        <th>Vārds</th>
-        <th>Suga</th>
-        <th>Krāsa</th>
-        <th>ImagePath</th>
-        <th>AnimalShelterID</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Vecums
+            </th>
+            <th>
+                Svars
+            </th>
+            <th>
+                Dzimšanas datums
+            </th>
+            <th>
+                Pievienošanas datums
+            </th>
+            <th>
+                Apraksts
+            </th>
+            <th>
+                Vārds
+            </th>
+            <th>
+                Suga
+            </th>
+            <th>
+                Krāsa
+            </th>
+            <th>
+                ImagePath
+            </th>
+            <th>
+                AnimalShelterID
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayTextFor(modelItem => item.AnimalID)
+                @Html.DisplayFor(modelItem => item.AnimalID)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.Age)
+                @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.Weight)
+                @Html.DisplayFor(modelItem => item.Weight)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.BirthDate)
+                @Html.DisplayFor(modelItem => item.BirthDate)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.DateAdded)
+                @Html.DisplayFor(modelItem => item.DateAdded)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.About)
+                @Html.DisplayFor(modelItem => item.About)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.Species)
+                @Html.DisplayFor(modelItem => item.Species)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.Colour)
+                @Html.DisplayFor(modelItem => item.Colour)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.ImagePath)
+                @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.FKAnimalSheltersID)
+                @Html.DisplayFor(modelItem => item.FKAnimalSheltersID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
-    }
+        }
+    </tbody>
 </table>

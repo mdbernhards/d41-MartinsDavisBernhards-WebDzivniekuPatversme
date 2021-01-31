@@ -1,6 +1,6 @@
 ﻿using WebDzivniekuPatversme.Services;
 
-namespace WebDzivniekuPatversme.Models
+namespace WebDzivniekuPatversme.Models.StaticModels
 {
     public class SendingEmail
     {

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebPatversme.Models
+namespace WebPatversme.Models.ViewModels
 {
-    public class News
+    public class NewsViewModel
     {
-        [Key]
-        public string NewsID { set; get; }
-
+        [Required]
         public string Text { set; get; }
 
+        [Required]
         public DateTime DateCreated { set; get; }
 
+        [Required]
         public string ImagePath { set; get; }
     }
 }

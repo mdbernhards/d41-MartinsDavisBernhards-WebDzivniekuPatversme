@@ -2,6 +2,8 @@
 using WebPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebDzivniekuPatversme.Services.Interfaces;
+using WebPatversme.Models.ViewModels;
+using AutoMapper;
 
 namespace WebPatversme.Controllers
 {
@@ -17,16 +19,42 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            return View(_animalsServices.AnimalsTable());
+            return View(_animalsServices.AnimalList());
+        }
+
+        public IActionResult Delete()
+        {
+            return View(_animalsServices.AnimalList());
         }
 
         public IActionResult Create()
+        {
+            return View(_animalsServices.ObjectForCreatingAnimal());
+        }
+
+        [HttpPost]
+        public IActionResult Create(AnimalsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Mapper mapper = new Mapper(null);
+
+                var mappedAnimal = mapper.Map<AnimalsViewModel, Animals>(model);
+
+                _animalsServices.AddNewAnimal(mappedAnimal);
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public IActionResult Edit()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Animals model)
+        public IActionResult Edit(Animals model)
         {
             if (ModelState.IsValid)
             {

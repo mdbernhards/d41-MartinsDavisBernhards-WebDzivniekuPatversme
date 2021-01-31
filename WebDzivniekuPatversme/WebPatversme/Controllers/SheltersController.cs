@@ -37,6 +37,23 @@ namespace WebPatversme.Controllers
             return View(model);
         }
 
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Shelters shelters)
+        {
+            if (ModelState.IsValid)
+            {
+                _sheltersServices.AddNewShelter(shelters);
+
+                return RedirectToAction("Index");
+            }
+            return View(shelters);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

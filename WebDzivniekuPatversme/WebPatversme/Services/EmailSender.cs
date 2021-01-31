@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using WebDzivniekuPatversme.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using WebDzivniekuPatversme.Models.StaticModels;
 
 namespace WebDzivniekuPatversme.Services
 {
