@@ -5,7 +5,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface INewsService
     {
-        List<News> NewsTable();
+        List<News> NewsList();
 
         void AddNewNews(News news);
     }

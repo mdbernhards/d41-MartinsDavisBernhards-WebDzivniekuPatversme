@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Linq;
+using System.Diagnostics;
 using WebPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebDzivniekuPatversme.Services.Interfaces;
@@ -17,7 +18,7 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            return View(_sheltersServices.AnimalShelterTable());
+            return View(_sheltersServices.ShelterList());
         }
 
         public IActionResult Create()
@@ -37,9 +38,13 @@ namespace WebPatversme.Controllers
             return View(model);
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(string ShelterId)
         {
-            return View();
+            var allShelters = _sheltersServices.ShelterList();
+
+            var returningShelter = allShelters.Where(shelter => shelter.AnimalShelterID == ShelterId).FirstOrDefault();
+
+            return View(returningShelter);
         }
 
         [HttpPost]

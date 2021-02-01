@@ -16,7 +16,7 @@ namespace WebDzivniekuPatversme.Services
             _newsRepository = newsRepository;
         }
 
-        public List<News> NewsTable()
+        public List<News> NewsList()
         {
             return _newsRepository.GetAllNews();
         }

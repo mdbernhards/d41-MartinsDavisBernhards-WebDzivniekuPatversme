@@ -45,5 +45,6 @@ Projektā izmantotās tehnoloģijas:
 - Vispārīga informācija: https://docs.microsoft.com/en-us/aspnet/
 - Automapper setup: https://stackoverflow.com/questions/40275195/how-to-set-up-automapper-in-asp-net-core
 - Creating a DropDownList for existing values in razor view + ViewModels: https://stackoverflow.com/questions/12519280/using-a-foreign-key-in-dropdown-in-mvc
+
 ## Uzstādīšanas instrukcijas
 - Vel nav

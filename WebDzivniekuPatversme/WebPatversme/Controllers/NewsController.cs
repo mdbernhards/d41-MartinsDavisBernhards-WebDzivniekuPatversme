@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Linq;
+using System.Diagnostics;
 using WebPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebDzivniekuPatversme.Services.Interfaces;
@@ -17,7 +18,7 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            return View(_newsServices.NewsTable());
+            return View(_newsServices.NewsList());
         }
 
         public IActionResult Create()
@@ -37,9 +38,13 @@ namespace WebPatversme.Controllers
             return View(model);
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(string NewsId)
         {
-            return View();
+            var allNews = _newsServices.NewsList();
+
+            var returningNews = allNews.Where(news => news.NewsID == NewsId).FirstOrDefault();
+
+            return View(returningNews);
         }
 
         [HttpPost]

@@ -1,9 +1,10 @@
-﻿using System.Diagnostics;
+﻿using AutoMapper;
+using System.Linq;
+using System.Diagnostics;
 using WebPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
-using WebDzivniekuPatversme.Services.Interfaces;
 using WebPatversme.Models.ViewModels;
-using AutoMapper;
+using WebDzivniekuPatversme.Services.Interfaces;
 
 namespace WebPatversme.Controllers
 {
@@ -49,9 +50,13 @@ namespace WebPatversme.Controllers
             return View(model);
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(string AnimalId)
         {
-            return View();
+            var allAnimals = _animalsServices.AnimalList();
+
+            var returningAnimal = allAnimals.Where(animal => animal.AnimalID == AnimalId).FirstOrDefault();
+
+            return View(returningAnimal);
         }
 
         [HttpPost]

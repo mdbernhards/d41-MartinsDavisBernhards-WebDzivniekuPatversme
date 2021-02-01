@@ -5,13 +5,12 @@ namespace WebPatversme.Models.ViewModels
 {
     public class NewsViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Ziņu teksts ir obligāts.")]
+        [Display(Name = "Teksts")]
         public string Text { set; get; }
 
-        [Required]
         public DateTime DateCreated { set; get; }
 
-        [Required]
         public string ImagePath { set; get; }
     }
 }

@@ -6,26 +6,34 @@ namespace WebPatversme.Models.ViewModels
 {
     public class AnimalsViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Vārds ir obligāts.")]
+        [Display(Name = "Vārds")]
         public string Name { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Vecums ir obligāts.")]
+        [Display(Name = "Vecums")]
         public int Age { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Dzimšanas datums ir obligāts.")]
+        [Display(Name = "Dzimšanas datums")]
         public DateTime BirthDate { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Suga ir obligāta.")]
+        [Display(Name = "Suga")]
         public string Species { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Krāsa ir obligāta.")]
+        [Display(Name = "Krāsa")]
         public string Colour { set; get; }
 
+        [Required(ErrorMessage = "Apraksts ir obligāts.")]
+        [Display(Name = "Apraksts")]
         public string About { set; get; }
 
         public string ImagePath { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Svars ir obligāts.")]
+        [Display(Name = "Svars")]
         public int Weight { set; get; }
 
         public DateTime DateAdded { set; get; }

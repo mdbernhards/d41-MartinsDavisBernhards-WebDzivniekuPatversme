@@ -16,7 +16,7 @@ namespace WebDzivniekuPatversme.Services
             _shelterRepository = shelterRepository;
         }
 
-        public List<Shelters> AnimalShelterTable()
+        public List<Shelters> ShelterList()
         {
             return _shelterRepository.GetAllAnimalShelters();
         }
