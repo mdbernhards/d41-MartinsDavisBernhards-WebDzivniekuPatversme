@@ -8,5 +8,7 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
         List<Shelters> GetAllAnimalShelters();
 
         void CreateNewAnimalShelter(Shelters newAnimalShelters);
+
+        void DeleteShelters(Shelters shelters);
     }
 }

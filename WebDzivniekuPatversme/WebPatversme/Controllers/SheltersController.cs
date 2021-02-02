@@ -73,6 +73,34 @@ namespace WebDzivniekuPatversme.Controllers
             return View(shelters);
         }
 
+        public IActionResult Delete(string Id)
+        {
+            var allShelters = _mapper.Map<List<SheltersViewModel>>(_sheltersServices.GetAllShelterList());
+
+            var returningShelters = allShelters.Where(shelters => shelters.AnimalShelterID == Id).FirstOrDefault();
+
+            return View(returningShelters);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(SheltersViewModel model)
+        {
+            var mappedShelters = _mapper.Map<Shelters>(model);
+
+            _sheltersServices.DeleteShelters(mappedShelters);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Details(string Id)
+        {
+            var allShelters = _mapper.Map<List<SheltersViewModel>>(_sheltersServices.GetAllShelterList());
+
+            var returningShelters = allShelters.Where(shelters => shelters.AnimalShelterID == Id).FirstOrDefault();
+
+            return View(returningShelters);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

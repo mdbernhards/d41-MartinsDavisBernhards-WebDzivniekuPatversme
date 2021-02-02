@@ -90,6 +90,15 @@ namespace WebDzivniekuPatversme.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Details(string Id)
+        {
+            var allNews = _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
+
+            var returningNews = allNews.Where(news => news.NewsID == Id).FirstOrDefault();
+
+            return View(returningNews);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,16 +1,21 @@
 ﻿@model WebDzivniekuPatversme.Models.ViewModels.NewsViewModel
 
 @{
-    ViewData["Title"] = "Dzēst Ziņas";
+    ViewData["Title"] = "Par Dzīvnieku";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Dzēst Ziņas</h1>
+<h1>Par Dzīvnieku</h1>
 
-<h3>Vai esi pārliecināts, ka gribi izdzēst šo ziņu?</h3>
 <div>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NewsID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NewsID)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Text)
         </dt>
@@ -30,10 +35,8 @@
             @Html.DisplayFor(model => model.ImagePath)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="NewsID" />
-        <input type="submit" value="Dzēst" class="btn btn-danger" /> |
-        <a asp-action="Index">Atpakaļ uz sarakstu</a>
-    </form>
+</div>
+<div>
+    @Html.ActionLink("Labot", "Edit", new {id = Model.NewsID }) |
+    <a asp-action="Index">Atpakaļ uz sarakstu</a>
 </div>

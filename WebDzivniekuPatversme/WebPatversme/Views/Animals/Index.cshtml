@@ -85,9 +85,9 @@
                 @Html.DisplayFor(modelItem => item.AnimalShelterId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.AnimalID }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Labot", "Edit", new { id = item.AnimalID }) |
+                @Html.ActionLink("Par", "Details", new { id = item.AnimalID }) |
+                @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalID })
             </td>
         </tr>
         }

@@ -8,5 +8,7 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
         List<Animals> GetAllAnimals();
 
         void CreateNewAnimal(Animals newAnimal);
+
+        void DeleteAnimal(Animals animal);
     }
 }

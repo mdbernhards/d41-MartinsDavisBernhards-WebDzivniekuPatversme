@@ -13,5 +13,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         AnimalsViewModel ObjectForCreatingAnimal();
 
         Animals GetAnimalById(string Id);
+
+        void DeleteAnimals(Animals animal);
     }
 }

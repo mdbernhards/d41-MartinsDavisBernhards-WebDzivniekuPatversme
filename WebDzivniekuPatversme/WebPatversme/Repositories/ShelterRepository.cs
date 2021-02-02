@@ -22,23 +22,22 @@ namespace WebDzivniekuPatversme.Repository
 
             using (MySqlConnection conn = _dbcontext.GetConnection())
             {
-                conn.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from AnimalShelters", conn);
+                conn.Open();
 
-                using (var reader = cmd.ExecuteReader())
+                using var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    list.Add(new Shelters()
                     {
-                        list.Add(new Shelters()
-                        {
-                            AnimalShelterID = Convert.ToString(reader["ID"]),
-                            AnimalCapacity = Convert.ToInt32(reader["AnimalCapacity"]),
-                            Name = Convert.ToString(reader["Name"]),
-                            Address = Convert.ToString(reader["Address"]),
-                            PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
-                            ImagePath = Convert.ToString(reader["ImagePath"]),
-                        });
-                    }
+                        AnimalShelterID = Convert.ToString(reader["ID"]),
+                        AnimalCapacity = Convert.ToInt32(reader["AnimalCapacity"]),
+                        Name = Convert.ToString(reader["Name"]),
+                        Address = Convert.ToString(reader["Address"]),
+                        PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
+                        ImagePath = Convert.ToString(reader["ImagePath"]),
+                    });
                 }
             }
             return list;
@@ -46,16 +45,26 @@ namespace WebDzivniekuPatversme.Repository
 
         public void CreateNewAnimalShelter(Shelters newAnimalShelters)
         {
-            using (MySqlConnection conn = _dbcontext.GetConnection())
-            {
-                conn.Open();
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath) " +
-                                                    "VALUES (\"" + newAnimalShelters.AnimalShelterID    + "\", " + newAnimalShelters.AnimalCapacity  + ", \"" + newAnimalShelters.Name + "\", \"" 
-                                                                + newAnimalShelters.Address + "\", \"" + newAnimalShelters.PhoneNumber + "\", \"" + newAnimalShelters.ImagePath + "\")", conn);
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath) " +
+                                                "VALUES (\"" + newAnimalShelters.AnimalShelterID + "\", " + newAnimalShelters.AnimalCapacity + ", \"" + newAnimalShelters.Name + "\", \""
+                                                            + newAnimalShelters.Address + "\", \"" + newAnimalShelters.PhoneNumber + "\", \"" + newAnimalShelters.ImagePath + "\")", conn);
 
-                var reader = cmd.ExecuteReader();
-            }
+            var reader = cmd.ExecuteReader();
+        }
+
+        public void DeleteShelters(Shelters shelters)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            conn.Open();
+
+            string sqlQuerry = "Delete from AnimalShelters where ID = \"" + shelters.AnimalShelterID + "\";";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+
+            var reader = cmd.ExecuteReader();
         }
     }
 }

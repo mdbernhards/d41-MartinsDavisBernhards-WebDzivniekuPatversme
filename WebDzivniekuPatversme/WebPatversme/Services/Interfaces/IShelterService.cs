@@ -10,5 +10,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         void AddNewShelter(Shelters shelter);
 
         Shelters GetShelterById(string Id);
+
+        void DeleteShelters(Shelters shelter);
     }
 }

@@ -44,6 +44,11 @@ namespace WebDzivniekuPatversme.Services
             return animal;
         }
 
+        public void DeleteAnimals(Animals animal)
+        {
+            _animalsRepository.DeleteAnimal(animal);
+        }
+
         public void AddNewAnimal(Animals animal)
         {
             animal.AnimalID = Guid.NewGuid().ToString();

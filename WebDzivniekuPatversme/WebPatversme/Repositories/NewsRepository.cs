@@ -22,8 +22,8 @@ namespace WebDzivniekuPatversme.Repository
 
             using (MySqlConnection conn = _dbcontext.GetConnection())
             {
-                conn.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from News", conn);
+                conn.Open();
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -44,33 +44,27 @@ namespace WebDzivniekuPatversme.Repository
 
         public void CreateNewNews(News newNews)
         {
-            using (MySqlConnection conn = _dbcontext.GetConnection())
-            {
-                conn.Open();
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            conn.Open();
 
-                string sqlQuerry = "INSERT INTO News (ID, DateCreated, Text, ImagePath) " +
-                                   "VALUES (\"" + newNews.NewsID + "\", \"" + newNews.DateCreated.Year + "-"+ newNews.DateCreated.Month + "-" + newNews.DateCreated.Day + "\", \"" + newNews.Text + "\", \"" + newNews.ImagePath + "\");";
+            string sqlQuerry = "INSERT INTO News (ID, DateCreated, Text, ImagePath) " +
+                               "VALUES (\"" + newNews.NewsID + "\", \"" + newNews.DateCreated.Year + "-" + newNews.DateCreated.Month + "-" + newNews.DateCreated.Day + "\", \"" + newNews.Text + "\", \"" + newNews.ImagePath + "\");";
 
-                MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
 
-
-                var reader = cmd.ExecuteReader();
-            }
+            var reader = cmd.ExecuteReader();
         }
 
         public void DeleteNews(News news)
         {
-            using (MySqlConnection conn = _dbcontext.GetConnection())
-            {
-                conn.Open();
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            conn.Open();
 
-                string sqlQuerry = "Delete from news where ID = \"" + news.NewsID + "\";";
+            string sqlQuerry = "Delete from news where ID = \"" + news.NewsID + "\";";
 
-                MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
 
-
-                var reader = cmd.ExecuteReader();
-            }
+            var reader = cmd.ExecuteReader();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Linq;
+using System.Diagnostics;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WebDzivniekuPatversme.Models;
@@ -24,13 +25,6 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Index()
         {
             var mappedAnimal = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
-
-            return View(mappedAnimal);
-        }
-
-        public IActionResult Delete()
-        {
-            var mappedAnimal = _mapper.Map< List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
 
             return View(mappedAnimal);
         }
@@ -75,6 +69,34 @@ namespace WebDzivniekuPatversme.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        public IActionResult Delete(string Id)
+        {
+            var allAnimals = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
+
+            var returningAnimals = allAnimals.Where(shelters => shelters.AnimalID == Id).FirstOrDefault();
+
+            return View(returningAnimals);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(AnimalsViewModel model)
+        {
+            var mappedAnimals = _mapper.Map<Animals>(model);
+
+            _animalsServices.DeleteAnimals(mappedAnimals);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Details(string Id)
+        {
+            var allAnimals = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
+
+            var returningAnimals = allAnimals.Where(shelters => shelters.AnimalID == Id).FirstOrDefault();
+
+            return View(returningAnimals);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
