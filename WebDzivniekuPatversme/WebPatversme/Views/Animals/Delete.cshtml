@@ -1,4 +1,4 @@
-﻿@model WebPatversme.Models.Animals
+﻿@model WebPatversme.Models.ViewModels.AnimalsViewModel
 
 @{
     ViewData["Title"] = "Dzēst dzīvnieku";
@@ -12,12 +12,6 @@
     <h4>Dzīvnieks</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnimalID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnimalID)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>

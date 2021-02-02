@@ -6,6 +6,8 @@ namespace WebPatversme.Models.ViewModels
 {
     public class AnimalsViewModel
     {
+        public string AnimalID { set; get; }
+
         [Required(ErrorMessage = "Vārds ir obligāts.")]
         [Display(Name = "Vārds")]
         public string Name { set; get; }
@@ -38,6 +40,7 @@ namespace WebPatversme.Models.ViewModels
 
         public DateTime DateAdded { set; get; }
 
+        [Required(ErrorMessage = "Patversme ir obligāta.")]
         public string AnimalShelterId { set; get; }
 
         public IEnumerable<Shelters> AnimalShelters { get; set; }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebPatversme.Models.Shelters>
+﻿@model IEnumerable<WebPatversme.Models.ViewModels.SheltersViewModel>
 
 @{
     ViewData["Title"] = "Patversmes";
@@ -18,9 +18,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                ID
-            </th>
             <th>
                 Dzīvnieku kapacitāte
             </th>
@@ -44,9 +41,6 @@
         {
         <tr>
             <td>
-                @Html.DisplayTextFor(modelItem => item.AnimalShelterID)
-            </td>
-            <td>
                 @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
             </td>
             <td>
@@ -62,7 +56,7 @@
                 @Html.DisplayTextFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id=item.AnimalShelterID}) |
+                @Html.ActionLink("Edit", "Edit", new {id = item.AnimalShelterID}) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

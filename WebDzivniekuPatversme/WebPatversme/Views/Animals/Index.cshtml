@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebPatversme.Models.Animals>
+﻿@model IEnumerable<WebPatversme.Models.ViewModels.AnimalsViewModel>
 
 @{
     ViewData["Title"] = "Dzīvnieki";
@@ -18,9 +18,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                ID
-            </th>
             <th>
                 Vecums
             </th>
@@ -58,9 +55,6 @@
        @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AnimalID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
             <td>
@@ -91,7 +85,7 @@
                 @Html.DisplayFor(modelItem => item.AnimalShelterId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.AnimalID }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.AnimalID }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

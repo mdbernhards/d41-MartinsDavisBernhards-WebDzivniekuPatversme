@@ -1,4 +1,4 @@
-﻿@model WebPatversme.Models.Animals
+﻿@model WebPatversme.Models.ViewModels.AnimalsViewModel
 
 @{
     ViewData["Title"] = "Labot dzīvnieku";
@@ -13,11 +13,6 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="AnimalID" class="control-label"></label>
-                <input asp-for="AnimalID" class="form-control" />
-                <span asp-validation-for="AnimalID" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label class="control-label">Vārds</label>
                 <input asp-for="Name" class="form-control" />

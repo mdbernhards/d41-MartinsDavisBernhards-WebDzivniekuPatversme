@@ -5,6 +5,7 @@ using WebPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace WebPatversme.Controllers
 {
@@ -23,12 +24,16 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            return View(_animalsServices.AnimalList());
+            var mappedAnimal = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.AnimalList());
+
+            return View(mappedAnimal);
         }
 
         public IActionResult Delete()
         {
-            return View(_animalsServices.AnimalList());
+            var mappedAnimal = _mapper.Map< List<AnimalsViewModel>>(_animalsServices.AnimalList());
+
+            return View(mappedAnimal);
         }
 
         public IActionResult Create()
@@ -50,21 +55,25 @@ namespace WebPatversme.Controllers
             return View(model);
         }
 
-        public IActionResult Edit(string AnimalId)
+        public IActionResult Edit(string id)
         {
             var allAnimals = _animalsServices.AnimalList();
 
-            var returningAnimal = allAnimals.Where(animal => animal.AnimalID == AnimalId).FirstOrDefault();
+            var returningAnimal = allAnimals.Where(animal => animal.AnimalID == id).FirstOrDefault();
 
-            return View(returningAnimal);
+            var mappedAnimal = _mapper.Map<AnimalsViewModel>(returningAnimal);
+
+            return View(mappedAnimal);
         }
 
         [HttpPost]
-        public IActionResult Edit(Animals model)
+        public IActionResult Edit(AnimalsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _animalsServices.AddNewAnimal(model);
+                var mappedAnimal = _mapper.Map<Animals>(model);
+
+                _animalsServices.AddNewAnimal(mappedAnimal);
 
                 return RedirectToAction("Index");
             }

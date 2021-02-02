@@ -1,24 +1,32 @@
 ﻿using System.Linq;
 using System.Diagnostics;
+using System.Collections.Generic;
 using WebPatversme.Models;
-using Microsoft.AspNetCore.Mvc;
+using WebPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace WebPatversme.Controllers
 {
     public class NewsController : Controller
     {
         private readonly INewsService _newsServices;
+        private readonly IMapper _mapper;
 
         public NewsController(
-            INewsService newsServices)
+            INewsService newsServices,
+            IMapper mapper)
         {
             _newsServices = newsServices;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            return View(_newsServices.NewsList());
+            var mappedNews = _mapper.Map<List<NewsViewModel>>(_newsServices.NewsList());
+
+            return View(mappedNews);
         }
 
         public IActionResult Create()
@@ -27,36 +35,40 @@ namespace WebPatversme.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(News model)
+        public IActionResult Create(NewsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _newsServices.AddNewNews(model);
+                var mappedNews = _mapper.Map<News>(model);
+
+                _newsServices.AddNewNews(mappedNews);
 
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
-        public IActionResult Edit(string NewsId)
+        public IActionResult Edit(string Id)
         {
-            var allNews = _newsServices.NewsList();
+            var allNews =  _mapper.Map<List<NewsViewModel>>(_newsServices.NewsList());
 
-            var returningNews = allNews.Where(news => news.NewsID == NewsId).FirstOrDefault();
+            var returningNews = allNews.Where(news => news.NewsID == Id).FirstOrDefault();
 
             return View(returningNews);
         }
 
         [HttpPost]
-        public IActionResult Edit(News news)
+        public IActionResult Edit(NewsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _newsServices.AddNewNews(news);
+                var mappedNews = _mapper.Map<News>(model);
+
+                _newsServices.AddNewNews(mappedNews);
 
                 return RedirectToAction("Index");
             }
-            return View(news);
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

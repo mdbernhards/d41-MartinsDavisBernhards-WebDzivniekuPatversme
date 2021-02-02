@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebPatversme.Models.News>
+﻿@model IEnumerable<WebPatversme.Models.ViewModels.NewsViewModel>
 
 @{
     ViewData["Title"] = "Ziņas";
@@ -19,9 +19,6 @@
     <thead>
         <tr>
             <th>
-                ID
-            </th>
-            <th>
                 Izveidošanas datums
             </th>
             <th>
@@ -41,9 +38,6 @@
         {
         <tr>
             <td>
-                @Html.DisplayTextFor(modelItem => item.NewsID)
-            </td>
-            <td>
                 @Html.DisplayTextFor(modelItem => item.DateCreated)
             </td>
             <td>
@@ -53,7 +47,7 @@
                 @Html.DisplayTextFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id=item.NewsID}) |
+                @Html.ActionLink("Edit", "Edit", new {id = item.NewsID}) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

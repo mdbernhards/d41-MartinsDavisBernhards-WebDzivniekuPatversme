@@ -4,6 +4,8 @@ namespace WebPatversme.Models.ViewModels
 {
     public class SheltersViewModel
     {
+        public string AnimalShelterID { set; get; }
+
         [Required(ErrorMessage = "Vārds ir obligāts.")]
         [Display(Name = "Vārds")]
         public string Name { set; get; }
