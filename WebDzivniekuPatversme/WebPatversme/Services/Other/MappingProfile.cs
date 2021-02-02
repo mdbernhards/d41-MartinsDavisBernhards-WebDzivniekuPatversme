@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using WebPatversme.Models;
-using WebPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 
-namespace WebDzivniekuPatversme.Services
+namespace WebDzivniekuPatversme.Services.Other
 {
     public class MappingProfile : Profile
     {

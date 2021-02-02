@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace WebPatversme.Models
+namespace WebDzivniekuPatversme.Models
 {
     public class Animals
     {
-        [Key]
         public string AnimalID { set; get; }
 
         public string Name { set; get; }

@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WebDzivniekuPatversme.Services
+namespace WebDzivniekuPatversme.Services.Other
 {
     public static class Decryption
     {

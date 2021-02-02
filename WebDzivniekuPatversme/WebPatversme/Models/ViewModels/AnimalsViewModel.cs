@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebPatversme.Models.ViewModels
+namespace WebDzivniekuPatversme.Models.ViewModels
 {
     public class AnimalsViewModel
     {
+        [Key]
         public string AnimalID { set; get; }
 
         [Required(ErrorMessage = "Vārds ir obligāts.")]

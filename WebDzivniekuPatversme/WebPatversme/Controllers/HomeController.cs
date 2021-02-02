@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using WebPatversme.Models;
+using WebDzivniekuPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebDzivniekuPatversme.Services.Interfaces;
 
-namespace WebPatversme.Controllers
+namespace WebDzivniekuPatversme.Controllers
 {
     public class HomeController : Controller
     {

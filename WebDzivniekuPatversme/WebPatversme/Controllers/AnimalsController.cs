@@ -1,13 +1,12 @@
-﻿using AutoMapper;
-using System.Linq;
-using System.Diagnostics;
-using WebPatversme.Models;
-using Microsoft.AspNetCore.Mvc;
-using WebPatversme.Models.ViewModels;
-using WebDzivniekuPatversme.Services.Interfaces;
+﻿using System.Diagnostics;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Services.Interfaces;
+using AutoMapper;
 
-namespace WebPatversme.Controllers
+namespace WebDzivniekuPatversme.Controllers
 {
     public class AnimalsController : Controller
     {
@@ -24,14 +23,14 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            var mappedAnimal = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.AnimalList());
+            var mappedAnimal = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
 
             return View(mappedAnimal);
         }
 
         public IActionResult Delete()
         {
-            var mappedAnimal = _mapper.Map< List<AnimalsViewModel>>(_animalsServices.AnimalList());
+            var mappedAnimal = _mapper.Map< List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
 
             return View(mappedAnimal);
         }
@@ -57,11 +56,9 @@ namespace WebPatversme.Controllers
 
         public IActionResult Edit(string id)
         {
-            var allAnimals = _animalsServices.AnimalList();
+            var animal = _animalsServices.GetAnimalById(id);
 
-            var returningAnimal = allAnimals.Where(animal => animal.AnimalID == id).FirstOrDefault();
-
-            var mappedAnimal = _mapper.Map<AnimalsViewModel>(returningAnimal);
+            var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
 
             return View(mappedAnimal);
         }

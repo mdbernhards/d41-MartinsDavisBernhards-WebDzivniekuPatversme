@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Models.StaticModels;
 
-namespace WebDzivniekuPatversme.Services
+namespace WebDzivniekuPatversme.Services.Other
 {
     public class EmailSender : IEmailSender
     {

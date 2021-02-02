@@ -1,15 +1,17 @@
-﻿using WebPatversme.Models;
+﻿using WebDzivniekuPatversme.Models;
 using System.Collections.Generic;
-using WebPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Models.ViewModels;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface IAnimalsService
     {
-        List<Animals> AnimalList();
+        List<Animals> GetAllAnimalList();
 
         void AddNewAnimal(Animals animal);
 
         AnimalsViewModel ObjectForCreatingAnimal();
+
+        Animals GetAnimalById(string Id);
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
-using WebPatversme.Models;
-using WebPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 
-namespace WebPatversme.Controllers
+namespace WebDzivniekuPatversme.Controllers
 {
     public class NewsController : Controller
     {
@@ -24,7 +24,7 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            var mappedNews = _mapper.Map<List<NewsViewModel>>(_newsServices.NewsList());
+            var mappedNews = _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
 
             return View(mappedNews);
         }
@@ -50,7 +50,7 @@ namespace WebPatversme.Controllers
 
         public IActionResult Edit(string Id)
         {
-            var allNews =  _mapper.Map<List<NewsViewModel>>(_newsServices.NewsList());
+            var allNews =  _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
 
             var returningNews = allNews.Where(news => news.NewsID == Id).FirstOrDefault();
 
@@ -69,6 +69,25 @@ namespace WebPatversme.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        public IActionResult Delete(string Id)
+        {
+            var allNews = _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
+
+            var returningNews = allNews.Where(news => news.NewsID == Id).FirstOrDefault();
+
+            return View(returningNews);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(NewsViewModel model)
+        {
+            var mappedNews = _mapper.Map<News>(model);
+
+            _newsServices.DeleteNews(mappedNews);
+
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

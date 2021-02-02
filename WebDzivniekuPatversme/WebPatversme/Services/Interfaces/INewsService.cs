@@ -1,12 +1,16 @@
-﻿using WebPatversme.Models;
+﻿using WebDzivniekuPatversme.Models;
 using System.Collections.Generic;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface INewsService
     {
-        List<News> NewsList();
+        List<News> GetAllNewsList();
 
         void AddNewNews(News news);
+
+        News GetNewsById(string Id);
+
+        void DeleteNews(News news);
     }
 }

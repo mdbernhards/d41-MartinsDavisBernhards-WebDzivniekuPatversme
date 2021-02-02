@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Diagnostics;
-using WebPatversme.Models;
+using WebDzivniekuPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebDzivniekuPatversme.Services.Interfaces;
 using AutoMapper;
-using WebPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Models.ViewModels;
 using System.Collections.Generic;
 
-namespace WebPatversme.Controllers
+namespace WebDzivniekuPatversme.Controllers
 {
     public class SheltersController : Controller
     {
@@ -24,7 +24,7 @@ namespace WebPatversme.Controllers
 
         public IActionResult Index()
         {
-            var mappedShelters = _mapper.Map<List<SheltersViewModel>>(_sheltersServices.ShelterList());
+            var mappedShelters = _mapper.Map<List<SheltersViewModel>>(_sheltersServices.GetAllShelterList());
 
             return View(mappedShelters);
         }
@@ -50,7 +50,7 @@ namespace WebPatversme.Controllers
 
         public IActionResult Edit(string Id)
         {
-            var allShelters = _sheltersServices.ShelterList();
+            var allShelters = _sheltersServices.GetAllShelterList();
 
             var returningShelter = allShelters.Where(shelter => shelter.AnimalShelterID == Id).FirstOrDefault();
 

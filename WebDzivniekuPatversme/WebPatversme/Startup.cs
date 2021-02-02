@@ -1,6 +1,7 @@
-using WebPatversme.Data;
+using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Services;
 using WebDzivniekuPatversme.Repository;
+using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
 using Microsoft.Extensions.Hosting;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using AutoMapper;
 
-namespace WebPatversme
+namespace WebDzivniekuPatversme
 {
     public class Startup
     {

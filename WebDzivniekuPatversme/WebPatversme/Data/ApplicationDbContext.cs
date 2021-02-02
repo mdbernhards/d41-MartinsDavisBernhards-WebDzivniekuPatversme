@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebDzivniekuPatversme.Models.ViewModels;
 
-namespace WebPatversme.Data
+namespace WebDzivniekuPatversme.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -9,5 +10,6 @@ namespace WebPatversme.Data
             : base(options)
         {
         }
+        public DbSet<WebDzivniekuPatversme.Models.ViewModels.NewsViewModel> NewsViewModel { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
-using WebPatversme.Models;
+using System.Linq;
+using WebDzivniekuPatversme.Models;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
@@ -16,9 +17,24 @@ namespace WebDzivniekuPatversme.Services
             _newsRepository = newsRepository;
         }
 
-        public List<News> NewsList()
+        public List<News> GetAllNewsList()
         {
-            return _newsRepository.GetAllNews();
+            var newsList = _newsRepository.GetAllNews();
+
+            return newsList;
+        }
+
+        public News GetNewsById(string Id)
+        {
+            var newsList = _newsRepository.GetAllNews();
+            var news = newsList.Where(animal => animal.NewsID == Id).FirstOrDefault();
+
+            return news;
+        }
+
+        public void DeleteNews(News news)
+        {
+            _newsRepository.DeleteNews(news);
         }
 
         public void AddNewNews(News news)

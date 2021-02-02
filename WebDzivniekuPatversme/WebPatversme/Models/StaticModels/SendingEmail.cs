@@ -1,4 +1,4 @@
-﻿using WebDzivniekuPatversme.Services;
+﻿using WebDzivniekuPatversme.Services.Other;
 
 namespace WebDzivniekuPatversme.Models.StaticModels
 {

@@ -1,4 +1,4 @@
-﻿using WebPatversme.Models;
+﻿using WebDzivniekuPatversme.Models;
 using System.Collections.Generic;
 
 namespace WebDzivniekuPatversme.Repository.Interfaces
@@ -8,5 +8,7 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
         List<News> GetAllNews();
 
         void CreateNewNews(News newNews);
+
+        void DeleteNews(News news);
     }
 }

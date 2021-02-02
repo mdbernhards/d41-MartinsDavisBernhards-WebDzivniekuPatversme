@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WebDzivniekuPatversme.Services
+namespace WebDzivniekuPatversme.Services.Other
 {
     public class IdentityErrorDescriberLV : IdentityErrorDescriber
     {

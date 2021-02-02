@@ -1,5 +1,5 @@
 ﻿using System;
-using WebPatversme.Models;
+using WebDzivniekuPatversme.Models;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Repository.Interfaces;

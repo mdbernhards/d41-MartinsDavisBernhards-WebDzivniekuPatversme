@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebPatversme.Models
+namespace WebDzivniekuPatversme.Models
 {
     public class Shelters
     {

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebPatversme.Models.ViewModels
+namespace WebDzivniekuPatversme.Models.ViewModels
 {
     public class NewsViewModel
     {
+        [Key]
         public string NewsID { set; get; }
 
         [Required(ErrorMessage = "Ziņu teksts ir obligāts.")]

@@ -1,4 +1,4 @@
-﻿using WebPatversme.Models;
+﻿using WebDzivniekuPatversme.Models;
 using System.Collections.Generic;
 
 namespace WebDzivniekuPatversme.Repository.Interfaces

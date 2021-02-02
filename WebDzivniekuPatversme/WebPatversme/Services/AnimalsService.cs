@@ -1,9 +1,10 @@
 ﻿using System;
-using WebPatversme.Models;
+using System.Linq;
 using System.Collections.Generic;
+using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
-using WebPatversme.Models.ViewModels;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -28,11 +29,19 @@ namespace WebDzivniekuPatversme.Services
             };
         }
 
-        public List<Animals> AnimalList()
+        public List<Animals> GetAllAnimalList()
         {
             var AnimalList = _animalsRepository.GetAllAnimals();
 
-            return _animalsRepository.GetAllAnimals();
+            return AnimalList;
+        }
+
+        public Animals GetAnimalById(string Id)
+        {
+            var AnimalList = _animalsRepository.GetAllAnimals();
+            var animal = AnimalList.Where(animal => animal.AnimalID == Id).FirstOrDefault();
+
+            return animal;
         }
 
         public void AddNewAnimal(Animals animal)

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebPatversme.Models;
+using WebDzivniekuPatversme.Models;
 
 namespace WebDzivniekuPatversme.Repository.Interfaces
 {

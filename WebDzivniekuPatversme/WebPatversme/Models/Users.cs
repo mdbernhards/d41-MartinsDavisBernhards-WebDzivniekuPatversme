@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebPatversme.Models
+namespace WebDzivniekuPatversme.Models
 {
     public class Users
     {
