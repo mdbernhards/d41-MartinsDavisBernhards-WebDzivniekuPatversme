@@ -1,7 +1,7 @@
 ﻿using System;
-using WebDzivniekuPatversme.Models;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebDzivniekuPatversme.Repository
@@ -66,9 +66,43 @@ namespace WebDzivniekuPatversme.Repository
             using MySqlConnection conn = _dbcontext.GetConnection();
             conn.Open();
 
-            string sqlQuerry = "Delete from Animals where ID = \"" + animal.AnimalID + "\";";
+            //string sqlQuerry = "Delete from Animals where ID = \"" + animal.AnimalID + "\";";
+            string sqlQuerry = "Delete from Animals where ID = @id ;";
+
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            cmd.Prepare();
+
+            cmd.Parameters.AddWithValue("@id", animal.AnimalID);
+
+            var reader = cmd.ExecuteReader();
+        }
+
+        public void EditAnimal(Animals newAnimal)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            conn.Open();
+
+            var sqlText = "UPDATE Animals SET Age = @age , Weight = @weight , BirthDate =  @birthDate , DateAdded = @dateAdded , About = @about ," +
+                          " Name = @name , Species = @species , Colour = @colour , ImagePath = @imagePath , AnimalShelterID = @animalShelterID WHERE Id = @id";
+
+            MySqlCommand cmd = new MySqlCommand(sqlText, conn);
+            cmd.Prepare();
+
+            string birthDateeString = newAnimal.BirthDate.ToString("yyyy-MM-dd");
+            string dateAddedString = newAnimal.DateAdded.ToString("yyyy-MM-dd");
+
+            cmd.Parameters.AddWithValue("@age", newAnimal.Age);
+            cmd.Parameters.AddWithValue("@weight", newAnimal.Weight);
+            cmd.Parameters.AddWithValue("@birthDate", birthDateeString);
+            cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
+            cmd.Parameters.AddWithValue("@about", newAnimal.About);
+            cmd.Parameters.AddWithValue("@name", newAnimal.Name);
+            cmd.Parameters.AddWithValue("@species", newAnimal.Species);
+            cmd.Parameters.AddWithValue("@colour", newAnimal.Colour);
+            cmd.Parameters.AddWithValue("@imagePath", newAnimal.ImagePath);
+            cmd.Parameters.AddWithValue("@animalShelterID", newAnimal.AnimalShelterId);
+            cmd.Parameters.AddWithValue("@id", newAnimal.AnimalID);
 
             var reader = cmd.ExecuteReader();
         }

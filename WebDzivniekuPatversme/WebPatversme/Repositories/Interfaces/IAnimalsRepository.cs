@@ -10,5 +10,7 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
         void CreateNewAnimal(Animals newAnimal);
 
         void DeleteAnimal(Animals animal);
+
+        void EditAnimal(Animals newAnimal);
     }
 }

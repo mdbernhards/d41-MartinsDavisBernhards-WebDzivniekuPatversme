@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
@@ -21,12 +20,9 @@ namespace WebDzivniekuPatversme.Services
             _shelterRepository = shelterRepository;
         }
 
-        public AnimalsViewModel ObjectForCreatingAnimal()
+        public List<Shelters> GetAllShelters()
         {
-            return new AnimalsViewModel
-            {
-                AnimalShelters = _shelterRepository.GetAllAnimalShelters()
-            };
+            return _shelterRepository.GetAllAnimalShelters();
         }
 
         public List<Animals> GetAllAnimalList()
@@ -55,6 +51,11 @@ namespace WebDzivniekuPatversme.Services
             animal.DateAdded = DateTime.Now;
 
             _animalsRepository.CreateNewAnimal(animal);
+        }
+
+        public void EditAnimal(Animals animal)
+        {
+            _animalsRepository.EditAnimal(animal);
         }
     }
 }

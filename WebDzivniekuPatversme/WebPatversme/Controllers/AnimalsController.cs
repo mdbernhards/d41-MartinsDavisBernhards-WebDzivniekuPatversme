@@ -31,7 +31,12 @@ namespace WebDzivniekuPatversme.Controllers
 
         public IActionResult Create()
         {
-            return View(_animalsServices.ObjectForCreatingAnimal());
+            AnimalsViewModel animalModel = new AnimalsViewModel
+            {
+                AnimalShelters = _animalsServices.GetAllShelters()
+            };
+
+            return View(animalModel);
         }
 
         [HttpPost]
@@ -53,6 +58,7 @@ namespace WebDzivniekuPatversme.Controllers
             var animal = _animalsServices.GetAnimalById(id);
 
             var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
+            mappedAnimal.AnimalShelters = _animalsServices.GetAllShelters();
 
             return View(mappedAnimal);
         }
@@ -64,7 +70,7 @@ namespace WebDzivniekuPatversme.Controllers
             {
                 var mappedAnimal = _mapper.Map<Animals>(model);
 
-                _animalsServices.AddNewAnimal(mappedAnimal);
+                _animalsServices.EditAnimal(mappedAnimal);
 
                 return RedirectToAction("Index");
             }

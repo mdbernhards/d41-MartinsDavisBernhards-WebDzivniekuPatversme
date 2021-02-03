@@ -14,6 +14,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                @Html.HiddenFor(model => model.AnimalID)
+            </div>
+            <div class="form-group">
                 <label class="control-label">Vārds</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
@@ -59,9 +62,17 @@
                 <span asp-validation-for="DateAdded" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AnimalShelterId" class="control-label"></label>
-                <input asp-for="AnimalShelterId" class="form-control" />
-                <span asp-validation-for="AnimalShelterId" class="text-danger"></span>
+                @Html.DropDownListFor(
+                    x => x.AnimalShelterId,
+                    new SelectList(Model.AnimalShelters, "AnimalShelterID", "Name", Model.AnimalShelterId),
+                    "-- Izvēlies --",
+                    new
+                         {
+                            @id = "shelter",
+                            @class = "form-control"
+                        }
+               )
+                @Html.ValidationMessageFor(x => x.AnimalShelterId)
             </div>
             <div class="form-group">
                 <input type="submit" value="Saglabāt" class="btn btn-primary" />
