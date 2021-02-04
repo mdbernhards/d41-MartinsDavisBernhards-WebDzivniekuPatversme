@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
@@ -22,6 +22,7 @@ namespace WebDzivniekuPatversme.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var allNews = _newsServices.GetAllNewsList();
@@ -30,12 +31,14 @@ namespace WebDzivniekuPatversme.Controllers
             return View(mappedNews);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(NewsViewModel news)
         {
             if (ModelState.IsValid)
@@ -49,6 +52,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(news);
         }
 
+        [Authorize]
         public IActionResult Edit(string Id)
         {
             var news = _newsServices.GetNewsById(Id);
@@ -58,6 +62,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Edit(NewsViewModel news)
         {
             if (ModelState.IsValid)
@@ -71,6 +76,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(news);
         }
 
+        [Authorize]
         public IActionResult Delete(string Id)
         {
             var news = _newsServices.GetNewsById(Id);
@@ -80,6 +86,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Delete(NewsViewModel news)
         {
             var mappedNews = _mapper.Map<News>(news);
@@ -89,6 +96,7 @@ namespace WebDzivniekuPatversme.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public IActionResult Details(string Id)
         {
             var news = _newsServices.GetNewsById(Id);

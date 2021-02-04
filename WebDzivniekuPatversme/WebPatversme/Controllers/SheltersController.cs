@@ -4,6 +4,7 @@ using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
@@ -21,6 +22,7 @@ namespace WebDzivniekuPatversme.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var allShelters = _sheltersServices.GetAllShelterList();
@@ -29,12 +31,14 @@ namespace WebDzivniekuPatversme.Controllers
             return View(mappedShelters);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(SheltersViewModel shelter)
         {
             if (ModelState.IsValid)
@@ -48,6 +52,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(shelter);
         }
 
+        [Authorize]
         public IActionResult Edit(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
@@ -57,6 +62,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Edit(SheltersViewModel shelter)
         {
             if (ModelState.IsValid)
@@ -70,6 +76,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(shelter);
         }
 
+        [Authorize]
         public IActionResult Delete(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
@@ -79,6 +86,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Delete(SheltersViewModel shelter)
         {
             var mappedShelter = _mapper.Map<Shelters>(shelter);
@@ -88,6 +96,7 @@ namespace WebDzivniekuPatversme.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public IActionResult Details(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);

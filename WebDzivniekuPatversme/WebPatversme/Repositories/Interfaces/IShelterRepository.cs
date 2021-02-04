@@ -11,6 +11,8 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
 
         void DeleteShelters(Shelters shelters);
 
+        void DeleteAllSheltersAnimals(Shelters shelter);
+
         void EditShelter(Shelters shelter);
     }
 }

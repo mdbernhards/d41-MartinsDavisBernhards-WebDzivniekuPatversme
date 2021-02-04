@@ -34,6 +34,8 @@ namespace WebDzivniekuPatversme.Services
 
         public void DeleteShelter(Shelters shelter)
         {
+            _shelterRepository.DeleteAllSheltersAnimals(shelter);
+
             _shelterRepository.DeleteShelters(shelter);
         }
 

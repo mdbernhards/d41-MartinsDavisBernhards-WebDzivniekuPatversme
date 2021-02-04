@@ -60,7 +60,7 @@ namespace WebDzivniekuPatversme.Repository
             var reader = cmd.ExecuteReader();
         }
 
-        public void DeleteShelters(Shelters shelters)
+        public void DeleteShelters(Shelters shelter)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "DELETE FROM AnimalShelters WHERE ID = @id;";
@@ -68,9 +68,23 @@ namespace WebDzivniekuPatversme.Repository
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            cmd.Parameters.AddWithValue("@id", shelters.AnimalShelterID);
+            cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
 
             var reader = cmd.ExecuteReader();
+        }
+
+        public void DeleteAllSheltersAnimals(Shelters shelter)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "DELETE FROM Animals WHERE AnimalShelterID = @id;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
+
+            var reader = cmd.ExecuteReader();
+
         }
 
         public void EditShelter(Shelters shelter)

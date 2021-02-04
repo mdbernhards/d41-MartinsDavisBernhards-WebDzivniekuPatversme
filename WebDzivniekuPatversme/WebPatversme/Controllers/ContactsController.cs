@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using WebDzivniekuPatversme.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using WebDzivniekuPatversme.Services.Interfaces;
 
 namespace WebDzivniekuPatversme.Controllers
@@ -15,6 +16,7 @@ namespace WebDzivniekuPatversme.Controllers
             _contactsServices = contactsServices;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

@@ -4,6 +4,7 @@ using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
@@ -21,6 +22,7 @@ namespace WebDzivniekuPatversme.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var allAnimals = _animalsServices.GetAllAnimalList();
@@ -29,6 +31,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(mappedAnimals);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             AnimalsViewModel animalModel = new AnimalsViewModel
@@ -40,6 +43,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(AnimalsViewModel animal)
         {
             if (ModelState.IsValid)
@@ -53,6 +57,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(animal);
         }
 
+        [Authorize]
         public IActionResult Edit(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
@@ -64,6 +69,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Edit(AnimalsViewModel animal)
         {
             if (ModelState.IsValid)
@@ -77,6 +83,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(animal);
         }
 
+        [Authorize]
         public IActionResult Delete(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
@@ -86,6 +93,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Delete(AnimalsViewModel model)
         {
             var mappedAnimals = _mapper.Map<Animals>(model);
@@ -95,6 +103,7 @@ namespace WebDzivniekuPatversme.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public IActionResult Details(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
