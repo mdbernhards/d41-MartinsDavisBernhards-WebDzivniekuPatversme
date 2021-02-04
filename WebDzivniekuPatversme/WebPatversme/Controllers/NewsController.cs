@@ -24,7 +24,8 @@ namespace WebDzivniekuPatversme.Controllers
 
         public IActionResult Index()
         {
-            var mappedNews = _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
+            var allNews = _newsServices.GetAllNewsList();
+            var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
 
             return View(mappedNews);
         }
@@ -35,55 +36,53 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(NewsViewModel model)
+        public IActionResult Create(NewsViewModel news)
         {
             if (ModelState.IsValid)
             {
-                var mappedNews = _mapper.Map<News>(model);
+                var mappedNews = _mapper.Map<News>(news);
 
                 _newsServices.AddNewNews(mappedNews);
 
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(news);
         }
 
         public IActionResult Edit(string Id)
         {
-            var allNews =  _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
+            var news = _newsServices.GetNewsById(Id);
+            var mappedNews = _mapper.Map<NewsViewModel>(news);
 
-            var returningNews = allNews.Where(news => news.NewsID == Id).FirstOrDefault();
-
-            return View(returningNews);
+            return View(mappedNews);
         }
 
         [HttpPost]
-        public IActionResult Edit(NewsViewModel model)
+        public IActionResult Edit(NewsViewModel news)
         {
             if (ModelState.IsValid)
             {
-                var mappedNews = _mapper.Map<News>(model);
+                var mappedNews = _mapper.Map<News>(news);
 
-                _newsServices.AddNewNews(mappedNews);
+                _newsServices.EditNews(mappedNews);
 
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(news);
         }
 
         public IActionResult Delete(string Id)
         {
-            var allNews = _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
+            var news = _newsServices.GetNewsById(Id);
+            var mappedNews = _mapper.Map<NewsViewModel>(news);
 
-            var returningNews = allNews.Where(news => news.NewsID == Id).FirstOrDefault();
-
-            return View(returningNews);
+            return View(mappedNews);
         }
 
         [HttpPost]
-        public IActionResult Delete(NewsViewModel model)
+        public IActionResult Delete(NewsViewModel news)
         {
-            var mappedNews = _mapper.Map<News>(model);
+            var mappedNews = _mapper.Map<News>(news);
 
             _newsServices.DeleteNews(mappedNews);
 
@@ -92,11 +91,10 @@ namespace WebDzivniekuPatversme.Controllers
 
         public IActionResult Details(string Id)
         {
-            var allNews = _mapper.Map<List<NewsViewModel>>(_newsServices.GetAllNewsList());
+            var news = _newsServices.GetNewsById(Id);
+            var mappedNews = _mapper.Map<NewsViewModel>(news);
 
-            var returningNews = allNews.Where(news => news.NewsID == Id).FirstOrDefault();
-
-            return View(returningNews);
+            return View(mappedNews);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

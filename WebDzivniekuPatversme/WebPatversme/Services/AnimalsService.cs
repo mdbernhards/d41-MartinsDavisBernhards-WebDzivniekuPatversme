@@ -40,7 +40,7 @@ namespace WebDzivniekuPatversme.Services
             return animal;
         }
 
-        public void DeleteAnimals(Animals animal)
+        public void DeleteAnimal(Animals animal)
         {
             _animalsRepository.DeleteAnimal(animal);
         }

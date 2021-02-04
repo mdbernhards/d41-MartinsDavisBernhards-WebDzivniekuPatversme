@@ -1,5 +1,5 @@
-﻿using WebDzivniekuPatversme.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using WebDzivniekuPatversme.Models;
 
 namespace WebDzivniekuPatversme.Repository.Interfaces
 {
@@ -10,5 +10,7 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
         void CreateNewAnimalShelter(Shelters newAnimalShelters);
 
         void DeleteShelters(Shelters shelters);
+
+        void EditShelter(Shelters shelter);
     }
 }

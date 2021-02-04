@@ -44,5 +44,10 @@ namespace WebDzivniekuPatversme.Services
 
             _newsRepository.CreateNewNews(news);
         }
+
+        public void EditNews(News news)
+        {
+            _newsRepository.EditNews(news);
+        }
     }
 }

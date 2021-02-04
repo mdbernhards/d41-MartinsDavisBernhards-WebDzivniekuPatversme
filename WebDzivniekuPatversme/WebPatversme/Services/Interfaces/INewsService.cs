@@ -12,5 +12,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         News GetNewsById(string Id);
 
         void DeleteNews(News news);
+
+        void EditNews(News news);
     }
 }

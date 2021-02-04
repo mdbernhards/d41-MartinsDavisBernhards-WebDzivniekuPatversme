@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Diagnostics;
-using WebDzivniekuPatversme.Models;
-using Microsoft.AspNetCore.Mvc;
-using WebDzivniekuPatversme.Services.Interfaces;
-using AutoMapper;
-using WebDzivniekuPatversme.Models.ViewModels;
+﻿using System.Diagnostics;
 using System.Collections.Generic;
+using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -24,7 +23,8 @@ namespace WebDzivniekuPatversme.Controllers
 
         public IActionResult Index()
         {
-            var mappedShelters = _mapper.Map<List<SheltersViewModel>>(_sheltersServices.GetAllShelterList());
+            var allShelters = _sheltersServices.GetAllShelterList();
+            var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
 
             return View(mappedShelters);
         }
@@ -35,70 +35,65 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(SheltersViewModel shelters)
+        public IActionResult Create(SheltersViewModel shelter)
         {
             if (ModelState.IsValid)
             {
-                var mappedShelter = _mapper.Map<Shelters>(shelters);
+                var mappedShelter = _mapper.Map<Shelters>(shelter);
 
                 _sheltersServices.AddNewShelter(mappedShelter);
 
                 return RedirectToAction("Index");
             }
-            return View(shelters);
+            return View(shelter);
         }
 
         public IActionResult Edit(string Id)
         {
-            var allShelters = _sheltersServices.GetAllShelterList();
-
-            var returningShelter = allShelters.Where(shelter => shelter.AnimalShelterID == Id).FirstOrDefault();
-
-            var mappedShelter = _mapper.Map<SheltersViewModel>(returningShelter);
+            var shelter = _sheltersServices.GetShelterById(Id);
+            var mappedShelter = _mapper.Map<SheltersViewModel>(shelter);
 
             return View(mappedShelter);
         }
 
         [HttpPost]
-        public IActionResult Edit(SheltersViewModel shelters)
+        public IActionResult Edit(SheltersViewModel shelter)
         {
             if (ModelState.IsValid)
             {
-                var mappedShelter = _mapper.Map<Shelters>(shelters);
+                var mappedShelter = _mapper.Map<Shelters>(shelter);
 
-                _sheltersServices.AddNewShelter(mappedShelter);
+                _sheltersServices.EditShelter(mappedShelter);
 
                 return RedirectToAction("Index");
             }
-            return View(shelters);
+            return View(shelter);
         }
 
         public IActionResult Delete(string Id)
         {
-            var allShelters = _mapper.Map<List<SheltersViewModel>>(_sheltersServices.GetAllShelterList());
+            var shelter = _sheltersServices.GetShelterById(Id);
+            var mappedShelter = _mapper.Map<SheltersViewModel>(shelter);
 
-            var returningShelters = allShelters.Where(shelters => shelters.AnimalShelterID == Id).FirstOrDefault();
-
-            return View(returningShelters);
+            return View(mappedShelter);
         }
 
         [HttpPost]
-        public IActionResult Delete(SheltersViewModel model)
+        public IActionResult Delete(SheltersViewModel shelter)
         {
-            var mappedShelters = _mapper.Map<Shelters>(model);
+            var mappedShelter = _mapper.Map<Shelters>(shelter);
 
-            _sheltersServices.DeleteShelters(mappedShelters);
+            _sheltersServices.DeleteShelter(mappedShelter);
 
             return RedirectToAction("Index");
         }
 
         public IActionResult Details(string Id)
         {
-            var allShelters = _mapper.Map<List<SheltersViewModel>>(_sheltersServices.GetAllShelterList());
+            var shelter = _sheltersServices.GetShelterById(Id);
+            var mappedShelter = _mapper.Map<SheltersViewModel>(shelter);
 
-            var returningShelters = allShelters.Where(shelters => shelters.AnimalShelterID == Id).FirstOrDefault();
-
-            return View(returningShelters);
+            return View(mappedShelter);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

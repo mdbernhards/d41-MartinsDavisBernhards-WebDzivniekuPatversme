@@ -32,7 +32,7 @@ namespace WebDzivniekuPatversme.Services
             return shelter;
         }
 
-        public void DeleteShelters(Shelters shelter)
+        public void DeleteShelter(Shelters shelter)
         {
             _shelterRepository.DeleteShelters(shelter);
         }
@@ -42,6 +42,11 @@ namespace WebDzivniekuPatversme.Services
             shelter.AnimalShelterID = Guid.NewGuid().ToString();
 
             _shelterRepository.CreateNewAnimalShelter(shelter);
+        }
+
+        public void EditShelter(Shelters shelter)
+        {
+            _shelterRepository.EditShelter(shelter);
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
@@ -24,9 +23,10 @@ namespace WebDzivniekuPatversme.Controllers
 
         public IActionResult Index()
         {
-            var mappedAnimal = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
+            var allAnimals = _animalsServices.GetAllAnimalList();
+            var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(allAnimals);
 
-            return View(mappedAnimal);
+            return View(mappedAnimals);
         }
 
         public IActionResult Create()
@@ -40,50 +40,49 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(AnimalsViewModel model)
+        public IActionResult Create(AnimalsViewModel animal)
         {
             if (ModelState.IsValid)
             {
-                var mappedAnimal = _mapper.Map<Animals>(model);
+                var mappedAnimal = _mapper.Map<Animals>(animal);
 
                 _animalsServices.AddNewAnimal(mappedAnimal);
 
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(animal);
         }
 
         public IActionResult Edit(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
-
             var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
+
             mappedAnimal.AnimalShelters = _animalsServices.GetAllShelters();
 
             return View(mappedAnimal);
         }
 
         [HttpPost]
-        public IActionResult Edit(AnimalsViewModel model)
+        public IActionResult Edit(AnimalsViewModel animal)
         {
             if (ModelState.IsValid)
             {
-                var mappedAnimal = _mapper.Map<Animals>(model);
+                var mappedAnimal = _mapper.Map<Animals>(animal);
 
                 _animalsServices.EditAnimal(mappedAnimal);
 
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View(animal);
         }
 
-        public IActionResult Delete(string Id)
+        public IActionResult Delete(string id)
         {
-            var allAnimals = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
+            var animal = _animalsServices.GetAnimalById(id);
+            var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
 
-            var returningAnimals = allAnimals.Where(shelters => shelters.AnimalID == Id).FirstOrDefault();
-
-            return View(returningAnimals);
+            return View(mappedAnimal);
         }
 
         [HttpPost]
@@ -91,18 +90,17 @@ namespace WebDzivniekuPatversme.Controllers
         {
             var mappedAnimals = _mapper.Map<Animals>(model);
 
-            _animalsServices.DeleteAnimals(mappedAnimals);
+            _animalsServices.DeleteAnimal(mappedAnimals);
 
             return RedirectToAction("Index");
         }
 
-        public IActionResult Details(string Id)
+        public IActionResult Details(string id)
         {
-            var allAnimals = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
+            var animal = _animalsServices.GetAnimalById(id);
+            var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
 
-            var returningAnimals = allAnimals.Where(shelters => shelters.AnimalID == Id).FirstOrDefault();
-
-            return View(returningAnimals);
+            return View(mappedAnimal);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

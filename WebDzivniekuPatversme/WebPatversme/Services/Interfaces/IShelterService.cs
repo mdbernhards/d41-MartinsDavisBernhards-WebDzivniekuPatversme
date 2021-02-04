@@ -11,6 +11,8 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         Shelters GetShelterById(string Id);
 
-        void DeleteShelters(Shelters shelter);
+        void DeleteShelter(Shelters shelter);
+
+        void EditShelter(Shelters shelter);
     }
 }
