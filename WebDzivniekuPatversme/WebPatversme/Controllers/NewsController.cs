@@ -31,14 +31,14 @@ namespace WebDzivniekuPatversme.Controllers
             return View(mappedNews);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Create(NewsViewModel news)
         {
             if (ModelState.IsValid)
@@ -52,7 +52,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(news);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Edit(string Id)
         {
             var news = _newsServices.GetNewsById(Id);
@@ -62,7 +62,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Edit(NewsViewModel news)
         {
             if (ModelState.IsValid)
@@ -76,7 +76,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(news);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Delete(string Id)
         {
             var news = _newsServices.GetNewsById(Id);
@@ -86,7 +86,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Delete(NewsViewModel news)
         {
             var mappedNews = _mapper.Map<News>(news);

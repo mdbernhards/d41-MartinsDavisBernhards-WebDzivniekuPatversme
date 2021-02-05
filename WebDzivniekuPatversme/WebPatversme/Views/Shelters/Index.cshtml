@@ -19,10 +19,10 @@
     <thead>
         <tr>
             <th>
-                Dzīvnieku kapacitāte
+                Vārds
             </th>
             <th>
-                Vārds
+                Dzīvnieku kapacitāte
             </th>
             <th>
                 Adrese
@@ -41,10 +41,10 @@
         {
         <tr>
             <td>
-                @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
+                @Html.DisplayTextFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.Name)
+                @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
             </td>
             <td>
                 @Html.DisplayTextFor(modelItem => item.Address)
@@ -56,9 +56,15 @@
                 @Html.DisplayTextFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID }) |
-                @Html.ActionLink("Par", "Details", new { id = item.AnimalShelterID }) |
+                @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
+                {
+                @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID })
+                @Html.Raw(" | ")
                 @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalShelterID })
+                @Html.Raw(" | ")
+                }
+
+                @Html.ActionLink("Par", "Details", new { id = item.AnimalShelterID })
             </td>
         </tr>
         }

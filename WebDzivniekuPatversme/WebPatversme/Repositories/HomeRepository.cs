@@ -1,4 +1,5 @@
-﻿using WebDzivniekuPatversme.Repository.Interfaces;
+﻿using WebDzivniekuPatversme.Data;
+using WebDzivniekuPatversme.Repository.Interfaces;
 
 namespace WebDzivniekuPatversme.Repository
 {

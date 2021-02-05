@@ -31,14 +31,14 @@ namespace WebDzivniekuPatversme.Controllers
             return View(mappedShelters);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Create(SheltersViewModel shelter)
         {
             if (ModelState.IsValid)
@@ -52,7 +52,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(shelter);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Edit(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
@@ -62,7 +62,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Edit(SheltersViewModel shelter)
         {
             if (ModelState.IsValid)
@@ -76,7 +76,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(shelter);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Delete(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
@@ -86,7 +86,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Delete(SheltersViewModel shelter)
         {
             var mappedShelter = _mapper.Map<Shelters>(shelter);

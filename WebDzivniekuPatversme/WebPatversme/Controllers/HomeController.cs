@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using WebDzivniekuPatversme.Services.Interfaces;
 
 namespace WebDzivniekuPatversme.Controllers
 {

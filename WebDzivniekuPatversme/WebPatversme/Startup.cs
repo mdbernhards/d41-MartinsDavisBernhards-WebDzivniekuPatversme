@@ -45,11 +45,14 @@ namespace WebDzivniekuPatversme
             services.AddScoped<IHomeService, HomeService>();
             services.AddScoped<IHomeRepository, HomeRepository>();
 
+            services.AddTransient<UserChecker>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("ShelterConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddErrorDescriber<IdentityErrorDescriberLV>();
 
@@ -69,8 +72,10 @@ namespace WebDzivniekuPatversme
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserChecker seeder)
         {
+            seeder.RoleChecker();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

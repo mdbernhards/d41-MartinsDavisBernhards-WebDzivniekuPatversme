@@ -75,6 +75,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userManager.AddToRoleAsync(user, "user");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("Lietotājs izveidoja jaunu profilu ar paroli.");

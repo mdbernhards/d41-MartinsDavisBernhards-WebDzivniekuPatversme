@@ -19,6 +19,12 @@
     <thead>
         <tr>
             <th>
+                Vārds
+            </th>
+            <th>
+                Suga
+            </th>
+            <th>
                 Vecums
             </th>
             <th>
@@ -34,19 +40,10 @@
                 Apraksts
             </th>
             <th>
-                Vārds
-            </th>
-            <th>
-                Suga
-            </th>
-            <th>
                 Krāsa
             </th>
             <th>
                 ImagePath
-            </th>
-            <th>
-                AnimalShelterID
             </th>
             <th></th>
         </tr>
@@ -55,7 +52,13 @@
        @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Species)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Weight)
@@ -70,27 +73,21 @@
                 @Html.DisplayFor(modelItem => item.About)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Species)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Colour)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AnimalShelterId)
-            </td>
-            <td>
-                @if (ViewContext.HttpContext.User.IsInRole("Administrator"))
+                @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
                 {
-                    @Html.ActionLink("Labot", "Edit", new { id = item.AnimalID }) <p>|</p>
+                    @Html.ActionLink("Labot", "Edit", new { id = item.AnimalID })
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalID })
+                    @Html.Raw(" | ")
                 }
-                @Html.ActionLink("Par", "Details", new { id = item.AnimalID }) |
-                @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalID })
+
+                @Html.ActionLink("Par", "Details", new { id = item.AnimalID })
             </td>
         </tr>
         }

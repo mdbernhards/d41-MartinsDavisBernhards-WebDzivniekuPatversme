@@ -19,16 +19,13 @@
     <thead>
         <tr>
             <th>
-                Izveidošanas datums
-            </th>
-            <th>
                 Teksts
             </th>
             <th>
-                ImagePath
+                Izveidošanas datums
             </th>
             <th>
-                UserID
+                ImagePath
             </th>
             <th></th>
         </tr>
@@ -38,18 +35,24 @@
         {
         <tr>
             <td>
-                @Html.DisplayTextFor(modelItem => item.DateCreated)
+                @Html.DisplayTextFor(modelItem => item.Text)
             </td>
             <td>
-                @Html.DisplayTextFor(modelItem => item.Text)
+                @Html.DisplayTextFor(modelItem => item.DateCreated)
             </td>
             <td>
                 @Html.DisplayTextFor(modelItem => item.ImagePath)
             </td>
             <td>
-                @Html.ActionLink("Labot", "Edit", new { id = item.NewsID }) |
-                @Html.ActionLink("Par", "Details", new { id = item.NewsID }) |
+                @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
+                {
+                @Html.ActionLink("Labot", "Edit", new { id = item.NewsID })
+                @Html.Raw(" | ")
                 @Html.ActionLink("Dzēst", "Delete", new { id = item.NewsID })
+                @Html.Raw(" | ")
+                }
+
+                @Html.ActionLink("Par", "Details", new { id = item.NewsID })
             </td>
         </tr>
         }

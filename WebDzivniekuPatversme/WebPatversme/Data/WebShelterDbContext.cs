@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 
-namespace WebDzivniekuPatversme.Repository
+namespace WebDzivniekuPatversme.Data
 {
     public class WebShelterDbContext
     {

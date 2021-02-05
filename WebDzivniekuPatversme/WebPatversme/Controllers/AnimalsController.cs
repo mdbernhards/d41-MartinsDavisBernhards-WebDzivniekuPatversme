@@ -31,7 +31,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(mappedAnimals);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Create()
         {
             AnimalsViewModel animalModel = new AnimalsViewModel
@@ -43,7 +43,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Create(AnimalsViewModel animal)
         {
             if (ModelState.IsValid)
@@ -57,7 +57,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(animal);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Edit(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
@@ -69,7 +69,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Edit(AnimalsViewModel animal)
         {
             if (ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace WebDzivniekuPatversme.Controllers
             return View(animal);
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Delete(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
@@ -93,7 +93,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "administrator,worker")]
         public IActionResult Delete(AnimalsViewModel model)
         {
             var mappedAnimals = _mapper.Map<Animals>(model);
