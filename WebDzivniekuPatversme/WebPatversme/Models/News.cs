@@ -11,5 +11,9 @@ namespace WebDzivniekuPatversme.Models
         public DateTime DateCreated { set; get; }
 
         public string ImagePath { set; get; }
+
+        public string Title { set; get; }
+
+        public string UserID { set; get; }
     }
 }

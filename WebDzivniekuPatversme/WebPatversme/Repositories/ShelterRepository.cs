@@ -38,6 +38,7 @@ namespace WebDzivniekuPatversme.Repository
                     Address = Convert.ToString(reader["Address"]),
                     PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
                     ImagePath = Convert.ToString(reader["ImagePath"]),
+                    DateCreated = Convert.ToDateTime(reader["DateCreated"])
                 });
             }
             return list;
@@ -46,7 +47,7 @@ namespace WebDzivniekuPatversme.Repository
         public void CreateNewAnimalShelter(Shelters newAnimalShelters)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath);";
+            var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateCreated) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateCreated);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -57,6 +58,7 @@ namespace WebDzivniekuPatversme.Repository
             cmd.Parameters.AddWithValue("@adress", newAnimalShelters.Address);
             cmd.Parameters.AddWithValue("@phoneNumber", newAnimalShelters.PhoneNumber);
             cmd.Parameters.AddWithValue("@imagePath", newAnimalShelters.ImagePath);
+            cmd.Parameters.AddWithValue("@dateCreated", newAnimalShelters.DateCreated);
 
             var reader = cmd.ExecuteReader();
         }

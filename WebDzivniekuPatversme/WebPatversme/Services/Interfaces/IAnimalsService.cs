@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
@@ -12,6 +13,8 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         void EditAnimal(Animals animal);
 
         List<Shelters> GetAllShelters();
+
+        List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals);
 
         Animals GetAnimalById(string Id);
 

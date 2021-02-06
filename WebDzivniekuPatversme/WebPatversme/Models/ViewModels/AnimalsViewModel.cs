@@ -44,6 +44,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Required(ErrorMessage = "Patversme ir obligāta.")]
         public string AnimalShelterId { set; get; }
 
+        public string AnimalShelterName {set; get; }
+
         public IEnumerable<Shelters> AnimalShelters { get; set; }
     }
 }

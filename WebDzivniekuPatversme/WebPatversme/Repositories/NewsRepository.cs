@@ -44,7 +44,7 @@ namespace WebDzivniekuPatversme.Repository
         public void CreateNewNews(News newNews)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            string sqlQuerry = "INSERT INTO News (ID, DateCreated, Text, ImagePath) VALUES (@id, @dateCreated, @text, @imagePath);";
+            string sqlQuerry = "INSERT INTO News (ID, DateCreated, Text, ImagePath, Title, UserId) VALUES (@id, @dateCreated, @text, @imagePath, @title, @userId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -55,6 +55,8 @@ namespace WebDzivniekuPatversme.Repository
             cmd.Parameters.AddWithValue("@dateCreated", dateCreatedString);
             cmd.Parameters.AddWithValue("@text", newNews.Text);
             cmd.Parameters.AddWithValue("@imagePath", newNews.ImagePath);
+            cmd.Parameters.AddWithValue("@title", newNews.Title);
+            cmd.Parameters.AddWithValue("@userId", newNews.UserID);
 
             var reader = cmd.ExecuteReader();
         }
@@ -75,7 +77,7 @@ namespace WebDzivniekuPatversme.Repository
         public void EditNews(News news)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "UPDATE News SET DateCreated = @dateCreated, Text = @text, ImagePath = @imagePath WHERE Id = @id;";
+            var sqlQuerry = "UPDATE News SET DateCreated = @dateCreated, Text = @text, ImagePath = @imagePath, Title = @title WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -86,6 +88,7 @@ namespace WebDzivniekuPatversme.Repository
             cmd.Parameters.AddWithValue("@text", news.Text);
             cmd.Parameters.AddWithValue("@imagePath", news.ImagePath);
             cmd.Parameters.AddWithValue("@id", news.NewsID);
+            cmd.Parameters.AddWithValue("@title", news.Title);
 
             var reader = cmd.ExecuteReader();
         }

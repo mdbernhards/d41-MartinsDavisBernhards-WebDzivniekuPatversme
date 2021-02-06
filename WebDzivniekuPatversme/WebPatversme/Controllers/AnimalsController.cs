@@ -6,6 +6,7 @@ using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using System.Linq;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -27,6 +28,8 @@ namespace WebDzivniekuPatversme.Controllers
         {
             var allAnimals = _animalsServices.GetAllAnimalList();
             var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(allAnimals);
+
+            mappedAnimals = _animalsServices.AddAnimalShelterNames(mappedAnimals);
 
             return View(mappedAnimals);
         }

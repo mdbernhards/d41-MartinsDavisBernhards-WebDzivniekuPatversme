@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace WebDzivniekuPatversme.Models
 {
@@ -13,6 +13,8 @@ namespace WebDzivniekuPatversme.Models
         public string PhoneNumber { set; get; }
 
         public int AnimalCapacity { set; get; }
+
+        public DateTime DateCreated { set; get; }
 
         public string ImagePath { set; get; }
     }

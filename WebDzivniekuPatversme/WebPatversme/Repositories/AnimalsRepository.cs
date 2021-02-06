@@ -30,20 +30,23 @@ namespace WebDzivniekuPatversme.Repository
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                list.Add(new Animals()
+                Animals animal = new Animals()
                 {
                     AnimalID = Convert.ToString(reader["ID"]),
-                    Age = Convert.ToInt32(reader["Age"]),
                     Weight = Convert.ToInt32(reader["Weight"]),
                     BirthDate = Convert.ToDateTime(reader["BirthDate"]),
-                    DateAdded = Convert.ToDateTime(reader["DateAdded"]),
+                    DateCreated = Convert.ToDateTime(reader["DateCreated"]),
                     About = Convert.ToString(reader["About"]),
                     Name = Convert.ToString(reader["Name"]),
                     Species = Convert.ToString(reader["Species"]),
                     Colour = Convert.ToString(reader["Colour"]),
                     ImagePath = Convert.ToString(reader["ImagePath"]),
                     AnimalShelterId = Convert.ToString(reader["AnimalShelterID"]),
-                });
+                };
+
+                animal.Age = CalculateAge(animal.BirthDate);
+
+                list.Add(animal);
             }
             return list;
         }
@@ -51,16 +54,15 @@ namespace WebDzivniekuPatversme.Repository
         public void CreateNewAnimal(Animals newAnimal)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO Animals (ID, Age, Weight, BirthDate, DateAdded, About, Name, Species, Colour, ImagePath, AnimalShelterID) " +
-                                                "VALUES (@id, @age, @weight, @birthDate, @dateAdded, @about, @name, @species, @colour, @imagePath, @animalShelterId);";
+            var sqlQuerry = "INSERT INTO Animals (ID, Weight, BirthDate, DateAdded, About, Name, Species, Colour, ImagePath, AnimalShelterID) " +
+                                                "VALUES (@id, @weight, @birthDate, @dateAdded, @about, @name, @species, @colour, @imagePath, @animalShelterId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
             string birthDateeString = newAnimal.BirthDate.ToString("yyyy-MM-dd");
-            string dateAddedString = newAnimal.DateAdded.ToString("yyyy-MM-dd");
+            string dateAddedString = newAnimal.DateCreated.ToString("yyyy-MM-dd");
 
-            cmd.Parameters.AddWithValue("@age", newAnimal.Age);
             cmd.Parameters.AddWithValue("@weight", newAnimal.Weight);
             cmd.Parameters.AddWithValue("@birthDate", birthDateeString);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
@@ -91,16 +93,15 @@ namespace WebDzivniekuPatversme.Repository
         public void EditAnimal(Animals animal)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "UPDATE Animals SET Age = @age , Weight = @weight , BirthDate =  @birthDate , DateAdded = @dateAdded , About = @about ," +
+            var sqlQuerry = "UPDATE Animals SET Weight = @weight , BirthDate =  @birthDate , DateAdded = @dateAdded , About = @about ," +
                           " Name = @name , Species = @species , Colour = @colour , ImagePath = @imagePath , AnimalShelterID = @animalShelterID WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
             string birthDateeString = animal.BirthDate.ToString("yyyy-MM-dd");
-            string dateAddedString = animal.DateAdded.ToString("yyyy-MM-dd");
+            string dateAddedString = animal.DateCreated.ToString("yyyy-MM-dd");
 
-            cmd.Parameters.AddWithValue("@age", animal.Age);
             cmd.Parameters.AddWithValue("@weight", animal.Weight);
             cmd.Parameters.AddWithValue("@birthDate", birthDateeString);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
@@ -113,6 +114,18 @@ namespace WebDzivniekuPatversme.Repository
             cmd.Parameters.AddWithValue("@id", animal.AnimalID);
 
             var reader = cmd.ExecuteReader();
+        }
+
+        private int CalculateAge(DateTime birthDate)
+        {
+            var age = DateTime.Now.Year - birthDate.Year;
+
+            if (birthDate > DateTime.Now.AddYears(-age))
+            {
+                age--;
+            }
+
+            return age;
         }
     }
 }

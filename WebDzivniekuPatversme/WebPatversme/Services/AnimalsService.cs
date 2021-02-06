@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repository.Interfaces;
 
@@ -32,6 +33,19 @@ namespace WebDzivniekuPatversme.Services
             return AnimalList;
         }
 
+        public List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals)
+        {
+            var ShelterList = GetAllShelters();
+
+            foreach (var animal in animals)
+            {
+                var shelter = ShelterList.Where(x => x.AnimalShelterID == animal.AnimalShelterId).FirstOrDefault();
+                animal.AnimalShelterName = shelter.Name;
+            }
+
+            return animals;
+        }
+
         public Animals GetAnimalById(string Id)
         {
             var AnimalList = _animalsRepository.GetAllAnimals();
@@ -48,7 +62,7 @@ namespace WebDzivniekuPatversme.Services
         public void AddNewAnimal(Animals animal)
         {
             animal.AnimalID = Guid.NewGuid().ToString();
-            animal.DateAdded = DateTime.Now;
+            animal.DateCreated = DateTime.Now;
 
             _animalsRepository.CreateNewAnimal(animal);
         }
