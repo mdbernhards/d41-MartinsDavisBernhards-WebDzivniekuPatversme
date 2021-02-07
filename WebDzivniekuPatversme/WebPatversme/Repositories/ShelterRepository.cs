@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Repository.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
 
-namespace WebDzivniekuPatversme.Repository
+namespace WebDzivniekuPatversme.Repositories
 {
     public class ShelterRepository : IShelterRepository
     {
@@ -38,7 +38,7 @@ namespace WebDzivniekuPatversme.Repository
                     Address = Convert.ToString(reader["Address"]),
                     PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
                     ImagePath = Convert.ToString(reader["ImagePath"]),
-                    DateCreated = Convert.ToDateTime(reader["DateCreated"])
+                    DateAdded = Convert.ToDateTime(reader["DateAdded"])
                 });
             }
             return list;
@@ -47,10 +47,12 @@ namespace WebDzivniekuPatversme.Repository
         public void CreateNewAnimalShelter(Shelters newAnimalShelters)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateCreated) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateCreated);";
+            var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
+
+            string dateAddedString = newAnimalShelters.DateAdded.ToString("yyyy-MM-dd");
 
             cmd.Parameters.AddWithValue("@id", newAnimalShelters.AnimalShelterID);
             cmd.Parameters.AddWithValue("@animalCapacity", newAnimalShelters.AnimalCapacity);
@@ -58,13 +60,15 @@ namespace WebDzivniekuPatversme.Repository
             cmd.Parameters.AddWithValue("@adress", newAnimalShelters.Address);
             cmd.Parameters.AddWithValue("@phoneNumber", newAnimalShelters.PhoneNumber);
             cmd.Parameters.AddWithValue("@imagePath", newAnimalShelters.ImagePath);
-            cmd.Parameters.AddWithValue("@dateCreated", newAnimalShelters.DateCreated);
+            cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
 
             var reader = cmd.ExecuteReader();
         }
 
         public void DeleteShelters(Shelters shelter)
         {
+            DeleteAllSheltersAnimals(shelter);
+
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "DELETE FROM AnimalShelters WHERE ID = @id;";
 
@@ -76,7 +80,7 @@ namespace WebDzivniekuPatversme.Repository
             var reader = cmd.ExecuteReader();
         }
 
-        public void DeleteAllSheltersAnimals(Shelters shelter)
+        private void DeleteAllSheltersAnimals(Shelters shelter)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "DELETE FROM Animals WHERE AnimalShelterID = @id;";

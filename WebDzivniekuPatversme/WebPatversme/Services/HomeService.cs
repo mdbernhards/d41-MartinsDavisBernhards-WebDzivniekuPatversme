@@ -1,5 +1,5 @@
 ﻿using WebDzivniekuPatversme.Services.Interfaces;
-using WebDzivniekuPatversme.Repository.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {

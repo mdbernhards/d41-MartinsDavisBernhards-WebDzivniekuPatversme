@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
-using WebDzivniekuPatversme.Repository.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -62,7 +62,7 @@ namespace WebDzivniekuPatversme.Services
         public void AddNewAnimal(Animals animal)
         {
             animal.AnimalID = Guid.NewGuid().ToString();
-            animal.DateCreated = DateTime.Now;
+            animal.DateAdded = DateTime.Now;
 
             _animalsRepository.CreateNewAnimal(animal);
         }

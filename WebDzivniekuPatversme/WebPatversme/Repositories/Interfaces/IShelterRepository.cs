@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 
-namespace WebDzivniekuPatversme.Repository.Interfaces
+namespace WebDzivniekuPatversme.Repositories.Interfaces
 {
     public interface IShelterRepository
     {
@@ -10,8 +10,6 @@ namespace WebDzivniekuPatversme.Repository.Interfaces
         void CreateNewAnimalShelter(Shelters newAnimalShelters);
 
         void DeleteShelters(Shelters shelters);
-
-        void DeleteAllSheltersAnimals(Shelters shelter);
 
         void EditShelter(Shelters shelter);
     }

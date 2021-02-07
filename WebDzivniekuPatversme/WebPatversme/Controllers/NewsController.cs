@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using System.Security.Claims;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -44,6 +46,8 @@ namespace WebDzivniekuPatversme.Controllers
             if (ModelState.IsValid)
             {
                 var mappedNews = _mapper.Map<News>(news);
+
+                mappedNews.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 _newsServices.AddNewNews(mappedNews);
 

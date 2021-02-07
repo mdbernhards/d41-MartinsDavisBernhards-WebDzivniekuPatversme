@@ -14,7 +14,7 @@ namespace WebDzivniekuPatversme.Models
 
         public int AnimalCapacity { set; get; }
 
-        public DateTime DateCreated { set; get; }
+        public DateTime DateAdded { set; get; }
 
         public string ImagePath { set; get; }
     }

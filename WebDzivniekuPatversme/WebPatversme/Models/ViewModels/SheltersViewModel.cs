@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebDzivniekuPatversme.Models.ViewModels
 {
@@ -22,6 +23,9 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Required(ErrorMessage = "Dzīvnieku kapacitāte ir obligāta.")]
         [Display(Name = "Dzīvnieku kapacitāte")]
         public int AnimalCapacity { set; get; }
+
+        [Display(Name = "Izveidošanas datums")]
+        public DateTime DateAdded { set; get; }
 
         public string ImagePath { set; get; }
     }

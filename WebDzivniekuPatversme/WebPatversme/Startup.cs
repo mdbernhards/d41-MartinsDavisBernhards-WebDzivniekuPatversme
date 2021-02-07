@@ -1,9 +1,9 @@
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Services;
-using WebDzivniekuPatversme.Repository;
+using WebDzivniekuPatversme.Repositories;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Services.Interfaces;
-using WebDzivniekuPatversme.Repository.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,6 +44,8 @@ namespace WebDzivniekuPatversme
 
             services.AddScoped<IHomeService, HomeService>();
             services.AddScoped<IHomeRepository, HomeRepository>();
+
+            services.AddScoped<ILoggerRepository, LoggerRepository>();
 
             services.AddTransient<UserChecker>();
 

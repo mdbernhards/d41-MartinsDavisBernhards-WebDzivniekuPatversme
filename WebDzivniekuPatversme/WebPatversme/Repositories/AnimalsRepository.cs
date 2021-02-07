@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Repository.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 using MySql.Data.MySqlClient;
 
-namespace WebDzivniekuPatversme.Repository
+namespace WebDzivniekuPatversme.Repositories
 {
     public class AnimalsRepository : IAnimalsRepository
     {
@@ -35,7 +35,7 @@ namespace WebDzivniekuPatversme.Repository
                     AnimalID = Convert.ToString(reader["ID"]),
                     Weight = Convert.ToInt32(reader["Weight"]),
                     BirthDate = Convert.ToDateTime(reader["BirthDate"]),
-                    DateCreated = Convert.ToDateTime(reader["DateCreated"]),
+                    DateAdded = Convert.ToDateTime(reader["DateAdded"]),
                     About = Convert.ToString(reader["About"]),
                     Name = Convert.ToString(reader["Name"]),
                     Species = Convert.ToString(reader["Species"]),
@@ -61,7 +61,7 @@ namespace WebDzivniekuPatversme.Repository
             conn.Open();
 
             string birthDateeString = newAnimal.BirthDate.ToString("yyyy-MM-dd");
-            string dateAddedString = newAnimal.DateCreated.ToString("yyyy-MM-dd");
+            string dateAddedString = newAnimal.DateAdded.ToString("yyyy-MM-dd");
 
             cmd.Parameters.AddWithValue("@weight", newAnimal.Weight);
             cmd.Parameters.AddWithValue("@birthDate", birthDateeString);
@@ -93,18 +93,16 @@ namespace WebDzivniekuPatversme.Repository
         public void EditAnimal(Animals animal)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "UPDATE Animals SET Weight = @weight , BirthDate =  @birthDate , DateAdded = @dateAdded , About = @about ," +
+            var sqlQuerry = "UPDATE Animals SET Weight = @weight , BirthDate =  @birthDate , About = @about ," +
                           " Name = @name , Species = @species , Colour = @colour , ImagePath = @imagePath , AnimalShelterID = @animalShelterID WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
             string birthDateeString = animal.BirthDate.ToString("yyyy-MM-dd");
-            string dateAddedString = animal.DateCreated.ToString("yyyy-MM-dd");
 
             cmd.Parameters.AddWithValue("@weight", animal.Weight);
             cmd.Parameters.AddWithValue("@birthDate", birthDateeString);
-            cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
             cmd.Parameters.AddWithValue("@about", animal.About);
             cmd.Parameters.AddWithValue("@name", animal.Name);
             cmd.Parameters.AddWithValue("@species", animal.Species);

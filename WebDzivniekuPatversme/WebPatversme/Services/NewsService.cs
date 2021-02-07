@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Interfaces;
-using WebDzivniekuPatversme.Repository.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -40,7 +40,7 @@ namespace WebDzivniekuPatversme.Services
         public void AddNewNews(News news)
         {
             news.NewsID = Guid.NewGuid().ToString();
-            news.DateCreated = DateTime.Now;
+            news.DateAdded = DateTime.Now;
 
             _newsRepository.CreateNewNews(news);
         }

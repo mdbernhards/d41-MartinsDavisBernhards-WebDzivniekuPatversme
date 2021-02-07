@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 
-namespace WebDzivniekuPatversme.Repository.Interfaces
+namespace WebDzivniekuPatversme.Repositories.Interfaces
 {
     public interface IAnimalsRepository
     {

@@ -1,7 +1,7 @@
 ﻿using WebDzivniekuPatversme.Data;
-using WebDzivniekuPatversme.Repository.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 
-namespace WebDzivniekuPatversme.Repository
+namespace WebDzivniekuPatversme.Repositories
 {
     public class ContactsRepository : IContactsRepository
     {

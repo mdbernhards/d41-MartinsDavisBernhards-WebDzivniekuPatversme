@@ -22,7 +22,7 @@ namespace WebDzivniekuPatversme.Models
 
         public int Weight { set; get; }
 
-        public DateTime DateCreated { set; get; }
+        public DateTime DateAdded { set; get; }
 
         public string AnimalShelterId { set; get; }
     }

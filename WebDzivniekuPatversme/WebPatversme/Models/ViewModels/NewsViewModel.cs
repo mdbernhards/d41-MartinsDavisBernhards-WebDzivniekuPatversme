@@ -12,8 +12,16 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Teksts")]
         public string Text { set; get; }
 
-        public DateTime DateCreated { set; get; }
+        [Display(Name = "Izveidošanas datums")]
+        public DateTime DateAdded { set; get; }
 
         public string ImagePath { set; get; }
+
+
+        [Required(ErrorMessage = "Ziņu tituls ir obligāts.")]
+        [Display(Name = "Tituls")]
+        public string Title { set; get; }
+
+        public string UserID { set; get; }
     }
 }

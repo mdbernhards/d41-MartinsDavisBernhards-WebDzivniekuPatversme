@@ -31,6 +31,9 @@
                 Telefona numurs
             </th>
             <th>
+                Izveidošanas datums
+            </th>
+            <th>
                 ImagePath
             </th>
             <th></th>
@@ -53,15 +56,18 @@
                 @Html.DisplayTextFor(modelItem => item.PhoneNumber)
             </td>
             <td>
+                @Html.DisplayTextFor(modelItem => item.DateAdded)
+            </td>
+            <td>
                 @Html.DisplayTextFor(modelItem => item.ImagePath)
             </td>
             <td>
                 @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
                 {
-                @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID })
-                @Html.Raw(" | ")
-                @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalShelterID })
-                @Html.Raw(" | ")
+                    @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID })
+                    @Html.Raw(" | ")
+                    @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalShelterID })
+                    @Html.Raw(" | ")
                 }
 
                 @Html.ActionLink("Par", "Details", new { id = item.AnimalShelterID })
