@@ -15,6 +15,14 @@
     <a asp-action="Create">+ Pievienot dzīvnieku</a>
 </p>
 
+@using (Html.BeginForm())
+{
+    <p>
+        Meklē pēc vārda: @Html.TextBox("SearchString")
+        <input type="submit" value="Meklēt" />
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -46,44 +54,45 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Species)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnimalShelterName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Colour)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
-                {
-                    @Html.ActionLink("Labot", "Edit", new { id = item.AnimalID })
-                    @Html.Raw(" | ")
-                    @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalID })
-                    @Html.Raw(" | ")
-                }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Species)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnimalShelterName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Colour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>
+                <td>
+                    @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
+                    {
+                        @Html.ActionLink("Labot", "Edit", new { id = item.AnimalID })
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalID })
+                        @Html.Raw(" | ")
+                    }
 
-                @Html.ActionLink("Par", "Details", new { id = item.AnimalID })
-            </td>
-        </tr>
+                    @Html.ActionLink("Par", "Details", new { id = item.AnimalID })
+                </td>
+            </tr>
         }
     </tbody>
 </table>

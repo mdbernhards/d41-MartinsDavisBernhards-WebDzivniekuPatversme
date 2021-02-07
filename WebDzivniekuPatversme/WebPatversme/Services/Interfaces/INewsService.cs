@@ -16,6 +16,6 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         void EditNews(News news);
 
-        List<NewsViewModel> SortNews(List<NewsViewModel> news, string sortOrder);
+        List<NewsViewModel> SortNews(List<NewsViewModel> news, string sortOrder, string searchString);
     }
 }

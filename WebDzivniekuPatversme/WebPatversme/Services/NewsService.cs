@@ -51,28 +51,32 @@ namespace WebDzivniekuPatversme.Services
             _newsRepository.EditNews(news);
         }
 
-        public List<NewsViewModel> SortNews(List<NewsViewModel> news, string sortOrder)
+        public List<NewsViewModel> SortNews(List<NewsViewModel> news, string sortOrder, string searchString)
         {
-            switch (sortOrder)
+            news = FilterNews(news, searchString);
+            news = OrderNews(news, sortOrder);
+            return news;
+        }
+
+        private List<NewsViewModel> OrderNews(List<NewsViewModel> news, string sortOrder)
+        {
+            news = sortOrder switch
             {
-                case "title_desc":
-                    news = news.OrderByDescending(s => s.Title).ToList();
-                    break;
-                case "text":
-                    news = news.OrderBy(s => s.Text).ToList();
-                    break;
-                case "text_desc":
-                    news = news.OrderByDescending(s => s.Text).ToList();
-                    break;
-                case "dateAdded":
-                    news = news.OrderBy(s => s.DateAdded).ToList();
-                    break;
-                case "dateAdded_desc":
-                    news = news.OrderByDescending(s => s.DateAdded).ToList();
-                    break;
-                default:
-                    news = news.OrderBy(s => s.Title).ToList();
-                    break;
+                "title_desc" => news.OrderByDescending(s => s.Title).ToList(),
+                "text" => news.OrderBy(s => s.Text).ToList(),
+                "text_desc" => news.OrderByDescending(s => s.Text).ToList(),
+                "dateAdded" => news.OrderBy(s => s.DateAdded).ToList(),
+                "dateAdded_desc" => news.OrderByDescending(s => s.DateAdded).ToList(),
+                _ => news.OrderBy(s => s.Title).ToList(),
+            };
+            return news;
+        }
+
+        private List<NewsViewModel> FilterNews(List<NewsViewModel> news, string searchString)
+        {
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                news = news.Where(animal => animal.Title.Contains(searchString)).ToList();
             }
             return news;
         }

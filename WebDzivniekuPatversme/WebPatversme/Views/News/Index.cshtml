@@ -14,6 +14,14 @@
     <a asp-action="Create">+ Pievienot ziņas</a>
 </p>
 
+@using (Html.BeginForm())
+{
+    <p>
+        Meklē pēc titula: @Html.TextBox("SearchString")
+        <input type="submit" value="Meklēt" />
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -33,33 +41,33 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (var item in Model)
+        @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
-                {
-                    @Html.ActionLink("Labot", "Edit", new { id = item.NewsID })
-                    @Html.Raw(" | ")
-                    @Html.ActionLink("Dzēst", "Delete", new { id = item.NewsID })
-                    @Html.Raw(" | ")
-                }
+            <tr>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.ImagePath)
+                </td>
+                <td>
+                    @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
+                    {
+                        @Html.ActionLink("Labot", "Edit", new { id = item.NewsID })
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Dzēst", "Delete", new { id = item.NewsID })
+                        @Html.Raw(" | ")
+                    }
 
-                @Html.ActionLink("Par", "Details", new { id = item.NewsID })
-            </td>
-        </tr>
+                    @Html.ActionLink("Par", "Details", new { id = item.NewsID })
+                </td>
+            </tr>
         }
     </tbody>
 </table>

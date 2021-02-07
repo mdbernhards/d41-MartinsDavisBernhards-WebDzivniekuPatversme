@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
@@ -24,7 +25,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string sortOrder)
+        public IActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.AgeSortParm = sortOrder == "age" ? "age_desc" : "age";
@@ -34,13 +35,11 @@ namespace WebDzivniekuPatversme.Controllers
             ViewBag.DateAddedSortParm = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
             ViewBag.ColourSortParm = sortOrder == "colour" ? "colour_desc" : "colour";
 
-
             var allAnimals = _animalsServices.GetAllAnimalList();
             var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(allAnimals);
 
             mappedAnimals = _animalsServices.AddAnimalShelterNames(mappedAnimals);
-
-            mappedAnimals = _animalsServices.SortAnimals(mappedAnimals, sortOrder);
+            mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, searchString);
 
             return View(mappedAnimals);
         }

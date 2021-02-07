@@ -46,53 +46,11 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
-        public List<AnimalsViewModel> SortAnimals(List<AnimalsViewModel> animals, string sortOrder)
+        public List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, string searchString)
         {
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    animals = animals.OrderByDescending(s => s.Name).ToList();
-                    break;
-                case "age":
-                    animals = animals.OrderBy(s => s.Age).ToList();
-                    break;
-                case "age_desc":
-                    animals = animals.OrderByDescending(s => s.Age).ToList();
-                    break;
-                case "species":
-                    animals = animals.OrderBy(s => s.Species).ToList();
-                    break;
-                case "species_desc":
-                    animals = animals.OrderByDescending(s => s.Species).ToList();
-                    break;
-                case "weight":
-                    animals = animals.OrderBy(s => s.Weight).ToList();
-                    break;
-                case "weight_desc":
-                    animals = animals.OrderByDescending(s => s.Weight).ToList();
-                    break;
-                case "shelter":
-                    animals = animals.OrderBy(s => s.AnimalShelterName).ToList();
-                    break;
-                case "shelter_desc":
-                    animals = animals.OrderByDescending(s => s.AnimalShelterName).ToList();
-                    break;
-                case "dateAdded":
-                    animals = animals.OrderBy(s => s.DateAdded).ToList();
-                    break;
-                case "dateadded_desc":
-                    animals = animals.OrderByDescending(s => s.DateAdded).ToList();
-                    break;
-                case "colour":
-                    animals = animals.OrderBy(s => s.Colour).ToList();
-                    break;
-                case "colour_desc":
-                    animals = animals.OrderByDescending(s => s.Colour).ToList();
-                    break;
-                default:
-                    animals = animals.OrderBy(s => s.Name).ToList();
-                    break;
-            }
+            animals = FilterAnimals(animals, searchString);
+            animals = OrderAnimals(animals, sortOrder);
+
             return animals;
         }
 
@@ -120,6 +78,38 @@ namespace WebDzivniekuPatversme.Services
         public void EditAnimal(Animals animal)
         {
             _animalsRepository.EditAnimal(animal);
+        }
+
+        private List<AnimalsViewModel> OrderAnimals(List<AnimalsViewModel> animals, string sortOrder)
+        {
+            animals = sortOrder switch
+            {
+                "name_desc" => animals.OrderByDescending(s => s.Name).ToList(),
+                "age" => animals.OrderBy(s => s.Age).ToList(),
+                "age_desc" => animals.OrderByDescending(s => s.Age).ToList(),
+                "species" => animals.OrderBy(s => s.Species).ToList(),
+                "species_desc" => animals.OrderByDescending(s => s.Species).ToList(),
+                "weight" => animals.OrderBy(s => s.Weight).ToList(),
+                "weight_desc" => animals.OrderByDescending(s => s.Weight).ToList(),
+                "shelter" => animals.OrderBy(s => s.AnimalShelterName).ToList(),
+                "shelter_desc" => animals.OrderByDescending(s => s.AnimalShelterName).ToList(),
+                "dateAdded" => animals.OrderBy(s => s.DateAdded).ToList(),
+                "dateadded_desc" => animals.OrderByDescending(s => s.DateAdded).ToList(),
+                "colour" => animals.OrderBy(s => s.Colour).ToList(),
+                "colour_desc" => animals.OrderByDescending(s => s.Colour).ToList(),
+                _ => animals.OrderBy(s => s.Name).ToList(),
+            };
+            return animals;
+        }
+
+        private List<AnimalsViewModel> FilterAnimals(List<AnimalsViewModel> animals, string searchString)
+        {
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                animals = animals.Where(animal => animal.Name.Contains(searchString)).ToList();
+            }
+
+            return animals;
         }
     }
 }

@@ -16,6 +16,6 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         void EditShelter(Shelters shelter);
 
-        List<SheltersViewModel> SortShelters(List<SheltersViewModel> shelter, string sortOrder);
+        List<SheltersViewModel> SortShelters(List<SheltersViewModel> shelter, string sortOrder, string searchString);
     }
 }

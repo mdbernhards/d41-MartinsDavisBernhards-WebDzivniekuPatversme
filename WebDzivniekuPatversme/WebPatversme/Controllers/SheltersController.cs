@@ -23,7 +23,7 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string sortOrder)
+        public IActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.CapacitySortParm = sortOrder == "capacity" ? "capacity_desc" : "capacity";
@@ -34,7 +34,7 @@ namespace WebDzivniekuPatversme.Controllers
             var allShelters = _sheltersServices.GetAllShelterList();
             var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
 
-            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder);
+            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, searchString);
 
             return View(mappedShelters);
         }

@@ -15,6 +15,14 @@
     <a asp-action="Create">+ Pievienot patversmi</a>
 </p>
 
+@using (Html.BeginForm())
+{
+    <p>
+        Meklē pēc nosaukuma: @Html.TextBox("SearchString")
+        <input type="submit" value="Meklēt" />
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -40,39 +48,39 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (var item in Model)
+        @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
-                {
-                    @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID })
-                    @Html.Raw(" | ")
-                    @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalShelterID })
-                    @Html.Raw(" | ")
-                }
+            <tr>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.ImagePath)
+                </td>
+                <td>
+                    @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
+                    {
+                        @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID })
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalShelterID })
+                        @Html.Raw(" | ")
+                    }
 
-                @Html.ActionLink("Par", "Details", new { id = item.AnimalShelterID })
-            </td>
-        </tr>
+                    @Html.ActionLink("Par", "Details", new { id = item.AnimalShelterID })
+                </td>
+            </tr>
         }
     </tbody>
 </table>
