@@ -7,7 +7,6 @@
 
 <div class="text-center">
     <h1 class="display-4">Ziņas!</h1>
-    <h2 class="display-3">*Filtri Ziņu izvēlei*</h2>
     <p>Saraksts ar Ziņām</p>
 </div>
 
@@ -19,13 +18,13 @@
     <thead>
         <tr>
             <th>
-                Tituls
+                @Html.ActionLink("Tituls", "Index", new { sortOrder = ViewBag.TitleSortParm })
             </th>
             <th>
-                Teksts
+                @Html.ActionLink("Teksts", "Index", new { sortOrder = ViewBag.TextSortParm })
             </th>
             <th>
-                Izveidošanas datums
+                @Html.ActionLink("Izveidošanas datums", "Index", new { sortOrder = ViewBag.DateAddedSortParm })
             </th>
             <th>
                 ImagePath

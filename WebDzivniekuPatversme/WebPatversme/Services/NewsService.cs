@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repositories.Interfaces;
 
@@ -48,6 +49,32 @@ namespace WebDzivniekuPatversme.Services
         public void EditNews(News news)
         {
             _newsRepository.EditNews(news);
+        }
+
+        public List<NewsViewModel> SortNews(List<NewsViewModel> news, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    news = news.OrderByDescending(s => s.Title).ToList();
+                    break;
+                case "text":
+                    news = news.OrderBy(s => s.Text).ToList();
+                    break;
+                case "text_desc":
+                    news = news.OrderByDescending(s => s.Text).ToList();
+                    break;
+                case "dateAdded":
+                    news = news.OrderBy(s => s.DateAdded).ToList();
+                    break;
+                case "dateAdded_desc":
+                    news = news.OrderByDescending(s => s.DateAdded).ToList();
+                    break;
+                default:
+                    news = news.OrderBy(s => s.Title).ToList();
+                    break;
+            }
+            return news;
         }
     }
 }

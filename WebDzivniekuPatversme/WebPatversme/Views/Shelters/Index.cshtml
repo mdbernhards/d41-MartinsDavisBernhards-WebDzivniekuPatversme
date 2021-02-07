@@ -19,19 +19,19 @@
     <thead>
         <tr>
             <th>
-                Vārds
+                @Html.ActionLink("Vārds", "Index", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>
-                Dzīvnieku kapacitāte
+                @Html.ActionLink("Dzīvnieku kapacitāte", "Index", new { sortOrder = ViewBag.CapacitySortParm })
             </th>
             <th>
-                Adrese
+                @Html.ActionLink("Adrese", "Index", new { sortOrder = ViewBag.AddressSortParm })
             </th>
             <th>
-                Telefona numurs
+                @Html.ActionLink("Telefona numurs", "Index", new { sortOrder = ViewBag.PhoneNumberSortParm })
             </th>
             <th>
-                Izveidošanas datums
+                @Html.ActionLink("Izveidošanas datums", "Index", new { sortOrder = ViewBag.DateAddedSortParm })
             </th>
             <th>
                 ImagePath

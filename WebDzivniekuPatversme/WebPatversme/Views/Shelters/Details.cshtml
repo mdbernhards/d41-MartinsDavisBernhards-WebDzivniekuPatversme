@@ -55,6 +55,10 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Labot", "Edit", new {id = Model.AnimalShelterID }) |
+    @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
+    {
+        @Html.ActionLink("Labot", "Edit", new { id = Model.AnimalShelterID })
+        @Html.Raw(" | ")
+    }
     <a asp-action="Index">Atpakaļ uz sarakstu</a>
 </div>

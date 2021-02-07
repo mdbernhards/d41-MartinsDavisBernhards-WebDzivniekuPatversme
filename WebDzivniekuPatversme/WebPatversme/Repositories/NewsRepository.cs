@@ -50,7 +50,7 @@ namespace WebDzivniekuPatversme.Repositories
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            string dateAddedString = newNews.DateAdded.ToString("yyyy-MM-dd");
+            string dateAddedString = newNews.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
             cmd.Parameters.AddWithValue("@id", newNews.NewsID);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);

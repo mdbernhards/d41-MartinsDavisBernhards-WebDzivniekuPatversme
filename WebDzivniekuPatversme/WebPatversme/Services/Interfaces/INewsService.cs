@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
@@ -14,5 +15,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         void DeleteNews(News news);
 
         void EditNews(News news);
+
+        List<NewsViewModel> SortNews(List<NewsViewModel> news, string sortOrder);
     }
 }

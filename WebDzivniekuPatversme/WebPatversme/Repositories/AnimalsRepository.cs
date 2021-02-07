@@ -61,7 +61,7 @@ namespace WebDzivniekuPatversme.Repositories
             conn.Open();
 
             string birthDateeString = newAnimal.BirthDate.ToString("yyyy-MM-dd");
-            string dateAddedString = newAnimal.DateAdded.ToString("yyyy-MM-dd");
+            string dateAddedString = newAnimal.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
             cmd.Parameters.AddWithValue("@weight", newAnimal.Weight);
             cmd.Parameters.AddWithValue("@birthDate", birthDateeString);

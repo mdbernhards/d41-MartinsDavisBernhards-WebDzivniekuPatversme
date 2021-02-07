@@ -17,6 +17,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Vecums")]
         public int Age { set; get; }
 
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Dzimšanas datums ir obligāts.")]
         [Display(Name = "Dzimšanas datums")]
         public DateTime BirthDate { set; get; }
@@ -39,11 +40,13 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Svars")]
         public int Weight { set; get; }
 
+        [Display(Name = "Izveidošanas datums")]
         public DateTime DateAdded { set; get; }
 
         [Required(ErrorMessage = "Patversme ir obligāta.")]
         public string AnimalShelterId { set; get; }
 
+        [Display(Name = "Patversme")]
         public string AnimalShelterName {set; get; }
 
         public IEnumerable<Shelters> AnimalShelters { get; set; }

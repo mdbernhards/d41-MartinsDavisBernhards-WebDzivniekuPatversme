@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
@@ -14,5 +15,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         void DeleteShelter(Shelters shelter);
 
         void EditShelter(Shelters shelter);
+
+        List<SheltersViewModel> SortShelters(List<SheltersViewModel> shelter, string sortOrder);
     }
 }

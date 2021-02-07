@@ -23,10 +23,18 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.CapacitySortParm = sortOrder == "capacity" ? "capacity_desc" : "capacity";
+            ViewBag.AddressSortParm = sortOrder == "address" ? "address_desc" : "address";
+            ViewBag.PhoneNumberSortParm = sortOrder == "phoneNumber" ? "phoneNumber_desc" : "phoneNumber";
+            ViewBag.DateAddedSortParm = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+
             var allShelters = _sheltersServices.GetAllShelterList();
             var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
+
+            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder);
 
             return View(mappedShelters);
         }

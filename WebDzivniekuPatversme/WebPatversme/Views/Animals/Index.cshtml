@@ -19,25 +19,25 @@
     <thead>
         <tr>
             <th>
-                Vārds
+                @Html.ActionLink("Vārds", "Index", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>
-                Vecums
+                @Html.ActionLink("Vecums", "Index", new { sortOrder = ViewBag.AgeSortParm })
             </th>
             <th>
-                Suga
+                @Html.ActionLink("Suga", "Index", new { sortOrder = ViewBag.SpeciesSortParm })
             </th>
             <th>
-                Svars
+                @Html.ActionLink("Svars", "Index", new { sortOrder = ViewBag.WeightSortParm })
             </th>
             <th>
-                Patversme
+                @Html.ActionLink("Patversme", "Index", new { sortOrder = ViewBag.ShelterSortParm })
             </th>
             <th>
-                Pievienošanas datums
+                @Html.ActionLink("Pievienošanas datums", "Index", new { sortOrder = ViewBag.DateAddedSortParm })
             </th>
             <th>
-                Krāsa
+                @Html.ActionLink("Krāsa", "Index", new { sortOrder = ViewBag.ColourSortParm })
             </th>
             <th>
                 ImagePath

@@ -46,6 +46,56 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
+        public List<AnimalsViewModel> SortAnimals(List<AnimalsViewModel> animals, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    animals = animals.OrderByDescending(s => s.Name).ToList();
+                    break;
+                case "age":
+                    animals = animals.OrderBy(s => s.Age).ToList();
+                    break;
+                case "age_desc":
+                    animals = animals.OrderByDescending(s => s.Age).ToList();
+                    break;
+                case "species":
+                    animals = animals.OrderBy(s => s.Species).ToList();
+                    break;
+                case "species_desc":
+                    animals = animals.OrderByDescending(s => s.Species).ToList();
+                    break;
+                case "weight":
+                    animals = animals.OrderBy(s => s.Weight).ToList();
+                    break;
+                case "weight_desc":
+                    animals = animals.OrderByDescending(s => s.Weight).ToList();
+                    break;
+                case "shelter":
+                    animals = animals.OrderBy(s => s.AnimalShelterName).ToList();
+                    break;
+                case "shelter_desc":
+                    animals = animals.OrderByDescending(s => s.AnimalShelterName).ToList();
+                    break;
+                case "dateAdded":
+                    animals = animals.OrderBy(s => s.DateAdded).ToList();
+                    break;
+                case "dateadded_desc":
+                    animals = animals.OrderByDescending(s => s.DateAdded).ToList();
+                    break;
+                case "colour":
+                    animals = animals.OrderBy(s => s.Colour).ToList();
+                    break;
+                case "colour_desc":
+                    animals = animals.OrderByDescending(s => s.Colour).ToList();
+                    break;
+                default:
+                    animals = animals.OrderBy(s => s.Name).ToList();
+                    break;
+            }
+            return animals;
+        }
+
         public Animals GetAnimalById(string Id)
         {
             var AnimalList = _animalsRepository.GetAllAnimals();

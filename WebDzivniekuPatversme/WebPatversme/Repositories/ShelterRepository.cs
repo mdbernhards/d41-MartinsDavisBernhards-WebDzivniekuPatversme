@@ -52,7 +52,7 @@ namespace WebDzivniekuPatversme.Repositories
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            string dateAddedString = newAnimalShelters.DateAdded.ToString("yyyy-MM-dd");
+            string dateAddedString = newAnimalShelters.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
             cmd.Parameters.AddWithValue("@id", newAnimalShelters.AnimalShelterID);
             cmd.Parameters.AddWithValue("@animalCapacity", newAnimalShelters.AnimalCapacity);

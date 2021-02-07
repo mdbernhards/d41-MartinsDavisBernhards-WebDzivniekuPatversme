@@ -2,7 +2,7 @@
 
 namespace WebDzivniekuPatversme.Models.StaticModels
 {
-    public class SendingEmail
+    public static class SendingEmail
     {
         public static string Username = "web.patversme@gmail.com";
 

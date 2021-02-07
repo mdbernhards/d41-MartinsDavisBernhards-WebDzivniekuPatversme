@@ -25,10 +25,16 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
+            ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.TextSortParm = sortOrder == "text" ? "text_desc" : "text";
+            ViewBag.DateAddedSortParm = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+
             var allNews = _newsServices.GetAllNewsList();
             var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
+
+            mappedNews = _newsServices.SortNews(mappedNews, sortOrder);
 
             return View(mappedNews);
         }

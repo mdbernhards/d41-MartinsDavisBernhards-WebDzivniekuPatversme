@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
@@ -6,7 +7,6 @@ using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using System.Linq;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -24,12 +24,23 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.AgeSortParm = sortOrder == "age" ? "age_desc" : "age";
+            ViewBag.SpeciesSortParm = sortOrder == "species" ? "species_desc" : "species";
+            ViewBag.WeightSortParm = sortOrder == "weight" ? "weight_desc" : "weight";
+            ViewBag.ShelterSortParm = sortOrder == "shelter" ? "shelter_desc" : "shelter";
+            ViewBag.DateAddedSortParm = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+            ViewBag.ColourSortParm = sortOrder == "colour" ? "colour_desc" : "colour";
+
+
             var allAnimals = _animalsServices.GetAllAnimalList();
             var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(allAnimals);
 
             mappedAnimals = _animalsServices.AddAnimalShelterNames(mappedAnimals);
+
+            mappedAnimals = _animalsServices.SortAnimals(mappedAnimals, sortOrder);
 
             return View(mappedAnimals);
         }
@@ -39,7 +50,8 @@ namespace WebDzivniekuPatversme.Controllers
         {
             AnimalsViewModel animalModel = new AnimalsViewModel
             {
-                AnimalShelters = _animalsServices.GetAllShelters()
+                AnimalShelters = _animalsServices.GetAllShelters(),
+                BirthDate = DateTime.Today
             };
 
             return View(animalModel);
