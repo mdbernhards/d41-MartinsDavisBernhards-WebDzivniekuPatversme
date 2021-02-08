@@ -1,13 +1,13 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using System.Security.Claims;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -25,18 +25,35 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string sortOrder, string searchString)
+        public IActionResult Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-            ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewBag.TextSortParm = sortOrder == "text" ? "text_desc" : "text";
-            ViewBag.DateAddedSortParm = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+            ViewData["TitleSortParm"] = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["TextSortParm"] = sortOrder == "text" ? "text_desc" : "text";
+            ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
             var allNews = _newsServices.GetAllNewsList();
             var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
 
             mappedNews = _newsServices.SortNews(mappedNews, sortOrder, searchString);
 
-            return View(mappedNews);
+            int pageSize = 3;
+            return View(PaginatedList<NewsViewModel>.Create(mappedNews, pageNumber ?? 1, pageSize));
         }
 
         [Authorize(Roles = "administrator,worker")]

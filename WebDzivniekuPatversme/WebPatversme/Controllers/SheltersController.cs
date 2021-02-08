@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,20 +24,37 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string sortOrder, string searchString)
-        {
-            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.CapacitySortParm = sortOrder == "capacity" ? "capacity_desc" : "capacity";
-            ViewBag.AddressSortParm = sortOrder == "address" ? "address_desc" : "address";
-            ViewBag.PhoneNumberSortParm = sortOrder == "phoneNumber" ? "phoneNumber_desc" : "phoneNumber";
-            ViewBag.DateAddedSortParm = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+        public IActionResult Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
+        { 
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CapacitySortParm"] = sortOrder == "capacity" ? "capacity_desc" : "capacity";
+            ViewData["AddressSortParm"] = sortOrder == "address" ? "address_desc" : "address";
+            ViewData["PhoneNumberSortParm"] = sortOrder == "phoneNumber" ? "phoneNumber_desc" : "phoneNumber";
+            ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
             var allShelters = _sheltersServices.GetAllShelterList();
             var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
 
             mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, searchString);
 
-            return View(mappedShelters);
+            int pageSize = 3;
+            return View(PaginatedList<SheltersViewModel>.Create(mappedShelters, pageNumber ?? 1, pageSize));
         }
 
         [Authorize(Roles = "administrator,worker")]

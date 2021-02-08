@@ -52,7 +52,7 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Slēptu vērtību padošana no view uz controller](https://stackoverflow.com/questions/39405527/how-can-i-pass-hidden-field-value-from-view-to-controller-asp-net-mvc-5)
 - [Lietotāju un lomu izveidošana](https://stackoverflow.com/questions/34343599/how-to-seed-users-and-roles-with-code-first-migration-using-identity-asp-net-cor)
 - [Uz lomām bāzēta autorizācija](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/roles?view=aspnetcore-5.0#policy-based-role-checks)
-- [Listes sakārtošana, filstrēšana](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application)
+- [Listes sakārtošana, filstrēšana un paging](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-5.0)
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
 
 ## Uzstādīšanas instrukcijas

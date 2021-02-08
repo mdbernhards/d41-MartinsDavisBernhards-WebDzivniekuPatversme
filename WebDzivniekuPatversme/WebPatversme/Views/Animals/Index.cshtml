@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebDzivniekuPatversme.Models.ViewModels.AnimalsViewModel>
+﻿@model WebDzivniekuPatversme.Services.Other.PaginatedList<WebDzivniekuPatversme.Models.ViewModels.AnimalsViewModel>
 
 @{
     ViewData["Title"] = "Dzīvnieki";
@@ -15,37 +15,39 @@
     <a asp-action="Create">+ Pievienot dzīvnieku</a>
 </p>
 
-@using (Html.BeginForm())
-{
-    <p>
-        Meklē pēc vārda: @Html.TextBox("SearchString")
-        <input type="submit" value="Meklēt" />
-    </p>
-}
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Meklē pēc vārda: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Meklēt" class="btn btn-default" /> |
+            <a asp-action="Index">Atpakaļ uz pilnu listi</a>
+        </p>
+    </div>
+</form>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.ActionLink("Vārds", "Index", new { sortOrder = ViewBag.NameSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Vārds</a>
             </th>
             <th>
-                @Html.ActionLink("Vecums", "Index", new { sortOrder = ViewBag.AgeSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AgeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Vecums</a>
             </th>
             <th>
-                @Html.ActionLink("Suga", "Index", new { sortOrder = ViewBag.SpeciesSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SpeciesSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Suga</a>
             </th>
             <th>
-                @Html.ActionLink("Svars", "Index", new { sortOrder = ViewBag.WeightSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["WeightSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Svars</a>
             </th>
             <th>
-                @Html.ActionLink("Patversme", "Index", new { sortOrder = ViewBag.ShelterSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShelterSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Patversme</a>
             </th>
             <th>
-                @Html.ActionLink("Pievienošanas datums", "Index", new { sortOrder = ViewBag.DateAddedSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Pievienošanas datums</a>
             </th>
             <th>
-                @Html.ActionLink("Krāsa", "Index", new { sortOrder = ViewBag.ColourSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ColourSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Krāsa</a>
             </th>
             <th>
                 ImagePath
@@ -96,3 +98,23 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

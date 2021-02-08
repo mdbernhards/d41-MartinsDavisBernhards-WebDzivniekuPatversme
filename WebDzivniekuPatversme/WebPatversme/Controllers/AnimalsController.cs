@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
@@ -25,23 +28,40 @@ namespace WebDzivniekuPatversme.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string sortOrder, string searchString)
+        public IActionResult Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.AgeSortParm = sortOrder == "age" ? "age_desc" : "age";
-            ViewBag.SpeciesSortParm = sortOrder == "species" ? "species_desc" : "species";
-            ViewBag.WeightSortParm = sortOrder == "weight" ? "weight_desc" : "weight";
-            ViewBag.ShelterSortParm = sortOrder == "shelter" ? "shelter_desc" : "shelter";
-            ViewBag.DateAddedSortParm = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
-            ViewBag.ColourSortParm = sortOrder == "colour" ? "colour_desc" : "colour";
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["AgeSortParm"] = sortOrder == "age" ? "age_desc" : "age";
+            ViewData["SpeciesSortParm"] = sortOrder == "species" ? "species_desc" : "species";
+            ViewData["WeightSortParm"] = sortOrder == "weight" ? "weight_desc" : "weight";
+            ViewData["ShelterSortParm"] = sortOrder == "shelter" ? "shelter_desc" : "shelter";
+            ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
+            ViewData["ColourSortParm"] = sortOrder == "colour" ? "colour_desc" : "colour";
 
-            var allAnimals = _animalsServices.GetAllAnimalList();
-            var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(allAnimals);
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            var animalList = _animalsServices.GetAllAnimalList();
+            var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(animalList);
 
             mappedAnimals = _animalsServices.AddAnimalShelterNames(mappedAnimals);
             mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, searchString);
 
-            return View(mappedAnimals);
+            int pageSize = 3;
+            return View(PaginatedList<AnimalsViewModel>.Create(mappedAnimals, pageNumber ?? 1, pageSize));
         }
 
         [Authorize(Roles = "administrator,worker")]

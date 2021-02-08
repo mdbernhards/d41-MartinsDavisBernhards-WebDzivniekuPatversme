@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebDzivniekuPatversme.Models.ViewModels.NewsViewModel>
+﻿@model WebDzivniekuPatversme.Services.Other.PaginatedList<WebDzivniekuPatversme.Models.ViewModels.NewsViewModel>
 
 @{
     ViewData["Title"] = "Ziņas";
@@ -14,25 +14,27 @@
     <a asp-action="Create">+ Pievienot ziņas</a>
 </p>
 
-@using (Html.BeginForm())
-{
-    <p>
-        Meklē pēc titula: @Html.TextBox("SearchString")
-        <input type="submit" value="Meklēt" />
-    </p>
-}
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Meklē pēc titula: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Meklēt" class="btn btn-default" /> |
+            <a asp-action="Index">Atpakaļ uz pilnu listi</a>
+        </p>
+    </div>
+</form>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.ActionLink("Tituls", "Index", new { sortOrder = ViewBag.TitleSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Tituls</a>
             </th>
             <th>
-                @Html.ActionLink("Teksts", "Index", new { sortOrder = ViewBag.TextSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TextSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Teksts</a>
             </th>
             <th>
-                @Html.ActionLink("Izveidošanas datums", "Index", new { sortOrder = ViewBag.DateAddedSortParm })
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Izveidošanas datums</a>
             </th>
             <th>
                 ImagePath
@@ -71,3 +73,23 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
