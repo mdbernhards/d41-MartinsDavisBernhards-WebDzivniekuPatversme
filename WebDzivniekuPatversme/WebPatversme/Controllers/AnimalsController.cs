@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
@@ -30,8 +27,7 @@ namespace WebDzivniekuPatversme.Controllers
         [AllowAnonymous]
         public IActionResult Index(
             string sortOrder,
-            string currentFilter,
-            string searchString,
+            string filter,
             int? pageNumber)
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -42,23 +38,14 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
             ViewData["ColourSortParm"] = sortOrder == "colour" ? "colour_desc" : "colour";
 
-            ViewData["CurrentFilter"] = searchString;
+            ViewData["Filter"] = filter;
             ViewData["CurrentSort"] = sortOrder;
-
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
 
             var animalList = _animalsServices.GetAllAnimalList();
             var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(animalList);
 
             mappedAnimals = _animalsServices.AddAnimalShelterNames(mappedAnimals);
-            mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, searchString);
+            mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, filter);
 
             int pageSize = 3;
             return View(PaginatedList<AnimalsViewModel>.Create(mappedAnimals, pageNumber ?? 1, pageSize));

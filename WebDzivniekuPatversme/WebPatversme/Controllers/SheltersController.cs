@@ -26,8 +26,7 @@ namespace WebDzivniekuPatversme.Controllers
         [AllowAnonymous]
         public IActionResult Index(
             string sortOrder,
-            string currentFilter,
-            string searchString,
+            string filter,
             int? pageNumber)
         { 
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -36,22 +35,13 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["PhoneNumberSortParm"] = sortOrder == "phoneNumber" ? "phoneNumber_desc" : "phoneNumber";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
-            ViewData["CurrentFilter"] = searchString;
+            ViewData["Filter"] = filter;
             ViewData["CurrentSort"] = sortOrder;
-
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
 
             var allShelters = _sheltersServices.GetAllShelterList();
             var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
 
-            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, searchString);
+            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, filter);
 
             int pageSize = 3;
             return View(PaginatedList<SheltersViewModel>.Create(mappedShelters, pageNumber ?? 1, pageSize));

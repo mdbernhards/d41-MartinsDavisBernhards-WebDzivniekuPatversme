@@ -18,7 +18,7 @@
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Meklē pēc vārda: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            Meklē pēc vārda: <input type="text" name="filter" value="@ViewData["Filter"]" />
             <input type="submit" value="Meklēt" class="btn btn-default" /> |
             <a asp-action="Index">Atpakaļ uz pilnu listi</a>
         </p>
@@ -29,25 +29,25 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Vārds</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-filter="@ViewData["Filter"]">Vārds</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["AgeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Vecums</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AgeSortParm"]" asp-route-filter="@ViewData["Filter"]">Vecums</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["SpeciesSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Suga</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SpeciesSortParm"]" asp-route-filter="@ViewData["Filter"]">Suga</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["WeightSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Svars</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["WeightSortParm"]" asp-route-filter="@ViewData["Filter"]">Svars</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShelterSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Patversme</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShelterSortParm"]" asp-route-filter="@ViewData["Filter"]">Patversme</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Pievienošanas datums</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-filter="@ViewData["Filter"]">Pievienošanas datums</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["ColourSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Krāsa</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ColourSortParm"]" asp-route-filter="@ViewData["Filter"]">Krāsa</a>
             </th>
             <th>
                 ImagePath
@@ -107,14 +107,14 @@
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-filter="@ViewData["Filter"]"
    class="btn btn-default @prevDisabled">
     Previous
 </a>
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-filter="@ViewData["Filter"]"
    class="btn btn-default @nextDisabled">
     Next
 </a>

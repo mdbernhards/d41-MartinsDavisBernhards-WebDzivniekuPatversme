@@ -27,32 +27,22 @@ namespace WebDzivniekuPatversme.Controllers
         [AllowAnonymous]
         public IActionResult Index(
             string sortOrder,
-            string currentFilter,
-            string searchString,
+            string filter,
             int? pageNumber)
         {
             ViewData["TitleSortParm"] = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewData["TextSortParm"] = sortOrder == "text" ? "text_desc" : "text";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
-            ViewData["CurrentFilter"] = searchString;
+            ViewData["Filter"] = filter;
             ViewData["CurrentSort"] = sortOrder;
-
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
 
             var allNews = _newsServices.GetAllNewsList();
             var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
 
-            mappedNews = _newsServices.SortNews(mappedNews, sortOrder, searchString);
+            mappedNews = _newsServices.SortNews(mappedNews, sortOrder, filter);
 
-            int pageSize = 3;
+            int pageSize = 5;
             return View(PaginatedList<NewsViewModel>.Create(mappedNews, pageNumber ?? 1, pageSize));
         }
 
