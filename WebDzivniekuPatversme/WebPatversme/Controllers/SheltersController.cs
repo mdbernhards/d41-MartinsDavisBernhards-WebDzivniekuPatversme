@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
@@ -27,7 +28,8 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Index(
             string sortOrder,
             string filter,
-            int? pageNumber)
+            int? pageNumber,
+            int pageSize = 3)
         { 
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CapacitySortParm"] = sortOrder == "capacity" ? "capacity_desc" : "capacity";
@@ -37,13 +39,15 @@ namespace WebDzivniekuPatversme.Controllers
 
             ViewData["Filter"] = filter;
             ViewData["CurrentSort"] = sortOrder;
+            ViewData["PageSize"] = pageSize;
 
             var allShelters = _sheltersServices.GetAllShelterList();
             var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
 
             mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, filter);
 
-            int pageSize = 3;
+            ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedShelters.Count / (decimal)pageSize)) + 1;
+
             return View(PaginatedList<SheltersViewModel>.Create(mappedShelters, pageNumber ?? 1, pageSize));
         }
 

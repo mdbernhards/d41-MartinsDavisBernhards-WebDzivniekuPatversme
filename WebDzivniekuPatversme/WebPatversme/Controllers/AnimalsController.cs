@@ -28,7 +28,8 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Index(
             string sortOrder,
             string filter,
-            int? pageNumber)
+            int? pageNumber,
+            int pageSize = 3)
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["AgeSortParm"] = sortOrder == "age" ? "age_desc" : "age";
@@ -40,6 +41,7 @@ namespace WebDzivniekuPatversme.Controllers
 
             ViewData["Filter"] = filter;
             ViewData["CurrentSort"] = sortOrder;
+            ViewData["PageSize"] = pageSize;
 
             var animalList = _animalsServices.GetAllAnimalList();
             var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(animalList);
@@ -47,7 +49,8 @@ namespace WebDzivniekuPatversme.Controllers
             mappedAnimals = _animalsServices.AddAnimalShelterNames(mappedAnimals);
             mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, filter);
 
-            int pageSize = 3;
+            ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedAnimals.Count / (decimal)pageSize)) + 1;
+
             return View(PaginatedList<AnimalsViewModel>.Create(mappedAnimals, pageNumber ?? 1, pageSize));
         }
 

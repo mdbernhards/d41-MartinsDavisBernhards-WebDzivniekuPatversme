@@ -19,6 +19,7 @@
     <div class="form-actions no-color">
         <p>
             Meklē pēc vārda: <input type="text" name="filter" value="@ViewData["Filter"]" />
+            <input type="hidden" name="pageSize" value="@ViewData["PageSize"]" />
             <input type="submit" value="Meklēt" class="btn btn-default" /> |
             <a asp-action="Index">Atpakaļ uz pilnu listi</a>
         </p>
@@ -29,25 +30,25 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-filter="@ViewData["Filter"]">Vārds</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageSize="@ViewData["PageSize"]">Vārds</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["AgeSortParm"]" asp-route-filter="@ViewData["Filter"]">Vecums</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AgeSortParm"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageSize="@ViewData["PageSize"]">Vecums</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["SpeciesSortParm"]" asp-route-filter="@ViewData["Filter"]">Suga</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SpeciesSortParm"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageSize="@ViewData["PageSize"]">Suga</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["WeightSortParm"]" asp-route-filter="@ViewData["Filter"]">Svars</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["WeightSortParm"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageSize="@ViewData["PageSize"]">Svars</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShelterSortParm"]" asp-route-filter="@ViewData["Filter"]">Patversme</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShelterSortParm"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageSize="@ViewData["PageSize"]">Patversme</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-filter="@ViewData["Filter"]">Pievienošanas datums</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageSize="@ViewData["PageSize"]">Pievienošanas datums</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["ColourSortParm"]" asp-route-filter="@ViewData["Filter"]">Krāsa</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ColourSortParm"]" asp-route-filter="@ViewData["Filter"]" asp-route-pageSize="@ViewData["PageSize"]">Krāsa</a>
             </th>
             <th>
                 ImagePath
@@ -108,13 +109,48 @@
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-pageNumber="@(Model.PageIndex - 1)"
    asp-route-filter="@ViewData["Filter"]"
+   asp-route-pageSize="@ViewData["PageSize"]"
    class="btn btn-default @prevDisabled">
-    Previous
+    Iepriekšējā
 </a>
+@for (int i = 1; i < (int)ViewData["PageAmount"]; i++)
+{
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@i"
+       asp-route-filter="@ViewData["Filter"]"
+       asp-route-pageSize="@ViewData["PageSize"]"
+       class="btn btn-default">
+        @i
+    </a>
+}
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-pageNumber="@(Model.PageIndex + 1)"
    asp-route-filter="@ViewData["Filter"]"
+   asp-route-pageSize="@ViewData["PageSize"]"
    class="btn btn-default @nextDisabled">
-    Next
+    Nākamā
+</a>
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-filter="@ViewData["Filter"]"
+   asp-route-pageSize="3"
+   class="btn btn-default">
+    3
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-filter="@ViewData["Filter"]"
+   asp-route-pageSize="5"
+   class="btn btn-default">
+    5
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-filter="@ViewData["Filter"]"
+   asp-route-pageSize="10"
+   class="btn btn-default">
+    10
 </a>

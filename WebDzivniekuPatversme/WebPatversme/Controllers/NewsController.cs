@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Security.Claims;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
@@ -28,7 +29,8 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Index(
             string sortOrder,
             string filter,
-            int? pageNumber)
+            int? pageNumber,
+            int pageSize = 3)
         {
             ViewData["TitleSortParm"] = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewData["TextSortParm"] = sortOrder == "text" ? "text_desc" : "text";
@@ -36,13 +38,15 @@ namespace WebDzivniekuPatversme.Controllers
 
             ViewData["Filter"] = filter;
             ViewData["CurrentSort"] = sortOrder;
+            ViewData["PageSize"] = pageSize;
 
             var allNews = _newsServices.GetAllNewsList();
             var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
 
             mappedNews = _newsServices.SortNews(mappedNews, sortOrder, filter);
 
-            int pageSize = 5;
+            ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedNews.Count / (decimal)pageSize)) + 1;
+
             return View(PaginatedList<NewsViewModel>.Create(mappedNews, pageNumber ?? 1, pageSize));
         }
 
