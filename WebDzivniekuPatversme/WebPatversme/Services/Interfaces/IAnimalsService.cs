@@ -16,7 +16,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals);
 
-        List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, string searchString);
+        List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, AnimalFilter filter);
 
         Animals GetAnimalById(string Id);
 

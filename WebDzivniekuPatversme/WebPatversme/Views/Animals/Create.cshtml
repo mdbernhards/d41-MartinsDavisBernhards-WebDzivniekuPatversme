@@ -57,7 +57,7 @@
                 <label class="control-label">Patversme</label>
                 <div>
                     @Html.DropDownListFor(
-                        x => x.AnimalShelterId,
+                        shelters => shelters.AnimalShelterId,
                         new SelectList(Model.AnimalShelters, "AnimalShelterID", "Name", Model.AnimalShelterId),
                         "-- Izvēlies --",
                         new {

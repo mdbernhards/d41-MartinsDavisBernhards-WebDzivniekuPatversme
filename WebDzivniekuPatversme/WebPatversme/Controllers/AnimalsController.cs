@@ -27,9 +27,15 @@ namespace WebDzivniekuPatversme.Controllers
         [AllowAnonymous]
         public IActionResult Index(
             string sortOrder,
-            string filter,
             int? pageNumber,
-            int pageSize = 3)
+            string name,
+            int age,
+            string species,
+            string colour,
+            string about,
+            int weight,
+            int pageSize = 3
+            )
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["AgeSortParm"] = sortOrder == "age" ? "age_desc" : "age";
@@ -39,9 +45,25 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
             ViewData["ColourSortParm"] = sortOrder == "colour" ? "colour_desc" : "colour";
 
-            ViewData["Filter"] = filter;
             ViewData["CurrentSort"] = sortOrder;
             ViewData["PageSize"] = pageSize;
+
+            ViewData["Name"] = name;
+            ViewData["Age"] = age;
+            ViewData["Species"] = species;
+            ViewData["Colour"] = colour;
+            ViewData["About"] = about;
+            ViewData["Weight"] = weight;
+
+            var filter = new AnimalFilter
+            {
+                Name = name,
+                Age = age,
+                Species = species,
+                Colour = colour,
+                About = about,
+                Weight = weight
+            };
 
             var animalList = _animalsServices.GetAllAnimalList();
             var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(animalList);
@@ -50,6 +72,7 @@ namespace WebDzivniekuPatversme.Controllers
             mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, filter);
 
             ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedAnimals.Count / (decimal)pageSize)) + 1;
+            ViewData["DropDown"] = mappedAnimals;
 
             return View(PaginatedList<AnimalsViewModel>.Create(mappedAnimals, pageNumber ?? 1, pageSize));
         }

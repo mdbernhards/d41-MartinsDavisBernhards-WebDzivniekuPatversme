@@ -46,9 +46,9 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
-        public List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, string searchString)
+        public List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, AnimalFilter filter)
         {
-            animals = FilterAnimals(animals, searchString);
+            animals = FilterAnimals(animals, filter);
             animals = OrderAnimals(animals, sortOrder);
 
             return animals;
@@ -102,11 +102,36 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
-        private List<AnimalsViewModel> FilterAnimals(List<AnimalsViewModel> animals, string searchString)
+        private List<AnimalsViewModel> FilterAnimals(List<AnimalsViewModel> animals, AnimalFilter filter)
         {
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(filter.Name))
             {
-                animals = animals.Where(animal => animal.Name.Contains(searchString)).ToList();
+                animals = animals.Where(animal => animal.Name.Contains(filter.Name)).ToList();
+            }
+
+            if(filter.Age != 0)
+            {
+                animals = animals.Where(animal => animal.Age == filter.Age).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(filter.Species))
+            {
+                animals = animals.Where(animal => animal.Species.Contains(filter.Species)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(filter.Colour))
+            {
+                animals = animals.Where(animal => animal.Colour.Contains(filter.Colour)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(filter.About))
+            {
+                animals = animals.Where(animal => animal.About.Contains(filter.About)).ToList();
+            }
+
+            if (filter.Weight != 0)
+            {
+                animals = animals.Where(animal => animal.Weight == filter.Weight).ToList();
             }
 
             return animals;
