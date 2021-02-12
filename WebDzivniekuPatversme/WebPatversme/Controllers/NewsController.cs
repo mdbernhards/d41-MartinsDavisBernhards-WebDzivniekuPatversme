@@ -28,7 +28,7 @@ namespace WebDzivniekuPatversme.Controllers
         [AllowAnonymous]
         public IActionResult Index(
             string sortOrder,
-            string filter,
+            string name,
             int? pageNumber,
             int pageSize = 3)
         {
@@ -36,14 +36,14 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["TextSortParm"] = sortOrder == "text" ? "text_desc" : "text";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
-            ViewData["Filter"] = filter;
+            ViewData["Name"] = name;
             ViewData["CurrentSort"] = sortOrder;
             ViewData["PageSize"] = pageSize;
 
             var allNews = _newsServices.GetAllNewsList();
             var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
 
-            mappedNews = _newsServices.SortNews(mappedNews, sortOrder, filter);
+            mappedNews = _newsServices.SortNews(mappedNews, sortOrder, name);
 
             ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedNews.Count / (decimal)pageSize)) + 1;
 

@@ -27,7 +27,7 @@ namespace WebDzivniekuPatversme.Controllers
         [AllowAnonymous]
         public IActionResult Index(
             string sortOrder,
-            string filter,
+            string name,
             int? pageNumber,
             int pageSize = 3)
         { 
@@ -37,14 +37,14 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["PhoneNumberSortParm"] = sortOrder == "phoneNumber" ? "phoneNumber_desc" : "phoneNumber";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
-            ViewData["Filter"] = filter;
+            ViewData["Name"] = name;
             ViewData["CurrentSort"] = sortOrder;
             ViewData["PageSize"] = pageSize;
 
             var allShelters = _sheltersServices.GetAllShelterList();
             var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
 
-            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, filter);
+            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, name);
 
             ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedShelters.Count / (decimal)pageSize)) + 1;
 

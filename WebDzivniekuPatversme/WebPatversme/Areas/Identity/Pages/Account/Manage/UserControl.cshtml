@@ -1,0 +1,45 @@
+﻿@page
+@model UserControlModel
+@{
+    ViewData["Title"] = "Lietotāju pārvalde";
+    ViewData["ActivePage"] = ManageNavPages.UserControl;
+}
+
+<h4>@ViewData["Title"]</h4>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Email
+                </th>
+                <th>
+                    SetRole
+                </th>
+            </tr>
+        </thead>
+    </table>
+    @foreach (var item in Model.Users)
+    {
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        <select class="form-control" asp-items="((IEnumerable<IdentityRole>)Model.Roles)
+                                                    .Select(x => new SelectListItem { Text = x.Name, Value = x.Name })
+                                                    .AsEnumerable()">
+                            <option value=""> gf </option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

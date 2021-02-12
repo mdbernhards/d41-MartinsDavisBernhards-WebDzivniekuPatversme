@@ -8,8 +8,6 @@
 
 <div class="text-center">
     <h1 class="display-4">Dzīvnieki!</h1>
-    <h2 class="display-3">*Filtri dzīvnieku izvēlei*</h2>
-    <p>Saraksts ar Dzīvniekiem</p>
 </div>
 
 <p>
@@ -17,9 +15,9 @@
 </p>
 
 <form asp-action="Index" method="get">
-    <div  class="col-md-4">
-        <p>
-            <label class="control-label">pēc vecuma</label>
+    <div class="row">
+        <div id="dataListItem" class="col-md-4">
+            <label class="control-label">Pēc vecuma</label>
             <select name="age" class="form-control" value="@ViewData["Age"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Age)
                     .Select(g => g.First())
@@ -36,7 +34,9 @@
                     }
                 </option>
             </select>
-            <label class="control-label">pēc sugas</label>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <label class="control-label">Pēc sugas</label>
             <select name="species" class="form-control" value="@ViewData["Species"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Species)
                     .Select(g => g.First())
@@ -53,7 +53,9 @@
                     }
                 </option>
             </select>
-            <label class="control-label">pēc krāsas</label>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <label class="control-label">Pēc krāsas</label>
             <select name="colour" class="form-control" value="@ViewData["Colour"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Colour)
                     .Select(g => g.First())
@@ -70,7 +72,9 @@
                     }
                 </option>
             </select>
-            <label class="control-label">pēc apraksta</label>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <label class="control-label">Pēc apraksta</label>
             <select name="about" class="form-control" value="@ViewData["About"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.About)
                     .Select(g => g.First())
@@ -87,7 +91,9 @@
                     }
                 </option>
             </select>
-            <label class="control-label">pēc Svara</label>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <label class="control-label">Pēc svara</label>
             <select name="weight" class="form-control" value="@ViewData["Weight"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Weight)
                     .Select(g => g.First())
@@ -104,14 +110,14 @@
                     }
                 </option>
             </select>
-        </p>
-        <p>
-            Pēc vārda: 
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <label class="control-label">Pēc vārda</label>
             <input type="text" name="name" class="form-control" value="@ViewData["Name"]" />
             <input type="hidden" name="pageSize" value="@ViewData["PageSize"]" />
             <input type="submit" value="Meklēt" class="btn btn-default" /> |
-            <a asp-action="Index">  Atpakaļ uz pilnu listi</a>
-        </p>
+            <a asp-action="Index"> Noņemt filtrus</a>
+        </div>
     </div>
 </form>
 

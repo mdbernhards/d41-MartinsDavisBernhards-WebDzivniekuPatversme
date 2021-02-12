@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
@@ -24,6 +21,8 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
+        public static string UserControl => "UserControl";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
@@ -39,6 +38,8 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public static string PersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, PersonalData);
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
+
+        public static string UserControlNavClass(ViewContext viewContext) => PageNavClass(viewContext, UserControl);
 
         private static string PageNavClass(ViewContext viewContext, string page)
         {
