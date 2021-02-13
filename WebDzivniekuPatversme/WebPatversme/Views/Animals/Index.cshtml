@@ -14,7 +14,7 @@
     <a asp-action="Create">+ Pievienot dzīvnieku</a>
 </p>
 
-<form asp-action="Index" method="get">
+<form asp-action="Index" method="get" style="padding-left: 1%">
     <div class="row">
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc vecuma</label>
@@ -115,8 +115,10 @@
             <label class="control-label">Pēc vārda</label>
             <input type="text" name="name" class="form-control" value="@ViewData["Name"]" />
             <input type="hidden" name="pageSize" value="@ViewData["PageSize"]" />
-            <input type="submit" value="Meklēt" class="btn btn-default" /> |
-            <a asp-action="Index"> Noņemt filtrus</a>
+        </div>
+        <div id="dataListItem" class="col-md-4" style="padding: 0.4%">
+            <input type="submit" value="Meklēt" class="btn btn-default"/>|
+            <a asp-action="Index" class="btn btn-default">Noņemt filtrus</a>
         </div>
     </div>
 </form>
@@ -191,19 +193,6 @@
             </th>
             <th>
                 <a asp-action="Index" 
-                   asp-route-sortOrder="@ViewData["DateAddedSortParm"]"
-                   asp-route-pageSize="@ViewData["PageSize"]"
-                   asp-route-species="@ViewData["Species"]"
-                   asp-route-colour="@ViewData["Colour"]"
-                   asp-route-weight="@ViewData["Weight"]"
-                   asp-route-about="@ViewData["About"]"
-                   asp-route-name="@ViewData["Name"]"
-                   asp-route-age="@ViewData["Age"]">
-                   Pievienošanas datums
-                </a>
-            </th>
-            <th>
-                <a asp-action="Index" 
                    asp-route-sortOrder="@ViewData["ColourSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
@@ -239,9 +228,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AnimalShelterName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateAdded)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Colour)
@@ -313,40 +299,42 @@
     Nākamā
 </a>
 
-Izvēlies daudzumu:
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-species="@ViewData["Species"]"
-   asp-route-colour="@ViewData["Colour"]"
-   asp-route-weight="@ViewData["Weight"]"
-   asp-route-about="@ViewData["About"]"
-   asp-route-name="@ViewData["Name"]"
-   asp-route-age="@ViewData["Age"]"
-   asp-route-pageSize="3"
-   class="btn btn-default">
-    3
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-species="@ViewData["Species"]"
-   asp-route-colour="@ViewData["Colour"]"
-   asp-route-weight="@ViewData["Weight"]"
-   asp-route-about="@ViewData["About"]"
-   asp-route-name="@ViewData["Name"]"
-   asp-route-age="@ViewData["Age"]"
-   asp-route-pageSize="5"
-   class="btn btn-default">
-    5
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-species="@ViewData["Species"]"
-   asp-route-colour="@ViewData["Colour"]"
-   asp-route-weight="@ViewData["Weight"]"
-   asp-route-about="@ViewData["About"]"
-   asp-route-name="@ViewData["Name"]"
-   asp-route-age="@ViewData["Age"]"
-   asp-route-pageSize="10"
-   class="btn btn-default">
-    10
-</a>
+<div style="float:right">
+    Izvēlies daudzumu:
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-species="@ViewData["Species"]"
+       asp-route-colour="@ViewData["Colour"]"
+       asp-route-weight="@ViewData["Weight"]"
+       asp-route-about="@ViewData["About"]"
+       asp-route-name="@ViewData["Name"]"
+       asp-route-age="@ViewData["Age"]"
+       asp-route-pageSize="3"
+       class="btn btn-default">
+        3
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-species="@ViewData["Species"]"
+       asp-route-colour="@ViewData["Colour"]"
+       asp-route-weight="@ViewData["Weight"]"
+       asp-route-about="@ViewData["About"]"
+       asp-route-name="@ViewData["Name"]"
+       asp-route-age="@ViewData["Age"]"
+       asp-route-pageSize="5"
+       class="btn btn-default">
+        5
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-species="@ViewData["Species"]"
+       asp-route-colour="@ViewData["Colour"]"
+       asp-route-weight="@ViewData["Weight"]"
+       asp-route-about="@ViewData["About"]"
+       asp-route-name="@ViewData["Name"]"
+       asp-route-age="@ViewData["Age"]"
+       asp-route-pageSize="10"
+       class="btn btn-default">
+        10
+    </a>
+</div>

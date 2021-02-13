@@ -13,14 +13,18 @@
     <a asp-action="Create">+ Pievienot ziņas</a>
 </p>
 
-<form asp-action="Index" method="get">
-    <div class="form-group">
+<form asp-action="Index" method="get" style="padding-left: 1%">
+    <div class="row">
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Meklēt pēc titula</label>
             <input type="text" name="name" class="form-control" value="@ViewData["Name"]" />
             <input type="hidden" name="pageSize" value="@ViewData["PageSize"]" />
-            <input type="submit" value="Meklēt" class="btn btn-default" /> |
-            <a asp-action="Index"> Noņemt filtrus</a>
+        </div>
+    </div>
+    <div class="row">
+        <div id="dataListItem" class="col-md-4" style="padding: 0.4%">
+            <input type="submit" value="Meklēt" class="btn btn-default" />|
+            <a asp-action="Index" class="btn btn-default">Noņemt filtrus</a>
         </div>
     </div>
 </form>
@@ -44,7 +48,7 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (var item in Model)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -108,24 +112,27 @@
     Nākamā
 </a>
 
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-name="@ViewData["Name"]"
-   asp-route-pageSize="3"
-   class="btn btn-default">
-    3
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-name="@ViewData["Name"]"
-   asp-route-pageSize="5"
-   class="btn btn-default">
-    5
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-name="@ViewData["Name"]"
-   asp-route-pageSize="10"
-   class="btn btn-default">
-    10
-</a>
+<div style="float:right">
+    Izvēlies daudzumu:
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-name="@ViewData["Name"]"
+       asp-route-pageSize="3"
+       class="btn btn-default">
+        3
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-name="@ViewData["Name"]"
+       asp-route-pageSize="5"
+       class="btn btn-default">
+        5
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-name="@ViewData["Name"]"
+       asp-route-pageSize="10"
+       class="btn btn-default">
+        10
+    </a>
+</div>
