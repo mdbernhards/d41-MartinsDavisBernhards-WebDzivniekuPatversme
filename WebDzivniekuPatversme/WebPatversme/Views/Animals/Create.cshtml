@@ -1,5 +1,7 @@
 ﻿@model WebDzivniekuPatversme.Models.ViewModels.AnimalsViewModel
 
+@using WebDzivniekuPatversme.Models.ViewModels
+
 @{
     ViewData["Title"] = "Pievienot dzīvnieku";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,11 +19,6 @@
                 <label class="control-label">Dzīvnieka vārds</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Vecums</label>
-                <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Dzimšanas datums</label>
@@ -55,16 +52,12 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Patversme</label>
-                    @Html.DropDownListFor(
-                        shelters => shelters.AnimalShelterId,
-                        new SelectList(Model.AnimalShelters, "AnimalShelterID", "Name", Model.AnimalShelterId),
-                        "-- Izvēlies --",
-                        new {
-                                @id = "shelter",
-                                @class = "form-control"
-                            }
-                   )
-                    @Html.ValidationMessageFor(x => x.AnimalShelterId)
+                <select class="form-control" asp-for="AnimalShelterId" asp-items="Model.AnimalShelters
+                    .GroupBy(t => t.Name)
+                    .Select(g => g.First())
+                    .Select(x => new SelectListItem {  Text = x.Name, Value = x.AnimalShelterID })
+                    .AsEnumerable()">
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Pievienot" class="btn btn-primary" />

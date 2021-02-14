@@ -53,6 +53,8 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Lietotāju un lomu izveidošana](https://stackoverflow.com/questions/34343599/how-to-seed-users-and-roles-with-code-first-migration-using-identity-asp-net-cor)
 - [Uz lomām bāzēta autorizācija](https://docs.microsoft.com/en-us/aspnet/core/security/authorization/roles?view=aspnetcore-5.0#policy-based-role-checks)
 - [Listes sakārtošana, filstrēšana un paging](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-5.0)
+- [Validācija](https://www.tutorialsteacher.com/mvc/implement-validation-in-asp.net-mvc)
+- [Datuma validācija](https://stackoverflow.com/questions/46184818/dataanotation-to-validate-a-model-how-do-i-validate-it-so-that-the-date-is-not)
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
 
 ## Uzstādīšanas instrukcijas

@@ -82,7 +82,7 @@ namespace WebDzivniekuPatversme.Controllers
         {
             AnimalsViewModel animalModel = new AnimalsViewModel
             {
-                AnimalShelters = _animalsServices.GetAllShelters(),
+                AnimalShelters = _mapper.Map<List<SheltersViewModel>>(_animalsServices.GetAllShelters()),
                 BirthDate = DateTime.Today
             };
 
@@ -110,7 +110,7 @@ namespace WebDzivniekuPatversme.Controllers
             var animal = _animalsServices.GetAnimalById(id);
             var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
 
-            mappedAnimal.AnimalShelters = _animalsServices.GetAllShelters();
+            mappedAnimal.AnimalShelters = _mapper.Map<List<SheltersViewModel>>(_animalsServices.GetAllShelters());
 
             return View(mappedAnimal);
         }

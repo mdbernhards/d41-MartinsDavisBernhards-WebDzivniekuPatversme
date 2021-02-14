@@ -227,7 +227,7 @@
                     @Html.DisplayFor(modelItem => item.Weight)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AnimalShelterName)
+                    @Html.ActionLink(item.AnimalShelterName, "Details", "Shelters", new { id = item.AnimalShelterId })
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Colour)

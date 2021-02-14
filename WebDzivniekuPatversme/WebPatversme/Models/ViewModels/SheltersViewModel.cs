@@ -8,6 +8,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Key]
         public string AnimalShelterID { set; get; }
 
+        [StringLength(100, ErrorMessage = "Patversmes nosaukums par garu")]
+        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Vārds var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Vārds ir obligāts.")]
         [Display(Name = "Vārds")]
         public string Name { set; get; }
@@ -16,10 +18,13 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Adrese")]
         public string Address { set; get; }
 
+        [StringLength(25, ErrorMessage = "Telefona numurs par garu")]
+        [Phone(ErrorMessage = "Telefona numurs ievadīts nepareizi")]
         [Required(ErrorMessage = "Telefona numurs ir obligāts.")]
         [Display(Name = "Telefona numurs")]
         public string PhoneNumber { set; get; }
 
+        [Range(1, 9999, ErrorMessage = "Kapacitāte nevar būt mazāka par 1 un lielāka par 9999.")]
         [Required(ErrorMessage = "Dzīvnieku kapacitāte ir obligāta.")]
         [Display(Name = "Dzīvnieku kapacitāte")]
         public int AnimalCapacity { set; get; }

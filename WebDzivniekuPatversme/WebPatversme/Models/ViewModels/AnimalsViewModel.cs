@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WebDzivniekuPatversme.Services.Other;
 
 namespace WebDzivniekuPatversme.Models.ViewModels
 {
@@ -9,6 +10,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Key]
         public string AnimalID { set; get; }
 
+        [StringLength(100, ErrorMessage = "Vārds par garu")]
+        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Vārds var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Vārds ir obligāts.")]
         [Display(Name = "Vārds")]
         public string Name { set; get; }
@@ -18,18 +21,25 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public int Age { set; get; }
 
         [DataType(DataType.Date)]
+        [DateValidation(ErrorMessage = "Datums nevar būt nākotnē")]
         [Required(ErrorMessage = "Dzimšanas datums ir obligāts.")]
         [Display(Name = "Dzimšanas datums")]
         public DateTime BirthDate { set; get; }
 
+        [StringLength(100, ErrorMessage = "Sugas nosaukums par garu")]
+        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Suga var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Suga ir obligāta.")]
         [Display(Name = "Suga")]
         public string Species { set; get; }
 
+        [StringLength(100, ErrorMessage = "Krāsas nosaukums par garu")]
+        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Krāsa var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Krāsa ir obligāta.")]
         [Display(Name = "Krāsa")]
         public string Colour { set; get; }
 
+        [StringLength(5000, ErrorMessage = "Apraksts pārsniedz 5000 maksimālo garumu")]
+        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Aprakstā pagaidām var izmantot tikai burtus")]
         [Required(ErrorMessage = "Apraksts ir obligāts.")]
         [Display(Name = "Apraksts")]
         public string About { set; get; }
@@ -37,6 +47,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string ImagePath { set; get; }
 
         [Required(ErrorMessage = "Svars ir obligāts.")]
+        [Range(0, 250, ErrorMessage = "Svars nevar būt mazāks par 0 un lielāks par 250.")]
         [Display(Name = "Svars")]
         public int Weight { set; get; }
 
@@ -49,6 +60,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Patversme")]
         public string AnimalShelterName {set; get; }
 
-        public IEnumerable<Shelters> AnimalShelters { get; set; }
+        public IEnumerable<SheltersViewModel> AnimalShelters { get; set; }
     }
 }
