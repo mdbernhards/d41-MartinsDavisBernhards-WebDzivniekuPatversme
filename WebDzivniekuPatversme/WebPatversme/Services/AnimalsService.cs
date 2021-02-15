@@ -124,9 +124,9 @@ namespace WebDzivniekuPatversme.Services
                 animals = animals.Where(animal => animal.Colour.Contains(filter.Colour)).ToList();
             }
 
-            if (!string.IsNullOrEmpty(filter.About))
+            if (!string.IsNullOrEmpty(filter.Shelter))
             {
-                animals = animals.Where(animal => animal.About.Contains(filter.About)).ToList();
+                animals = animals.Where(animal => animal.AnimalShelterName.Contains(filter.Shelter)).ToList();
             }
 
             if (filter.Weight != 0)

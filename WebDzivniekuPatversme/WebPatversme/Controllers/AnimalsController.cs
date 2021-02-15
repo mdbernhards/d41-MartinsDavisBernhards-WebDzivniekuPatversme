@@ -32,7 +32,7 @@ namespace WebDzivniekuPatversme.Controllers
             int age,
             string species,
             string colour,
-            string about,
+            string shelter,
             int weight,
             int pageSize = 3
             )
@@ -52,7 +52,7 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["Age"] = age;
             ViewData["Species"] = species;
             ViewData["Colour"] = colour;
-            ViewData["About"] = about;
+            ViewData["Shelter"] = shelter;
             ViewData["Weight"] = weight;
 
             var filter = new AnimalFilter
@@ -61,7 +61,7 @@ namespace WebDzivniekuPatversme.Controllers
                 Age = age,
                 Species = species,
                 Colour = colour,
-                About = about,
+                Shelter = shelter,
                 Weight = weight
             };
 

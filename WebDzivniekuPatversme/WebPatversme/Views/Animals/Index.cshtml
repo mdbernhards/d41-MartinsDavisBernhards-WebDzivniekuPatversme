@@ -74,20 +74,20 @@
             </select>
         </div>
         <div id="dataListItem" class="col-md-4">
-            <label class="control-label">Pēc apraksta</label>
-            <select name="about" class="form-control" value="@ViewData["About"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
+            <label class="control-label">Pēc patversmes</label>
+            <select name="shelter" class="form-control" value="@ViewData["Shelter"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.About)
                     .Select(g => g.First())
-                    .Select(x => new SelectListItem {  Text = x.About, Value = x.About })
+                    .Select(x => new SelectListItem {  Text = x.AnimalShelterName, Value = x.AnimalShelterName })
                     .AsEnumerable()">
-                <option value="@ViewData["About"]">
-                    @if (ViewData["About"] == null)
+                <option value="@ViewData["Shelter"]">
+                    @if (ViewData["Shelter"] == null)
                     {
-                        @Html.Raw("--Apraksts--")
+                        @Html.Raw("--Patversme--")
                     }
                     else
                     {
-                        @ViewData["About"]
+                        @ViewData["Shelter"]
                     }
                 </option>
             </select>
@@ -131,6 +131,7 @@
                    asp-route-sortOrder="@ViewData["NameSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-about="@ViewData["About"]"
@@ -144,6 +145,7 @@
                    asp-route-sortOrder="@ViewData["AgeSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-about="@ViewData["About"]"
@@ -157,6 +159,7 @@
                    asp-route-sortOrder="@ViewData["SpeciesSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-about="@ViewData["About"]"
@@ -170,6 +173,7 @@
                    asp-route-sortOrder="@ViewData["WeightSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-about="@ViewData["About"]"
@@ -183,6 +187,7 @@
                    asp-route-sortOrder="@ViewData["ShelterSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-about="@ViewData["About"]"
@@ -196,6 +201,7 @@
                    asp-route-sortOrder="@ViewData["ColourSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-about="@ViewData["About"]"
@@ -261,6 +267,7 @@
    asp-route-pageNumber="@(Model.PageIndex - 1)"
    asp-route-pageSize="@ViewData["PageSize"]"
    asp-route-species="@ViewData["Species"]"
+   asp-route-shelter="@ViewData["Shelter"]"
    asp-route-colour="@ViewData["Colour"]"
    asp-route-weight="@ViewData["Weight"]"
    asp-route-about="@ViewData["About"]"
@@ -276,6 +283,7 @@
        asp-route-pageNumber="@i"
        asp-route-pageSize="@ViewData["PageSize"]"
        asp-route-species="@ViewData["Species"]"
+       asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"
        asp-route-about="@ViewData["About"]"
@@ -290,6 +298,7 @@
    asp-route-pageNumber="@(Model.PageIndex + 1)"
    asp-route-pageSize="@ViewData["PageSize"]"
    asp-route-species="@ViewData["Species"]"
+   asp-route-shelter="@ViewData["Shelter"]"
    asp-route-colour="@ViewData["Colour"]"
    asp-route-weight="@ViewData["Weight"]"
    asp-route-about="@ViewData["About"]"
@@ -304,6 +313,7 @@
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
        asp-route-species="@ViewData["Species"]"
+       asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"
        asp-route-about="@ViewData["About"]"
@@ -316,6 +326,7 @@
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
        asp-route-species="@ViewData["Species"]"
+       asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"
        asp-route-about="@ViewData["About"]"
@@ -328,6 +339,7 @@
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
        asp-route-species="@ViewData["Species"]"
+       asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"
        asp-route-about="@ViewData["About"]"

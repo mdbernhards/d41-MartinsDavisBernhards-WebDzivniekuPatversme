@@ -35,7 +35,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             public string Role { get; set; }
         }
 
-        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> OnGetAsync()
         {
             Users = _userManager.Users.ToList();
@@ -56,7 +55,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> OnPostChangeRolesAsync(string role, string userName)
         {
             if (!ModelState.IsValid)
@@ -76,7 +74,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
-        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> OnPostDeleteUserAsync(string userName)
         {
             if (!ModelState.IsValid)

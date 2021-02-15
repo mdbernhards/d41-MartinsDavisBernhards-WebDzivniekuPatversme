@@ -8,13 +8,13 @@
     <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Parole</a></li>
     @if (hasExternalLogins)
     {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Ārējie servisi</a></li>
+        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Ārējie Servisi</a></li>
     }
-    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">divu-soļu autentifikācija</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Divu-Soļu Autentifikācija</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Profila dati</a></li>
 
     @if (ViewContext.HttpContext.User.IsInRole("administrator"))
     {
-        <li class="nav-item"><a class="nav-link @ManageNavPages.UserControlNavClass(ViewContext)" id="user-control" asp-page="./UserControl">Lietotāju pārvalde</a></li>
+        <li class="nav-item"><a class="nav-link @ManageNavPages.UserControlNavClass(ViewContext)" id="user-control" asp-page="./UserControl">Lietotāju Pārvalde</a></li>
     }
     </ul>

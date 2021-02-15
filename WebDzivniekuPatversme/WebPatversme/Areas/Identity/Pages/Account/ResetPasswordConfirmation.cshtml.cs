@@ -8,7 +8,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
     {
         public void OnGet()
         {
-
         }
     }
 }

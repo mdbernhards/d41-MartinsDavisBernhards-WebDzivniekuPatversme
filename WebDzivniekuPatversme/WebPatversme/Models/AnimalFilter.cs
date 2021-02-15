@@ -10,7 +10,7 @@
 
         public string Colour { set; get; }
 
-        public string About { set; get; }
+        public string Shelter { set; get; }
 
         public int Weight { set; get; }
     }
