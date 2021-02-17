@@ -68,13 +68,13 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             if (remoteError != null)
             {
-                ErrorMessage = $"Error from external provider: {remoteError}";
+                ErrorMessage = $"Kļūda ārējā servisā: {remoteError}";
                 return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information.";
+                ErrorMessage = "Kļūda ielādējot ārējo servisu informāciju.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
@@ -82,7 +82,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
             if (result.Succeeded)
             {
-                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                _logger.LogInformation("{Name} ienāca ar {LoginProvider}.", info.Principal.Identity.Name, info.LoginProvider);
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -112,7 +112,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information during confirmation.";
+                ErrorMessage = "Kļūda ielādējot ārējo servisu informāciju apstiprināšanas laikā.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
@@ -126,7 +126,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        _logger.LogInformation("Lietotājs izveidoja profilu izmantojot {Name}.", info.LoginProvider);
 
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -137,8 +137,8 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId, code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        await _emailSender.SendEmailAsync(Input.Email, "Apstiprini savu E-pastu",
+                            $"Apstiprini savu profilu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>.");
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)

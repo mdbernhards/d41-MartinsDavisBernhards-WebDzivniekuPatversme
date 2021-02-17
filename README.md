@@ -55,6 +55,8 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Listes sakārtošana, filstrēšana un paging](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-5.0)
 - [Validācija](https://www.tutorialsteacher.com/mvc/implement-validation-in-asp.net-mvc)
 - [Datuma validācija](https://stackoverflow.com/questions/46184818/dataanotation-to-validate-a-model-how-do-i-validate-it-so-that-the-date-is-not)
+- [Attēlu Augšuplāde](https://stackoverflow.com/questions/47185920/upload-image-in-asp-net-core)
+- [Attēlu Validācija](https://stackoverflow.com/questions/56588900/how-to-validate-uploaded-file-in-asp-net-core)
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
 
 ## Uzstādīšanas instrukcijas

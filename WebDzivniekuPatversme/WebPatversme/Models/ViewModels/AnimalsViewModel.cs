@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using WebDzivniekuPatversme.Services.Other;
 
 namespace WebDzivniekuPatversme.Models.ViewModels
@@ -45,6 +46,10 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string About { set; get; }
 
         public string ImagePath { set; get; }
+
+        [Display(Name = "Attēls")]
+        [DataType(DataType.Upload)]
+        public IFormFile Image { set; get; }
 
         [Required(ErrorMessage = "Svars ir obligāts.")]
         [Range(0, 250, ErrorMessage = "Svars nevar būt mazāks par 0 un lielāks par 250.")]

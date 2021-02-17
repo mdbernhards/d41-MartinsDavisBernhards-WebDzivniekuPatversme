@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace WebDzivniekuPatversme.Models.ViewModels
 {
@@ -33,5 +34,9 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public DateTime DateAdded { set; get; }
 
         public string ImagePath { set; get; }
+
+        [Display(Name = "Attēls")]
+        [DataType(DataType.Upload)]
+        public IFormFile Image { set; get; }
     }
 }

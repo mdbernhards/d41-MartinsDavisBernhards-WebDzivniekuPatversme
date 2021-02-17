@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,14 +8,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
     public class PersonalDataModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly ILogger<PersonalDataModel> _logger;
 
         public PersonalDataModel(
-            UserManager<IdentityUser> userManager,
-            ILogger<PersonalDataModel> logger)
+            UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
-            _logger = logger;
         }
 
         public async Task<IActionResult> OnGet()

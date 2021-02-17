@@ -31,12 +31,12 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(7, ErrorMessage = "{0} obligāti garumā no {2} līdz {1}.", MinimumLength = 6)]
             [DataType(DataType.Text)]
-            [Display(Name = "Authenticator code")]
+            [Display(Name = "Autentifikācijas kods")]
             public string TwoFactorCode { get; set; }
 
-            [Display(Name = "Remember this machine")]
+            [Display(Name = "Atcerēties šo ierīci")]
             public bool RememberMachine { get; set; }
         }
 
@@ -47,7 +47,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"Nevar ielādēt Divu-Soļu autentifikācijas lietotāju.");
             }
 
             ReturnUrl = returnUrl;
@@ -68,7 +68,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException($"Nevar ielādēt Divu-Soļu autentifikācijas lietotāju.");
             }
 
             var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
@@ -77,18 +77,18 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+                _logger.LogInformation("lietotājs ar ID '{UserId}' ienāca ar Divu-Soļu autentifikāciju.", user.Id);
                 return LocalRedirect(returnUrl);
             }
             else if (result.IsLockedOut)
             {
-                _logger.LogWarning("User with ID '{UserId}' account locked out.", user.Id);
+                _logger.LogWarning("lietotāja ar ID '{UserId}' profils tika aizslēgts.", user.Id);
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                _logger.LogWarning("Nederīgs autentifikācijas kods tika ievadīts lietotājam ar ID '{UserId}'.", user.Id);
+                ModelState.AddModelError(string.Empty, "Nederīgs Autentifikācijas kods.");
                 return Page();
             }
         }

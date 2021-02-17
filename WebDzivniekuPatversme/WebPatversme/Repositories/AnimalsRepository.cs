@@ -1,20 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Hosting;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Repositories.Interfaces;
-using MySql.Data.MySqlClient;
 
 namespace WebDzivniekuPatversme.Repositories
 {
     public class AnimalsRepository : IAnimalsRepository
     {
         private readonly WebShelterDbContext _dbcontext;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public AnimalsRepository(
-            WebShelterDbContext dbContext)
+            WebShelterDbContext dbContext, 
+            IWebHostEnvironment appEnvironment)
         {
             _dbcontext = dbContext;
+            _appEnvironment = appEnvironment;
         }
 
         public List<Animals> GetAllAnimals()
@@ -51,8 +56,10 @@ namespace WebDzivniekuPatversme.Repositories
             return list;
         }
 
-        public void CreateNewAnimal(Animals newAnimal)
+        public void CreateNewAnimal(Animals animal)
         {
+            animal.ImagePath = SaveImage(animal);
+
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "INSERT INTO Animals (ID, Weight, BirthDate, DateAdded, About, Name, Species, Colour, ImagePath, AnimalShelterID) " +
                                                 "VALUES (@id, @weight, @birthDate, @dateAdded, @about, @name, @species, @colour, @imagePath, @animalShelterId);";
@@ -60,21 +67,19 @@ namespace WebDzivniekuPatversme.Repositories
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            string birthDateeString = newAnimal.BirthDate.ToString("yyyy-MM-dd");
-            string dateAddedString = newAnimal.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
+            string birthDateeString = animal.BirthDate.ToString("yyyy-MM-dd");
+            string dateAddedString = animal.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
-            cmd.Parameters.AddWithValue("@weight", newAnimal.Weight);
+            cmd.Parameters.AddWithValue("@weight", animal.Weight);
             cmd.Parameters.AddWithValue("@birthDate", birthDateeString);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
-            cmd.Parameters.AddWithValue("@about", newAnimal.About);
-            cmd.Parameters.AddWithValue("@name", newAnimal.Name);
-            cmd.Parameters.AddWithValue("@species", newAnimal.Species);
-            cmd.Parameters.AddWithValue("@colour", newAnimal.Colour);
-            cmd.Parameters.AddWithValue("@imagePath", newAnimal.ImagePath);
-            cmd.Parameters.AddWithValue("@animalShelterID", newAnimal.AnimalShelterId);
-            cmd.Parameters.AddWithValue("@id", newAnimal.AnimalID);
-
-            var reader = cmd.ExecuteReader();
+            cmd.Parameters.AddWithValue("@about", animal.About);
+            cmd.Parameters.AddWithValue("@name", animal.Name);
+            cmd.Parameters.AddWithValue("@species", animal.Species);
+            cmd.Parameters.AddWithValue("@colour", animal.Colour);
+            cmd.Parameters.AddWithValue("@imagePath", animal.ImagePath);
+            cmd.Parameters.AddWithValue("@animalShelterID", animal.AnimalShelterId);
+            cmd.Parameters.AddWithValue("@id", animal.AnimalID);
         }
 
         public void DeleteAnimal(Animals animal)
@@ -124,6 +129,23 @@ namespace WebDzivniekuPatversme.Repositories
             }
 
             return age;
+        }
+
+        private string SaveImage(Animals animal)
+        {
+            var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\animals");
+
+            if (animal.Image != null && animal.Image.Length > 0)
+            {
+                var fileName = Path.GetFileName(animal.Name + animal.AnimalID + Path.GetExtension(animal.Image.FileName));
+
+                var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create);
+                animal.Image.CopyTo(fileStream);
+
+                return fileName;
+            }
+
+            return string.Empty;
         }
     }
 }

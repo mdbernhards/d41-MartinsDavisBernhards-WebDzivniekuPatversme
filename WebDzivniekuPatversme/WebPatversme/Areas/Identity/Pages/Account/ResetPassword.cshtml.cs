@@ -34,7 +34,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Atkārto paroli")]
             [Compare("Password", ErrorMessage = "Paroles nesakrīt.")]
             public string ConfirmPassword { get; set; }
 
@@ -67,7 +67,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
                 return RedirectToPage("./ResetPasswordConfirmation");
             }
 
@@ -81,6 +80,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
+
             return Page();
         }
     }

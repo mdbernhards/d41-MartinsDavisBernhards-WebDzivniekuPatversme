@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace WebDzivniekuPatversme.Models.ViewModels
 {
@@ -18,6 +19,9 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public DateTime DateAdded { set; get; }
 
         public string ImagePath { set; get; }
+
+        [Display(Name = "Attēls")]
+        public string Image { set; get; }
 
         [StringLength(100, ErrorMessage = "Tituls par garu")]
         [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Tituls var sastāvēt tikai no burtiem")]

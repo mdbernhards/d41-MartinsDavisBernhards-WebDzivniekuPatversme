@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace WebDzivniekuPatversme.Models
 {
@@ -19,6 +20,8 @@ namespace WebDzivniekuPatversme.Models
         public string About { set; get; }
 
         public string ImagePath { set; get; }
+
+        public IFormFile Image { set; get; }
 
         public int Weight { set; get; }
 
