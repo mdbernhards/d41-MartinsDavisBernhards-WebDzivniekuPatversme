@@ -1,20 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Hosting;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Repositories.Interfaces;
-using MySql.Data.MySqlClient;
 
 namespace WebDzivniekuPatversme.Repositories
 {
     public class ShelterRepository : IShelterRepository
     {
         private readonly WebShelterDbContext _dbcontext;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public ShelterRepository(
-            WebShelterDbContext dbContext)
+            WebShelterDbContext dbContext,
+            IWebHostEnvironment appEnvironment)
         {
             _dbcontext = dbContext;
+            _appEnvironment = appEnvironment;
         }
 
         public List<Shelters> GetAllAnimalShelters()
@@ -44,22 +49,24 @@ namespace WebDzivniekuPatversme.Repositories
             return list;
         }
 
-        public void CreateNewAnimalShelter(Shelters newAnimalShelters)
+        public void CreateNewAnimalShelter(Shelters shelter)
         {
+            shelter.ImagePath = SaveImage(shelter);
+
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            string dateAddedString = newAnimalShelters.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
+            string dateAddedString = shelter.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
-            cmd.Parameters.AddWithValue("@id", newAnimalShelters.AnimalShelterID);
-            cmd.Parameters.AddWithValue("@animalCapacity", newAnimalShelters.AnimalCapacity);
-            cmd.Parameters.AddWithValue("@name", newAnimalShelters.Name);
-            cmd.Parameters.AddWithValue("@adress", newAnimalShelters.Address);
-            cmd.Parameters.AddWithValue("@phoneNumber", newAnimalShelters.PhoneNumber);
-            cmd.Parameters.AddWithValue("@imagePath", newAnimalShelters.ImagePath);
+            cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
+            cmd.Parameters.AddWithValue("@animalCapacity", shelter.AnimalCapacity);
+            cmd.Parameters.AddWithValue("@name", shelter.Name);
+            cmd.Parameters.AddWithValue("@adress", shelter.Address);
+            cmd.Parameters.AddWithValue("@phoneNumber", shelter.PhoneNumber);
+            cmd.Parameters.AddWithValue("@imagePath", shelter.ImagePath);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
 
             var reader = cmd.ExecuteReader();
@@ -96,6 +103,8 @@ namespace WebDzivniekuPatversme.Repositories
 
         public void EditShelter(Shelters shelter)
         {
+            shelter.ImagePath = SaveImage(shelter);
+
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "UPDATE AnimalShelters SET AnimalCapacity = @animalCapacity, Name = @name, Address =  @adress, PhoneNumber = @phoneNumber, ImagePath = @imagePath WHERE Id = @id;";
 
@@ -110,6 +119,26 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
 
             var reader = cmd.ExecuteReader();
+        }
+
+        private string SaveImage(Shelters shelters)
+        {
+            var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\shelters");
+
+            if (shelters.Image != null && shelters.Image.Length > 0)
+            {
+                var fileName = Path.GetFileName(shelters.Name + shelters.AnimalShelterID + Path.GetExtension(shelters.Image.FileName));
+
+                File.Delete(Path.Combine(uploads, fileName));
+
+                var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create);
+                shelters.Image.CopyTo(fileStream);
+                fileStream.Close();
+
+                return fileName;
+            }
+
+            return string.Empty;
         }
     }
 }

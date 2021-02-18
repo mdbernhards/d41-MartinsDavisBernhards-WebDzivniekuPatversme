@@ -32,6 +32,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Nosaukums</a>
             </th>
@@ -44,9 +45,6 @@
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["PhoneNumberSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Telefona numurs</a>
             </th>
-            <th>
-                ImagePath
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -54,6 +52,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <img src="~/uploads/images/shelters/@item.ImagePath" alt="@item.Name bilde" onerror="this.onerror = null;this.src = 'uploads/images/shelters/defaultshelter.png'" height="60" width="60" asp-append-version="true" />
+                </td>
                 <td>
                     @Html.DisplayTextFor(modelItem => item.Name)
                 </td>
@@ -65,9 +66,6 @@
                 </td>
                 <td>
                     @Html.DisplayTextFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayTextFor(modelItem => item.ImagePath)
                 </td>
                 <td>
                     @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))

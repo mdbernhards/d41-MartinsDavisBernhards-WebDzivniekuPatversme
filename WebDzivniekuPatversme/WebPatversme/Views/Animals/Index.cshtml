@@ -126,8 +126,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
-                <a asp-action="Index" 
+                <a asp-action="Index"
                    asp-route-sortOrder="@ViewData["NameSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
@@ -136,11 +137,11 @@
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-name="@ViewData["Name"]"
                    asp-route-age="@ViewData["Age"]">
-                   Vārds
+                    Vārds
                 </a>
             </th>
             <th>
-                <a asp-action="Index" 
+                <a asp-action="Index"
                    asp-route-sortOrder="@ViewData["AgeSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
@@ -149,11 +150,11 @@
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-name="@ViewData["Name"]"
                    asp-route-age="@ViewData["Age"]">
-                   Vecums
+                    Vecums
                 </a>
             </th>
             <th>
-                <a asp-action="Index" 
+                <a asp-action="Index"
                    asp-route-sortOrder="@ViewData["SpeciesSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
@@ -162,11 +163,11 @@
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-name="@ViewData["Name"]"
                    asp-route-age="@ViewData["Age"]">
-                   Suga
+                    Suga
                 </a>
             </th>
             <th>
-                <a asp-action="Index" 
+                <a asp-action="Index"
                    asp-route-sortOrder="@ViewData["WeightSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
@@ -175,11 +176,11 @@
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-name="@ViewData["Name"]"
                    asp-route-age="@ViewData["Age"]">
-                   Svars
+                    Svars
                 </a>
             </th>
             <th>
-                <a asp-action="Index" 
+                <a asp-action="Index"
                    asp-route-sortOrder="@ViewData["ShelterSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
@@ -188,11 +189,11 @@
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-name="@ViewData["Name"]"
                    asp-route-age="@ViewData["Age"]">
-                   Patversme
+                    Patversme
                 </a>
             </th>
             <th>
-                <a asp-action="Index" 
+                <a asp-action="Index"
                    asp-route-sortOrder="@ViewData["ColourSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
@@ -201,11 +202,8 @@
                    asp-route-weight="@ViewData["Weight"]"
                    asp-route-name="@ViewData["Name"]"
                    asp-route-age="@ViewData["Age"]">
-                   Krāsa
+                    Krāsa
                 </a>
-            </th>
-            <th>
-                ImagePath
             </th>
             <th></th>
         </tr>
@@ -214,6 +212,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <img src="~/uploads/images/animals/@item.ImagePath" alt="@item.Name bilde" onerror="this.onerror = null;this.src = 'uploads/images/animals/defaultanimal.png'" class="rounded-circle"height="60" width="60" asp-append-version="true"/>
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -231,9 +232,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Colour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImagePath)
                 </td>
                 <td>
                     @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))

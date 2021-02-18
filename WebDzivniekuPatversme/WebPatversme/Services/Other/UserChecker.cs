@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 public class UserChecker
 {
-    private ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
     public UserChecker(ApplicationDbContext context)
     {

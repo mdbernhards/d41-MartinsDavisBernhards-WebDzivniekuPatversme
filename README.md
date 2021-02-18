@@ -57,6 +57,7 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Datuma validācija](https://stackoverflow.com/questions/46184818/dataanotation-to-validate-a-model-how-do-i-validate-it-so-that-the-date-is-not)
 - [Attēlu Augšuplāde](https://stackoverflow.com/questions/47185920/upload-image-in-asp-net-core)
 - [Attēlu Validācija](https://stackoverflow.com/questions/56588900/how-to-validate-uploaded-file-in-asp-net-core)
+- [Noklusējuma attēls](https://stackoverflow.com/questions/717734/best-way-to-display-default-image-if-specified-image-file-is-not-found)
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
 
 ## Uzstādīšanas instrukcijas

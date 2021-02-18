@@ -1,20 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Hosting;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Repositories.Interfaces;
-using MySql.Data.MySqlClient;
 
 namespace WebDzivniekuPatversme.Repositories
 {
     public class NewsRepository : INewsRepository
     {
         private readonly WebShelterDbContext _dbcontext;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public NewsRepository(
-            WebShelterDbContext dbContext)
+            WebShelterDbContext dbContext,
+            IWebHostEnvironment appEnvironment)
         {
             _dbcontext = dbContext;
+            _appEnvironment = appEnvironment;
         }
 
         public List<News> GetAllNews()
@@ -42,22 +47,24 @@ namespace WebDzivniekuPatversme.Repositories
             return list;
         }
 
-        public void CreateNewNews(News newNews)
+        public void CreateNewNews(News news)
         {
+            news.ImagePath = SaveImage(news);
+
             using MySqlConnection conn = _dbcontext.GetConnection();
             string sqlQuerry = "INSERT INTO News (ID, DateAdded, Text, ImagePath, Title, UserId) VALUES (@id, @dateAdded, @text, @imagePath, @title, @userId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            string dateAddedString = newNews.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
+            string dateAddedString = news.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
-            cmd.Parameters.AddWithValue("@id", newNews.NewsID);
+            cmd.Parameters.AddWithValue("@id", news.NewsID);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
-            cmd.Parameters.AddWithValue("@text", newNews.Text);
-            cmd.Parameters.AddWithValue("@imagePath", newNews.ImagePath);
-            cmd.Parameters.AddWithValue("@title", newNews.Title);
-            cmd.Parameters.AddWithValue("@userId", newNews.UserID);
+            cmd.Parameters.AddWithValue("@text", news.Text);
+            cmd.Parameters.AddWithValue("@imagePath", news.ImagePath);
+            cmd.Parameters.AddWithValue("@title", news.Title);
+            cmd.Parameters.AddWithValue("@userId", news.UserID);
 
             var reader = cmd.ExecuteReader();
         }
@@ -77,6 +84,8 @@ namespace WebDzivniekuPatversme.Repositories
 
         public void EditNews(News news)
         {
+            news.ImagePath = SaveImage(news);
+
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "UPDATE News SET Text = @text, ImagePath = @imagePath, Title = @title WHERE Id = @id;";
 
@@ -89,6 +98,26 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@title", news.Title);
 
             var reader = cmd.ExecuteReader();
+        }
+
+        private string SaveImage(News news)
+        {
+            var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\news");
+
+            if (news.Image != null && news.Image.Length > 0)
+            {
+                var fileName = Path.GetFileName(news.Title + news.NewsID + Path.GetExtension(news.Image.FileName));
+
+                File.Delete(Path.Combine(uploads, fileName));
+
+                var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create);
+                news.Image.CopyTo(fileStream);
+                fileStream.Close();
+
+                return fileName;
+            }
+
+            return string.Empty;
         }
     }
 }

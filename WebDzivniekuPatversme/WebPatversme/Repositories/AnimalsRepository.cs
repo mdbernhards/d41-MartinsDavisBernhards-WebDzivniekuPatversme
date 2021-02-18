@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
@@ -80,6 +81,8 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@imagePath", animal.ImagePath);
             cmd.Parameters.AddWithValue("@animalShelterID", animal.AnimalShelterId);
             cmd.Parameters.AddWithValue("@id", animal.AnimalID);
+
+            var reader = cmd.ExecuteReader();
         }
 
         public void DeleteAnimal(Animals animal)
@@ -97,6 +100,8 @@ namespace WebDzivniekuPatversme.Repositories
 
         public void EditAnimal(Animals animal)
         {
+            animal.ImagePath = SaveImage(animal);
+
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "UPDATE Animals SET Weight = @weight , BirthDate =  @birthDate , About = @about ," +
                           " Name = @name , Species = @species , Colour = @colour , ImagePath = @imagePath , AnimalShelterID = @animalShelterID WHERE Id = @id;";
@@ -139,8 +144,11 @@ namespace WebDzivniekuPatversme.Repositories
             {
                 var fileName = Path.GetFileName(animal.Name + animal.AnimalID + Path.GetExtension(animal.Image.FileName));
 
+                File.Delete(Path.Combine(uploads, fileName));
+
                 var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create);
                 animal.Image.CopyTo(fileStream);
+                fileStream.Close();
 
                 return fileName;
             }
