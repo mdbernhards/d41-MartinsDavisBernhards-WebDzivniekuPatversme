@@ -49,6 +49,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels
 
         [Display(Name = "Attēls")]
         [DataType(DataType.Upload)]
+        [MaxFileSizeValidation(6 * 1024 * 1024)]
+        [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" })]
         public IFormFile Image { set; get; }
 
         [Required(ErrorMessage = "Svars ir obligāts.")]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using WebDzivniekuPatversme.Services.Other;
 
 namespace WebDzivniekuPatversme.Models.ViewModels
 {
@@ -37,6 +38,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels
 
         [Display(Name = "Attēls")]
         [DataType(DataType.Upload)]
+        [MaxFileSizeValidation(6 * 1024 * 1024)]
+        [ExtensionValidation(new string[] { ".jpg", ".png" })]
         public IFormFile Image { set; get; }
     }
 }

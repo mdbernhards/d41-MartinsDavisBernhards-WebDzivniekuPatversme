@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
+using WebDzivniekuPatversme.Services.Other;
 
 namespace WebDzivniekuPatversme.Models.ViewModels
 {
@@ -24,6 +25,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [NotMapped]
         [Display(Name = "Attēls")]
         [DataType(DataType.Upload)]
+        [MaxFileSizeValidation(6 * 1024 * 1024)]
+        [ExtensionValidation(new string[] { ".jpg", ".png" })]
         public IFormFile Image { set; get; }
 
         [StringLength(100, ErrorMessage = "Tituls par garu")]
