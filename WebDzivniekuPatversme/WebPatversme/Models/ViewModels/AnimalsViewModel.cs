@@ -67,6 +67,10 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Patversme")]
         public string AnimalShelterName {set; get; }
 
+        [Display(Name = "E-pasts")]
+        [UIHint("tinymce_jquery_full")]
+        public string EmailMessage { get; set; }
+
         public IEnumerable<SheltersViewModel> AnimalShelters { get; set; }
     }
 }

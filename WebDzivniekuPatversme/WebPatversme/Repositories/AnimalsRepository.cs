@@ -124,7 +124,7 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        private int CalculateAge(DateTime birthDate)
+        private static int CalculateAge(DateTime birthDate)
         {
             var age = DateTime.Now.Year - birthDate.Year;
 

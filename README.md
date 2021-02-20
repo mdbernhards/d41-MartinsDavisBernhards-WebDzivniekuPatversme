@@ -40,6 +40,7 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/) - Projekta savienošana ar MySql datubāzi
 - [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) - Objektu pārveidošana Json formātā un atpakaļ
 - [Microsoft.AspNetCore.Identity.UI](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.UI/) - Autorizācijas un piekļuves kontrolēšanai
+- [TinyMCE](https://www.nuget.org/packages/TinyMCE/) - Teksta redaktors
 
 ## Izmantotie avoti
 - [Datubāzes pievienošana](https://www.c-sharpcorner.com/article/how-to-connect-mysql-with-asp-net-core/)
@@ -58,6 +59,7 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Attēlu Augšuplāde](https://stackoverflow.com/questions/47185920/upload-image-in-asp-net-core)
 - [Attēlu Validācija](https://stackoverflow.com/questions/56588900/how-to-validate-uploaded-file-in-asp-net-core)
 - [Noklusējuma attēls](https://stackoverflow.com/questions/717734/best-way-to-display-default-image-if-specified-image-file-is-not-found)
+- [TinyMCE teksta rediģētāja pievienošana](https://forums.asp.net/t/2100291.aspx?Using+HTML+editor+in+MVC+NET+core)
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
 
 ## Uzstādīšanas instrukcijas

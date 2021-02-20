@@ -18,7 +18,7 @@
     <div class="row">
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc vecuma</label>
-            <select name="age" class="form-control" value="@ViewData["Age"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="age" class="form-control" value="@ViewData["Age"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Age)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {  Text = x.Age.ToString(), Value = x.Age.ToString() })
@@ -37,7 +37,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc sugas</label>
-            <select name="species" class="form-control" value="@ViewData["Species"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="species" class="form-control" value="@ViewData["Species"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Species)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {  Text = x.Species, Value = x.Species })
@@ -56,7 +56,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc krāsas</label>
-            <select name="colour" class="form-control" value="@ViewData["Colour"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="colour" class="form-control" value="@ViewData["Colour"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Colour)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {  Text = x.Colour, Value = x.Colour })
@@ -75,7 +75,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc patversmes</label>
-            <select name="shelter" class="form-control" value="@ViewData["Shelter"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="shelter" class="form-control" value="@ViewData["Shelter"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.About)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {  Text = x.AnimalShelterName, Value = x.AnimalShelterName })
@@ -94,7 +94,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc svara</label>
-            <select name="weight" class="form-control" value="@ViewData["Weight"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" on name="weight" class="form-control" value="@ViewData["Weight"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
                     .GroupBy(t => t.Weight)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {  Text = x.Weight.ToString(), Value = x.Weight.ToString() })
@@ -113,7 +113,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc vārda</label>
-            <input type="text" name="name" class="form-control" value="@ViewData["Name"]" />
+            <input onchange="this.form.submit();" type="text" name="name" class="form-control" value="@ViewData["Name"]" />
             <input type="hidden" name="pageSize" value="@ViewData["PageSize"]" />
         </div>
         <div id="dataListItem" class="col-md-4" style="padding: 0.4%">
@@ -248,7 +248,7 @@
                         @Html.Raw(" | ")
                     }
 
-                    @Html.ActionLink("Par", "Details", new { id = item.AnimalID })
+                    @Html.ActionLink("Vairāk", "Details", new { id = item.AnimalID })
                 </td>
             </tr>
         }

@@ -17,7 +17,7 @@
     <div class="row">
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Meklēt pēc nosaukuma</label>
-            <input type="text" name="name" class="form-control" value="@ViewData["Name"]" />
+            <input type="text" onchange="this.form.submit();" name="name" class="form-control" value="@ViewData["Name"]" />
             <input type="hidden" name="pageSize" value="@ViewData["PageSize"]" />
         </div>
     </div>
@@ -82,7 +82,7 @@
                         @Html.Raw(" | ")
                     }
 
-                    @Html.ActionLink("Par", "Details", new { id = item.AnimalShelterID })
+                    @Html.ActionLink("Vairāk", "Details", new { id = item.AnimalShelterID })
                 </td>
             </tr>
         }

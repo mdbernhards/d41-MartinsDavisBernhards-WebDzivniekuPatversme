@@ -27,6 +27,8 @@ namespace WebDzivniekuPatversme.Models
 
         public DateTime DateAdded { set; get; }
 
+        public string EmailMessage { get; set; }
+
         public string AnimalShelterId { set; get; }
     }
 }
