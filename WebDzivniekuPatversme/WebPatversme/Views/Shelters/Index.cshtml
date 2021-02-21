@@ -57,7 +57,8 @@
                         class = "rounded-circle" 
                         height = "75" 
                         width = "75" 
-                        style = " 
+                        style = "
+                            object-fit: cover;
                             box-shadow: 0px 0px 10px #888;
                             padding: 4px;"/>
                 </td>
@@ -77,8 +78,6 @@
                     @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
                     {
                         @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID })
-                        @Html.Raw(" | ")
-                        @Html.ActionLink("Dzēst", "Delete", new { id = item.AnimalShelterID })
                         @Html.Raw(" | ")
                     }
 

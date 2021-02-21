@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -136,6 +136,8 @@ namespace WebDzivniekuPatversme.Controllers
             var animal = _animalsServices.GetAnimalById(id);
             var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
 
+            mappedAnimal = _animalsServices.AddAnimalShelterNames(mappedAnimal);
+
             return View(mappedAnimal);
         }
 
@@ -155,6 +157,8 @@ namespace WebDzivniekuPatversme.Controllers
         {
             var animal = _animalsServices.GetAnimalById(id);
             var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
+
+            mappedAnimal = _animalsServices.AddAnimalShelterNames(mappedAnimal);
 
             return View(mappedAnimal);
         }

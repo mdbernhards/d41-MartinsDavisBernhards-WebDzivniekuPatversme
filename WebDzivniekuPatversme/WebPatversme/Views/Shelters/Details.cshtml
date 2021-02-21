@@ -5,10 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Par Patversmi</h1>
+<h1>@Model.Name</h1>
 
 <div>
     <hr />
+    <div class="col-sm-6">
+        <img src="~/uploads/images/shelters/@Model.ImagePath" alt="@Model.Name bilde" onerror="this.onerror = null;this.src = '/uploads/images/shelters/defaultshelter.png'" asp-append-version="true"
+             class="rounded-circle"
+             height="200"
+             width="200"
+             style="
+                object-fit: cover;
+                box-shadow: 0px 0px 20px #888;
+                left: 100%;
+                padding: 6px;" />
+    </div>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AnimalShelterID)
@@ -48,11 +59,15 @@
         </dd>
     </dl>
 </div>
-<div>
+
+<form asp-action="Delete">
     @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
     {
-        @Html.ActionLink("Labot", "Edit", new { id = Model.AnimalShelterID })
+        @Html.ActionLink("Labot", "Edit", new { id = Model.AnimalShelterID }, new { @class = "btn btn-primary" })
+        @Html.Raw("  ")
+        <input type="hidden" asp-for="AnimalShelterID" />
+        <input type="submit" value="Dzēst" class="btn btn-danger" />
         @Html.Raw(" | ")
     }
     <a asp-action="Index">Atpakaļ uz sarakstu</a>
-</div>
+</form>

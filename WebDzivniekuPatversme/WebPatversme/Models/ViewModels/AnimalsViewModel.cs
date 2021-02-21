@@ -71,6 +71,9 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [UIHint("tinymce_jquery_full")]
         public string EmailMessage { get; set; }
 
+        [Display(Name = "E-pasta tituls")]
+        public string EmailTitle { get; set; }
+
         public IEnumerable<SheltersViewModel> AnimalShelters { get; set; }
     }
 }

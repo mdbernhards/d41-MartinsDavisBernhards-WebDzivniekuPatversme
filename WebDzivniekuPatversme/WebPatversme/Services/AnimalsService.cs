@@ -35,15 +35,22 @@ namespace WebDzivniekuPatversme.Services
 
         public List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals)
         {
-            var ShelterList = GetAllShelters();
-
             foreach (var animal in animals)
             {
-                var shelter = ShelterList.Where(x => x.AnimalShelterID == animal.AnimalShelterId).FirstOrDefault();
-                animal.AnimalShelterName = shelter.Name;
+                AddAnimalShelterNames(animal);
             }
 
             return animals;
+        }
+
+        public AnimalsViewModel AddAnimalShelterNames(AnimalsViewModel animal)
+        {
+            var ShelterList = GetAllShelters();
+
+            var shelter = ShelterList.Where(x => x.AnimalShelterID == animal.AnimalShelterId).FirstOrDefault();
+            animal.AnimalShelterName = shelter.Name;
+
+            return animal;
         }
 
         public List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, AnimalFilter filter)
