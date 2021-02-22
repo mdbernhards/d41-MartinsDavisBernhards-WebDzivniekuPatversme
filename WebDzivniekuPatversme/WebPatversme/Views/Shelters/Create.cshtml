@@ -14,29 +14,29 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Nosaukums</label>
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Adrese</label>
+                <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <span asp-validation-for="Address" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Telefona numurs</label>
+                <label asp-for="PhoneNumber" class="control-label"></label>
                 <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <span asp-validation-for="PhoneNumber" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Dzīvnieku kapacitāte</label>
+                <label asp-for="AnimalCapacity" class="control-label"></label>
                 <input asp-for="AnimalCapacity" class="form-control" />
-                <span asp-validation-for="AnimalCapacity" class="text-danger"></span>
+                <span asp-validation-for="AnimalCapacity" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Attēls</label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" />
+                <span asp-validation-for="Image" class="text-danger" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Pievienot" class="btn btn-primary" />

@@ -23,5 +23,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         Animals GetAnimalById(string Id);
 
         void DeleteAnimal(Animals animal);
+
+        void SendAnimalEmail(Animals animal);
     }
 }

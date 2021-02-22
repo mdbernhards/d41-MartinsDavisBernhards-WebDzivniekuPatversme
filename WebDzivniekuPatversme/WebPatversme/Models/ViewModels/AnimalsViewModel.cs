@@ -55,7 +55,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels
 
         [Required(ErrorMessage = "Svars ir obligāts.")]
         [Range(0, 250, ErrorMessage = "Svars nevar būt mazāks par 0 un lielāks par 250.")]
-        [Display(Name = "Svars")]
+        [Display(Name = "Svars (Kg)")]
         public int Weight { set; get; }
 
         [Display(Name = "Izveidošanas datums")]

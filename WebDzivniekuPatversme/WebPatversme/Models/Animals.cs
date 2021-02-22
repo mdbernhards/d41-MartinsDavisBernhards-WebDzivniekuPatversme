@@ -29,6 +29,8 @@ namespace WebDzivniekuPatversme.Models
 
         public string EmailMessage { get; set; }
 
+        public string EmailTitle { get; set; }
+
         public string AnimalShelterId { set; get; }
     }
 }

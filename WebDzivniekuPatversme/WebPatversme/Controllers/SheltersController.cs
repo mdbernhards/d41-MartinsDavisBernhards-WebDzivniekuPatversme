@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -94,15 +94,6 @@ namespace WebDzivniekuPatversme.Controllers
                 return RedirectToAction("Index");
             }
             return View(shelter);
-        }
-
-        [Authorize(Roles = "administrator,worker")]
-        public IActionResult Delete(string Id)
-        {
-            var shelter = _sheltersServices.GetShelterById(Id);
-            var mappedShelter = _mapper.Map<SheltersViewModel>(shelter);
-
-            return View(mappedShelter);
         }
 
         [HttpPost]

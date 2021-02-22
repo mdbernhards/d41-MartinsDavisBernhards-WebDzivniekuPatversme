@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Collections.Generic;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using AutoMapper;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -33,7 +33,6 @@ namespace WebDzivniekuPatversme.Controllers
             int pageSize = 3)
         {
             ViewData["TitleSortParm"] = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewData["TextSortParm"] = sortOrder == "text" ? "text_desc" : "text";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
             ViewData["Name"] = name;
@@ -70,6 +69,7 @@ namespace WebDzivniekuPatversme.Controllers
 
                 return RedirectToAction("Index");
             }
+
             return View(news);
         }
 
@@ -94,16 +94,8 @@ namespace WebDzivniekuPatversme.Controllers
 
                 return RedirectToAction("Index");
             }
+
             return View(news);
-        }
-
-        [Authorize(Roles = "administrator,worker")]
-        public IActionResult Delete(string Id)
-        {
-            var news = _newsServices.GetNewsById(Id);
-            var mappedNews = _mapper.Map<NewsViewModel>(news);
-
-            return View(mappedNews);
         }
 
         [HttpPost]

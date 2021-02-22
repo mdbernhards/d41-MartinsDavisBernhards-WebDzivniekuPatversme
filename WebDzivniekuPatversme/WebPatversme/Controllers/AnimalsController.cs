@@ -101,6 +101,7 @@ namespace WebDzivniekuPatversme.Controllers
 
                 return RedirectToAction("Index");
             }
+
             return View(animal);
         }
 
@@ -127,18 +128,8 @@ namespace WebDzivniekuPatversme.Controllers
 
                 return RedirectToAction("Index");
             }
+
             return View(animal);
-        }
-
-        [Authorize(Roles = "administrator,worker")]
-        public IActionResult Delete(string id)
-        {
-            var animal = _animalsServices.GetAnimalById(id);
-            var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
-
-            mappedAnimal = _animalsServices.AddAnimalShelterNames(mappedAnimal);
-
-            return View(mappedAnimal);
         }
 
         [HttpPost]
@@ -161,6 +152,17 @@ namespace WebDzivniekuPatversme.Controllers
             mappedAnimal = _animalsServices.AddAnimalShelterNames(mappedAnimal);
 
             return View(mappedAnimal);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "administrator,worker,user")]
+        public IActionResult Details(AnimalsViewModel model)
+        {
+            var mappedAnimals = _mapper.Map<Animals>(model);
+
+            _animalsServices.SendAnimalEmail(mappedAnimals);
+        
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

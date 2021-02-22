@@ -16,53 +16,53 @@
                 @Html.HiddenFor(model => model.AnimalID)
             </div>
             <div class="form-group">
-                <label class="control-label">Vārds</label>
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Suga</label>
+                <label asp-for="Species" class="control-label"></label>
                 <input asp-for="Species" class="form-control" />
-                <span asp-validation-for="Species" class="text-danger"></span>
+                <span asp-validation-for="Species" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Dzimšanas datums</label>
+                <label asp-for="BirthDate" class="control-label"></label>
                 <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                <span asp-validation-for="BirthDate" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Svars</label>
+                <label asp-for="Weight" class="control-label"></label>
                 <input asp-for="Weight" class="form-control" />
-                <span asp-validation-for="Weight" class="text-danger"></span>
+                <span asp-validation-for="Weight" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Krāsa</label>
+                <label asp-for="Colour" class="control-label"></label>
                 <input asp-for="Colour" class="form-control" />
-                <span asp-validation-for="Colour" class="text-danger"></span>
+                <span asp-validation-for="Colour" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Apraksts</label>
+                <label asp-for="About" class="control-label"></label>
                 <input asp-for="About" class="form-control" />
-                <span asp-validation-for="About" class="text-danger"></span>
+                <span asp-validation-for="About" class="text-danger" />
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <span asp-validation-for="Image" class="text-danger" />
             </div>
             <div class="col-sm-9">
-                <img src = "~/uploads/images/animals/@Model.ImagePath" alt = "@Model.Name bilde" onerror = "this.onerror = null;this.src = '/uploads/images/animals/defaultanimal.png'" asp-append-version = "true" 
-                    class = "rounded-circle" 
-                    height = "200" 
-                    width = "200" 
-                    style = "
+                <img src="~/uploads/images/animals/@Model.ImagePath" alt="@Model.Name bilde" onerror="this.onerror = null;this.src = '/uploads/images/animals/defaultanimal.png'" asp-append-version="true"
+                     class="rounded-circle"
+                     height="200"
+                     width="200"
+                     style="
                         object-fit: cover;
                         box-shadow: 0px 0px 20px #888;
                         left: 100%;
                         padding: 6px;" />
             </div>
             <div class="form-group">
-               @if (Model.AnimalShelters != null)
+                @if (Model.AnimalShelters != null)
                 {
                     <label class="control-label">Patversme</label>
                     <select class="form-control" asp-for="AnimalShelterId" asp-items="Model.AnimalShelters

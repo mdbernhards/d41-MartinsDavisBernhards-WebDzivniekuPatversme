@@ -12,7 +12,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string NewsID { set; get; }
 
         [StringLength(5000, ErrorMessage = "Teksts sasniedz savu maksimālo garumu")]
-        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Teksts var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Ziņu teksts ir obligāts.")]
         [Display(Name = "Teksts")]
         public string Text { set; get; }

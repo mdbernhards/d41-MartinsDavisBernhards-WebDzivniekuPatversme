@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
@@ -12,13 +13,16 @@ namespace WebDzivniekuPatversme.Services
     {
         private readonly IAnimalsRepository _animalsRepository;
         private readonly IShelterRepository _shelterRepository;
+        private readonly IEmailSender _emailSender;
 
         public AnimalsService(
             IAnimalsRepository animalsRepository,
-            IShelterRepository shelterRepository)
+            IShelterRepository shelterRepository,
+            IEmailSender emailSender)
         {
             _animalsRepository = animalsRepository;
             _shelterRepository = shelterRepository;
+            _emailSender = emailSender;
         }
 
         public List<Shelters> GetAllShelters()
@@ -85,6 +89,12 @@ namespace WebDzivniekuPatversme.Services
         public void EditAnimal(Animals animal)
         {
             _animalsRepository.EditAnimal(animal);
+        }
+
+        public async void SendAnimalEmail(Animals animal)
+        {
+            await _emailSender.SendEmailAsync("martinsdavisbernhards@gmail.com", animal.EmailTitle,
+                animal.EmailMessage);
         }
 
         private List<AnimalsViewModel> OrderAnimals(List<AnimalsViewModel> animals, string sortOrder)

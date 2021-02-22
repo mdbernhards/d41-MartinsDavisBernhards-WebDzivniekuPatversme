@@ -15,36 +15,36 @@
                 @Html.HiddenFor(model => model.AnimalShelterID)
             </div>
             <div class="form-group">
-                <label class="control-label">Vārds</label>
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Adrese</label>
+                <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <span asp-validation-for="Address" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Telefona numurs</label>
+                <label asp-for="PhoneNumber" class="control-label"></label>
                 <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <span asp-validation-for="PhoneNumber" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Dzīvnieku kapacitāte</label>
+                <label asp-for="AnimalCapacity" class="control-label"></label>
                 <input asp-for="AnimalCapacity" class="form-control" />
-                <span asp-validation-for="AnimalCapacity" class="text-danger"></span>
+                <span asp-validation-for="AnimalCapacity" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Attēls</label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" />
+                <span asp-validation-for="Image" class="text-danger" />
             </div>
             <div>
-                <img src = "~/uploads/images/shelters/@Model.ImagePath" alt = "@Model.Name bilde" onerror = "this.onerror = null;this.src = '/uploads/images/shelters/defaultshelter.png'" asp-append-version = "true"
-                    class = "rounded-circle"
-                    height = "200" 
-                    width = "200" 
-                    style = "
+                <img src="~/uploads/images/shelters/@Model.ImagePath" alt="@Model.Name bilde" onerror="this.onerror = null;this.src = '/uploads/images/shelters/defaultshelter.png'" asp-append-version="true"
+                     class="rounded-circle"
+                     height="200"
+                     width="200"
+                     style="
                         object-fit: cover;
                         box-shadow: 0px 0px 20px #888;
                         left: 100%;

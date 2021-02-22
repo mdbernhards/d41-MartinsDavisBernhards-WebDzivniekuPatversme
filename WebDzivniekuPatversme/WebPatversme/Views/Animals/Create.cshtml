@@ -16,44 +16,44 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Dzīvnieka vārds</label>
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Suga</label>
+                <label asp-for="Species" class="control-label"></label>
                 <input asp-for="Species" class="form-control" />
-                <span asp-validation-for="Species" class="text-danger"></span>
+                <span asp-validation-for="Species" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Dzimšanas datums</label>
+                <label asp-for="BirthDate" class="control-label"></label>
                 <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                <span asp-validation-for="BirthDate" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Svars (Kg)</label>
+                <label asp-for="Weight" class="control-label"></label>
                 <input asp-for="Weight" class="form-control" />
-                <span asp-validation-for="Weight" class="text-danger"></span>
+                <span asp-validation-for="Weight" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Krāsa</label>
+                <label asp-for="Colour" class="control-label"></label>
                 <input asp-for="Colour" class="form-control" />
-                <span asp-validation-for="Colour" class="text-danger"></span>
+                <span asp-validation-for="Colour" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Apraksts</label>
+                <label asp-for="About" class="control-label"></label>
                 <input asp-for="About" class="form-control" />
-                <span asp-validation-for="About" class="text-danger"></span>
+                <span asp-validation-for="About" class="text-danger" />
             </div>
             <div class="form-group">
-                <label class="control-label">Attēls</label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" />
+                <span asp-validation-for="Image" class="text-danger" />
             </div>
             @if (Model.AnimalShelters != null)
             {
                 <div class="form-group">
-                    <label class="control-label">Patversme</label>
+                    <label asp-for="AnimalShelterName" class="control-label" />
                     <select class="form-control" asp-for="AnimalShelterId" asp-items="Model.AnimalShelters
                         .GroupBy(t => t.Name)
                         .Select(g => g.First())

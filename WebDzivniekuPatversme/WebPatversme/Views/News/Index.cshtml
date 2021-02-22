@@ -37,9 +37,6 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Tituls</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["TextSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Teksts</a>
-            </th>
-            <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Izveidošanas datums</a>
             </th>
             <th></th>
@@ -61,9 +58,6 @@
                 </td>
                 <td>
                     @Html.DisplayTextFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayTextFor(modelItem => item.Text)
                 </td>
                 <td>
                     @Html.DisplayTextFor(modelItem => item.DateAdded)
