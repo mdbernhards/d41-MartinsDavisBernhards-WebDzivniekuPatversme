@@ -1,9 +1,3 @@
-using WebDzivniekuPatversme.Data;
-using WebDzivniekuPatversme.Services;
-using WebDzivniekuPatversme.Repositories;
-using WebDzivniekuPatversme.Services.Other;
-using WebDzivniekuPatversme.Services.Interfaces;
-using WebDzivniekuPatversme.Repositories.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using WebDzivniekuPatversme.Data;
+using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Services;
+using WebDzivniekuPatversme.Repositories;
+using WebDzivniekuPatversme.Services.Other;
+using WebDzivniekuPatversme.Services.Interfaces;
+using WebDzivniekuPatversme.Repositories.Interfaces;
 using AutoMapper;
 
 namespace WebDzivniekuPatversme
@@ -25,7 +26,6 @@ namespace WebDzivniekuPatversme
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Add(new ServiceDescriptor(typeof(WebShelterDbContext), new WebShelterDbContext(Configuration.GetConnectionString("ShelterConnection"))));
@@ -53,7 +53,7 @@ namespace WebDzivniekuPatversme
                 options.UseMySql(
                     Configuration.GetConnectionString("ShelterConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddErrorDescriber<IdentityErrorDescriberLV>();
@@ -73,7 +73,6 @@ namespace WebDzivniekuPatversme
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserChecker seeder)
         {
             seeder.RoleChecker();

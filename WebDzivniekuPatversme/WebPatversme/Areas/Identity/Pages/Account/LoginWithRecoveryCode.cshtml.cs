@@ -6,16 +6,17 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebDzivniekuPatversme.Models;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginWithRecoveryCodeModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginWithRecoveryCodeModel> _logger;
 
-        public LoginWithRecoveryCodeModel(SignInManager<IdentityUser> signInManager, ILogger<LoginWithRecoveryCodeModel> logger)
+        public LoginWithRecoveryCodeModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginWithRecoveryCodeModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -69,17 +70,20 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
                 _logger.LogInformation("lietotājs ar ID '{UserId}' ienāca ar Divu-Soļu autentifikāciju.", user.Id);
+
                 return LocalRedirect(returnUrl ?? Url.Content("~/"));
             }
             else if (result.IsLockedOut)
             {
                 _logger.LogWarning("lietotāja ar ID '{UserId}' profils tika aizslēgts.", user.Id);
+
                 return RedirectToPage("./Lockout");
             }
             else
             {
                 _logger.LogWarning("Nederīgs autentifikācijas kods tika ievadīts lietotājam ar ID '{UserId}'.", user.Id);
                 ModelState.AddModelError(string.Empty, "Nederīgs Autentifikācijas kods.");
+
                 return Page();
             }
         }

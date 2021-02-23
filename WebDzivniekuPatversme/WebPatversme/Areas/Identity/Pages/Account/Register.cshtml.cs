@@ -12,20 +12,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using WebDzivniekuPatversme.Models;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -44,6 +45,22 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required(ErrorMessage = "Vārds ir obligāts.")]
+            [StringLength(50, ErrorMessage = "Vai jūsu vārds tiešām ir tik garš?")]
+            [Display(Name = "Vārds")]
+            public string Name { get; set; }
+
+            [Required(ErrorMessage = "Uzvārds ir obligāts.")]
+            [StringLength(50, ErrorMessage = "Vai jūsu uzvārds tiešām ir tik garš?")]
+            [Display(Name = "Uzvārds")]
+            public string Surname { get; set; }
+
+            [Phone]
+            [Display(Name = "Telefona numurs")]
+            public string PhoneNumber { get; set; }
+
+            public string ImagePath { get; set; }
+
             [Required(ErrorMessage = "E-pasts ir obligāts.")]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -73,7 +90,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Surname + ", " + Input.Name, Email = Input.Email, Name = Input.Name, Surname = Input.Surname, PhoneNumber = Input.PhoneNumber, ImagePath = Input.ImagePath };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 await _userManager.AddToRoleAsync(user, "user");
                 if (result.Succeeded)
@@ -98,9 +115,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);

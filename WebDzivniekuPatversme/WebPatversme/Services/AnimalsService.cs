@@ -97,7 +97,7 @@ namespace WebDzivniekuPatversme.Services
                 animal.EmailMessage);
         }
 
-        private List<AnimalsViewModel> OrderAnimals(List<AnimalsViewModel> animals, string sortOrder)
+        private static List<AnimalsViewModel> OrderAnimals(List<AnimalsViewModel> animals, string sortOrder)
         {
             animals = sortOrder switch
             {
@@ -119,7 +119,7 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
-        private List<AnimalsViewModel> FilterAnimals(List<AnimalsViewModel> animals, AnimalFilter filter)
+        private static List<AnimalsViewModel> FilterAnimals(List<AnimalsViewModel> animals, AnimalFilter filter)
         {
             if (!string.IsNullOrEmpty(filter.Name))
             {

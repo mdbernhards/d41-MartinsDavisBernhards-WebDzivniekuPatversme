@@ -3,18 +3,18 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebDzivniekuPatversme.Models;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
     public class UserControlModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public UserControlModel(
-            UserManager<IdentityUser> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
@@ -24,13 +24,13 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public List<UserWithRole> UsersWithRole { get; set; }
 
-        public List<IdentityUser> Users { get; set; }
+        public List<ApplicationUser> Users { get; set; }
 
         public List<IdentityRole> Roles { get; set; }
 
         public class UserWithRole
         {
-            public IdentityUser User { get; set; }
+            public ApplicationUser User { get; set; }
 
             public string Role { get; set; }
         }

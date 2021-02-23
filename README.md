@@ -5,14 +5,14 @@
 Var apskatīt šos dzivniekus, kontaktēt patversmi par tiem. Var apskatīt informāciju par pašu patversmi, tās atrašanās vietu, numuru.
 
 Funkcijas:
-- Dzivnieku informācijas saglabāšana datubāzē,
-- Patversmes informācijas saglabāšana datubāzē,
-- Saglabātās informācijas rediģēšana,
-- Dzivnieku meklēšana ar filtriem, kā suga, krāsa, patversme kurā atrodās,
-- Lietotāji var apskatīt informāciju par dzivniekiem un patversmēm nereģistrējoties,
-- Reģistrējoties var aizsūtīt epastu noteiktajai patversmei par dzīvnieku,
-- Mājaslapas kontrole, kā Administratoram un kā Lietotājam,
-- Var rakstīt rakstus par patversmes jaunākajām ziņām.
+- Dzivnieku informācijas saglabāšana datubāzē
+- Patversmes informācijas saglabāšana datubāzē
+- Saglabātās informācijas rediģēšana
+- Dzivnieku meklēšana ar filtriem, kā suga, krāsa, patversme kurā atrodās
+- Lietotāji var apskatīt informāciju par dzivniekiem un patversmēm nereģistrējoties
+- Reģistrējoties var aizsūtīt epastu noteiktajai patversmei par dzīvnieku
+- Mājaslapas kontrole, kā Administratoram un kā Lietotājam
+- Var rakstīt rakstus par patversmes jaunākajām ziņām
 
 ## Izmantotās valodas
 Angļu valoda:
@@ -60,6 +60,7 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Attēlu Validācija](https://stackoverflow.com/questions/56588900/how-to-validate-uploaded-file-in-asp-net-core)
 - [Noklusējuma attēls](https://stackoverflow.com/questions/717734/best-way-to-display-default-image-if-specified-image-file-is-not-found)
 - [TinyMCE teksta rediģētāja pievienošana](https://forums.asp.net/t/2100291.aspx?Using+HTML+editor+in+MVC+NET+core)
+- [Identity modeļu papildināšana un pielāgošana](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/customize-identity-model?view=aspnetcore-5.0)
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
 
 ## Uzstādīšanas instrukcijas
