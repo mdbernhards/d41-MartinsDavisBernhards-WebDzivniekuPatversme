@@ -8,7 +8,7 @@ namespace WebDzivniekuPatversme.Services.Other
         public override IdentityError PasswordMismatch() { return new IdentityError { Code = nameof(PasswordMismatch), Description = "Paroles nesakrīt." }; }
         public override IdentityError InvalidToken() { return new IdentityError { Code = nameof(InvalidToken), Description = "Nederīgs token." }; }
         public override IdentityError LoginAlreadyAssociated() { return new IdentityError { Code = nameof(LoginAlreadyAssociated), Description = "Lietotājs ar šādu informāciju jau eksistē." }; }
-        public override IdentityError InvalidUserName(string userName) { return new IdentityError { Code = nameof(InvalidUserName), Description = $"Lietotājvāŗds '{userName}' nav derīgs, tas var saturēt tikai burtus vai ciparus." }; }
+        public override IdentityError InvalidUserName(string userName) { return new IdentityError { Code = nameof(InvalidUserName), Description = $"Lietotājvārds '{userName}' nav derīgs, tas var saturēt tikai burtus vai ciparus." }; }
         public override IdentityError InvalidEmail(string email) { return new IdentityError { Code = nameof(InvalidEmail), Description = $"E-pasts '{email}' nav derīgs." }; }
         public override IdentityError DuplicateUserName(string userName) { return new IdentityError { Code = nameof(DuplicateUserName), Description = $"Lietotājvārds '{userName}' jau ir aizņemts." }; }
         public override IdentityError DuplicateEmail(string email) { return new IdentityError { Code = nameof(DuplicateEmail), Description = $"E-pasts '{email}' jau ir aizņemts." }; }

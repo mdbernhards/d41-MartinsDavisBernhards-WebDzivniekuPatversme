@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using WebDzivniekuPatversme.Data;
+using WebDzivniekuPatversme.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ public class UserChecker
 
     public async void RoleChecker()
     {
-        var user = new IdentityUser
+        var user = new ApplicationUser
         {
             UserName = "martinsdavisbernhards@gmail.com",
             NormalizedUserName = "martinsdavisbernhards@gmail.com",
@@ -43,7 +44,7 @@ public class UserChecker
             await roleStore.CreateAsync(new IdentityRole { Name = "user", NormalizedName = "user" });
         }
 
-        if (!_context.Users.Any(u => u.UserName == user.UserName))
+        if (!_context.Users.Any(u => u.Email == user.Email))
         {
             var password = new PasswordHasher<IdentityUser>();
             var hashed = password.HashPassword(user, "password");

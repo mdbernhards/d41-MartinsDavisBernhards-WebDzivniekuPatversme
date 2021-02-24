@@ -1,9 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Services.Other;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -11,16 +16,20 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IWebHostEnvironment _appEnvironment;
+        private readonly ApplicationDbContext _context;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IWebHostEnvironment appEnvironment,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _appEnvironment = appEnvironment;
+            _context = context;
         }
-
-        public string Username { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -30,12 +39,10 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required(ErrorMessage = "Vārds ir obligāts.")]
             [StringLength(50, ErrorMessage = "Vai jūsu vārds tiešām ir tik garš?")]
             [Display(Name = "Vārds")]
             public string Name { get; set; }
 
-            [Required(ErrorMessage = "Uzvārds ir obligāts.")]
             [StringLength(50, ErrorMessage = "Vai jūsu uzvārds tiešām ir tik garš?")]
             [Display(Name = "Uzvārds")]
             public string Surname { get; set; }
@@ -44,19 +51,20 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Telefona numurs")]
             public string PhoneNumber { get; set; }
 
-            public string ImagePath { get; set; }
+            [Display(Name = "Attēls")]
+            [DataType(DataType.Upload)]
+            [MaxFileSizeValidation(6 * 1024 * 1024)]
+            [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" })]
+            public IFormFile Image { set; get; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
-
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = user.PhoneNumber,
+                Name = user.Name,
+                Surname = user.Surname,
             };
         }
 
@@ -101,17 +109,55 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var name = await _userManager.GetUserNameAsync(user);
-            var userName = Input.Surname + ", " + Input.Name;
-            if (userName != name)
+            if(Input.Name != user.Name || Input.Surname != user.Surname)
             {
-                await _userManager.SetUserNameAsync(user, userName);
+                user.Name = Input.Name;
+                user.Surname = Input.Surname;
+                user.ImagePath = SaveImage(user);
             }
 
+            if (!ModelState.IsValid)
+            {
+                await LoadAsync(user);
+
+                return Page();
+            }
+
+            await _userManager.UpdateAsync(user);
+
+            if (!ModelState.IsValid)
+            {
+                await LoadAsync(user);
+
+                return Page();
+            }
+            await _context.SaveChangesAsync();
             await _signInManager.RefreshSignInAsync(user);
+
             StatusMessage = "Jūsu profils tika atjaunots";
 
             return RedirectToPage();
+        }
+
+        private string SaveImage(ApplicationUser user)
+        {
+            var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\users");
+
+            if (Input.Image != null && Input.Image.Length > 0)
+            {
+                var fileName = Path.GetFileName(user.Name + user.Id + Path.GetExtension(Input.Image.FileName));
+                var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create);
+
+                System.IO.File.Delete(Path.Combine(uploads, fileName));
+                Input.Image.CopyTo(fileStream);
+                fileStream.Close();
+
+                user.ImagePath = fileName;
+
+                return fileName;
+            }
+
+            return null;
         }
     }
 }

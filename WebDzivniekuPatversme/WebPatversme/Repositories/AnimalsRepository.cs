@@ -2,7 +2,6 @@
 using System.IO;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
