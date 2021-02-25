@@ -37,6 +37,9 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public InputModel Input { get; set; }
 
+        [BindProperty]
+        public OutputModel Output { get; set; }
+
         public class InputModel
         {
             [StringLength(50, ErrorMessage = "Vai jūsu vārds tiešām ir tik garš?")]
@@ -58,6 +61,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             public IFormFile Image { set; get; }
         }
 
+        public class OutputModel
+        {
+            public string ImageString { set; get; }
+        }
+
         private async Task LoadAsync(ApplicationUser user)
         {
             Input = new InputModel
@@ -65,6 +73,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = user.PhoneNumber,
                 Name = user.Name,
                 Surname = user.Surname,
+            };
+
+            Output = new OutputModel
+            {
+                ImageString = user.ImagePath,
             };
         }
 
@@ -109,10 +122,18 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            if(Input.Name != user.Name || Input.Surname != user.Surname)
+            if(Input.Name != user.Name)
             {
                 user.Name = Input.Name;
+            }
+
+            if(Input.Surname != user.Surname)
+            {
                 user.Surname = Input.Surname;
+            }
+
+            if(Input.Image != null)
+            {
                 user.ImagePath = SaveImage(user);
             }
 
@@ -145,10 +166,9 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             if (Input.Image != null && Input.Image.Length > 0)
             {
-                var fileName = Path.GetFileName(user.Name + user.Id + Path.GetExtension(Input.Image.FileName));
+                var fileName = Path.GetFileName(user.Id + Path.GetExtension(Input.Image.FileName));
                 var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create);
 
-                System.IO.File.Delete(Path.Combine(uploads, fileName));
                 Input.Image.CopyTo(fileStream);
                 fileStream.Close();
 

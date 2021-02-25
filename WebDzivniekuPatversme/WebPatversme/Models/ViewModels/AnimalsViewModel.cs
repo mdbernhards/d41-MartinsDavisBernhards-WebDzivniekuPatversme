@@ -12,7 +12,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string AnimalID { set; get; }
 
         [StringLength(100, ErrorMessage = "Vārds par garu")]
-        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Vārds var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Vārds ir obligāts.")]
         [Display(Name = "Vārds")]
         public string Name { set; get; }
@@ -28,19 +27,16 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public DateTime BirthDate { set; get; }
 
         [StringLength(100, ErrorMessage = "Sugas nosaukums par garu")]
-        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Suga var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Suga ir obligāta.")]
         [Display(Name = "Suga")]
         public string Species { set; get; }
 
         [StringLength(100, ErrorMessage = "Krāsas nosaukums par garu")]
-        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Krāsa var sastāvēt tikai no burtiem")]
         [Required(ErrorMessage = "Krāsa ir obligāta.")]
         [Display(Name = "Krāsa")]
         public string Colour { set; get; }
 
         [StringLength(5000, ErrorMessage = "Apraksts pārsniedz 5000 maksimālo garumu")]
-        [RegularExpression(@"^[a-zA-Z'\s]*$", ErrorMessage = "Aprakstā pagaidām var izmantot tikai burtus")]
         [Required(ErrorMessage = "Apraksts ir obligāts.")]
         [Display(Name = "Apraksts")]
         public string About { set; get; }

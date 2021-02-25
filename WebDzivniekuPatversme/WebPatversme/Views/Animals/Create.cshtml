@@ -22,8 +22,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Species" class="control-label"></label>
-                <input asp-for="Species" class="form-control" />
-                <span asp-validation-for="Species" class="text-danger" />
+                <select class="form-control" asp-for="Species">
+                    <option value="Kaķis">Kaķis</option>
+                    <option value="Suns">Suns</option>
+                    <option value="Zirgs">Zirgs</option>
+                    <option value="Pele">Pele</option>
+                    <option value="Žurka">Žurka</option>
+                    <option value="Jūrascūciņa">Jūrascūciņa</option>
+                    <option value="Zivs">Zivs</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label"></label>
@@ -37,12 +44,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="Colour" class="control-label"></label>
-                <input asp-for="Colour" class="form-control" />
-                <span asp-validation-for="Colour" class="text-danger" />
+                <select class="form-control" asp-for="Colour">
+                    <option value="Brūns">Brūns</option>
+                    <option value="Melns">Melns</option>
+                    <option value="Balts">Balts</option>
+                    <option value="Ruds">Ruds</option>
+                    <option value="Pelēks">Pelēks</option>
+                    <option value="Sarkans">Sarkans</option>
+                    <option value="Zils">Zils</option>
+                    <option value="Zaļš">Zaļš</option>
+                    <option value="Violēts">Violēts</option>
+                    <option value="Sudrabs">Sudrabs</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="About" class="control-label"></label>
-                <input asp-for="About" class="form-control" />
+                <textarea asp-for="About"></textarea>
                 <span asp-validation-for="About" class="text-danger" />
             </div>
             <div class="form-group">
@@ -74,4 +91,12 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            width: "100%",
+            height: "300",
+            content_css: 'writer',
+        });
+    </script>
 }

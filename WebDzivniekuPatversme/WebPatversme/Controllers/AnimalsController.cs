@@ -62,7 +62,7 @@ namespace WebDzivniekuPatversme.Controllers
                 Species = species,
                 Colour = colour,
                 Shelter = shelter,
-                Weight = weight
+                Weight = weight,
             };
 
             var animalList = _animalsServices.GetAllAnimalList();
