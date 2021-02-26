@@ -25,5 +25,9 @@ namespace WebDzivniekuPatversme.Services.Interfaces
         void DeleteAnimal(Animals animal);
 
         void SendAnimalEmail(Animals animal);
+
+        AnimalFilter CreateAnimalFilter(string name, int age, string species, string colour, string shelter, int weight);
+
+        DropDownItemListViewModel GetAnimalDropDownListValues(List<AnimalsViewModel> animalList);
     }
 }

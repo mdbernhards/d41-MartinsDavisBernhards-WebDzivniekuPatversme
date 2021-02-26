@@ -18,10 +18,11 @@
     <div class="row">
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc vecuma</label>
-            <select onchange="this.form.submit();" name="age" class="form-control" value="@ViewData["Age"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
-                    .GroupBy(t => t.Age)
+            <select onchange="this.form.submit();" name="age" class="form-control" value="@ViewData["Age"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+                    .Age
+                    .GroupBy(t => t.Item)
                     .Select(g => g.First())
-                    .Select(x => new SelectListItem {  Text = x.Age.ToString(), Value = x.Age.ToString() })
+                    .Select(x => new SelectListItem { Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"), Value = x.Item })
                     .AsEnumerable()">
                 <option value="@ViewData["Age"]">
                     @if (ViewData["Age"].ToString() == "0")
@@ -37,10 +38,11 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc sugas</label>
-            <select onchange="this.form.submit();" name="species" class="form-control" value="@ViewData["Species"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
-                    .GroupBy(t => t.Species)
+            <select onchange="this.form.submit();" name="species" class="form-control" value="@ViewData["Species"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+                    .Species
+                    .GroupBy(t => t.Item)
                     .Select(g => g.First())
-                    .Select(x => new SelectListItem {  Text = x.Species, Value = x.Species })
+                    .Select(x => new SelectListItem { Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"), Value = x.Item })
                     .AsEnumerable()">
                 <option value="@ViewData["Species"]">
                     @if (ViewData["Species"] == null)
@@ -56,10 +58,11 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc krāsas</label>
-            <select onchange="this.form.submit();" name="colour" class="form-control" value="@ViewData["Colour"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
-                    .GroupBy(t => t.Colour)
+            <select onchange="this.form.submit();" name="colour" class="form-control" value="@ViewData["Colour"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+                    .Colour
+                    .GroupBy(t => t.Item)
                     .Select(g => g.First())
-                    .Select(x => new SelectListItem {  Text = x.Colour, Value = x.Colour })
+                    .Select(x => new SelectListItem { Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"), Value = x.Item })
                     .AsEnumerable()">
                 <option value="@ViewData["Colour"]">
                     @if (ViewData["Colour"] == null)
@@ -75,10 +78,11 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc patversmes</label>
-            <select onchange="this.form.submit();" name="shelter" class="form-control" value="@ViewData["Shelter"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
-                    .GroupBy(t => t.About)
+            <select onchange="this.form.submit();" name="shelter" class="form-control" value="@ViewData["Shelter"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+                    .Shelter
+                    .GroupBy(t => t.Item)
                     .Select(g => g.First())
-                    .Select(x => new SelectListItem {  Text = x.AnimalShelterName, Value = x.AnimalShelterName })
+                    .Select(x => new SelectListItem { Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"), Value = x.Item })
                     .AsEnumerable()">
                 <option value="@ViewData["Shelter"]">
                     @if (ViewData["Shelter"] == null)
@@ -94,10 +98,11 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc svara</label>
-            <select onchange="this.form.submit();" on name="weight" class="form-control" value="@ViewData["Weight"]" asp-items="((IEnumerable<AnimalsViewModel>) @ViewData["DropDown"])
-                    .GroupBy(t => t.Weight)
+            <select onchange="this.form.submit();" on name="weight" class="form-control" value="@ViewData["Weight"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+                    .Weight
+                    .GroupBy(t => t.Item)
                     .Select(g => g.First())
-                    .Select(x => new SelectListItem {  Text = x.Weight.ToString(), Value = x.Weight.ToString() })
+                    .Select(x => new SelectListItem { Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"), Value = x.Item })
                     .AsEnumerable()">
                 <option value="@ViewData["Weight"]">
                     @if (ViewData["Weight"].ToString() == "0")

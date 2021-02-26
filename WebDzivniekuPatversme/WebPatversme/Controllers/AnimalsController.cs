@@ -55,24 +55,16 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["Shelter"] = shelter;
             ViewData["Weight"] = weight;
 
-            var filter = new AnimalFilter
-            {
-                Name = name,
-                Age = age,
-                Species = species,
-                Colour = colour,
-                Shelter = shelter,
-                Weight = weight,
-            };
+            var filter = _animalsServices.CreateAnimalFilter(name, age, species, colour, shelter, weight);
 
             var animalList = _animalsServices.GetAllAnimalList();
             var mappedAnimals = _mapper.Map<List<AnimalsViewModel>>(animalList);
 
             mappedAnimals = _animalsServices.AddAnimalShelterNames(mappedAnimals);
-            mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, filter);
+            ViewData["DropDown"] = _animalsServices.GetAnimalDropDownListValues(mappedAnimals);
 
+            mappedAnimals = _animalsServices.FilterAndSortAnimals(mappedAnimals, sortOrder, filter);
             ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedAnimals.Count / (decimal)pageSize)) + 1;
-            ViewData["DropDown"] = mappedAnimals;
 
             return View(PaginatedList<AnimalsViewModel>.Create(mappedAnimals, pageNumber ?? 1, pageSize));
         }

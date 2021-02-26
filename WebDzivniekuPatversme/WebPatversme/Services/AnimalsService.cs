@@ -97,6 +97,81 @@ namespace WebDzivniekuPatversme.Services
                 animal.EmailMessage);
         }
 
+        public AnimalFilter CreateAnimalFilter(string name, int age, string species, string colour, string shelter, int weight)
+        {
+            return new AnimalFilter
+            {
+                Name = name,
+                Age = age,
+                Species = species,
+                Colour = colour,
+                Shelter = shelter,
+                Weight = weight,
+            };
+        }
+
+        public DropDownItemListViewModel GetAnimalDropDownListValues(List<AnimalsViewModel> animalList)
+        {
+            var ListItems = new DropDownItemListViewModel
+            { 
+                Age = new List<DropDownItem>(),
+                Species = new List<DropDownItem>(),
+                Colour = new List<DropDownItem>(),
+                Shelter = new List<DropDownItem>(),
+                Weight = new List<DropDownItem>(),
+            };
+
+            foreach (var animal in animalList)
+            {
+                if (ListItems.Age.Select(x => x.Item).Contains(animal.Age.ToString()))
+                {
+                    ListItems.Age.Where(x => x.Item == animal.Age.ToString()).FirstOrDefault().Count++;
+                }
+                else
+                {
+                    ListItems.Age.Add(new DropDownItem { Item = animal.Age.ToString(), Count = 1 });
+                }
+
+                if (ListItems.Species.Select(x => x.Item).Contains(animal.Species))
+                {
+                    ListItems.Species.Where(x => x.Item == animal.Species).FirstOrDefault().Count++;
+                }
+                else
+                {
+                    ListItems.Species.Add(new DropDownItem { Item = animal.Species, Count = 1 });
+                }
+
+                if (ListItems.Colour.Select(x => x.Item).Contains(animal.Colour))
+                {
+                    ListItems.Colour.Where(x => x.Item == animal.Colour).FirstOrDefault().Count++;
+                }
+                else
+                {
+                    ListItems.Colour.Add(new DropDownItem { Item = animal.Colour, Count = 1 });
+                }
+
+                if (ListItems.Shelter.Select(x => x.Item).Contains(animal.AnimalShelterName))
+                {
+                    ListItems.Shelter.Where(x => x.Item == animal.AnimalShelterName).FirstOrDefault().Count++;
+                }
+                else
+                {
+                    ListItems.Shelter.Add(new DropDownItem { Item = animal.AnimalShelterName, Count = 1 });
+                }
+
+                if (ListItems.Weight.Select(x => x.Item).Contains(animal.Weight.ToString()))
+                {
+                    ListItems.Weight.Where(x => x.Item == animal.Weight.ToString()).FirstOrDefault().Count++;
+                }
+                else
+                {
+                    ListItems.Weight.Add(new DropDownItem { Item = animal.Weight.ToString(), Count = 1 });
+                }
+            }
+
+            return ListItems;
+        }
+
         private static List<AnimalsViewModel> OrderAnimals(List<AnimalsViewModel> animals, string sortOrder)
         {
             animals = sortOrder switch
@@ -116,6 +191,7 @@ namespace WebDzivniekuPatversme.Services
                 "colour_desc" => animals.OrderByDescending(s => s.Colour).ToList(),
                 _ => animals.OrderBy(s => s.Name).ToList(),
             };
+
             return animals;
         }
 
