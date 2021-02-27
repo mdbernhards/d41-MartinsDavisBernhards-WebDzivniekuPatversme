@@ -81,14 +81,15 @@
             <div class="form-group">
                 @if (Model.AnimalShelters != null)
                 {
-                    <label class="control-label">Patversme</label>
+                    <label asp-for="AnimalShelterName" class="control-label"></label>
                     <select class="form-control" asp-for="AnimalShelterId" asp-items="Model.AnimalShelters
                         .GroupBy(t => t.Name)
                         .Select(g => g.First())
-                        .Select(x => new SelectListItem {  Text = x.Name, Value = x.AnimalShelterID })">
-                        <option value="AnimalShelterId">
-                            AnimalShelterName
-                        </option>
+                        .Select(x => new SelectListItem {  
+                            Text = x.Name, 
+                            Value = x.AnimalShelterID 
+                        })
+                        .OrderBy(x => x.Text)">
                     </select>
                 }
             </div>
@@ -109,7 +110,7 @@
         tinymce.init({
             selector: 'textarea',
             width: "100%",
-            height: "650",
+            height: "300",
             content_css: 'writer',
         });
     </script>

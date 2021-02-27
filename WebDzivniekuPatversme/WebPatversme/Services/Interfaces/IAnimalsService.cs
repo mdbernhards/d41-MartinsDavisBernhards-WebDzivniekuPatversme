@@ -28,6 +28,6 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         AnimalFilter CreateAnimalFilter(string name, int age, string species, string colour, string shelter, int weight);
 
-        DropDownItemListViewModel GetAnimalDropDownListValues(List<AnimalsViewModel> animalList);
+        DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalsViewModel> animalList, AnimalFilter filter);
     }
 }

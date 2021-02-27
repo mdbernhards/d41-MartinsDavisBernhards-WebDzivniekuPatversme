@@ -110,10 +110,18 @@ namespace WebDzivniekuPatversme.Services
             };
         }
 
-        public DropDownItemListViewModel GetAnimalDropDownListValues(List<AnimalsViewModel> animalList)
+        public DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalsViewModel> animalList, AnimalFilter filter)
         {
-            var ListItems = new DropDownItemListViewModel
-            { 
+            var listItems = GetDropDownListValueNames(animalList);
+            listItems = CountDropDownListValues(animalList, listItems, filter);
+
+            return listItems;
+        }
+
+        private static DropDownItemListViewModel GetDropDownListValueNames (List<AnimalsViewModel> animalList)
+        {
+            var listItems = new DropDownItemListViewModel
+            {
                 Age = new List<DropDownItem>(),
                 Species = new List<DropDownItem>(),
                 Colour = new List<DropDownItem>(),
@@ -123,53 +131,109 @@ namespace WebDzivniekuPatversme.Services
 
             foreach (var animal in animalList)
             {
-                if (ListItems.Age.Select(x => x.Item).Contains(animal.Age.ToString()))
+                if (!listItems.Age.Select(x => x.Item).Contains(animal.Age.ToString()))
                 {
-                    ListItems.Age.Where(x => x.Item == animal.Age.ToString()).FirstOrDefault().Count++;
-                }
-                else
-                {
-                    ListItems.Age.Add(new DropDownItem { Item = animal.Age.ToString(), Count = 1 });
+                    listItems.Age.Add(new DropDownItem { Item = animal.Age.ToString(), Count = 0 });
                 }
 
-                if (ListItems.Species.Select(x => x.Item).Contains(animal.Species))
+                if (!listItems.Species.Select(x => x.Item).Contains(animal.Species))
                 {
-                    ListItems.Species.Where(x => x.Item == animal.Species).FirstOrDefault().Count++;
-                }
-                else
-                {
-                    ListItems.Species.Add(new DropDownItem { Item = animal.Species, Count = 1 });
+                    listItems.Species.Add(new DropDownItem { Item = animal.Species, Count = 0 });
                 }
 
-                if (ListItems.Colour.Select(x => x.Item).Contains(animal.Colour))
+                if (!listItems.Colour.Select(x => x.Item).Contains(animal.Colour))
                 {
-                    ListItems.Colour.Where(x => x.Item == animal.Colour).FirstOrDefault().Count++;
-                }
-                else
-                {
-                    ListItems.Colour.Add(new DropDownItem { Item = animal.Colour, Count = 1 });
+                    listItems.Colour.Add(new DropDownItem { Item = animal.Colour, Count = 0 });
                 }
 
-                if (ListItems.Shelter.Select(x => x.Item).Contains(animal.AnimalShelterName))
+                if (!listItems.Shelter.Select(x => x.Item).Contains(animal.AnimalShelterName))
                 {
-                    ListItems.Shelter.Where(x => x.Item == animal.AnimalShelterName).FirstOrDefault().Count++;
-                }
-                else
-                {
-                    ListItems.Shelter.Add(new DropDownItem { Item = animal.AnimalShelterName, Count = 1 });
+                    listItems.Shelter.Add(new DropDownItem { Item = animal.AnimalShelterName, Count = 0 });
                 }
 
-                if (ListItems.Weight.Select(x => x.Item).Contains(animal.Weight.ToString()))
+                if (!listItems.Weight.Select(x => x.Item).Contains(animal.Weight.ToString()))
                 {
-                    ListItems.Weight.Where(x => x.Item == animal.Weight.ToString()).FirstOrDefault().Count++;
-                }
-                else
-                {
-                    ListItems.Weight.Add(new DropDownItem { Item = animal.Weight.ToString(), Count = 1 });
+                    listItems.Weight.Add(new DropDownItem { Item = animal.Weight.ToString(), Count = 0 });
                 }
             }
 
-            return ListItems;
+            return listItems;
+        }
+
+        private static DropDownItemListViewModel CountDropDownListValues (List<AnimalsViewModel> animals, DropDownItemListViewModel listItems, AnimalFilter filter)
+        {
+
+            listItems.Age = CountIndividualDropDownListValues(
+                FilterAnimals( 
+                    animals, 
+                    new AnimalFilter { 
+                        Colour = filter.Colour, 
+                        Species = filter.Species, 
+                        Shelter = filter.Shelter, 
+                        Weight = filter.Weight,
+                        Name = filter.Name,
+                    }).Select(x => x.Age.ToString()).ToList(), 
+                listItems.Age);
+
+            listItems.Colour = CountIndividualDropDownListValues(
+                FilterAnimals(
+                    animals, 
+                    new AnimalFilter { 
+                        Age = filter.Age, 
+                        Species = filter.Species, 
+                        Shelter = filter.Shelter, 
+                        Weight = filter.Weight,
+                        Name = filter.Name,
+                    }).Select(x => x.Colour).ToList(), 
+                listItems.Colour);
+
+            listItems.Species = CountIndividualDropDownListValues(
+                FilterAnimals(
+                    animals, 
+                    new AnimalFilter { 
+                        Age = filter.Age, 
+                        Colour = filter.Colour, 
+                        Shelter = filter.Shelter, 
+                        Weight = filter.Weight,
+                        Name = filter.Name,
+                    }).Select(x => x.Species).ToList(), 
+                listItems.Species);
+
+            listItems.Shelter = CountIndividualDropDownListValues(
+                FilterAnimals(
+                    animals, 
+                    new AnimalFilter { 
+                        Age = filter.Age, 
+                        Colour = filter.Colour, 
+                        Species = filter.Species, 
+                        Weight = filter.Weight,
+                        Name = filter.Name,
+                    }).Select(x => x.AnimalShelterName).ToList(), 
+                listItems.Shelter);
+
+            listItems.Weight = CountIndividualDropDownListValues(
+                FilterAnimals(
+                    animals, 
+                    new AnimalFilter { 
+                        Age = filter.Age, 
+                        Colour = filter.Colour, 
+                        Species = filter.Species, 
+                        Shelter = filter.Shelter,
+                        Name = filter.Name,
+                    }).Select(x => x.Weight.ToString()).ToList(), 
+                listItems.Weight);
+
+            return listItems;
+        }
+
+        private static List<DropDownItem> CountIndividualDropDownListValues (List<string> filteredItem, List<DropDownItem> listItem)
+        {
+            foreach (var item in filteredItem)
+            {
+                listItem.Where(x => x.Item == item.ToString()).FirstOrDefault().Count++;
+            }
+
+            return listItem;
         }
 
         private static List<AnimalsViewModel> OrderAnimals(List<AnimalsViewModel> animals, string sortOrder)
