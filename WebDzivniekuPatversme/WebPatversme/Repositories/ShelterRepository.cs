@@ -43,7 +43,9 @@ namespace WebDzivniekuPatversme.Repositories
                     Address = Convert.ToString(reader["Address"]),
                     PhoneNumber = Convert.ToString(reader["PhoneNumber"]),
                     ImagePath = Convert.ToString(reader["ImagePath"]),
-                    DateAdded = Convert.ToDateTime(reader["DateAdded"])
+                    DateAdded = Convert.ToDateTime(reader["DateAdded"]),
+                    Email = Convert.ToString(reader["Email"]),
+                    Description = Convert.ToString(reader["Description"]),
                 });
             }
             return list;
@@ -54,7 +56,7 @@ namespace WebDzivniekuPatversme.Repositories
             shelter.ImagePath = SaveImage(shelter);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded);";
+            var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded, Email, Description) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded, @email, @description);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -68,6 +70,8 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@phoneNumber", shelter.PhoneNumber);
             cmd.Parameters.AddWithValue("@imagePath", shelter.ImagePath);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
+            cmd.Parameters.AddWithValue("@email", shelter.Email);
+            cmd.Parameters.AddWithValue("@description", shelter.Description);
 
             var reader = cmd.ExecuteReader();
         }
@@ -117,6 +121,8 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@phoneNumber", shelter.PhoneNumber);
             cmd.Parameters.AddWithValue("@imagePath", shelter.ImagePath);
             cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
+            cmd.Parameters.AddWithValue("@email", shelter.Email);
+            cmd.Parameters.AddWithValue("@description", shelter.Description);
 
             var reader = cmd.ExecuteReader();
         }

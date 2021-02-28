@@ -22,16 +22,16 @@
     </div>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AnimalShelterID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnimalShelterID)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Address)
@@ -57,6 +57,9 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateAdded)
         </dd>
+        <div class="col-md-12" style="border:1px solid grey;">
+            @Html.Raw(Model.Description)
+        </div>
     </dl>
 </div>
 

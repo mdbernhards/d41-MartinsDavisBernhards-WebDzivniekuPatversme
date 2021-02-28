@@ -29,17 +29,18 @@ namespace WebDzivniekuPatversme.Controllers
             string sortOrder,
             int? pageNumber,
             string name,
-            int age,
+            string age,
             string species,
+            string speciesType,
             string colour,
             string shelter,
-            int weight,
             int pageSize = 3
             )
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["AgeSortParm"] = sortOrder == "age" ? "age_desc" : "age";
             ViewData["SpeciesSortParm"] = sortOrder == "species" ? "species_desc" : "species";
+            ViewData["SpeciesTypeSortParm"] = sortOrder == "speciesType" ? "speciesType_desc" : "speciesType";
             ViewData["WeightSortParm"] = sortOrder == "weight" ? "weight_desc" : "weight";
             ViewData["ShelterSortParm"] = sortOrder == "shelter" ? "shelter_desc" : "shelter";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
@@ -51,11 +52,11 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["Name"] = name;
             ViewData["Age"] = age;
             ViewData["Species"] = species;
+            ViewData["SpeciesType"] = speciesType;
             ViewData["Colour"] = colour;
             ViewData["Shelter"] = shelter;
-            ViewData["Weight"] = weight;
 
-            var filter = _animalsServices.CreateAnimalFilter(name, age, species, colour, shelter, weight);
+            var filter = _animalsServices.CreateAnimalFilter(name, age, species, speciesType, colour, shelter);
             var animalList = _mapper.Map<List<AnimalsViewModel>>(_animalsServices.GetAllAnimalList());
 
             animalList = _animalsServices.AddAnimalShelterNames(animalList);
@@ -74,7 +75,8 @@ namespace WebDzivniekuPatversme.Controllers
             AnimalsViewModel animalModel = new AnimalsViewModel
             {
                 AnimalShelters = _mapper.Map<List<SheltersViewModel>>(_animalsServices.GetAllShelters()),
-                BirthDate = DateTime.Today
+                BirthDate = DateTime.Today,
+                BirthDateRangeTo = DateTime.Today,
             };
 
             return View(animalModel);

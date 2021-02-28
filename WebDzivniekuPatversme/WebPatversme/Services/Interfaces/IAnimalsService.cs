@@ -26,7 +26,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         void SendAnimalEmail(Animals animal);
 
-        AnimalFilter CreateAnimalFilter(string name, int age, string species, string colour, string shelter, int weight);
+        AnimalFilter CreateAnimalFilter(string name, string age, string species, string speciesType, string colour, string shelter);
 
         DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalsViewModel> animalList, AnimalFilter filter);
     }

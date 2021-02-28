@@ -97,16 +97,16 @@ namespace WebDzivniekuPatversme.Services
                 animal.EmailMessage);
         }
 
-        public AnimalFilter CreateAnimalFilter(string name, int age, string species, string colour, string shelter, int weight)
+        public AnimalFilter CreateAnimalFilter(string name, string age, string species, string speciesType, string colour, string shelter)
         {
             return new AnimalFilter
             {
                 Name = name,
                 Age = age,
                 Species = species,
+                SpeciesType = speciesType,
                 Colour = colour,
                 Shelter = shelter,
-                Weight = weight,
             };
         }
 
@@ -124,9 +124,9 @@ namespace WebDzivniekuPatversme.Services
             {
                 Age = new List<DropDownItem>(),
                 Species = new List<DropDownItem>(),
+                SpeciesType = new List<DropDownItem>(),
                 Colour = new List<DropDownItem>(),
                 Shelter = new List<DropDownItem>(),
-                Weight = new List<DropDownItem>(),
             };
 
             foreach (var animal in animalList)
@@ -141,19 +141,24 @@ namespace WebDzivniekuPatversme.Services
                     listItems.Species.Add(new DropDownItem { Item = animal.Species, Count = 0 });
                 }
 
+                if (!listItems.SpeciesType.Select(x => x.Item).Contains(animal.SpeciesType))
+                {
+                    listItems.SpeciesType.Add(new DropDownItem { Item = animal.SpeciesType, Count = 0 });
+                }
+
                 if (!listItems.Colour.Select(x => x.Item).Contains(animal.Colour))
                 {
                     listItems.Colour.Add(new DropDownItem { Item = animal.Colour, Count = 0 });
                 }
 
+                if (!listItems.Colour.Select(x => x.Item).Contains(animal.SecondaryColour))
+                {
+                    listItems.Colour.Add(new DropDownItem { Item = animal.SecondaryColour, Count = 0 });
+                }
+
                 if (!listItems.Shelter.Select(x => x.Item).Contains(animal.AnimalShelterName))
                 {
                     listItems.Shelter.Add(new DropDownItem { Item = animal.AnimalShelterName, Count = 0 });
-                }
-
-                if (!listItems.Weight.Select(x => x.Item).Contains(animal.Weight.ToString()))
-                {
-                    listItems.Weight.Add(new DropDownItem { Item = animal.Weight.ToString(), Count = 0 });
                 }
             }
 
@@ -167,61 +172,62 @@ namespace WebDzivniekuPatversme.Services
                 FilterAnimals( 
                     animals, 
                     new AnimalFilter { 
-                        Colour = filter.Colour, 
-                        Species = filter.Species, 
-                        Shelter = filter.Shelter, 
-                        Weight = filter.Weight,
+                        Colour = filter.Colour,
+                        Species = filter.Species,
+                        SpeciesType = filter.SpeciesType,
+                        Shelter = filter.Shelter,
                         Name = filter.Name,
-                    }).Select(x => x.Age.ToString()).ToList(), 
+                    }).Select(x => x.Age.ToString()).ToList(),
                 listItems.Age);
 
             listItems.Colour = CountIndividualDropDownListValues(
                 FilterAnimals(
                     animals, 
                     new AnimalFilter { 
-                        Age = filter.Age, 
-                        Species = filter.Species, 
-                        Shelter = filter.Shelter, 
-                        Weight = filter.Weight,
+                        Age = filter.Age,
+                        Species = filter.Species,
+                        SpeciesType = filter.SpeciesType,
+                        Shelter = filter.Shelter,
                         Name = filter.Name,
-                    }).Select(x => x.Colour).ToList(), 
+                    }).Select(x => x.Colour).ToList(),
                 listItems.Colour);
 
             listItems.Species = CountIndividualDropDownListValues(
                 FilterAnimals(
                     animals, 
                     new AnimalFilter { 
-                        Age = filter.Age, 
-                        Colour = filter.Colour, 
-                        Shelter = filter.Shelter, 
-                        Weight = filter.Weight,
+                        Age = filter.Age,
+                        Colour = filter.Colour,
+                        SpeciesType = filter.SpeciesType,
+                        Shelter = filter.Shelter,
                         Name = filter.Name,
-                    }).Select(x => x.Species).ToList(), 
+                    }).Select(x => x.Species).ToList(),
                 listItems.Species);
+
+            listItems.SpeciesType = CountIndividualDropDownListValues(
+                FilterAnimals(
+                    animals,
+                    new AnimalFilter
+                    {
+                        Age = filter.Age,
+                        Colour = filter.Colour,
+                        Species = filter.Species,
+                        Shelter = filter.Shelter,
+                        Name = filter.Name,
+                    }).Select(x => x.SpeciesType).ToList(),
+                listItems.SpeciesType);
 
             listItems.Shelter = CountIndividualDropDownListValues(
                 FilterAnimals(
                     animals, 
                     new AnimalFilter { 
-                        Age = filter.Age, 
-                        Colour = filter.Colour, 
-                        Species = filter.Species, 
-                        Weight = filter.Weight,
+                        Age = filter.Age,
+                        Colour = filter.Colour,
+                        Species = filter.Species,
+                        SpeciesType = filter.SpeciesType,
                         Name = filter.Name,
-                    }).Select(x => x.AnimalShelterName).ToList(), 
+                    }).Select(x => x.AnimalShelterName).ToList(),
                 listItems.Shelter);
-
-            listItems.Weight = CountIndividualDropDownListValues(
-                FilterAnimals(
-                    animals, 
-                    new AnimalFilter { 
-                        Age = filter.Age, 
-                        Colour = filter.Colour, 
-                        Species = filter.Species, 
-                        Shelter = filter.Shelter,
-                        Name = filter.Name,
-                    }).Select(x => x.Weight.ToString()).ToList(), 
-                listItems.Weight);
 
             return listItems;
         }
@@ -266,7 +272,7 @@ namespace WebDzivniekuPatversme.Services
                 animals = animals.Where(animal => animal.Name.Contains(filter.Name)).ToList();
             }
 
-            if(filter.Age != 0)
+            if(!string.IsNullOrEmpty(filter.Species))
             {
                 animals = animals.Where(animal => animal.Age == filter.Age).ToList();
             }
@@ -284,11 +290,6 @@ namespace WebDzivniekuPatversme.Services
             if (!string.IsNullOrEmpty(filter.Shelter))
             {
                 animals = animals.Where(animal => animal.AnimalShelterName.Contains(filter.Shelter)).ToList();
-            }
-
-            if (filter.Weight != 0)
-            {
-                animals = animals.Where(animal => animal.Weight == filter.Weight).ToList();
             }
 
             return animals;

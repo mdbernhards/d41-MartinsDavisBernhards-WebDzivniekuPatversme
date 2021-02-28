@@ -8,10 +8,10 @@ namespace WebDzivniekuPatversme.Models.ViewModels
 
         public List<DropDownItem> Species { get; set; }
 
+        public List<DropDownItem> SpeciesType { get; set; }
+
         public List<DropDownItem> Colour { get; set; }
 
         public List<DropDownItem> Shelter { get; set; }
-
-        public List<DropDownItem> Weight { get; set; }
     }
 }

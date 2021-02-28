@@ -33,9 +33,26 @@
                 </select>
             </div>
             <div class="form-group">
+                <label asp-for="SpeciesType" class="control-label"></label>
+                <select class="form-control" asp-for="SpeciesType">
+                    <option value="Kaķis">Kaķis</option>
+                    <option value="Suns">Suns</option>
+                    <option value="Zirgs">Zirgs</option>
+                    <option value="Pele">Pele</option>
+                    <option value="Žurka">Žurka</option>
+                    <option value="Jūrascūciņa">Jūrascūciņa</option>
+                    <option value="Zivs">Zivs</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label asp-for="BirthDate" class="control-label"></label>
                 <input asp-for="BirthDate" class="form-control" />
                 <span asp-validation-for="BirthDate" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDateRangeTo" class="control-label"></label>
+                <input asp-for="BirthDateRangeTo" class="form-control" />
+                <span asp-validation-for="BirthDateRangeTo" class="text-danger" />
             </div>
             <div class="form-group">
                 <label asp-for="Weight" class="control-label"></label>
@@ -45,6 +62,21 @@
             <div class="form-group">
                 <label asp-for="Colour" class="control-label"></label>
                 <select class="form-control" asp-for="Colour">
+                    <option value="Brūns">Brūns</option>
+                    <option value="Melns">Melns</option>
+                    <option value="Balts">Balts</option>
+                    <option value="Ruds">Ruds</option>
+                    <option value="Pelēks">Pelēks</option>
+                    <option value="Sarkans">Sarkans</option>
+                    <option value="Zils">Zils</option>
+                    <option value="Zaļš">Zaļš</option>
+                    <option value="Violēts">Violēts</option>
+                    <option value="Sudrabs">Sudrabs</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondaryColour" class="control-label"></label>
+                <select class="form-control" asp-for="SecondaryColour">
                     <option value="Brūns">Brūns</option>
                     <option value="Melns">Melns</option>
                     <option value="Balts">Balts</option>
@@ -85,9 +117,9 @@
                     <select class="form-control" asp-for="AnimalShelterId" asp-items="Model.AnimalShelters
                         .GroupBy(t => t.Name)
                         .Select(g => g.First())
-                        .Select(x => new SelectListItem {  
-                            Text = x.Name, 
-                            Value = x.AnimalShelterID 
+                        .Select(x => new SelectListItem {
+                            Text = x.Name,
+                            Value = x.AnimalShelterID
                         })
                         .OrderBy(x => x.Text)">
                     </select>

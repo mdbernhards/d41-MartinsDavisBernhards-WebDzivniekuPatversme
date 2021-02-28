@@ -29,7 +29,7 @@
                         Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"),
                         Value = x.Item,
                         Disabled = (x.Count == 0 ? true : false),
-                        Selected = (x.Item == @ViewData["Age"].ToString() ? true : false),
+                        Selected = (x.Item == @ViewData["Age"]?.ToString() ? true : false),
                     })
                     .OrderBy(x => x.Text)
                     .AsEnumerable()">
@@ -54,6 +54,25 @@
                     .AsEnumerable()">
                 <option value="">
                     @Html.Raw("--Suga--")
+                </option>
+            </select>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <label class="control-label">Pēc Šķirnes</label>
+            <select onchange="this.form.submit();" name="speciesType" class="form-control" value="@ViewData["SpeciesType"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+                    .SpeciesType
+                    .GroupBy(t => t.Item)
+                    .Select(g => g.First())
+                    .Select(x => new SelectListItem {
+                        Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"),
+                        Value = x.Item,
+                        Disabled = (x.Count == 0 ? true : false),
+                        Selected = (x.Item == @ViewData["SpeciesType"]?.ToString() ? true : false),
+                    })
+                    .OrderBy(x => x.Text)
+                    .AsEnumerable()">
+                <option value="">
+                    @Html.Raw("--Šķirne--")
                 </option>
             </select>
         </div>
@@ -96,25 +115,6 @@
             </select>
         </div>
         <div id="dataListItem" class="col-md-4">
-            <label class="control-label">Pēc svara</label>
-            <select onchange="this.form.submit();" on name="weight" class="form-control" value="@ViewData["Weight"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
-                    .Weight
-                    .GroupBy(t => t.Item)
-                    .Select(g => g.First())
-                    .Select(x => new SelectListItem {
-                        Text = x.Item + @Html.Raw(" (") + x.Count + @Html.Raw(")"),
-                        Value = x.Item,
-                        Disabled = (x.Count == 0 ? true : false),
-                        Selected = (x.Item == @ViewData["Weight"]?.ToString() ? true : false),
-                    })
-                    .OrderBy(x => x.Text)
-                    .AsEnumerable()">
-                <option value="">
-                    @Html.Raw("--Svars (Kg)--")
-                </option>
-            </select>
-        </div>
-        <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc vārda</label>
             <input onchange="this.form.submit();" type="text" name="name" class="form-control" value="@ViewData["Name"]" />
             <input type="hidden" name="pageSize" value="@ViewData["PageSize"]" />
@@ -135,6 +135,7 @@
                    asp-route-sortOrder="@ViewData["NameSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-speciesType="@ViewData["SpeciesType"]"
                    asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
@@ -148,6 +149,7 @@
                    asp-route-sortOrder="@ViewData["AgeSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-speciesType="@ViewData["SpeciesType"]"
                    asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
@@ -161,6 +163,7 @@
                    asp-route-sortOrder="@ViewData["SpeciesSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-speciesType="@ViewData["SpeciesType"]"
                    asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
@@ -171,9 +174,24 @@
             </th>
             <th>
                 <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["SpeciesSortParm"]"
+                   asp-route-pageSize="@ViewData["PageSize"]"
+                   asp-route-species="@ViewData["Species"]"
+                   asp-route-speciesType="@ViewData["SpeciesType"]"
+                   asp-route-shelter="@ViewData["Shelter"]"
+                   asp-route-colour="@ViewData["Colour"]"
+                   asp-route-weight="@ViewData["Weight"]"
+                   asp-route-name="@ViewData["Name"]"
+                   asp-route-age="@ViewData["Age"]">
+                    Šķirne
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
                    asp-route-sortOrder="@ViewData["WeightSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-speciesType="@ViewData["SpeciesType"]"
                    asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
@@ -187,6 +205,7 @@
                    asp-route-sortOrder="@ViewData["ShelterSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-speciesType="@ViewData["SpeciesType"]"
                    asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
@@ -200,6 +219,7 @@
                    asp-route-sortOrder="@ViewData["ColourSortParm"]"
                    asp-route-pageSize="@ViewData["PageSize"]"
                    asp-route-species="@ViewData["Species"]"
+                   asp-route-speciesType="@ViewData["SpeciesType"]"
                    asp-route-shelter="@ViewData["Shelter"]"
                    asp-route-colour="@ViewData["Colour"]"
                    asp-route-weight="@ViewData["Weight"]"
@@ -214,45 +234,48 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img src="~/uploads/images/animals/@item.ImagePath" alt="@item.Name bilde" onerror="this.onerror = null;this.src = 'uploads/images/animals/defaultanimal.png'" asp-append-version="true"
-                         class="rounded-circle"
-                         height="75"
-                         width="75"
-                         style="
+        <tr>
+            <td>
+                <img src="~/uploads/images/animals/@item.ImagePath" alt="@item.Name bilde" onerror="this.onerror = null;this.src = 'uploads/images/animals/defaultanimal.png'" asp-append-version="true"
+                     class="rounded-circle"
+                     height="75"
+                     width="75"
+                     style="
                             object-fit: cover;
                             box-shadow: 0px 0px 10px #888;
                             padding: 4px;" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Species)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Weight)
-                </td>
-                <td>
-                    @Html.ActionLink(item.AnimalShelterName, "Details", "Shelters", new { id = item.AnimalShelterId })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Colour)
-                </td>
-                <td>
-                    @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
-                    {
-                        @Html.ActionLink("Labot", "Edit", new { id = item.AnimalID })
-                        @Html.Raw(" | ")
-                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Species)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeciesType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.ActionLink(item.AnimalShelterName, "Details", "Shelters", new { id = item.AnimalShelterId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colour)
+            </td>
+            <td>
+                @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
+                {
+                    @Html.ActionLink("Labot", "Edit", new { id = item.AnimalID })
+                    @Html.Raw(" | ")
+                }
 
-                    @Html.ActionLink("Vairāk", "Details", new { id = item.AnimalID })
-                </td>
-            </tr>
+                @Html.ActionLink("Vairāk", "Details", new { id = item.AnimalID })
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -267,6 +290,7 @@
    asp-route-pageNumber="@(Model.PageIndex - 1)"
    asp-route-pageSize="@ViewData["PageSize"]"
    asp-route-species="@ViewData["Species"]"
+   asp-route-speciesType="@ViewData["SpeciesType"]"
    asp-route-shelter="@ViewData["Shelter"]"
    asp-route-colour="@ViewData["Colour"]"
    asp-route-weight="@ViewData["Weight"]"
@@ -282,6 +306,7 @@
        asp-route-pageNumber="@i"
        asp-route-pageSize="@ViewData["PageSize"]"
        asp-route-species="@ViewData["Species"]"
+   asp-route-speciesType="@ViewData["SpeciesType"]"
        asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"
@@ -296,6 +321,7 @@
    asp-route-pageNumber="@(Model.PageIndex + 1)"
    asp-route-pageSize="@ViewData["PageSize"]"
    asp-route-species="@ViewData["Species"]"
+   asp-route-speciesType="@ViewData["SpeciesType"]"
    asp-route-shelter="@ViewData["Shelter"]"
    asp-route-colour="@ViewData["Colour"]"
    asp-route-weight="@ViewData["Weight"]"
@@ -310,6 +336,7 @@
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
        asp-route-species="@ViewData["Species"]"
+       asp-route-speciesType="@ViewData["SpeciesType"]"
        asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"
@@ -322,6 +349,7 @@
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
        asp-route-species="@ViewData["Species"]"
+       asp-route-speciesType="@ViewData["SpeciesType"]"
        asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"
@@ -334,6 +362,7 @@
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
        asp-route-species="@ViewData["Species"]"
+       asp-route-speciesType="@ViewData["SpeciesType"]"
        asp-route-shelter="@ViewData["Shelter"]"
        asp-route-colour="@ViewData["Colour"]"
        asp-route-weight="@ViewData["Weight"]"

@@ -39,10 +39,22 @@
             @Html.DisplayFor(model => model.BirthDate)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BirthDateRangeTo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BirthDateRangeTo)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Species)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Species)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpeciesType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpeciesType)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Colour)
@@ -51,10 +63,10 @@
             @Html.DisplayFor(model => model.Colour)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.About)
+            @Html.DisplayNameFor(model => model.SecondaryColour)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.About)
+            @Html.DisplayFor(model => model.SecondaryColour)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Weight)
@@ -74,6 +86,9 @@
         <dd class="col-sm-10">
             @Html.ActionLink(Model.AnimalShelterName, "Details", "Shelters", new { id = Model.AnimalShelterId })
         </dd>
+        <div class="col-md-12" style="border:1px solid grey;">
+            @Html.Raw(Model.About)
+        </div>
     </dl>
     <form method="post" class="col-md-10" style="padding-bottom: 3%" asp-action="Details">
         <div class="form-group">
