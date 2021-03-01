@@ -23,6 +23,8 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
         public static string UserControl => "UserControl";
 
+        public static string EditAnimalCreation => "EditAnimalCreation";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
@@ -40,6 +42,8 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
         public static string UserControlNavClass(ViewContext viewContext) => PageNavClass(viewContext, UserControl);
+
+        public static string EditAnimalCreationNavClass(ViewContext viewContext) => PageNavClass(viewContext, EditAnimalCreation);
 
         private static string PageNavClass(ViewContext viewContext, string page)
         {

@@ -12,5 +12,17 @@ namespace WebDzivniekuPatversme.Repositories.Interfaces
         void DeleteAnimal(Animals animal);
 
         void EditAnimal(Animals newAnimal);
+
+        void CreateNewColour(AnimalColour colour);
+
+        List<AnimalColour> GetAllColours();
+
+        void CreateNewSpecies(AnimalSpecies species);
+
+        List<AnimalSpecies> GetAllSpecies();
+
+        void CreateNewSpeciesType(AnimalSpeciesType speciesType);
+
+        List<AnimalSpeciesType> GetAllSpeciesTypes();
     }
 }

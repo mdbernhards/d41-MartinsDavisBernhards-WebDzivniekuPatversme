@@ -35,15 +35,6 @@ namespace WebDzivniekuPatversme.Repositories
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                var one = reader["BirthDate"].GetType();
-                var two = reader["ID"];
-                var three = reader["BirthDateRangeTo"].GetType();
-
-                if(three.GetType().Equals(DBNull.Value))
-                {
-                    //pog
-                }
-
                 Animals animal = new Animals()
                 {
                     AnimalID = Convert.ToString(reader["ID"]),
@@ -74,7 +65,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "INSERT INTO Animals (ID, Weight, BirthDate, BirthDateRangeTo, DateAdded, About, Name, Species, Type, Colour, SecondaryColour, ImagePath, AnimalShelterID) " +
-                                                "VALUES (@id, @weight, @birthDate, @birthDateRangeTo, @dateAdded, @about, @name, @species, @type, @colour, @secondaryColour, @imagePath, @animalShelterId);";
+                "VALUES (@id, @weight, @birthDate, @birthDateRangeTo, @dateAdded, @about, @name, @species, @type, @colour, @secondaryColour, @imagePath, @animalShelterId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -119,7 +110,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "UPDATE Animals SET Weight = @weight, BirthDate =  @birthDate, BirthDateRangeTo = @birthDateRangeTo, About = @about," +
-                          " Name = @name, Species = @species, Type = @type, Colour = @colour, SecondaryColour = @secondaryColour, ImagePath = @imagePath, AnimalShelterID = @animalShelterID WHERE Id = @id;";
+                " Name = @name, Species = @species, Type = @type, Colour = @colour, SecondaryColour = @secondaryColour, ImagePath = @imagePath, AnimalShelterID = @animalShelterID WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -143,16 +134,169 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        private static string CalculateAge(DateTime? birthDate)
+        public void CreateNewColour(AnimalColour colour)
         {
-            var age = DateTime.Now.Year - birthDate.Value.Year;
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "INSERT INTO Colours (ID, Name) " +
+                "VALUES (@id, @name);";
 
-            if (birthDate > DateTime.Now.AddYears(-age))
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", colour.Id);
+            cmd.Parameters.AddWithValue("@name", colour.Name);
+
+            var reader = cmd.ExecuteReader();
+        }
+
+        public List<AnimalColour> GetAllColours()
+        {
+            List<AnimalColour> colourList = new List<AnimalColour>();
+
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "SELECT (Name) FROM Colours;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                age--;
+                var colour = new AnimalColour
+                {
+                    Id = Convert.ToString(reader["Id"]),
+                    Name = Convert.ToString(reader["Name"]),
+                };
+
+                colourList.Add(colour);
             }
 
-            return age.ToString();
+            return colourList;
+        }
+
+        public void CreateNewSpecies(AnimalSpecies species)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "INSERT INTO Species (ID, Name) " +
+                "VALUES (@id, @name);";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", species.Id);
+            cmd.Parameters.AddWithValue("@name", species.Name);
+
+            var reader = cmd.ExecuteReader();
+        }
+
+        public List<AnimalSpecies> GetAllSpecies()
+        {
+            List<AnimalSpecies> speciesList = new List<AnimalSpecies>();
+
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "SELECT * FROM Species;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var species = new AnimalSpecies
+                {
+                    Id = Convert.ToString(reader["Id"]),
+                    Name = Convert.ToString(reader["Name"]),
+                };
+
+                speciesList.Add(species);
+            }
+
+            return speciesList;
+        }
+
+        public void CreateNewSpeciesType(AnimalSpeciesType speciesType)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "INSERT INTO SpeciesTypes (ID, Name, SpeciesId) " +
+                "VALUES (@id, @name, @speciesId);";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", speciesType.Id);
+            cmd.Parameters.AddWithValue("@name", speciesType.Name);
+            cmd.Parameters.AddWithValue("@speciesId", speciesType.SpeciesId);
+
+            var reader = cmd.ExecuteReader();
+        }
+
+        public List<AnimalSpeciesType> GetAllSpeciesTypes()
+        {
+            List<AnimalSpeciesType> speciesList = new List<AnimalSpeciesType>();
+
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "SELECT * FROM SpeciesTypes;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var species = new AnimalSpeciesType
+                {
+                    Id = Convert.ToString(reader["Id"]),
+                    Name = Convert.ToString(reader["Name"]),
+                    SpeciesId = Convert.ToString(reader["SpeciesId"]),
+                };
+
+                speciesList.Add(species);
+            }
+
+            return speciesList;
+        }
+
+        private static string CalculateAge(DateTime? birthDate)
+        {
+            string Age;
+
+            int Years = DateTime.Now.Year - birthDate.Value.Year;
+            int Months = DateTime.Now.Month - birthDate.Value.Month;
+            int Days = DateTime.Now.Day - birthDate.Value.Day;
+
+            if (birthDate > DateTime.Now.AddYears(-Years))
+            {
+                Years--;
+            }
+
+            if (Years == 0)
+            {
+                if (Months == 0)
+                {
+                    Age = Days.ToString() + " dienas";
+                }
+                else
+                {
+                    Age = Months.ToString() + " mēneši";
+                }
+            }
+            else
+            {
+                if (Months > 5 && Months < 13)
+                {
+                    Age = Years.ToString() + ".5 gadi";
+                }
+                else
+                {
+                    Age = Years.ToString() + " gadi";
+                }
+
+            }
+
+            return Age;
         }
 
         private string SaveImage(Animals animal)

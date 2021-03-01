@@ -44,11 +44,13 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             foreach (var user in Users)
             {
+                var roles = await _userManager.GetRolesAsync(user);
+
                 UsersWithRole.Add(
                     new UserWithRole() 
                     { 
-                        Role = _userManager.GetRolesAsync(user).Result[0], 
-                        User = user
+                        Role = roles.First(), 
+                        User = user,
                     });
             }
 
