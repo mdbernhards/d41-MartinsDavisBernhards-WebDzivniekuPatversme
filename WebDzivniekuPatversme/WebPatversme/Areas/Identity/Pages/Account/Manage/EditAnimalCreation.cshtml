@@ -9,51 +9,88 @@
 {
     <h4>@ViewData["Title"]</h4>
 
-    <div style="padding-left: 1%">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        E-pasts
-                    </th>
-                    <th>
-                        Loma
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-            </thead>
-        </table>
-        @foreach (var item in Model.UsersWithRole)
-        {
+    <form method="post" style="padding: 1%" asp-page-handler="UpdateSpecies">
+        <div class="row">
+            <div id="dataListItem" class="col-md-4">
+                <label class="control-label">Krāsa</label>
+                <select name="colourId" class="form-control" asp-items="(Model
+                    .Colours
+                    .GroupBy(t => t.Name)
+                    .Select(g => g.First())
+                    .Select(x => new SelectListItem {
+                        Text = x.Name,
+                        Value = x.Id,
+                    })
+                    .OrderBy(x => x.Text)
+                    .AsEnumerable())">
+                </select>
+                <div style="padding-top: 1%; float: right">
+                    <button id="delete-user-button" type="submit" asp-page-handler="DeleteColour" value="@ViewData["SpeciesId"]" class="btn btn-danger">Dzēst krāsu</button>
+                </div>
+            </div>
+            <div id="dataListItem" class="col-md-4">
+                <label class="control-label">Suga</label>
+                <select name="speciesId" class="form-control" onchange="this.form.submit();" asp-items="(Model
+                    .Species
+                    .GroupBy(t => t.Name)
+                    .Select(g => g.First())
+                    .Select(x => new SelectListItem {
+                        Text = x.Name,
+                        Value = x.Id,
+                        Selected = (x.Id == @ViewData["SpeciesId"]?.ToString() ? true : false),
+                    })
+                    .OrderBy(x => x.Text)
+                    .AsEnumerable())">
+                </select>
+                <div style="padding-top: 1%; float: right">
+                    <button id="delete-user-button" type="submit" asp-page-handler="DeleteSpecies" class="btn btn-danger">Dzēst sugu</button>
+                </div>
+            </div>
+            <div id="dataListItem" class="col-md-4">
+                <label class="control-label">Šķirne</label>
+                <select name="speciesTypeId" class="form-control" asp-items="(Model
+                    .SpeciesTypes
+                    .GroupBy(t => t.Name)
+                    .Select(g => g.First())
+                    .Select(x => new SelectListItem {
+                        Text = x.Name,
+                        Value = x.Id,
+                    })
+                    .OrderBy(x => x.Text)
+                    .AsEnumerable())">
+                </select>
+                <div style="padding-top: 1%; float: right">
+                    <button id="delete-user-button" type="submit" asp-page-handler="DeleteSpeciesType" class="btn btn-danger">Dzēst šķirni</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row" style="padding: 1%">
+        <div id="dataListItem" class="col-md-4">
             <form method="post">
-                <table class="table table-striped table-bordered bootstrap-datatable " style="overflow:auto;">
-                    <tbody>
-                        <tr>
-                            <td style="width: 35%">
-                                @item.User.Email
-                            </td>
-                            <td style="width: 27%">
-                                <div>
-                                    <select class="form-control" name="role" asp-items="((IEnumerable<IdentityRole>)Model.Roles)
-                                        .Select(x => new SelectListItem { Text = x.Name, Value = x.Name })
-                                        .AsEnumerable()">
-                                        <option value="@item.Role"> @item.Role </option>
-                                    </select>
-                                    <input type="hidden" name="userName" value="@item.User.UserName" />
-                                </div>
-                            </td>
-                            <td>
-                                <button id="change-roles-button" type="submit" asp-page-handler="ChangeRoles" class="btn btn-primary">Mainīt Lomu</button>
-                            </td>
-                            <td>
-                                <button id="delete-user-button" type="submit" asp-page-handler="DeleteUser" class="btn btn-danger">Dzēst lietotāju</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <input name="colourName" class="form-control" />
+                <div style="padding-top: 1%; float: right">
+                    <button id="delete-colour-button" type="submit" asp-page-handler="AddColour" class="btn btn-primary">Pievienot krāsu</button>
+                </div>
             </form>
-        }
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <form method="post">
+                <input name="speciesName" class="form-control" />
+                <div style="padding-top: 1%; float: right">
+                    <button id="delete-species-button" type="submit" asp-page-handler="AddSpecies" class="btn btn-primary">Pievienot sugu</button>
+                </div>
+            </form>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <form method="post">
+                <input name="speciesTypeName" class="form-control" />
+                <input type="hidden" name="speciesId" class="form-control" value="@ViewData["SpeciesId"]" />
+                <div style="padding-top: 1%; float: right">
+                    <button id="delete-speciesType-button" type="submit" asp-page-handler="AddSpeciesType" class="btn btn-primary">Pievienot šķirni</button>
+                </div>
+            </form>
+        </div>
     </div>
 }
 

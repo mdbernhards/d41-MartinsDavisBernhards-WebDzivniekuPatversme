@@ -154,7 +154,7 @@ namespace WebDzivniekuPatversme.Repositories
             List<AnimalColour> colourList = new List<AnimalColour>();
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "SELECT (Name) FROM Colours;";
+            var sqlQuerry = "SELECT * FROM Colours;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -173,6 +173,19 @@ namespace WebDzivniekuPatversme.Repositories
             }
 
             return colourList;
+        }
+
+        public void DeleteColour(AnimalColour colour)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            string sqlQuerry = "DELETE FROM Colours WHERE ID = @id;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", colour.Id);
+
+            var reader = cmd.ExecuteReader();
         }
 
         public void CreateNewSpecies(AnimalSpecies species)
@@ -216,6 +229,19 @@ namespace WebDzivniekuPatversme.Repositories
             return speciesList;
         }
 
+        public void DeleteSpecies(AnimalSpecies species)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            string sqlQuerry = "DELETE FROM Species WHERE ID = @id;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", species.Id);
+
+            var reader = cmd.ExecuteReader();
+        }
+
         public void CreateNewSpeciesType(AnimalSpeciesType speciesType)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
@@ -257,6 +283,19 @@ namespace WebDzivniekuPatversme.Repositories
             }
 
             return speciesList;
+        }
+
+        public void DeleteSpeciesType(AnimalSpeciesType speciesType)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            string sqlQuerry = "DELETE FROM SpeciesTypes WHERE ID = @id;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", speciesType.Id);
+
+            var reader = cmd.ExecuteReader();
         }
 
         private static string CalculateAge(DateTime? birthDate)
