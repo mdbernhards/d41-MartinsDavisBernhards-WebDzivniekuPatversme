@@ -14,6 +14,12 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         List<Shelters> GetAllShelters();
 
+        List<AnimalColour> GetAllColours();
+
+        List<AnimalSpecies> GetAllSpecies();
+
+        List<AnimalSpeciesType> GetAllSpeciesTypes();
+
         List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals);
 
         AnimalsViewModel AddAnimalShelterNames(AnimalsViewModel animal);

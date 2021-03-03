@@ -32,9 +32,22 @@ namespace WebDzivniekuPatversme.Services
 
         public List<Animals> GetAllAnimalList()
         {
-            var AnimalList = _animalsRepository.GetAllAnimals();
+            return _animalsRepository.GetAllAnimals();
+        }
 
-            return AnimalList;
+        public List<AnimalColour> GetAllColours()
+        {
+            return _animalsRepository.GetAllColours();
+        }
+
+        public List<AnimalSpecies> GetAllSpecies()
+        {
+            return _animalsRepository.GetAllSpecies();
+        }
+
+        public List<AnimalSpeciesType> GetAllSpeciesTypes()
+        {
+            return _animalsRepository.GetAllSpeciesTypes();
         }
 
         public List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals)
@@ -269,10 +282,10 @@ namespace WebDzivniekuPatversme.Services
         {
             if (!string.IsNullOrEmpty(filter.Name))
             {
-                animals = animals.Where(animal => animal.Name.Contains(filter.Name)).ToList();
+                animals = animals.Where(animal => animal.Name.ToLower().Contains(filter.Name.ToLower())).ToList();
             }
 
-            if(!string.IsNullOrEmpty(filter.Species))
+            if(!string.IsNullOrEmpty(filter.Age))
             {
                 animals = animals.Where(animal => animal.Age == filter.Age).ToList();
             }
@@ -280,6 +293,11 @@ namespace WebDzivniekuPatversme.Services
             if (!string.IsNullOrEmpty(filter.Species))
             {
                 animals = animals.Where(animal => animal.Species.Contains(filter.Species)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(filter.SpeciesType))
+            {
+                animals = animals.Where(animal => animal.SpeciesType.Contains(filter.SpeciesType)).ToList();
             }
 
             if (!string.IsNullOrEmpty(filter.Colour))

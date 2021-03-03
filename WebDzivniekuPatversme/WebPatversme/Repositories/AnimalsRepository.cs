@@ -315,7 +315,18 @@ namespace WebDzivniekuPatversme.Repositories
             {
                 if (Months == 0)
                 {
-                    Age = Days.ToString() + " dienas";
+                    if (Days == 1)
+                    {
+                        Age = "1 diena";
+                    }
+                    else
+                    {
+                        Age = Days.ToString() + " dienas";
+                    }
+                }
+                else if (Months == 1)
+                {
+                    Age = "1 mēnesis";
                 }
                 else
                 {
@@ -328,11 +339,14 @@ namespace WebDzivniekuPatversme.Repositories
                 {
                     Age = Years.ToString() + ".5 gadi";
                 }
+                else if (Years == 1)
+                {
+                    Age = "1 gads";
+                }
                 else
                 {
                     Age = Years.ToString() + " gadi";
                 }
-
             }
 
             return Age;

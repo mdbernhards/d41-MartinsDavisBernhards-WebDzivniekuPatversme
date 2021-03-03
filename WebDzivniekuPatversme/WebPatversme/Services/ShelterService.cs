@@ -81,7 +81,7 @@ namespace WebDzivniekuPatversme.Services
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                shelters = shelters.Where(animal => animal.Name.Contains(searchString)).ToList();
+                shelters = shelters.Where(animal => animal.Name.ToLower().Contains(searchString.ToLower())).ToList();
             }
             return shelters;
         }

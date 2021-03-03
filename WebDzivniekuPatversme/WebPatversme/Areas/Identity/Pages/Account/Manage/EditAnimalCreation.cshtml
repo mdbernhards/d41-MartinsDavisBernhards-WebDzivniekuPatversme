@@ -9,9 +9,9 @@
 {
     <h4>@ViewData["Title"]</h4>
 
-    <form method="post" style="padding: 1%" asp-page-handler="UpdateSpecies">
-        <div class="row">
-            <div id="dataListItem" class="col-md-4">
+    <div class="row">
+        <div id="dataListItem" class="col-md-4">
+            <form method="post">
                 <label class="control-label">Krāsa</label>
                 <select name="colourId" class="form-control" asp-items="(Model
                     .Colours
@@ -25,10 +25,12 @@
                     .AsEnumerable())">
                 </select>
                 <div style="padding-top: 1%; float: right">
-                    <button id="delete-user-button" type="submit" asp-page-handler="DeleteColour" value="@ViewData["SpeciesId"]" class="btn btn-danger">Dzēst krāsu</button>
+                    <button id="delete-colour-button" type="submit" asp-page-handler="DeleteColour" class="btn btn-danger">Dzēst krāsu</button>
                 </div>
-            </div>
-            <div id="dataListItem" class="col-md-4">
+            </form>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <form style="padding: 1%" method="get" asp-page-handler="SpeciesId">
                 <label class="control-label">Suga</label>
                 <select name="speciesId" class="form-control" onchange="this.form.submit();" asp-items="(Model
                     .Species
@@ -37,16 +39,21 @@
                     .Select(x => new SelectListItem {
                         Text = x.Name,
                         Value = x.Id,
-                        Selected = (x.Id == @ViewData["SpeciesId"]?.ToString() ? true : false),
+                        Selected = (x.Id == Model.SpeciesID ? true : false),
                     })
                     .OrderBy(x => x.Text)
                     .AsEnumerable())">
                 </select>
+            </form>
+            <form method="post">
                 <div style="padding-top: 1%; float: right">
-                    <button id="delete-user-button" type="submit" asp-page-handler="DeleteSpecies" class="btn btn-danger">Dzēst sugu</button>
+                    <input name="speciesId" value="@Model.SpeciesID" type="hidden" />
+                    <button id="delete-species-button" type="submit" asp-page-handler="DeleteSpecies" class="btn btn-danger">Dzēst sugu</button>
                 </div>
-            </div>
-            <div id="dataListItem" class="col-md-4">
+            </form>
+        </div>
+        <div id="dataListItem" class="col-md-4">
+            <form method="post">
                 <label class="control-label">Šķirne</label>
                 <select name="speciesTypeId" class="form-control" asp-items="(Model
                     .SpeciesTypes
@@ -60,11 +67,11 @@
                     .AsEnumerable())">
                 </select>
                 <div style="padding-top: 1%; float: right">
-                    <button id="delete-user-button" type="submit" asp-page-handler="DeleteSpeciesType" class="btn btn-danger">Dzēst šķirni</button>
+                    <button id="delete-speciesType-button" type="submit" asp-page-handler="DeleteSpeciesType" class="btn btn-danger">Dzēst šķirni</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
     <div class="row" style="padding: 1%">
         <div id="dataListItem" class="col-md-4">
             <form method="post">
@@ -85,7 +92,7 @@
         <div id="dataListItem" class="col-md-4">
             <form method="post">
                 <input name="speciesTypeName" class="form-control" />
-                <input type="hidden" name="speciesId" class="form-control" value="@ViewData["SpeciesId"]" />
+                <input type="hidden" name="speciesId" class="form-control" value="@Model.SpeciesID" />
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-speciesType-button" type="submit" asp-page-handler="AddSpeciesType" class="btn btn-primary">Pievienot šķirni</button>
                 </div>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 using AutoMapper;
@@ -75,6 +76,9 @@ namespace WebDzivniekuPatversme.Controllers
             AnimalsViewModel animalModel = new AnimalsViewModel
             {
                 AnimalShelters = _mapper.Map<List<SheltersViewModel>>(_animalsServices.GetAllShelters()),
+                AnimalColours = _animalsServices.GetAllColours(),
+                AnimalSpecies = _animalsServices.GetAllSpecies(),
+                AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes(),
                 BirthDate = DateTime.Today,
                 BirthDateRangeTo = DateTime.Today,
             };
@@ -105,6 +109,9 @@ namespace WebDzivniekuPatversme.Controllers
             var mappedAnimal = _mapper.Map<AnimalsViewModel>(animal);
 
             mappedAnimal.AnimalShelters = _mapper.Map<List<SheltersViewModel>>(_animalsServices.GetAllShelters());
+            mappedAnimal.AnimalColours = _animalsServices.GetAllColours();
+            mappedAnimal.AnimalSpecies = _animalsServices.GetAllSpecies();
+            mappedAnimal.AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes();
 
             return View(mappedAnimal);
         }

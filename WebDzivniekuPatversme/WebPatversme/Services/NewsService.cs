@@ -76,7 +76,7 @@ namespace WebDzivniekuPatversme.Services
         {
             if (!string.IsNullOrEmpty(searchString))
             {
-                news = news.Where(animal => animal.Title.Contains(searchString)).ToList();
+                news = news.Where(animal => animal.Title.ToLower().Contains(searchString.ToLower())).ToList();
             }
             return news;
         }

@@ -100,7 +100,7 @@ namespace WebDzivniekuPatversme
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Animals}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

@@ -21,7 +21,7 @@
     <div class="row">
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc vecuma</label>
-            <select onchange="this.form.submit();" name="age" class="form-control" value="@ViewData["Age"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="age" class="form-control" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
                     .Age
                     .GroupBy(t => t.Item)
                     .Select(g => g.First())
@@ -40,7 +40,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc sugas</label>
-            <select onchange="this.form.submit();" name="species" class="form-control" value="@ViewData["Species"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="species" class="form-control" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
                     .Species
                     .GroupBy(t => t.Item)
                     .Select(g => g.First())
@@ -59,7 +59,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc Šķirnes</label>
-            <select onchange="this.form.submit();" name="speciesType" class="form-control" value="@ViewData["SpeciesType"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="speciesType" class="form-control" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
                     .SpeciesType
                     .GroupBy(t => t.Item)
                     .Select(g => g.First())
@@ -78,7 +78,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc krāsas</label>
-            <select onchange="this.form.submit();" name="colour" class="form-control" value="@ViewData["Colour"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="colour" class="form-control" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
                     .Colour
                     .GroupBy(t => t.Item)
                     .Select(g => g.First())
@@ -97,7 +97,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <label class="control-label">Pēc patversmes</label>
-            <select onchange="this.form.submit();" name="shelter" class="form-control" value="@ViewData["Shelter"]" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
+            <select onchange="this.form.submit();" name="shelter" class="form-control" asp-items="((DropDownItemListViewModel) @ViewData["DropDown"])
                     .Shelter
                     .GroupBy(t => t.Item)
                     .Select(g => g.First())

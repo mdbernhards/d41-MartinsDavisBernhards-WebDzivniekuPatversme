@@ -16,7 +16,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Vārds")]
         public string Name { set; get; }
 
-        [Required(ErrorMessage = "Vecums ir obligāts.")]
         [Display(Name = "Vecums")]
         public string Age { set; get; }
 
@@ -26,7 +25,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public DateTime BirthDate { set; get; }
 
         [DataType(DataType.Date)]
-        [DateValidation(ErrorMessage = "Datums nevar būt nākotnē")]
         [Display(Name = "Dzimšanas datums līdz")]
         public DateTime BirthDateRangeTo { set; get; }
 
@@ -36,7 +34,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string Species { set; get; }
 
         [StringLength(100, ErrorMessage = "Šķirnes nosaukums par garu")]
-        [Required(ErrorMessage = "Šķirne ir obligāta.")]
         [Display(Name = "Šķirne")]
         public string SpeciesType { set; get; }
 
@@ -46,7 +43,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string Colour { set; get; }
 
         [StringLength(100, ErrorMessage = "Sekundārās krāsas nosaukums par garu")]
-        [Required(ErrorMessage = "Sekundārā krāsa ir obligāta.")]
         [Display(Name = "Sekundārā krāsa")]
         public string SecondaryColour { set; get; }
 
@@ -84,5 +80,11 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string EmailTitle { get; set; }
 
         public IEnumerable<SheltersViewModel> AnimalShelters { get; set; }
+
+        public IEnumerable<AnimalColour> AnimalColours { get; set; }
+
+        public IEnumerable<AnimalSpecies> AnimalSpecies { get; set; }
+
+        public IEnumerable<AnimalSpeciesType> AnimalSpeciesTypes { get; set; }
     }
 }

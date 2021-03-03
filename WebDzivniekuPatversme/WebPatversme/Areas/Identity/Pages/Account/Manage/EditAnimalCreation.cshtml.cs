@@ -28,11 +28,25 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public List<AnimalSpeciesType> SpeciesTypes { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public string SpeciesID { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string speciesId)
         {
             Colours = _animalsRepository.GetAllColours();
             Species = _animalsRepository.GetAllSpecies();
-            SpeciesTypes = _animalsRepository.GetAllSpeciesTypes();
+
+            if (speciesId != null)
+            {
+                SpeciesID = speciesId;
+            }
+            else
+            {
+                SpeciesID = Species.FirstOrDefault().Id;
+            }
+
+            SpeciesTypes = _animalsRepository.GetAllSpeciesTypes()
+                .Where(x => x.SpeciesId == SpeciesID)
+                .ToList();
 
             return Page();
         }
@@ -102,20 +116,17 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 .Where(x => x.Id == speciesId)
                 .FirstOrDefault();
 
-            _animalsRepository.DeleteSpecies(animalSpecies);
+            var SpeciesTypes = _animalsRepository.
+                GetAllSpeciesTypes()
+                .Where(x => x.SpeciesId == speciesId)
+                .ToList();
 
-            return RedirectToPage();
-        }
-
-        public async Task<IActionResult> OnPostUpdateSpeciesTypeAsync(string speciesId)
-        {
-            if (!ModelState.IsValid)
+            foreach (var type in SpeciesTypes)
             {
-                return Page();
+                _animalsRepository.DeleteSpeciesType(type);
             }
 
-            ViewData["SpeciesId"] = speciesId;
-
+            _animalsRepository.DeleteSpecies(animalSpecies);
 
             return RedirectToPage();
         }
