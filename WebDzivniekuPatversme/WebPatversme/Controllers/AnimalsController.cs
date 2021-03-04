@@ -158,9 +158,9 @@ namespace WebDzivniekuPatversme.Controllers
         [Authorize(Roles = "administrator,worker,user")]
         public IActionResult Details(AnimalsViewModel model)
         {
-            var mappedAnimals = _mapper.Map<Animals>(model);
+            var mappedAnimal = _mapper.Map<Animals>(model);
 
-            _animalsServices.SendAnimalEmail(mappedAnimals);
+            _animalsServices.SendAnimalEmail(mappedAnimal);
         
             return RedirectToAction("Index");
         }

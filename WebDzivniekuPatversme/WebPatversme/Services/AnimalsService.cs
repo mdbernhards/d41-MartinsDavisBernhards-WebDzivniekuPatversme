@@ -106,8 +106,17 @@ namespace WebDzivniekuPatversme.Services
 
         public async void SendAnimalEmail(Animals animal)
         {
-            await _emailSender.SendEmailAsync("martinsdavisbernhards@gmail.com", animal.EmailTitle,
-                animal.EmailMessage);
+            animal.Email = GetAllShelters()
+                .Where(x => x.AnimalShelterID == animal.AnimalShelterId)
+                .Select(x => x.Email)
+                .FirstOrDefault();
+
+            if(animal.Email == null)
+            {
+                animal.Email = "martinsdavisbernhards@gmail.com";
+            }
+
+            await _emailSender.SendEmailAsync(animal.Email, animal.EmailTitle, animal.EmailMessage);
         }
 
         public AnimalFilter CreateAnimalFilter(string name, string age, string species, string speciesType, string colour, string shelter)

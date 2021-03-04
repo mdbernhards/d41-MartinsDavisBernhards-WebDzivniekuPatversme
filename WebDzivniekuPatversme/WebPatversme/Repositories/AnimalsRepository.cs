@@ -303,8 +303,26 @@ namespace WebDzivniekuPatversme.Repositories
             string Age;
 
             int Years = DateTime.Now.Year - birthDate.Value.Year;
-            int Months = DateTime.Now.Month - birthDate.Value.Month;
-            int Days = DateTime.Now.Day - birthDate.Value.Day;
+            int Months;
+            int Days;
+
+            if (DateTime.Now.Year == birthDate.Value.Year)
+            {
+                Months = DateTime.Now.Month - birthDate.Value.Month;
+            }
+            else
+            {
+                Months = (12 - birthDate.Value.Month) + DateTime.Now.Month;
+            }
+
+            if (DateTime.Now.Month == birthDate.Value.Month)
+            {
+                Days = DateTime.Now.Day - birthDate.Value.Day;
+            }
+            else
+            {
+                Days = (DateTime.DaysInMonth(birthDate.Value.Year, birthDate.Value.Month) - birthDate.Value.Day) + DateTime.Now.Day;
+            }
 
             if (birthDate > DateTime.Now.AddYears(-Years))
             {
@@ -313,7 +331,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             if (Years == 0)
             {
-                if (Months == 0)
+                if (Days < 31 && Months < 2)
                 {
                     if (Days == 1)
                     {

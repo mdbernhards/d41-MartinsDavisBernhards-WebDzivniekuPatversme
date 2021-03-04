@@ -20,7 +20,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "E-pasts*")]
         public string Email { set; get; }
 
-        [StringLength(5000, ErrorMessage = "Apraksts par garu")]
+        [StringLength(19000, ErrorMessage = "Apraksts par garu")]
         [Display(Name = "Apraksts")]
         public string Description { set; get; }
 

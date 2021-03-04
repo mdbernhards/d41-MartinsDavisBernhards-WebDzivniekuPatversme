@@ -33,6 +33,8 @@ namespace WebDzivniekuPatversme.Models
 
         public DateTime DateAdded { set; get; }
 
+        public string Email { get; set; }
+
         public string EmailMessage { get; set; }
 
         public string EmailTitle { get; set; }

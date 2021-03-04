@@ -110,7 +110,7 @@ namespace WebDzivniekuPatversme.Repositories
             shelter.ImagePath = SaveImage(shelter);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "UPDATE AnimalShelters SET AnimalCapacity = @animalCapacity, Name = @name, Address =  @adress, PhoneNumber = @phoneNumber, ImagePath = @imagePath WHERE Id = @id;";
+            var sqlQuerry = "UPDATE AnimalShelters SET AnimalCapacity = @animalCapacity, Name = @name, Address =  @adress, PhoneNumber = @phoneNumber, ImagePath = @imagePath, Email = @email, Description = @description WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
