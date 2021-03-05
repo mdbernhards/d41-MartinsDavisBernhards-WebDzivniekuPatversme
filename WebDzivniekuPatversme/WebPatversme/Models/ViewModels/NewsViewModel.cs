@@ -22,10 +22,10 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         public string ImagePath { set; get; }
 
         [NotMapped]
-        [Display(Name = "Attēls")]
         [DataType(DataType.Upload)]
         [MaxFileSizeValidation(6 * 1024 * 1024)]
         [ExtensionValidation(new string[] { ".jpg", ".png" })]
+        [Display(Name = "Attēls")]
         public IFormFile Image { set; get; }
 
         [StringLength(100, ErrorMessage = "Tituls par garu")]

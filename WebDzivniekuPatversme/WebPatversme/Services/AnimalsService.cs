@@ -202,16 +202,28 @@ namespace WebDzivniekuPatversme.Services
                     }).Select(x => x.Age.ToString()).ToList(),
                 listItems.Age);
 
+            var colourFilter = FilterAnimals(
+                animals,
+                new AnimalFilter
+                {
+                    Age = filter.Age,
+                    Species = filter.Species,
+                    SpeciesType = filter.SpeciesType,
+                    Shelter = filter.Shelter,
+                    Name = filter.Name,
+                });
+
+            var filteredColours = colourFilter
+                .Select(x => x.Colour)
+                .ToList();
+
+            filteredColours
+                .AddRange(colourFilter
+                .Select(x => x.SecondaryColour)
+                .ToList());
+
             listItems.Colour = CountIndividualDropDownListValues(
-                FilterAnimals(
-                    animals, 
-                    new AnimalFilter { 
-                        Age = filter.Age,
-                        Species = filter.Species,
-                        SpeciesType = filter.SpeciesType,
-                        Shelter = filter.Shelter,
-                        Name = filter.Name,
-                    }).Select(x => x.Colour).ToList(),
+                filteredColours,
                 listItems.Colour);
 
             listItems.Species = CountIndividualDropDownListValues(
@@ -311,7 +323,20 @@ namespace WebDzivniekuPatversme.Services
 
             if (!string.IsNullOrEmpty(filter.Colour))
             {
-                animals = animals.Where(animal => animal.Colour.Contains(filter.Colour)).ToList();
+                var animalColours = animals
+                    .Where(animal => animal.Colour
+                    .Contains(filter.Colour))
+                    .ToList();
+
+                animalColours
+                    .AddRange(animals
+                    .Where(animal => animal.SecondaryColour
+                    .Contains(filter.Colour))
+                    .ToList());
+
+                animals = animalColours
+                    .Distinct()
+                    .ToList();
             }
 
             if (!string.IsNullOrEmpty(filter.Shelter))
