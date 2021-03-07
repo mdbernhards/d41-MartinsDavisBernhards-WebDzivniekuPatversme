@@ -135,9 +135,29 @@ namespace WebDzivniekuPatversme.Services
         public DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalsViewModel> animalList, AnimalFilter filter)
         {
             var listItems = GetDropDownListValueNames(animalList);
-            listItems = CountDropDownListValues(animalList, listItems, filter);
+            CountDropDownListValues(animalList, listItems, filter);
+            OrderDropDownListValues(listItems);
 
             return listItems;
+        }
+
+        private static void OrderDropDownListValues(DropDownItemListViewModel listItems)
+        {
+            listItems.Colour = listItems.Colour
+                .OrderBy(x => x.Item)
+                .ToList();
+
+            listItems.Species = listItems.Species
+                .OrderBy(x => x.Item)
+                .ToList();
+
+            listItems.SpeciesType = listItems.SpeciesType
+                .OrderBy(x => x.Item)
+                .ToList();
+
+            listItems.Shelter = listItems.Shelter
+                .OrderBy(x => x.Item)
+                .ToList();
         }
 
         private static DropDownItemListViewModel GetDropDownListValueNames (List<AnimalsViewModel> animalList)
@@ -151,7 +171,7 @@ namespace WebDzivniekuPatversme.Services
                 Shelter = new List<DropDownItem>(),
             };
 
-            foreach (var animal in animalList)
+            foreach (var animal in animalList.OrderByDescending(x => x.BirthDate))
             {
                 if (!listItems.Age.Select(x => x.Item).Contains(animal.Age.ToString()))
                 {
@@ -173,7 +193,7 @@ namespace WebDzivniekuPatversme.Services
                     listItems.Colour.Add(new DropDownItem { Item = animal.Colour, Count = 0 });
                 }
 
-                if (!listItems.Colour.Select(x => x.Item).Contains(animal.SecondaryColour))
+                if (!listItems.Colour.Select(x => x.Item).Contains(animal.SecondaryColour) && !animal.SecondaryColour.Contains("Nav"))
                 {
                     listItems.Colour.Add(new DropDownItem { Item = animal.SecondaryColour, Count = 0 });
                 }
@@ -187,9 +207,8 @@ namespace WebDzivniekuPatversme.Services
             return listItems;
         }
 
-        private static DropDownItemListViewModel CountDropDownListValues (List<AnimalsViewModel> animals, DropDownItemListViewModel listItems, AnimalFilter filter)
+        private static void CountDropDownListValues (List<AnimalsViewModel> animals, DropDownItemListViewModel listItems, AnimalFilter filter)
         {
-
             listItems.Age = CountIndividualDropDownListValues(
                 FilterAnimals( 
                     animals, 
@@ -262,15 +281,16 @@ namespace WebDzivniekuPatversme.Services
                         Name = filter.Name,
                     }).Select(x => x.AnimalShelterName).ToList(),
                 listItems.Shelter);
-
-            return listItems;
         }
 
         private static List<DropDownItem> CountIndividualDropDownListValues (List<string> filteredItem, List<DropDownItem> listItem)
         {
             foreach (var item in filteredItem)
             {
-                listItem.Where(x => x.Item == item.ToString()).FirstOrDefault().Count++;
+                if (listItem.Where(x => x.Item == item.ToString()).FirstOrDefault() != null) 
+                {
+                    listItem.Where(x => x.Item == item.ToString()).FirstOrDefault().Count++;
+                }
             }
 
             return listItem;
@@ -281,8 +301,8 @@ namespace WebDzivniekuPatversme.Services
             animals = sortOrder switch
             {
                 "name_desc" => animals.OrderByDescending(s => s.Name).ToList(),
-                "age" => animals.OrderBy(s => s.Age).ToList(),
-                "age_desc" => animals.OrderByDescending(s => s.Age).ToList(),
+                "age" => animals.OrderBy(s => s.BirthDate).ToList(),
+                "age_desc" => animals.OrderByDescending(s => s.BirthDate).ToList(),
                 "species" => animals.OrderBy(s => s.Species).ToList(),
                 "species_desc" => animals.OrderByDescending(s => s.Species).ToList(),
                 "weight" => animals.OrderBy(s => s.Weight).ToList(),
@@ -308,7 +328,7 @@ namespace WebDzivniekuPatversme.Services
 
             if(!string.IsNullOrEmpty(filter.Age))
             {
-                animals = animals.Where(animal => animal.Age == filter.Age).ToList();
+                animals = animals.Where(animal => animal.Age.Contains(filter.Age)).ToList();
             }
 
             if (!string.IsNullOrEmpty(filter.Species))

@@ -34,7 +34,6 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CapacitySortParm"] = sortOrder == "capacity" ? "capacity_desc" : "capacity";
             ViewData["AddressSortParm"] = sortOrder == "address" ? "address_desc" : "address";
-            ViewData["PhoneNumberSortParm"] = sortOrder == "phoneNumber" ? "phoneNumber_desc" : "phoneNumber";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
             ViewData["Name"] = name;

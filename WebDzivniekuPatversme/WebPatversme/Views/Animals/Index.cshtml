@@ -31,7 +31,6 @@
                         Disabled = (x.Count == 0 ? true : false),
                         Selected = (x.Item == @ViewData["Age"]?.ToString() ? true : false),
                     })
-                    .OrderBy(x => x.Text)
                     .AsEnumerable()">
                 <option value="">
                     @Html.Raw("--Vecums--")
@@ -50,7 +49,6 @@
                         Disabled = (x.Count == 0 ? true : false),
                         Selected = (x.Item == @ViewData["Species"]?.ToString() ? true : false),
                     })
-                    .OrderBy(x => x.Text)
                     .AsEnumerable()">
                 <option value="">
                     @Html.Raw("--Suga--")
@@ -69,7 +67,6 @@
                         Disabled = (x.Count == 0 ? true : false),
                         Selected = (x.Item == @ViewData["SpeciesType"]?.ToString() ? true : false),
                     })
-                    .OrderBy(x => x.Text)
                     .AsEnumerable()">
                 <option value="">
                     @Html.Raw("--Šķirne--")
@@ -88,7 +85,6 @@
                         Disabled = (x.Count == 0 ? true : false),
                         Selected = (x.Item == @ViewData["Colour"]?.ToString() ? true : false),
                     })
-                    .OrderBy(x => x.Text)
                     .AsEnumerable()">
                 <option value="">
                     @Html.Raw("--Krāsa--")
@@ -107,7 +103,6 @@
                         Disabled = (x.Count == 0 ? true : false),
                         Selected = (x.Item == @ViewData["Shelter"]?.ToString() ? true : false),
                     })
-                    .OrderBy(x => x.Text)
                     .AsEnumerable()">
                 <option value="">
                     @Html.Raw("--Patversme--")

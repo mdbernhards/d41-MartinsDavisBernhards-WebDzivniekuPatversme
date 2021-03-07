@@ -28,6 +28,11 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Dzimšanas datums līdz")]
         public DateTime BirthDateRangeTo { set; get; }
 
+        [StringLength(20, ErrorMessage = "Dzimums par garu")]
+        [Required(ErrorMessage = "Dzimums ir obligāta.")]
+        [Display(Name = "Dzimums")]
+        public string Gender { set; get; }
+
         [StringLength(100, ErrorMessage = "Sugas nosaukums par garu")]
         [Required(ErrorMessage = "Suga ir obligāta.")]
         [Display(Name = "Suga")]

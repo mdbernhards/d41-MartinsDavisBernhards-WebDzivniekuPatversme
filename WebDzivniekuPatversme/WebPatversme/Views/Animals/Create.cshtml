@@ -19,6 +19,13 @@
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger" />
+            </div>            
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select class="form-control" asp-for="Gender">
+                    <option value="Vīrietis">Vīrietis</option>
+                    <option value="Sieviete">Sieviete</option>
+                </select>
             </div>
             <div class="form-group">
                 @if (Model.AnimalSpecies != null)

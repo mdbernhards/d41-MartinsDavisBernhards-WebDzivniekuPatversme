@@ -15,6 +15,8 @@ namespace WebDzivniekuPatversme.Models
 
         public DateTime? BirthDateRangeTo { set; get; }
 
+        public string Gender { set; get; }
+
         public string Species { set; get; }
 
         public string SpeciesType { set; get; }

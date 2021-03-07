@@ -44,6 +44,7 @@ namespace WebDzivniekuPatversme.Repositories
                     DateAdded = Convert.ToDateTime(reader["DateAdded"]),
                     About = Convert.ToString(reader["About"]),
                     Name = Convert.ToString(reader["Name"]),
+                    Gender = Convert.ToString(reader["Gender"]),
                     Species = Convert.ToString(reader["Species"]),
                     SpeciesType = Convert.ToString(reader["Type"]),
                     Colour = Convert.ToString(reader["Colour"]),
@@ -64,8 +65,8 @@ namespace WebDzivniekuPatversme.Repositories
             animal.ImagePath = SaveImage(animal);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO Animals (ID, Weight, BirthDate, BirthDateRangeTo, DateAdded, About, Name, Species, Type, Colour, SecondaryColour, ImagePath, AnimalShelterID) " +
-                "VALUES (@id, @weight, @birthDate, @birthDateRangeTo, @dateAdded, @about, @name, @species, @type, @colour, @secondaryColour, @imagePath, @animalShelterId);";
+            var sqlQuerry = "INSERT INTO Animals (ID, Weight, BirthDate, BirthDateRangeTo, DateAdded, About, Name, Gender, Species, Type, Colour, SecondaryColour, ImagePath, AnimalShelterID) " +
+                "VALUES (@id, @weight, @birthDate, @birthDateRangeTo, @dateAdded, @about, @name, @gender, @species, @type, @colour, @secondaryColour, @imagePath, @animalShelterId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -80,6 +81,7 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
             cmd.Parameters.AddWithValue("@about", animal.About);
             cmd.Parameters.AddWithValue("@name", animal.Name);
+            cmd.Parameters.AddWithValue("@gender", animal.Gender);
             cmd.Parameters.AddWithValue("@species", animal.Species);
             cmd.Parameters.AddWithValue("@type", animal.SpeciesType);
             cmd.Parameters.AddWithValue("@colour", animal.Colour);
@@ -110,7 +112,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "UPDATE Animals SET Weight = @weight, BirthDate =  @birthDate, BirthDateRangeTo = @birthDateRangeTo, About = @about," +
-                " Name = @name, Species = @species, Type = @type, Colour = @colour, SecondaryColour = @secondaryColour, ImagePath = @imagePath, AnimalShelterID = @animalShelterID WHERE Id = @id;";
+                " Name = @name, Gender = @gender, Species = @species, Type = @type, Colour = @colour, SecondaryColour = @secondaryColour, ImagePath = @imagePath, AnimalShelterID = @animalShelterID WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -123,6 +125,7 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@birthDateRangeTo", birthDateRangeToString);
             cmd.Parameters.AddWithValue("@about", animal.About);
             cmd.Parameters.AddWithValue("@name", animal.Name);
+            cmd.Parameters.AddWithValue("@gender", animal.Gender);
             cmd.Parameters.AddWithValue("@species", animal.Species);
             cmd.Parameters.AddWithValue("@type", animal.SpeciesType);
             cmd.Parameters.AddWithValue("@colour", animal.Colour);
@@ -336,6 +339,10 @@ namespace WebDzivniekuPatversme.Repositories
                     if (Days == 1)
                     {
                         Age = "1 diena";
+                    }
+                    else if (Days == 0)
+                    {
+                        Age = "<1 diena";
                     }
                     else
                     {
