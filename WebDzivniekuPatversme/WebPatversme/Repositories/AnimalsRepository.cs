@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using Microsoft.AspNetCore.Hosting;
@@ -175,6 +176,8 @@ namespace WebDzivniekuPatversme.Repositories
                 colourList.Add(colour);
             }
 
+            RemoveNoColourOption(colourList);
+
             return colourList;
         }
 
@@ -301,6 +304,14 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
+        private static void RemoveNoColourOption(List<AnimalColour> colourList)
+        {
+            colourList
+                .Remove(colourList
+                .Where(x => x.Name == "Nav")
+                .FirstOrDefault());
+        }
+
         private static string CalculateAge(DateTime? birthDate)
         {
             string Age;
@@ -379,10 +390,9 @@ namespace WebDzivniekuPatversme.Repositories
 
         private string SaveImage(Animals animal)
         {
-            var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\animals");
-
             if (animal.Image != null && animal.Image.Length > 0)
             {
+                var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\animals");
                 var fileName = Path.GetFileName(animal.Name + animal.AnimalID + Path.GetExtension(animal.Image.FileName));
 
                 File.Delete(Path.Combine(uploads, fileName));
@@ -394,7 +404,9 @@ namespace WebDzivniekuPatversme.Repositories
                 return fileName;
             }
 
-            return string.Empty;
+            return GetAllAnimals()
+                .Where(x => x.AnimalID == animal.AnimalID)
+                .FirstOrDefault().ImagePath;
         }
     }
 }

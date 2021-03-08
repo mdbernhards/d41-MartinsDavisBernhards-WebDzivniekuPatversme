@@ -71,6 +71,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Izveidošanas datums")]
         public DateTime DateAdded { set; get; }
 
+        [ShelterValidation(ErrorMessage = "Šī patversme neeksistē")]
         [Required(ErrorMessage = "Patversme ir obligāta.")]
         public string AnimalShelterId { set; get; }
 

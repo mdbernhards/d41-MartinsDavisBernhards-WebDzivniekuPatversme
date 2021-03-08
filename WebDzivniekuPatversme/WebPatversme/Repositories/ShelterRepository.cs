@@ -27,7 +27,7 @@ namespace WebDzivniekuPatversme.Repositories
             List<Shelters> list = new List<Shelters>();
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "SELECT * FROM AnimalShelters;";
+            var sqlQuerry = "SELECT * FROM Shelters;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -56,7 +56,7 @@ namespace WebDzivniekuPatversme.Repositories
             shelter.ImagePath = SaveImage(shelter);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO AnimalShelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded, Email, Description) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded, @email, @description);";
+            var sqlQuerry = "INSERT INTO Shelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded, Email, Description) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded, @email, @description);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -81,7 +81,7 @@ namespace WebDzivniekuPatversme.Repositories
             DeleteAllSheltersAnimals(shelter);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "DELETE FROM AnimalShelters WHERE ID = @id;";
+            var sqlQuerry = "DELETE FROM Shelters WHERE ID = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -110,7 +110,7 @@ namespace WebDzivniekuPatversme.Repositories
             shelter.ImagePath = SaveImage(shelter);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "UPDATE AnimalShelters SET AnimalCapacity = @animalCapacity, Name = @name, Address =  @adress, PhoneNumber = @phoneNumber, ImagePath = @imagePath, Email = @email, Description = @description WHERE Id = @id;";
+            var sqlQuerry = "UPDATE Shelters SET AnimalCapacity = @animalCapacity, Name = @name, Address =  @adress, PhoneNumber = @phoneNumber, ImagePath = @imagePath, Email = @email, Description = @description WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
