@@ -406,7 +406,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             return GetAllAnimals()
                 .Where(x => x.AnimalID == animal.AnimalID)
-                .FirstOrDefault().ImagePath;
+                .FirstOrDefault()?.ImagePath;
         }
     }
 }

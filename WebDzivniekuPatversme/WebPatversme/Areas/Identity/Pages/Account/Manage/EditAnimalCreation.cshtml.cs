@@ -64,6 +64,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 Id = Guid.NewGuid().ToString(),
             };
 
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             _animalsRepository.CreateNewColour(newColour);
 
             return RedirectToPage();
@@ -98,6 +103,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 Name = speciesName,
                 Id = Guid.NewGuid().ToString(),
             };
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             _animalsRepository.CreateNewSpecies(newSpecies);
 
@@ -144,6 +154,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 Id = Guid.NewGuid().ToString(),
                 SpeciesId = speciesId,
             };
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             _animalsRepository.CreateNewSpeciesType(newSpecies);
 

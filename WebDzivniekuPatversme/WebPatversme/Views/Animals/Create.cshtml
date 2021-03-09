@@ -1,14 +1,11 @@
 ﻿@model WebDzivniekuPatversme.Models.ViewModels.AnimalsViewModel
 
-@using WebDzivniekuPatversme.Models.ViewModels
-
 @{
     ViewData["Title"] = "Pievienot dzīvnieku";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Pievienot</h1>
-
 <h4>Dzīvnieku</h4>
 <hr />
 <div class="row">
@@ -26,6 +23,7 @@
                     <option value="Vīrietis">Vīrietis</option>
                     <option value="Sieviete">Sieviete</option>
                 </select>
+                <span asp-validation-for="Gender" class="text-danger" />
             </div>
             <div class="form-group">
                 @if (Model.AnimalSpecies != null)
@@ -40,6 +38,7 @@
                             })
                             .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="Species" class="text-danger" />
                 }
             </div>
             <div class="form-group">
@@ -56,6 +55,7 @@
                             })
                             .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="SpeciesType" class="text-danger" />
                 }
             </div>
             <div class="form-group">
@@ -81,6 +81,7 @@
                             })
                             .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="Colour" class="text-danger" />
                 }
             </div>
             <div class="form-group">
@@ -97,6 +98,7 @@
                             .OrderBy(x => x.Text)">
                         <option value="Nav">Nav</option>
                     </select>
+                    <span asp-validation-for="SecondaryColour" class="text-danger" />
                 }
             </div>
             <div class="form-group">
@@ -122,6 +124,7 @@
                         })
                         .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="AnimalShelterName" class="text-danger" />
                 }
             </div>
             <div class="form-group">

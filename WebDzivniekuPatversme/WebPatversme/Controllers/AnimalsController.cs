@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 using AutoMapper;
@@ -99,6 +98,11 @@ namespace WebDzivniekuPatversme.Controllers
                 return RedirectToAction("Index");
             }
 
+            animal.AnimalColours = _animalsServices.GetAllColours();
+            animal.AnimalSpecies = _animalsServices.GetAllSpecies();
+            animal.AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes();
+            animal.AnimalShelters = _mapper.Map<List<SheltersViewModel>>(_animalsServices.GetAllShelters());
+
             return View(animal);
         }
 
@@ -128,6 +132,11 @@ namespace WebDzivniekuPatversme.Controllers
 
                 return RedirectToAction("Index");
             }
+
+            animal.AnimalColours = _animalsServices.GetAllColours();
+            animal.AnimalSpecies = _animalsServices.GetAllSpecies();
+            animal.AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes();
+            animal.AnimalShelters = _mapper.Map<List<SheltersViewModel>>(_animalsServices.GetAllShelters());
 
             return View(animal);
         }
