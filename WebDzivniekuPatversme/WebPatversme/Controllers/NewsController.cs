@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
-using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
+using WebDzivniekuPatversme.Models.ViewModels.News;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -63,7 +63,7 @@ namespace WebDzivniekuPatversme.Controllers
             {
                 var mappedNews = _mapper.Map<News>(news);
 
-                mappedNews.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                mappedNews.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 _newsServices.AddNewNews(mappedNews);
 

@@ -22,9 +22,9 @@ namespace WebDzivniekuPatversme.Repositories
             _appEnvironment = appEnvironment;
         }
 
-        public List<Shelters> GetAllAnimalShelters()
+        public List<Shelter> GetAllAnimalShelters()
         {
-            List<Shelters> list = new List<Shelters>();
+            List<Shelter> list = new List<Shelter>();
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "SELECT * FROM Shelters;";
@@ -35,9 +35,9 @@ namespace WebDzivniekuPatversme.Repositories
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                list.Add(new Shelters()
+                list.Add(new Shelter()
                 {
-                    AnimalShelterID = Convert.ToString(reader["ID"]),
+                    Id = Convert.ToString(reader["Id"]),
                     AnimalCapacity = Convert.ToInt32(reader["AnimalCapacity"]),
                     Name = Convert.ToString(reader["Name"]),
                     Address = Convert.ToString(reader["Address"]),
@@ -51,19 +51,19 @@ namespace WebDzivniekuPatversme.Repositories
             return list;
         }
 
-        public void CreateNewAnimalShelter(Shelters shelter)
+        public void CreateNewAnimalShelter(Shelter shelter)
         {
             shelter.ImagePath = SaveImage(shelter);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO Shelters (ID, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded, Email, Description) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded, @email, @description);";
+            var sqlQuerry = "INSERT INTO Shelters (Id, AnimalCapacity, Name, Address, PhoneNumber, ImagePath, DateAdded, Email, Description) VALUES (@id, @animalCapacity, @name, @adress, @phoneNumber, @imagePath, @dateAdded, @email, @description);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
             string dateAddedString = shelter.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
-            cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
+            cmd.Parameters.AddWithValue("@id", shelter.Id);
             cmd.Parameters.AddWithValue("@animalCapacity", shelter.AnimalCapacity);
             cmd.Parameters.AddWithValue("@name", shelter.Name);
             cmd.Parameters.AddWithValue("@adress", shelter.Address);
@@ -76,36 +76,36 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public void DeleteShelters(Shelters shelter)
+        public void DeleteShelters(Shelter shelter)
         {
             DeleteAllSheltersAnimals(shelter);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "DELETE FROM Shelters WHERE ID = @id;";
+            var sqlQuerry = "DELETE FROM Shelters WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
+            cmd.Parameters.AddWithValue("@id", shelter.Id);
 
             var reader = cmd.ExecuteReader();
         }
 
-        private void DeleteAllSheltersAnimals(Shelters shelter)
+        private void DeleteAllSheltersAnimals(Shelter shelter)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "DELETE FROM Animals WHERE AnimalShelterID = @id;";
+            var sqlQuerry = "DELETE FROM Animals WHERE ShelterId = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
+            cmd.Parameters.AddWithValue("@id", shelter.Id);
 
             var reader = cmd.ExecuteReader();
 
         }
 
-        public void EditShelter(Shelters shelter)
+        public void EditShelter(Shelter shelter)
         {
             shelter.ImagePath = SaveImage(shelter);
 
@@ -120,20 +120,20 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@adress", shelter.Address);
             cmd.Parameters.AddWithValue("@phoneNumber", shelter.PhoneNumber);
             cmd.Parameters.AddWithValue("@imagePath", shelter.ImagePath);
-            cmd.Parameters.AddWithValue("@id", shelter.AnimalShelterID);
+            cmd.Parameters.AddWithValue("@id", shelter.Id);
             cmd.Parameters.AddWithValue("@email", shelter.Email);
             cmd.Parameters.AddWithValue("@description", shelter.Description);
 
             var reader = cmd.ExecuteReader();
         }
 
-        private string SaveImage(Shelters shelters)
+        private string SaveImage(Shelter shelters)
         {
             var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\shelters");
 
             if (shelters.Image != null && shelters.Image.Length > 0)
             {
-                var fileName = Path.GetFileName(shelters.Name + shelters.AnimalShelterID + Path.GetExtension(shelters.Image.FileName));
+                var fileName = Path.GetFileName(shelters.Name + shelters.Id + Path.GetExtension(shelters.Image.FileName));
 
                 File.Delete(Path.Combine(uploads, fileName));
 

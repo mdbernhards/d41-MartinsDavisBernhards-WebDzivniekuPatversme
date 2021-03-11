@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
 using WebDzivniekuPatversme.Services.Other;
 
-namespace WebDzivniekuPatversme.Models.ViewModels
+namespace WebDzivniekuPatversme.Models.ViewModels.News
 {
     public class NewsViewModel
     {
         [Key]
-        public string NewsID { set; get; }
+        public string Id { set; get; }
 
         [StringLength(13000, ErrorMessage = "Teksts sasniedz savu maksimālo garumu")]
         [Required(ErrorMessage = "Ziņu teksts ir obligāts.")]
@@ -33,6 +33,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "Tituls")]
         public string Title { set; get; }
 
-        public string UserID { set; get; }
+        public string UserId { set; get; }
     }
 }

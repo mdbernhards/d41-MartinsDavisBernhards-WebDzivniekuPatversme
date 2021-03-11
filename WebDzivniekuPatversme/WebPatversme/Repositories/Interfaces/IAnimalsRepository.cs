@@ -5,13 +5,13 @@ namespace WebDzivniekuPatversme.Repositories.Interfaces
 {
     public interface IAnimalsRepository
     {
-        List<Animals> GetAllAnimals();
+        List<Animal> GetAllAnimals();
 
-        void CreateNewAnimal(Animals newAnimal);
+        void CreateNewAnimal(Animal newAnimal);
 
-        void DeleteAnimal(Animals animal);
+        void DeleteAnimal(Animal animal);
 
-        void EditAnimal(Animals newAnimal);
+        void EditAnimal(Animal newAnimal);
 
         void CreateNewColour(AnimalColour colour);
 

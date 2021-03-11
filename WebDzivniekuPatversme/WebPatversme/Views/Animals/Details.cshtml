@@ -1,4 +1,4 @@
-﻿@model WebDzivniekuPatversme.Models.ViewModels.AnimalsViewModel
+﻿@model WebDzivniekuPatversme.Models.ViewModels.Animal.AnimalViewModel
 @{
     ViewData["Title"] = "Par Dzīvnieku";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -81,10 +81,10 @@
             @Html.DisplayFor(model => model.DateAdded)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AnimalShelterName)
+            @Html.DisplayNameFor(model => model.ShelterName)
         </dt>
         <dd class="col-sm-10">
-            @Html.ActionLink(Model.AnimalShelterName, "Details", "Shelters", new { id = Model.AnimalShelterId })
+            @Html.ActionLink(Model.ShelterName, "Details", "Shelters", new { id = Model.ShelterId })
         </dd>
         <div class="col-md-12" style="border:1px solid grey;">
             @Html.Raw(Model.About)
@@ -102,7 +102,7 @@
                 <label for="Content">E-pasts</label>
                 <textarea asp-for="EmailMessage"></textarea>
             </div>
-            <input type="hidden" asp-for="AnimalShelterId" value="@Model.AnimalShelterId"/>
+            <input type="hidden" asp-for="ShelterId" value="@Model.ShelterId"/>
             <button type="submit" class="btn btn-primary">Nosūtīt</button>
         </form>
     }
@@ -115,10 +115,10 @@
 <form asp-action="Delete" style="padding-left: 1%">
     @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
     {
-        @Html.ActionLink("Labot", "Edit", new { id = Model.AnimalID }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Labot", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
         @Html.Raw("  ")
 
-        <input type="hidden" asp-for="AnimalID" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Dzēst" class="btn btn-danger" />
         @Html.Raw(" | ")
     }

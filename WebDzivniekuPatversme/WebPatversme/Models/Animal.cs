@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace WebDzivniekuPatversme.Models
 {
-    public class Animals
+    public class Animal
     {
-        public string AnimalID { set; get; }
+        public string Id { set; get; }
 
         public string Name { set; get; }
 
@@ -41,6 +41,6 @@ namespace WebDzivniekuPatversme.Models
 
         public string EmailTitle { get; set; }
 
-        public string AnimalShelterId { set; get; }
+        public string ShelterId { set; get; }
     }
 }

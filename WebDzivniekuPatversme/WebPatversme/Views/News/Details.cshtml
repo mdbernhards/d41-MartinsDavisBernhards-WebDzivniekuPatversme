@@ -1,4 +1,4 @@
-﻿@model WebDzivniekuPatversme.Models.ViewModels.NewsViewModel
+﻿@model WebDzivniekuPatversme.Models.ViewModels.News.NewsViewModel
 
 @{
     ViewData["Title"] = "Par Dzīvnieku";
@@ -23,9 +23,9 @@
 <form asp-action="Delete">
     @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
     {
-        @Html.ActionLink("Labot", "Edit", new { id = Model.NewsID }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Labot", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
         @Html.Raw("  ")
-        <input type="hidden" asp-for="NewsID" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Dzēst" class="btn btn-danger" />
         @Html.Raw(" | ")
     }

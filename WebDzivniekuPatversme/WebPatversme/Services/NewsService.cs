@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repositories.Interfaces;
+using WebDzivniekuPatversme.Models.ViewModels.News;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -28,7 +28,7 @@ namespace WebDzivniekuPatversme.Services
         public News GetNewsById(string Id)
         {
             var newsList = _newsRepository.GetAllNews();
-            var news = newsList.Where(animal => animal.NewsID == Id).FirstOrDefault();
+            var news = newsList.Where(animal => animal.Id == Id).FirstOrDefault();
 
             return news;
         }
@@ -40,7 +40,7 @@ namespace WebDzivniekuPatversme.Services
 
         public void AddNewNews(News news)
         {
-            news.NewsID = Guid.NewGuid().ToString();
+            news.Id = Guid.NewGuid().ToString();
             news.DateAdded = DateTime.Now;
 
             _newsRepository.CreateNewNews(news);

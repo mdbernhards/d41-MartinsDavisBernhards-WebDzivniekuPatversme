@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Models.ViewModels.Shelter;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface IShelterService
     {
-        List<Shelters> GetAllShelterList();
+        List<Shelter> GetAllShelterList();
 
-        void AddNewShelter(Shelters shelter);
+        void AddNewShelter(Shelter shelter);
 
-        Shelters GetShelterById(string Id);
+        Shelter GetShelterById(string Id);
 
-        void DeleteShelter(Shelters shelter);
+        void DeleteShelter(Shelter shelter);
 
-        void EditShelter(Shelters shelter);
+        void EditShelter(Shelter shelter);
 
-        List<SheltersViewModel> SortShelters(List<SheltersViewModel> shelter, string sortOrder, string searchString);
+        List<ShelterViewModel> SortShelters(List<ShelterViewModel> shelter, string sortOrder, string searchString);
     }
 }

@@ -37,7 +37,7 @@ namespace WebDzivniekuPatversme.Repositories
             {
                 list.Add(new News()
                 {
-                    NewsID = Convert.ToString(reader["ID"]),
+                    Id = Convert.ToString(reader["Id"]),
                     DateAdded = Convert.ToDateTime(reader["DateAdded"]),
                     Title = Convert.ToString(reader["Title"]),
                     Text = Convert.ToString(reader["Text"]),
@@ -52,19 +52,19 @@ namespace WebDzivniekuPatversme.Repositories
             news.ImagePath = SaveImage(news);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            string sqlQuerry = "INSERT INTO News (ID, DateAdded, Text, ImagePath, Title, UserId) VALUES (@id, @dateAdded, @text, @imagePath, @title, @userId);";
+            string sqlQuerry = "INSERT INTO News (Id, DateAdded, Text, ImagePath, Title, UserId) VALUES (@id, @dateAdded, @text, @imagePath, @title, @userId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
             string dateAddedString = news.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
-            cmd.Parameters.AddWithValue("@id", news.NewsID);
+            cmd.Parameters.AddWithValue("@id", news.Id);
             cmd.Parameters.AddWithValue("@dateAdded", dateAddedString);
             cmd.Parameters.AddWithValue("@text", news.Text);
             cmd.Parameters.AddWithValue("@imagePath", news.ImagePath);
             cmd.Parameters.AddWithValue("@title", news.Title);
-            cmd.Parameters.AddWithValue("@userId", news.UserID);
+            cmd.Parameters.AddWithValue("@userId", news.UserId);
 
             var reader = cmd.ExecuteReader();
         }
@@ -72,12 +72,12 @@ namespace WebDzivniekuPatversme.Repositories
         public void DeleteNews(News news)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            string sqlQuerry = "DELETE FROM news WHERE ID = @id;";
+            string sqlQuerry = "DELETE FROM news WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            cmd.Parameters.AddWithValue("@id", news.NewsID);
+            cmd.Parameters.AddWithValue("@id", news.Id);
 
             var reader = cmd.ExecuteReader();
         }
@@ -94,7 +94,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             cmd.Parameters.AddWithValue("@text", news.Text);
             cmd.Parameters.AddWithValue("@imagePath", news.ImagePath);
-            cmd.Parameters.AddWithValue("@id", news.NewsID);
+            cmd.Parameters.AddWithValue("@id", news.Id);
             cmd.Parameters.AddWithValue("@title", news.Title);
 
             var reader = cmd.ExecuteReader();
@@ -106,7 +106,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             if (news.Image != null && news.Image.Length > 0)
             {
-                var fileName = Path.GetFileName(news.Title + news.NewsID + Path.GetExtension(news.Image.FileName));
+                var fileName = Path.GetFileName(news.Title + news.Id + Path.GetExtension(news.Image.FileName));
 
                 File.Delete(Path.Combine(uploads, fileName));
 

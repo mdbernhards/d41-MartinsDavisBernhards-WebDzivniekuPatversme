@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using WebDzivniekuPatversme.Services.Other;
 
-namespace WebDzivniekuPatversme.Models.ViewModels
+namespace WebDzivniekuPatversme.Models.ViewModels.Shelter
 {
-    public class SheltersViewModel
+    public class ShelterViewModel
     {
         [Key]
-        public string AnimalShelterID { set; get; }
+        public string Id { set; get; }
 
         [StringLength(100, ErrorMessage = "Patversmes nosaukums par garu")]
         [Required(ErrorMessage = "Vārds ir obligāts.")]

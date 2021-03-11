@@ -9,6 +9,6 @@ namespace WebDzivniekuPatversme.Repositories.Interfaces
 
         void AddLog (Log log);
 
-        void DeleteItemsLogsByID(int id);
+        void DeleteItemLogsByID(int id);
     }
 }

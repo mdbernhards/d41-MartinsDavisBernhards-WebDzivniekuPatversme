@@ -6,6 +6,7 @@ using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repositories.Interfaces;
+using WebDzivniekuPatversme.Models.ViewModels.Animal;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -25,12 +26,12 @@ namespace WebDzivniekuPatversme.Services
             _emailSender = emailSender;
         }
 
-        public List<Shelters> GetAllShelters()
+        public List<Shelter> GetAllShelters()
         {
             return _shelterRepository.GetAllAnimalShelters();
         }
 
-        public List<Animals> GetAllAnimalList()
+        public List<Animal> GetAllAnimalList()
         {
             return _animalsRepository.GetAllAnimals();
         }
@@ -50,7 +51,7 @@ namespace WebDzivniekuPatversme.Services
             return _animalsRepository.GetAllSpeciesTypes();
         }
 
-        public List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals)
+        public List<AnimalViewModel> AddAnimalShelterNames(List<AnimalViewModel> animals)
         {
             foreach (var animal in animals)
             {
@@ -60,17 +61,17 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
-        public AnimalsViewModel AddAnimalShelterNames(AnimalsViewModel animal)
+        public AnimalViewModel AddAnimalShelterNames(AnimalViewModel animal)
         {
             var ShelterList = GetAllShelters();
 
-            var shelter = ShelterList.Where(x => x.AnimalShelterID == animal.AnimalShelterId).FirstOrDefault();
-            animal.AnimalShelterName = shelter.Name;
+            var shelter = ShelterList.Where(x => x.Id == animal.ShelterId).FirstOrDefault();
+            animal.ShelterName = shelter.Name;
 
             return animal;
         }
 
-        public List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, AnimalFilter filter)
+        public List<AnimalViewModel> FilterAndSortAnimals(List<AnimalViewModel> animals, string sortOrder, AnimalFilter filter)
         {
             animals = FilterAnimals(animals, filter);
             animals = OrderAnimals(animals, sortOrder);
@@ -78,36 +79,36 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
-        public Animals GetAnimalById(string Id)
+        public Animal GetAnimalById(string Id)
         {
             var AnimalList = _animalsRepository.GetAllAnimals();
-            var animal = AnimalList.Where(animal => animal.AnimalID == Id).FirstOrDefault();
+            var animal = AnimalList.Where(animal => animal.Id == Id).FirstOrDefault();
 
             return animal;
         }
 
-        public void DeleteAnimal(Animals animal)
+        public void DeleteAnimal(Animal animal)
         {
             _animalsRepository.DeleteAnimal(animal);
         }
 
-        public void AddNewAnimal(Animals animal)
+        public void AddNewAnimal(Animal animal)
         {
-            animal.AnimalID = Guid.NewGuid().ToString();
+            animal.Id = Guid.NewGuid().ToString();
             animal.DateAdded = DateTime.Now;
 
             _animalsRepository.CreateNewAnimal(animal);
         }
 
-        public void EditAnimal(Animals animal)
+        public void EditAnimal(Animal animal)
         {
             _animalsRepository.EditAnimal(animal);
         }
 
-        public async void SendAnimalEmail(Animals animal)
+        public async void SendAnimalEmail(Animal animal)
         {
             animal.Email = GetAllShelters()
-                .Where(x => x.AnimalShelterID == animal.AnimalShelterId)
+                .Where(x => x.Id == animal.ShelterId)
                 .Select(x => x.Email)
                 .FirstOrDefault();
 
@@ -132,7 +133,7 @@ namespace WebDzivniekuPatversme.Services
             };
         }
 
-        public DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalsViewModel> animalList, AnimalFilter filter)
+        public DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalViewModel> animalList, AnimalFilter filter)
         {
             var listItems = GetDropDownListValueNames(animalList);
             CountDropDownListValues(animalList, listItems, filter);
@@ -160,7 +161,7 @@ namespace WebDzivniekuPatversme.Services
                 .ToList();
         }
 
-        private static DropDownItemListViewModel GetDropDownListValueNames (List<AnimalsViewModel> animalList)
+        private static DropDownItemListViewModel GetDropDownListValueNames (List<AnimalViewModel> animalList)
         {
             var listItems = new DropDownItemListViewModel
             {
@@ -198,16 +199,16 @@ namespace WebDzivniekuPatversme.Services
                     listItems.Colour.Add(new DropDownItem { Item = animal.SecondaryColour, Count = 0 });
                 }
 
-                if (!listItems.Shelter.Select(x => x.Item).Contains(animal.AnimalShelterName))
+                if (!listItems.Shelter.Select(x => x.Item).Contains(animal.ShelterName))
                 {
-                    listItems.Shelter.Add(new DropDownItem { Item = animal.AnimalShelterName, Count = 0 });
+                    listItems.Shelter.Add(new DropDownItem { Item = animal.ShelterName, Count = 0 });
                 }
             }
 
             return listItems;
         }
 
-        private static void CountDropDownListValues (List<AnimalsViewModel> animals, DropDownItemListViewModel listItems, AnimalFilter filter)
+        private static void CountDropDownListValues (List<AnimalViewModel> animals, DropDownItemListViewModel listItems, AnimalFilter filter)
         {
             listItems.Age = CountIndividualDropDownListValues(
                 FilterAnimals( 
@@ -279,7 +280,7 @@ namespace WebDzivniekuPatversme.Services
                         Species = filter.Species,
                         SpeciesType = filter.SpeciesType,
                         Name = filter.Name,
-                    }).Select(x => x.AnimalShelterName).ToList(),
+                    }).Select(x => x.ShelterName).ToList(),
                 listItems.Shelter);
         }
 
@@ -296,7 +297,7 @@ namespace WebDzivniekuPatversme.Services
             return listItem;
         }
 
-        private static List<AnimalsViewModel> OrderAnimals(List<AnimalsViewModel> animals, string sortOrder)
+        private static List<AnimalViewModel> OrderAnimals(List<AnimalViewModel> animals, string sortOrder)
         {
             animals = sortOrder switch
             {
@@ -307,8 +308,8 @@ namespace WebDzivniekuPatversme.Services
                 "species_desc" => animals.OrderByDescending(s => s.Species).ToList(),
                 "weight" => animals.OrderBy(s => s.Weight).ToList(),
                 "weight_desc" => animals.OrderByDescending(s => s.Weight).ToList(),
-                "shelter" => animals.OrderBy(s => s.AnimalShelterName).ToList(),
-                "shelter_desc" => animals.OrderByDescending(s => s.AnimalShelterName).ToList(),
+                "shelter" => animals.OrderBy(s => s.ShelterName).ToList(),
+                "shelter_desc" => animals.OrderByDescending(s => s.ShelterName).ToList(),
                 "dateAdded" => animals.OrderBy(s => s.DateAdded).ToList(),
                 "dateadded_desc" => animals.OrderByDescending(s => s.DateAdded).ToList(),
                 "colour" => animals.OrderBy(s => s.Colour).ToList(),
@@ -319,7 +320,7 @@ namespace WebDzivniekuPatversme.Services
             return animals;
         }
 
-        private static List<AnimalsViewModel> FilterAnimals(List<AnimalsViewModel> animals, AnimalFilter filter)
+        private static List<AnimalViewModel> FilterAnimals(List<AnimalViewModel> animals, AnimalFilter filter)
         {
             if (!string.IsNullOrEmpty(filter.Name))
             {
@@ -361,7 +362,7 @@ namespace WebDzivniekuPatversme.Services
 
             if (!string.IsNullOrEmpty(filter.Shelter))
             {
-                animals = animals.Where(animal => animal.AnimalShelterName.Contains(filter.Shelter)).ToList();
+                animals = animals.Where(animal => animal.ShelterName.Contains(filter.Shelter)).ToList();
             }
 
             return animals;

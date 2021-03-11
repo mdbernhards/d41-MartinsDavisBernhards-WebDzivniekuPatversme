@@ -4,11 +4,11 @@ namespace WebDzivniekuPatversme.Models
 {
     public class Log
     {
-        public string LogID { set; get; }
+        public string Id { set; get; }
 
-        public string ItemID { set; get; }
+        public string ItemId { set; get; }
 
-        public string UserID { set; get; }
+        public string UserId { set; get; }
 
         public int ItemType { set; get; }
 

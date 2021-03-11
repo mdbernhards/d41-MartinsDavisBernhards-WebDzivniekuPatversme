@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repositories.Interfaces;
+using WebDzivniekuPatversme.Models.ViewModels.Shelter;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -18,40 +18,40 @@ namespace WebDzivniekuPatversme.Services
             _shelterRepository = shelterRepository;
         }
 
-        public List<Shelters> GetAllShelterList()
+        public List<Shelter> GetAllShelterList()
         {
             var shelterList = _shelterRepository.GetAllAnimalShelters();
 
             return shelterList;
         }
 
-        public Shelters GetShelterById(string Id)
+        public Shelter GetShelterById(string Id)
         {
             var shelterList = _shelterRepository.GetAllAnimalShelters();
-            var shelter = shelterList.Where(animal => animal.AnimalShelterID == Id).FirstOrDefault();
+            var shelter = shelterList.Where(animal => animal.Id == Id).FirstOrDefault();
 
             return shelter;
         }
 
-        public void DeleteShelter(Shelters shelter)
+        public void DeleteShelter(Shelter shelter)
         {
             _shelterRepository.DeleteShelters(shelter);
         }
 
-        public void AddNewShelter(Shelters shelter)
+        public void AddNewShelter(Shelter shelter)
         {
-            shelter.AnimalShelterID = Guid.NewGuid().ToString();
+            shelter.Id = Guid.NewGuid().ToString();
             shelter.DateAdded = DateTime.Now;
 
             _shelterRepository.CreateNewAnimalShelter(shelter);
         }
 
-        public void EditShelter(Shelters shelter)
+        public void EditShelter(Shelter shelter)
         {
             _shelterRepository.EditShelter(shelter);
         }
 
-        public List<SheltersViewModel> SortShelters(List<SheltersViewModel> shelters, string sortOrder, string searchString)
+        public List<ShelterViewModel> SortShelters(List<ShelterViewModel> shelters, string sortOrder, string searchString)
         {
             shelters = FilterShelters(shelters, searchString);
             shelters = OrderShelters(shelters, sortOrder);
@@ -59,7 +59,7 @@ namespace WebDzivniekuPatversme.Services
             return shelters;
         }
 
-        private List<SheltersViewModel> OrderShelters(List<SheltersViewModel> shelters, string sortOrder)
+        private List<ShelterViewModel> OrderShelters(List<ShelterViewModel> shelters, string sortOrder)
         {
             shelters = sortOrder switch
             {
@@ -77,7 +77,7 @@ namespace WebDzivniekuPatversme.Services
             return shelters;
         }
 
-        private List<SheltersViewModel> FilterShelters(List<SheltersViewModel> shelters, string searchString)
+        private List<ShelterViewModel> FilterShelters(List<ShelterViewModel> shelters, string searchString)
         {
             if (!string.IsNullOrEmpty(searchString))
             {

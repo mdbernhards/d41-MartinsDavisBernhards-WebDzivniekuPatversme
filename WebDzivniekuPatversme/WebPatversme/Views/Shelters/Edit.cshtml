@@ -1,4 +1,4 @@
-﻿@model WebDzivniekuPatversme.Models.ViewModels.SheltersViewModel
+﻿@model WebDzivniekuPatversme.Models.ViewModels.Shelter.ShelterViewModel
 
 @{
     ViewData["Title"] = "Labot patversmi";
@@ -12,7 +12,7 @@
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                @Html.HiddenFor(model => model.AnimalShelterID)
+                @Html.HiddenFor(model => model.Id)
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>

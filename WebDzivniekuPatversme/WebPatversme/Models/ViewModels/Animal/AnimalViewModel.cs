@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using WebDzivniekuPatversme.Models.ViewModels.Shelter;
 using WebDzivniekuPatversme.Services.Other;
 
-namespace WebDzivniekuPatversme.Models.ViewModels
+namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
-    public class AnimalsViewModel
+    public class AnimalViewModel
     {
         [Key]
-        public string AnimalID { set; get; }
+        public string Id { set; get; }
 
         [StringLength(100, ErrorMessage = "Vārds par garu")]
         [Required(ErrorMessage = "Vārds ir obligāts.")]
@@ -73,10 +74,10 @@ namespace WebDzivniekuPatversme.Models.ViewModels
 
         [ShelterValidation(ErrorMessage = "Šī patversme neeksistē")]
         [Required(ErrorMessage = "Patversme ir obligāta.")]
-        public string AnimalShelterId { set; get; }
+        public string ShelterId { set; get; }
 
         [Display(Name = "Patversme")]
-        public string AnimalShelterName {set; get; }
+        public string ShelterName {set; get; }
 
         [Display(Name = "E-pasts")]
         [UIHint("tinymce_jquery_full")]
@@ -85,7 +86,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels
         [Display(Name = "E-pasta tituls")]
         public string EmailTitle { get; set; }
 
-        public IEnumerable<SheltersViewModel> AnimalShelters { get; set; }
+        public IEnumerable<ShelterViewModel> AnimalShelters { get; set; }
 
         public IEnumerable<AnimalColour> AnimalColours { get; set; }
 

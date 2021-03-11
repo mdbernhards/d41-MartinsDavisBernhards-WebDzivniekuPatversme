@@ -5,7 +5,7 @@ namespace WebDzivniekuPatversme.Models
 {
     public class News
     {
-        public string NewsID { set; get; }
+        public string Id { set; get; }
 
         public string Text { set; get; }
 
@@ -17,6 +17,6 @@ namespace WebDzivniekuPatversme.Models
 
         public string Title { set; get; }
 
-        public string UserID { set; get; }
+        public string UserId { set; get; }
     }
 }

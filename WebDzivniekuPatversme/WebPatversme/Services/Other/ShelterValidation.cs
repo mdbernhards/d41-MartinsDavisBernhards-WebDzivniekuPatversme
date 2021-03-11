@@ -12,7 +12,7 @@ namespace WebDzivniekuPatversme.Services.Other
 
             var shelter = (IShelterService)validationContext.GetService(typeof(IShelterService));
 
-            if (shelter.GetAllShelterList().Select(x => x.AnimalShelterID).Contains(shelterId))
+            if (shelter.GetAllShelterList().Select(x => x.Id).Contains(shelterId))
             {
                 return ValidationResult.Success;
             }

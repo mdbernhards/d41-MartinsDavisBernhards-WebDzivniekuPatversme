@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
-using WebDzivniekuPatversme.Models.ViewModels;
 using WebDzivniekuPatversme.Services.Interfaces;
+using WebDzivniekuPatversme.Models.ViewModels.Shelter;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -41,13 +41,13 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["PageSize"] = pageSize;
 
             var allShelters = _sheltersServices.GetAllShelterList();
-            var mappedShelters = _mapper.Map<List<SheltersViewModel>>(allShelters);
+            var mappedShelters = _mapper.Map<List<ShelterViewModel>>(allShelters);
 
             mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, name);
 
-            ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedShelters.Count / (decimal)pageSize)) + 1;
+            ViewData["PageAmount"] = decimal.ToInt32(Math.Ceiling(mappedShelters.Count / (decimal)pageSize)) + 1;
 
-            return View(PaginatedList<SheltersViewModel>.Create(mappedShelters, pageNumber ?? 1, pageSize));
+            return View(PaginatedList<ShelterViewModel>.Create(mappedShelters, pageNumber ?? 1, pageSize));
         }
 
         [Authorize(Roles = "administrator,worker")]
@@ -58,11 +58,11 @@ namespace WebDzivniekuPatversme.Controllers
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Create(SheltersViewModel shelter)
+        public IActionResult Create(ShelterViewModel shelter)
         {
             if (ModelState.IsValid)
             {
-                var mappedShelter = _mapper.Map<Shelters>(shelter);
+                var mappedShelter = _mapper.Map<Shelter>(shelter);
 
                 _sheltersServices.AddNewShelter(mappedShelter);
 
@@ -75,18 +75,18 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Edit(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
-            var mappedShelter = _mapper.Map<SheltersViewModel>(shelter);
+            var mappedShelter = _mapper.Map<ShelterViewModel>(shelter);
 
             return View(mappedShelter);
         }
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Edit(SheltersViewModel shelter)
+        public IActionResult Edit(ShelterViewModel shelter)
         {
             if (ModelState.IsValid)
             {
-                var mappedShelter = _mapper.Map<Shelters>(shelter);
+                var mappedShelter = _mapper.Map<Shelter>(shelter);
 
                 _sheltersServices.EditShelter(mappedShelter);
 
@@ -97,9 +97,9 @@ namespace WebDzivniekuPatversme.Controllers
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Delete(SheltersViewModel shelter)
+        public IActionResult Delete(ShelterViewModel shelter)
         {
-            var mappedShelter = _mapper.Map<Shelters>(shelter);
+            var mappedShelter = _mapper.Map<Shelter>(shelter);
 
             _sheltersServices.DeleteShelter(mappedShelter);
 
@@ -110,7 +110,7 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Details(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
-            var mappedShelter = _mapper.Map<SheltersViewModel>(shelter);
+            var mappedShelter = _mapper.Map<ShelterViewModel>(shelter);
 
             return View(mappedShelter);
         }

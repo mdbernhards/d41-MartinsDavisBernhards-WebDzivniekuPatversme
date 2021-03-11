@@ -23,9 +23,9 @@ namespace WebDzivniekuPatversme.Repositories
             _appEnvironment = appEnvironment;
         }
 
-        public List<Animals> GetAllAnimals()
+        public List<Animal> GetAllAnimals()
         {
-            List<Animals> list = new List<Animals>();
+            List<Animal> list = new List<Animal>();
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "SELECT * FROM Animals;";
@@ -36,9 +36,9 @@ namespace WebDzivniekuPatversme.Repositories
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                Animals animal = new Animals()
+                Animal animal = new Animal()
                 {
-                    AnimalID = Convert.ToString(reader["ID"]),
+                    Id = Convert.ToString(reader["Id"]),
                     Weight = Convert.ToDouble(reader["Weight"]),
                     BirthDate = Convert.ToDateTime(reader["BirthDate"].Equals(DBNull.Value) ? null : reader["BirthDate"]),
                     BirthDateRangeTo = Convert.ToDateTime(reader["BirthDateRangeTo"].Equals(DBNull.Value) ? null : reader["BirthDate"]),
@@ -51,7 +51,7 @@ namespace WebDzivniekuPatversme.Repositories
                     Colour = Convert.ToString(reader["Colour"]),
                     SecondaryColour = Convert.ToString(reader["SecondaryColour"]),
                     ImagePath = Convert.ToString(reader["ImagePath"]),
-                    AnimalShelterId = Convert.ToString(reader["AnimalShelterID"]),
+                    ShelterId = Convert.ToString(reader["ShelterId"]),
                 };
 
                 animal.Age = CalculateAge(animal.BirthDate);
@@ -61,13 +61,13 @@ namespace WebDzivniekuPatversme.Repositories
             return list;
         }
 
-        public void CreateNewAnimal(Animals animal)
+        public void CreateNewAnimal(Animal animal)
         {
             animal.ImagePath = SaveImage(animal);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO Animals (ID, Weight, BirthDate, BirthDateRangeTo, DateAdded, About, Name, Gender, Species, Type, Colour, SecondaryColour, ImagePath, AnimalShelterID) " +
-                "VALUES (@id, @weight, @birthDate, @birthDateRangeTo, @dateAdded, @about, @name, @gender, @species, @type, @colour, @secondaryColour, @imagePath, @animalShelterId);";
+            var sqlQuerry = "INSERT INTO Animals (Id, Weight, BirthDate, BirthDateRangeTo, DateAdded, About, Name, Gender, Species, Type, Colour, SecondaryColour, ImagePath, ShelterId) " +
+                "VALUES (@id, @weight, @birthDate, @birthDateRangeTo, @dateAdded, @about, @name, @gender, @species, @type, @colour, @secondaryColour, @imagePath, @shelterId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -88,32 +88,32 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@colour", animal.Colour);
             cmd.Parameters.AddWithValue("@secondaryColour", animal.SecondaryColour);
             cmd.Parameters.AddWithValue("@imagePath", animal.ImagePath);
-            cmd.Parameters.AddWithValue("@animalShelterID", animal.AnimalShelterId);
-            cmd.Parameters.AddWithValue("@id", animal.AnimalID);
+            cmd.Parameters.AddWithValue("@shelterId", animal.ShelterId);
+            cmd.Parameters.AddWithValue("@id", animal.Id);
 
             var reader = cmd.ExecuteReader();
         }
 
-        public void DeleteAnimal(Animals animal)
+        public void DeleteAnimal(Animal animal)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            string sqlQuerry = "DELETE FROM Animals WHERE ID = @id;";
+            string sqlQuerry = "DELETE FROM Animals WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            cmd.Parameters.AddWithValue("@id", animal.AnimalID);
+            cmd.Parameters.AddWithValue("@id", animal.Id);
 
             var reader = cmd.ExecuteReader();
         }
 
-        public void EditAnimal(Animals animal)
+        public void EditAnimal(Animal animal)
         {
             animal.ImagePath = SaveImage(animal);
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "UPDATE Animals SET Weight = @weight, BirthDate =  @birthDate, BirthDateRangeTo = @birthDateRangeTo, About = @about," +
-                " Name = @name, Gender = @gender, Species = @species, Type = @type, Colour = @colour, SecondaryColour = @secondaryColour, ImagePath = @imagePath, AnimalShelterID = @animalShelterID WHERE Id = @id;";
+                " Name = @name, Gender = @gender, Species = @species, Type = @type, Colour = @colour, SecondaryColour = @secondaryColour, ImagePath = @imagePath, ShelterId = @shelterId WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -132,8 +132,8 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@colour", animal.Colour);
             cmd.Parameters.AddWithValue("@secondaryColour", animal.SecondaryColour);
             cmd.Parameters.AddWithValue("@imagePath", animal.ImagePath);
-            cmd.Parameters.AddWithValue("@animalShelterID", animal.AnimalShelterId);
-            cmd.Parameters.AddWithValue("@id", animal.AnimalID);
+            cmd.Parameters.AddWithValue("@shelterId", animal.ShelterId);
+            cmd.Parameters.AddWithValue("@id", animal.Id);
 
             var reader = cmd.ExecuteReader();
         }
@@ -141,7 +141,7 @@ namespace WebDzivniekuPatversme.Repositories
         public void CreateNewColour(AnimalColour colour)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO Colours (ID, Name) " +
+            var sqlQuerry = "INSERT INTO Colours (Id, Name) " +
                 "VALUES (@id, @name);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
@@ -184,7 +184,7 @@ namespace WebDzivniekuPatversme.Repositories
         public void DeleteColour(AnimalColour colour)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            string sqlQuerry = "DELETE FROM Colours WHERE ID = @id;";
+            string sqlQuerry = "DELETE FROM Colours WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -197,7 +197,7 @@ namespace WebDzivniekuPatversme.Repositories
         public void CreateNewSpecies(AnimalSpecies species)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO Species (ID, Name) " +
+            var sqlQuerry = "INSERT INTO Species (Id, Name) " +
                 "VALUES (@id, @name);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
@@ -238,7 +238,7 @@ namespace WebDzivniekuPatversme.Repositories
         public void DeleteSpecies(AnimalSpecies species)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            string sqlQuerry = "DELETE FROM Species WHERE ID = @id;";
+            string sqlQuerry = "DELETE FROM Species WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -251,7 +251,7 @@ namespace WebDzivniekuPatversme.Repositories
         public void CreateNewSpeciesType(AnimalSpeciesType speciesType)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "INSERT INTO SpeciesTypes (ID, Name, SpeciesId) " +
+            var sqlQuerry = "INSERT INTO SpeciesTypes (Id, Name, SpeciesId) " +
                 "VALUES (@id, @name, @speciesId);";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
@@ -294,7 +294,7 @@ namespace WebDzivniekuPatversme.Repositories
         public void DeleteSpeciesType(AnimalSpeciesType speciesType)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
-            string sqlQuerry = "DELETE FROM SpeciesTypes WHERE ID = @id;";
+            string sqlQuerry = "DELETE FROM SpeciesTypes WHERE Id = @id;";
 
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
@@ -388,12 +388,12 @@ namespace WebDzivniekuPatversme.Repositories
             return Age;
         }
 
-        private string SaveImage(Animals animal)
+        private string SaveImage(Animal animal)
         {
             if (animal.Image != null && animal.Image.Length > 0)
             {
                 var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\animals");
-                var fileName = Path.GetFileName(animal.Name + animal.AnimalID + Path.GetExtension(animal.Image.FileName));
+                var fileName = Path.GetFileName(animal.Name + animal.Id + Path.GetExtension(animal.Image.FileName));
 
                 File.Delete(Path.Combine(uploads, fileName));
 
@@ -405,7 +405,7 @@ namespace WebDzivniekuPatversme.Repositories
             }
 
             return GetAllAnimals()
-                .Where(x => x.AnimalID == animal.AnimalID)
+                .Where(x => x.Id == animal.Id)
                 .FirstOrDefault()?.ImagePath;
         }
     }

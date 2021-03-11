@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Models.ViewModels.News;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {

@@ -1,4 +1,4 @@
-﻿@model WebDzivniekuPatversme.Models.ViewModels.AnimalsViewModel
+﻿@model WebDzivniekuPatversme.Models.ViewModels.Animal.AnimalViewModel
 
 @{
     ViewData["Title"] = "Pievienot dzīvnieku";
@@ -114,17 +114,17 @@
             <div class="form-group">
                 @if (Model.AnimalShelters != null)
                 {
-                    <label asp-for="AnimalShelterName" class="control-label"></label>
-                    <select class="form-control" asp-for="AnimalShelterId" asp-items="Model.AnimalShelters
+                    <label asp-for="ShelterName" class="control-label"></label>
+                    <select class="form-control" asp-for="ShelterId" asp-items="Model.AnimalShelters
                         .GroupBy(t => t.Name)
                         .Select(g => g.First())
                         .Select(x => new SelectListItem {
                             Text = x.Name,
-                            Value = x.AnimalShelterID
+                            Value = x.Id
                         })
                         .OrderBy(x => x.Text)">
                     </select>
-                    <span asp-validation-for="AnimalShelterName" class="text-danger" />
+                    <span asp-validation-for="ShelterName" class="text-danger" />
                 }
             </div>
             <div class="form-group">

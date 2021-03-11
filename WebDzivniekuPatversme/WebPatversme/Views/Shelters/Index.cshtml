@@ -1,4 +1,4 @@
-﻿@model WebDzivniekuPatversme.Services.Other.PaginatedList<WebDzivniekuPatversme.Models.ViewModels.SheltersViewModel>
+﻿@model WebDzivniekuPatversme.Services.Other.PaginatedList<WebDzivniekuPatversme.Models.ViewModels.Shelter.ShelterViewModel>
 
 @{
     ViewData["Title"] = "Patversmes";
@@ -80,11 +80,11 @@
                 <td>
                     @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
                     {
-                        @Html.ActionLink("Labot", "Edit", new { id = item.AnimalShelterID })
+                        @Html.ActionLink("Labot", "Edit", new { id = item.Id })
                         @Html.Raw(" | ")
                     }
 
-                    @Html.ActionLink("Vairāk", "Details", new { id = item.AnimalShelterID })
+                    @Html.ActionLink("Vairāk", "Details", new { id = item.Id })
                 </td>
             </tr>
         }

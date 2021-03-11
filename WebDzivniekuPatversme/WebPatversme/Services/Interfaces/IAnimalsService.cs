@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels;
+using WebDzivniekuPatversme.Models.ViewModels.Animal;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface IAnimalsService
     {
-        List<Animals> GetAllAnimalList();
+        List<Animal> GetAllAnimalList();
 
-        void AddNewAnimal(Animals animal);
+        void AddNewAnimal(Animal animal);
 
-        void EditAnimal(Animals animal);
+        void EditAnimal(Animal animal);
 
-        List<Shelters> GetAllShelters();
+        List<Shelter> GetAllShelters();
 
         List<AnimalColour> GetAllColours();
 
@@ -20,20 +21,20 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         List<AnimalSpeciesType> GetAllSpeciesTypes();
 
-        List<AnimalsViewModel> AddAnimalShelterNames(List<AnimalsViewModel> animals);
+        List<AnimalViewModel> AddAnimalShelterNames(List<AnimalViewModel> animals);
 
-        AnimalsViewModel AddAnimalShelterNames(AnimalsViewModel animal);
+        AnimalViewModel AddAnimalShelterNames(AnimalViewModel animal);
 
-        List<AnimalsViewModel> FilterAndSortAnimals(List<AnimalsViewModel> animals, string sortOrder, AnimalFilter filter);
+        List<AnimalViewModel> FilterAndSortAnimals(List<AnimalViewModel> animals, string sortOrder, AnimalFilter filter);
 
-        Animals GetAnimalById(string Id);
+        Animal GetAnimalById(string Id);
 
-        void DeleteAnimal(Animals animal);
+        void DeleteAnimal(Animal animal);
 
-        void SendAnimalEmail(Animals animal);
+        void SendAnimalEmail(Animal animal);
 
         AnimalFilter CreateAnimalFilter(string name, string age, string species, string speciesType, string colour, string shelter);
 
-        DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalsViewModel> animalList, AnimalFilter filter);
+        DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalViewModel> animalList, AnimalFilter filter);
     }
 }
