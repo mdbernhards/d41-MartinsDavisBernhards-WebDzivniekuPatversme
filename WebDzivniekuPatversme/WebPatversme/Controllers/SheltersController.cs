@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Services.Interfaces;
-using WebDzivniekuPatversme.Models.ViewModels.Shelter;
+using WebDzivniekuPatversme.Models.ViewModels.Shelters;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -58,7 +58,7 @@ namespace WebDzivniekuPatversme.Controllers
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Create(ShelterViewModel shelter)
+        public IActionResult Create(ShelterCreateViewModel shelter)
         {
             if (ModelState.IsValid)
             {
@@ -75,14 +75,14 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Edit(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
-            var mappedShelter = _mapper.Map<ShelterViewModel>(shelter);
+            var mappedShelter = _mapper.Map<ShelterEditViewModel>(shelter);
 
             return View(mappedShelter);
         }
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Edit(ShelterViewModel shelter)
+        public IActionResult Edit(ShelterEditViewModel shelter)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace WebDzivniekuPatversme.Controllers
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Delete(ShelterViewModel shelter)
+        public IActionResult Delete(ShelterDetailsViewModel shelter)
         {
             var mappedShelter = _mapper.Map<Shelter>(shelter);
 
@@ -110,7 +110,7 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Details(string Id)
         {
             var shelter = _sheltersServices.GetShelterById(Id);
-            var mappedShelter = _mapper.Map<ShelterViewModel>(shelter);
+            var mappedShelter = _mapper.Map<ShelterDetailsViewModel>(shelter);
 
             return View(mappedShelter);
         }

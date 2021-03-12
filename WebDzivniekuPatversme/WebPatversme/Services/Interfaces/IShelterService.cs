@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Models.ViewModels.Shelter;
+using WebDzivniekuPatversme.Models.ViewModels.Shelters;
 
 namespace WebDzivniekuPatversme.Services.Interfaces
 {

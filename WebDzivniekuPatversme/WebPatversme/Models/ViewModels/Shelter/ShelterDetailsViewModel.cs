@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
 {
-    public class ShelterViewModel
+    public class ShelterDetailsViewModel
     {
         [Key]
         public string Id { set; get; }
@@ -12,6 +12,15 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         [Required(ErrorMessage = "Vārds ir obligāts.")]
         [Display(Name = "Nosaukums")]
         public string Name { set; get; }
+
+        [Required(ErrorMessage = "E-pasts ir obligāts.")]
+        [EmailAddress]
+        [Display(Name = "E-pasts")]
+        public string Email { set; get; }
+
+        [StringLength(19000, ErrorMessage = "Apraksts par garu")]
+        [Display(Name = "Apraksts")]
+        public string Description { set; get; }
 
         [Required(ErrorMessage = "Adrese ir obligāta.")]
         [Display(Name = "Adrese")]

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repositories.Interfaces;
-using WebDzivniekuPatversme.Models.ViewModels.Shelter;
+using WebDzivniekuPatversme.Models.ViewModels.Shelters;
 
 namespace WebDzivniekuPatversme.Services
 {
@@ -59,7 +59,7 @@ namespace WebDzivniekuPatversme.Services
             return shelters;
         }
 
-        private List<ShelterViewModel> OrderShelters(List<ShelterViewModel> shelters, string sortOrder)
+        private static List<ShelterViewModel> OrderShelters(List<ShelterViewModel> shelters, string sortOrder)
         {
             shelters = sortOrder switch
             {
@@ -77,7 +77,7 @@ namespace WebDzivniekuPatversme.Services
             return shelters;
         }
 
-        private List<ShelterViewModel> FilterShelters(List<ShelterViewModel> shelters, string searchString)
+        private static List<ShelterViewModel> FilterShelters(List<ShelterViewModel> shelters, string searchString)
         {
             if (!string.IsNullOrEmpty(searchString))
             {

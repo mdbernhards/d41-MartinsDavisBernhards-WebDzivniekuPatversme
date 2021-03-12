@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.News
 {
-    public class NewsViewModel
+    public class NewsDetailsViewModel
     {
         [Key]
         public string Id { set; get; }
@@ -15,8 +15,6 @@ namespace WebDzivniekuPatversme.Models.ViewModels.News
 
         [Display(Name = "Izveidošanas datums")]
         public DateTime DateAdded { set; get; }
-
-        public string ImagePath { set; get; }
 
         [StringLength(100, ErrorMessage = "Tituls par garu")]
         [Required(ErrorMessage = "Ziņu tituls ir obligāts.")]

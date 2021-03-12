@@ -31,7 +31,7 @@ namespace WebDzivniekuPatversme.Services.Other
             return ValidationResult.Success;
         }
 
-        private string GetErrorMessage()
+        private static string GetErrorMessage()
         {
             return $"Šis faila tips nav atļauts!";
         }

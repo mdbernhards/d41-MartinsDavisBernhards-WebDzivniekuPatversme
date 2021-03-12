@@ -58,7 +58,7 @@ namespace WebDzivniekuPatversme.Services
             return news;
         }
 
-        private List<NewsViewModel> OrderNews(List<NewsViewModel> news, string sortOrder)
+        private static List<NewsViewModel> OrderNews(List<NewsViewModel> news, string sortOrder)
         {
             news = sortOrder switch
             {
@@ -72,7 +72,7 @@ namespace WebDzivniekuPatversme.Services
             return news;
         }
 
-        private List<NewsViewModel> FilterNews(List<NewsViewModel> news, string searchString)
+        private static List<NewsViewModel> FilterNews(List<NewsViewModel> news, string searchString)
         {
             if (!string.IsNullOrEmpty(searchString))
             {

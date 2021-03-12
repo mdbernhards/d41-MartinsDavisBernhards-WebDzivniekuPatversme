@@ -55,20 +55,19 @@ namespace WebDzivniekuPatversme.Services
         {
             foreach (var animal in animals)
             {
-                AddAnimalShelterNames(animal);
+                animal.ShelterName = GetAnimalShelterName(animal.ShelterId);
             }
 
             return animals;
         }
 
-        public AnimalViewModel AddAnimalShelterNames(AnimalViewModel animal)
+        public string GetAnimalShelterName(string id)
         {
             var ShelterList = GetAllShelters();
 
-            var shelter = ShelterList.Where(x => x.Id == animal.ShelterId).FirstOrDefault();
-            animal.ShelterName = shelter.Name;
-
-            return animal;
+            return ShelterList
+                .Where(x => x.Id == id)
+                .FirstOrDefault().Name;
         }
 
         public List<AnimalViewModel> FilterAndSortAnimals(List<AnimalViewModel> animals, string sortOrder, AnimalFilter filter)

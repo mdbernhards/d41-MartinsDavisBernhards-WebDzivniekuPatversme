@@ -8,7 +8,7 @@ using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Models.ViewModels.Animal;
-using WebDzivniekuPatversme.Models.ViewModels.Shelter;
+using WebDzivniekuPatversme.Models.ViewModels.Shelters;
 
 namespace WebDzivniekuPatversme.Controllers
 {
@@ -73,9 +73,9 @@ namespace WebDzivniekuPatversme.Controllers
         [Authorize(Roles = "administrator,worker")]
         public IActionResult Create()
         {
-            AnimalViewModel animalModel = new AnimalViewModel
+            AnimalCreateViewModel animalModel = new AnimalCreateViewModel
             {
-                AnimalShelters = _mapper.Map<List<ShelterViewModel>>(_animalsServices.GetAllShelters()),
+                AnimalShelters = _animalsServices.GetAllShelters(),
                 AnimalColours = _animalsServices.GetAllColours(),
                 AnimalSpecies = _animalsServices.GetAllSpecies(),
                 AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes(),
@@ -88,7 +88,7 @@ namespace WebDzivniekuPatversme.Controllers
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Create(AnimalViewModel animal)
+        public IActionResult Create(AnimalCreateViewModel animal)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +102,7 @@ namespace WebDzivniekuPatversme.Controllers
             animal.AnimalColours = _animalsServices.GetAllColours();
             animal.AnimalSpecies = _animalsServices.GetAllSpecies();
             animal.AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes();
-            animal.AnimalShelters = _mapper.Map<List<ShelterViewModel>>(_animalsServices.GetAllShelters());
+            animal.AnimalShelters = _animalsServices.GetAllShelters();
 
             return View(animal);
         }
@@ -111,9 +111,9 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Edit(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
-            var mappedAnimal = _mapper.Map<AnimalViewModel>(animal);
+            var mappedAnimal = _mapper.Map<AnimalEditViewModel>(animal);
 
-            mappedAnimal.AnimalShelters = _mapper.Map<List<ShelterViewModel>>(_animalsServices.GetAllShelters());
+            mappedAnimal.AnimalShelters = _animalsServices.GetAllShelters();
             mappedAnimal.AnimalColours = _animalsServices.GetAllColours();
             mappedAnimal.AnimalSpecies = _animalsServices.GetAllSpecies();
             mappedAnimal.AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes();
@@ -123,7 +123,7 @@ namespace WebDzivniekuPatversme.Controllers
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Edit(AnimalViewModel animal)
+        public IActionResult Edit(AnimalEditViewModel animal)
         {
             if (ModelState.IsValid)
             {
@@ -137,14 +137,14 @@ namespace WebDzivniekuPatversme.Controllers
             animal.AnimalColours = _animalsServices.GetAllColours();
             animal.AnimalSpecies = _animalsServices.GetAllSpecies();
             animal.AnimalSpeciesTypes = _animalsServices.GetAllSpeciesTypes();
-            animal.AnimalShelters = _mapper.Map<List<ShelterViewModel>>(_animalsServices.GetAllShelters());
+            animal.AnimalShelters = _animalsServices.GetAllShelters();
 
             return View(animal);
         }
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker")]
-        public IActionResult Delete(AnimalViewModel model)
+        public IActionResult Delete(AnimalDetailsViewModel model)
         {
             var mappedAnimals = _mapper.Map<Animal>(model);
 
@@ -157,16 +157,16 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Details(string id)
         {
             var animal = _animalsServices.GetAnimalById(id);
-            var mappedAnimal = _mapper.Map<AnimalViewModel>(animal);
+            var mappedAnimal = _mapper.Map<AnimalDetailsViewModel>(animal);
 
-            mappedAnimal = _animalsServices.AddAnimalShelterNames(mappedAnimal);
+            mappedAnimal.ShelterName = _animalsServices.GetAnimalShelterName(animal.ShelterId);
 
             return View(mappedAnimal);
         }
 
         [HttpPost]
         [Authorize(Roles = "administrator,worker,user")]
-        public IActionResult Details(AnimalViewModel model)
+        public IActionResult Details(AnimalDetailsViewModel model)
         {
             var mappedAnimal = _mapper.Map<Animal>(model);
 

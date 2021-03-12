@@ -4,7 +4,7 @@ using WebDzivniekuPatversme.Services.Other;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
-    public class AnimalViewModel
+    public class AnimalDetailsViewModel
     {
         [Key]
         public string Id { set; get; }
@@ -21,6 +21,11 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         [DateValidation(ErrorMessage = "Datums nevar būt nākotnē")]
         [Display(Name = "Dzimšanas datums")]
         public DateTime BirthDate { set; get; }
+
+        [StringLength(20, ErrorMessage = "Dzimums par garu")]
+        [Required(ErrorMessage = "Dzimums ir obligāta.")]
+        [Display(Name = "Dzimums")]
+        public string Gender { set; get; }
 
         [StringLength(100, ErrorMessage = "Sugas nosaukums par garu")]
         [Required(ErrorMessage = "Suga ir obligāta.")]
@@ -40,6 +45,10 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         [Display(Name = "Sekundārā krāsa")]
         public string SecondaryColour { set; get; }
 
+        [StringLength(5000, ErrorMessage = "Apraksts pārsniedz 5000 maksimālo garumu")]
+        [Display(Name = "Apraksts")]
+        public string About { set; get; }
+
         public string ImagePath { set; get; }
 
         [Required(ErrorMessage = "Svars ir obligāts.")]
@@ -56,5 +65,12 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 
         [Display(Name = "Patversme")]
         public string ShelterName {set; get; }
+
+        [Display(Name = "E-pasts")]
+        [UIHint("tinymce_jquery_full")]
+        public string EmailMessage { get; set; }
+
+        [Display(Name = "E-pasta tituls")]
+        public string EmailTitle { get; set; }
     }
 }
