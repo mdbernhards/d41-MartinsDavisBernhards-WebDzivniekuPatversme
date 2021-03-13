@@ -19,11 +19,13 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         public DateTime BirthDate { set; get; }
 
         [DataType(DataType.Date)]
+        [DateValidation(ErrorMessage = "Datums nevar būt nākotnē")]
         [Display(Name = "Dzimšanas datums līdz")]
         public DateTime BirthDateRangeTo { set; get; }
 
         [StringLength(20, ErrorMessage = "Dzimums par garu")]
         [Required(ErrorMessage = "Dzimums ir obligāta.")]
+        [GenderValidation(ErrorMessage = "Dzimums ir nepareizs.")]
         [Display(Name = "Dzimums")]
         public string Gender { set; get; }
 
@@ -56,7 +58,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         public IFormFile Image { set; get; }
 
         [Required(ErrorMessage = "Svars ir obligāts.")]
-        [Range(0, 250, ErrorMessage = "Svars nevar būt mazāks par 0 un lielāks par 250.")]
+        [Range(0.01, 250, ErrorMessage = "Svars Jābūt lielākam par 0 un mazākam par 250 Kg.")]
         [Display(Name = "Svars (Kg)")]
         public double Weight { set; get; }
 

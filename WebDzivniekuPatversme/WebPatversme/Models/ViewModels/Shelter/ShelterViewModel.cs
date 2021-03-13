@@ -8,7 +8,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         [Key]
         public string Id { set; get; }
 
-        [StringLength(100, ErrorMessage = "Patversmes nosaukums par garu")]
+        [StringLength(255, ErrorMessage = "Patversmes nosaukums par garu!")]
         [Required(ErrorMessage = "Vārds ir obligāts.")]
         [Display(Name = "Nosaukums")]
         public string Name { set; get; }

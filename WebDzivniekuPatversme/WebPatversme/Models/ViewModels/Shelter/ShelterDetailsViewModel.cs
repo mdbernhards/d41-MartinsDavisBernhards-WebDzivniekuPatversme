@@ -8,12 +8,13 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         [Key]
         public string Id { set; get; }
 
-        [StringLength(100, ErrorMessage = "Patversmes nosaukums par garu")]
-        [Required(ErrorMessage = "Vārds ir obligāts.")]
+        [StringLength(255, ErrorMessage = "Patversmes nosaukums par garu!")]
+        [Required(ErrorMessage = "Vārds ir obligāts!")]
         [Display(Name = "Nosaukums")]
         public string Name { set; get; }
 
-        [Required(ErrorMessage = "E-pasts ir obligāts.")]
+        [Required(ErrorMessage = "E-pasts ir obligāts!")]
+        [StringLength(255, ErrorMessage = "E-pasts par garu!")]
         [EmailAddress]
         [Display(Name = "E-pasts")]
         public string Email { set; get; }
@@ -26,9 +27,9 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         [Display(Name = "Adrese")]
         public string Address { set; get; }
 
-        [StringLength(25, ErrorMessage = "Telefona numurs par garu")]
-        [Phone(ErrorMessage = "Telefona numurs ievadīts nepareizi")]
-        [Required(ErrorMessage = "Telefona numurs ir obligāts.")]
+        [StringLength(25, ErrorMessage = "Telefona numurs par garu!")]
+        [Phone(ErrorMessage = "Telefona numurs ievadīts nepareizi!")]
+        [Required(ErrorMessage = "Telefona numurs ir obligāts!")]
         [Display(Name = "Telefona numurs")]
         public string PhoneNumber { set; get; }
 

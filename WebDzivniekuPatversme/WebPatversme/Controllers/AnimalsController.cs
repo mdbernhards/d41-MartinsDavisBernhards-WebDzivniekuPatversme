@@ -8,7 +8,6 @@ using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Other;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Models.ViewModels.Animal;
-using WebDzivniekuPatversme.Models.ViewModels.Shelters;
 
 namespace WebDzivniekuPatversme.Controllers
 {

@@ -51,25 +51,16 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddColourAsync(string colourName)
+        public async Task<IActionResult> OnPostAddColourAsync(AnimalColour colour)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var newColour = new AnimalColour
-            {
-                Name = colourName,
-                Id = Guid.NewGuid().ToString(),
-            };
+            colour.Id = Guid.NewGuid().ToString();
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _animalsRepository.CreateNewColour(newColour);
+            _animalsRepository.CreateNewColour(colour);
 
             return RedirectToPage();
         }
@@ -91,25 +82,15 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostAddSpeciesAsync(string speciesName)
+        public async Task<IActionResult> OnPostAddSpeciesAsync(AnimalSpecies species)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var newSpecies = new AnimalSpecies
-            {
-                Name = speciesName,
-                Id = Guid.NewGuid().ToString(),
-            };
-
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _animalsRepository.CreateNewSpecies(newSpecies);
+            species.Id = Guid.NewGuid().ToString();
+            _animalsRepository.CreateNewSpecies(species);
 
             return RedirectToPage();
         }
@@ -141,26 +122,15 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostAddSpeciesTypeAsync(string speciesTypeName, string speciesId)
+        public async Task<IActionResult> OnPostAddSpeciesTypeAsync(AnimalSpeciesType speciesType)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var newSpecies = new AnimalSpeciesType
-            {
-                Name = speciesTypeName,
-                Id = Guid.NewGuid().ToString(),
-                SpeciesId = speciesId,
-            };
-
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _animalsRepository.CreateNewSpeciesType(newSpecies);
+            speciesType.Id = Guid.NewGuid().ToString();
+            _animalsRepository.CreateNewSpeciesType(speciesType);
 
             return RedirectToPage();
         }

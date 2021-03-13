@@ -75,7 +75,7 @@
     <div class="row" style="padding: 1%">
         <div id="dataListItem" class="col-md-4">
             <form method="post">
-                <input name="colourName" class="form-control" />
+                <input name="colour.Name" class="form-control" />
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-colour-button" type="submit" asp-page-handler="AddColour" class="btn btn-primary">Pievienot krāsu</button>
                 </div>
@@ -83,7 +83,7 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <form method="post">
-                <input name="speciesName" class="form-control" />
+                <input name="species.Name" class="form-control" />
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-species-button" type="submit" asp-page-handler="AddSpecies" class="btn btn-primary">Pievienot sugu</button>
                 </div>
@@ -91,8 +91,8 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <form method="post">
-                <input name="speciesTypeName" class="form-control" />
-                <input type="hidden" name="speciesId" class="form-control" value="@Model.SpeciesID" />
+                <input name="speciesType.Name" class="form-control" />
+                <input type="hidden" name="speciesType.SpeciesId" class="form-control" value="@Model.SpeciesID" />
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-speciesType-button" type="submit" asp-page-handler="AddSpeciesType" class="btn btn-primary">Pievienot šķirni</button>
                 </div>
