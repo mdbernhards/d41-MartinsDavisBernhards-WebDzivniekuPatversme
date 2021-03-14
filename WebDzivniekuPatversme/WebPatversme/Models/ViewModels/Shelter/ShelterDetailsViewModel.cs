@@ -24,6 +24,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         public string Description { set; get; }
 
         [Required(ErrorMessage = "Adrese ir obligāta.")]
+        [StringLength(255, ErrorMessage = "Adrese par garu!")]
         [Display(Name = "Adrese")]
         public string Address { set; get; }
 
@@ -33,8 +34,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         [Display(Name = "Telefona numurs")]
         public string PhoneNumber { set; get; }
 
-        [Range(1, 9999, ErrorMessage = "Kapacitāte nevar būt mazāka par 1 un lielāka par 9999.")]
-        [Required(ErrorMessage = "Dzīvnieku kapacitāte ir obligāta.")]
+        [Range(1, 9999, ErrorMessage = "Kapacitāte nevar būt mazāka par 1 un lielāka par 9999!")]
+        [Required(ErrorMessage = "Dzīvnieku kapacitāte ir obligāta!")]
         [Display(Name = "Dzīvnieku kapacitāte")]
         public int AnimalCapacity { set; get; }
 

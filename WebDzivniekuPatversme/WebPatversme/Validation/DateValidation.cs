@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebDzivniekuPatversme.Services.Other
+namespace WebDzivniekuPatversme.Validation
 {
     public class DateValidation : ValidationAttribute
     {

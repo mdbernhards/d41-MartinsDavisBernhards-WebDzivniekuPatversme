@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Services.Other;
+using WebDzivniekuPatversme.Validation;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 {

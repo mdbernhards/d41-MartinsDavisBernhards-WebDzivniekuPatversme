@@ -1,4 +1,4 @@
-﻿using WebDzivniekuPatversme.Services.Other;
+﻿using WebDzivniekuPatversme.Validation;
 
 namespace WebDzivniekuPatversme.Models
 {
@@ -6,7 +6,7 @@ namespace WebDzivniekuPatversme.Models
     {
         public string Id { set; get; }
 
-        [UniqueSpeciesTypeValidation(ErrorMessage = "Šī šķirne jau eksistē!")]
+        [SpeciesTypeValidation(true, ErrorMessage = "Šī šķirne jau eksistē!")]
         public string Name { set; get; }
 
         public string SpeciesId { set; get; }

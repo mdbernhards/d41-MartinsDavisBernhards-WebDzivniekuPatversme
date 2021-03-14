@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
-using WebDzivniekuPatversme.Services.Other;
+using WebDzivniekuPatversme.Validation;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.News
 {
     public class NewsCreateViewModel
     {
-        [StringLength(13000, ErrorMessage = "Teksts sasniedz savu maksimālo garumu")]
-        [Required(ErrorMessage = "Ziņu teksts ir obligāts.")]
+        [StringLength(13000, ErrorMessage = "Teksts sasniedz savu maksimālo garumu!")]
+        [Required(ErrorMessage = "Ziņu teksts ir obligāts!")]
         [Display(Name = "Teksts")]
         public string Text { set; get; }
 
@@ -19,8 +19,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels.News
         [Display(Name = "Attēls")]
         public IFormFile Image { set; get; }
 
-        [StringLength(100, ErrorMessage = "Tituls par garu")]
-        [Required(ErrorMessage = "Ziņu tituls ir obligāts.")]
+        [StringLength(100, ErrorMessage = "Tituls par garu!")]
+        [Required(ErrorMessage = "Ziņu tituls ir obligāts!")]
         [Display(Name = "Tituls")]
         public string Title { set; get; }
 

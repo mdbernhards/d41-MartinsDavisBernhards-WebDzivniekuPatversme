@@ -9,22 +9,23 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         public string Id { set; get; }
 
         [StringLength(255, ErrorMessage = "Patversmes nosaukums par garu!")]
-        [Required(ErrorMessage = "Vārds ir obligāts.")]
+        [Required(ErrorMessage = "Vārds ir obligāts!")]
         [Display(Name = "Nosaukums")]
         public string Name { set; get; }
 
-        [Required(ErrorMessage = "Adrese ir obligāta.")]
+        [Required(ErrorMessage = "Adrese ir obligāta!")]
+        [StringLength(255, ErrorMessage = "Adrese par garu!")]
         [Display(Name = "Adrese")]
         public string Address { set; get; }
 
-        [StringLength(25, ErrorMessage = "Telefona numurs par garu")]
-        [Phone(ErrorMessage = "Telefona numurs ievadīts nepareizi")]
-        [Required(ErrorMessage = "Telefona numurs ir obligāts.")]
+        [StringLength(25, ErrorMessage = "Telefona numurs par garu!")]
+        [Phone(ErrorMessage = "Telefona numurs ievadīts nepareizi!")]
+        [Required(ErrorMessage = "Telefona numurs ir obligāts!")]
         [Display(Name = "Telefona numurs")]
         public string PhoneNumber { set; get; }
 
-        [Range(1, 9999, ErrorMessage = "Kapacitāte nevar būt mazāka par 1 un lielāka par 9999.")]
-        [Required(ErrorMessage = "Dzīvnieku kapacitāte ir obligāta.")]
+        [Range(1, 9999, ErrorMessage = "Kapacitāte nevar būt mazāka par 1 un lielāka par 9999!")]
+        [Required(ErrorMessage = "Dzīvnieku kapacitāte ir obligāta!")]
         [Display(Name = "Dzīvnieku kapacitāte")]
         public int AnimalCapacity { set; get; }
 

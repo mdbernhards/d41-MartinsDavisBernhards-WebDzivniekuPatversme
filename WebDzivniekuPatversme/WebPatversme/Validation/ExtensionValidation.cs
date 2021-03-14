@@ -4,7 +4,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace WebDzivniekuPatversme.Services.Other
+namespace WebDzivniekuPatversme.Validation
 {
     public class ExtensionValidation : ValidationAttribute
     {

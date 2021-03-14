@@ -8,8 +8,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels.News
         [Key]
         public string Id { set; get; }
 
-        [StringLength(13000, ErrorMessage = "Teksts sasniedz savu maksimālo garumu")]
-        [Required(ErrorMessage = "Ziņu teksts ir obligāts.")]
+        [StringLength(13000, ErrorMessage = "Teksts sasniedz savu maksimālo garumu!")]
+        [Required(ErrorMessage = "Ziņu teksts ir obligāts!")]
         [Display(Name = "Teksts")]
         public string Text { set; get; }
 
@@ -18,8 +18,8 @@ namespace WebDzivniekuPatversme.Models.ViewModels.News
 
         public string ImagePath { set; get; }
 
-        [StringLength(100, ErrorMessage = "Tituls par garu")]
-        [Required(ErrorMessage = "Ziņu tituls ir obligāts.")]
+        [StringLength(100, ErrorMessage = "Tituls par garu!")]
+        [Required(ErrorMessage = "Ziņu tituls ir obligāts!")]
         [Display(Name = "Tituls")]
         public string Title { set; get; }
 

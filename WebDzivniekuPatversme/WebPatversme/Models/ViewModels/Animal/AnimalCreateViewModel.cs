@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
-using WebDzivniekuPatversme.Services.Other;
+using WebDzivniekuPatversme.Validation;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
@@ -31,19 +31,23 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 
         [StringLength(100, ErrorMessage = "Sugas nosaukums par garu")]
         [Required(ErrorMessage = "Suga ir obligāta.")]
+        [SpeciesValidation(false, ErrorMessage = "Šī suga datubāzē neeksistē!")]
         [Display(Name = "Suga")]
         public string Species { set; get; }
 
         [StringLength(100, ErrorMessage = "Šķirnes nosaukums par garu")]
+        [SpeciesTypeValidation(false, ErrorMessage = "Šī šķirne datubāzē neeksistē!")]
         [Display(Name = "Šķirne")]
         public string SpeciesType { set; get; }
 
         [StringLength(100, ErrorMessage = "Krāsas nosaukums par garu")]
+        [ColourValidation(false, ErrorMessage = "Šī krāsa datubāzē neeksistē!")]
         [Required(ErrorMessage = "Krāsa ir obligāta.")]
         [Display(Name = "Krāsa")]
         public string Colour { set; get; }
 
         [StringLength(100, ErrorMessage = "Sekundārās krāsas nosaukums par garu")]
+        [ColourValidation(false, ErrorMessage = "Šī krāsa datubāzē neeksistē!")]
         [Display(Name = "Sekundārā krāsa")]
         public string SecondaryColour { set; get; }
 
@@ -64,6 +68,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 
         [ShelterValidation(ErrorMessage = "Šī patversme neeksistē")]
         [Required(ErrorMessage = "Patversme ir obligāta.")]
+        [Display(Name = "Patversme")]
         public string ShelterId { set; get; }
 
         [Display(Name = "Patversme")]

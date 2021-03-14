@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
-using WebDzivniekuPatversme.Services.Other;
+using WebDzivniekuPatversme.Validation;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
 {

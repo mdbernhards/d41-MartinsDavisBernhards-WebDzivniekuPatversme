@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WebDzivniekuPatversme.Models.StaticModels;
 
-namespace WebDzivniekuPatversme.Services.Other
+namespace WebDzivniekuPatversme.Validation
 {
     public class GenderValidation : ValidationAttribute
     {

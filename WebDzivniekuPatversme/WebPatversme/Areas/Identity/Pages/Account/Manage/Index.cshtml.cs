@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Services.Other;
+using WebDzivniekuPatversme.Validation;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
