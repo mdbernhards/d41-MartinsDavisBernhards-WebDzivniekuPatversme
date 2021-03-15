@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using WebDzivniekuPatversme.Validation;
+using WebDzivniekuPatversme.Models.StaticModels;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
 {
@@ -10,43 +11,43 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         [Key]
         public string Id { set; get; }
 
-        [StringLength(255, ErrorMessage = "Patversmes nosaukums par garu!")]
-        [Required(ErrorMessage = "Vārds ir obligāts!")]
+        [StringLength(255, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Nosaukums")]
         public string Name { set; get; }
 
-        [Required(ErrorMessage = "E-pasts ir obligāts!")]
-        [StringLength(255, ErrorMessage = "E-pasts par garu!")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = ValidationErrorMessages.NotValid)]
+        [StringLength(255, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "E-pasts")]
         public string Email { set; get; }
 
-        [StringLength(19000, ErrorMessage = "Apraksts par garu!")]
+        [StringLength(19000, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Display(Name = "Apraksts")]
         public string Description { set; get; }
 
-        [Required(ErrorMessage = "Adrese ir obligāta!")]
-        [StringLength(255, ErrorMessage = "Adrese par garu!")]
+        [StringLength(255, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredF)]
         [Display(Name = "Adrese")]
         public string Address { set; get; }
 
-        [StringLength(25, ErrorMessage = "Telefona numurs par garu!")]
-        [Phone(ErrorMessage = "Telefona numurs ievadīts nepareizi!")]
-        [Required(ErrorMessage = "Telefona numurs ir obligāts!")]
+        [Phone(ErrorMessage = ValidationErrorMessages.NotValid)]
+        [StringLength(25, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Telefona numurs")]
         public string PhoneNumber { set; get; }
 
-        [Range(1, 9999, ErrorMessage = "Kapacitāte nevar būt mazāka par 1 un lielāka par 9999!")]
-        [Required(ErrorMessage = "Dzīvnieku kapacitāte ir obligāta!")]
+        [Range(1, 9999, ErrorMessage = ValidationErrorMessages.CapacityRange)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredF)]
         [Display(Name = "Dzīvnieku kapacitāte")]
         public int AnimalCapacity { set; get; }
 
         public string ImagePath { set; get; }
 
-        [Display(Name = "Attēls")]
         [DataType(DataType.Upload)]
-        [MaxFileSizeValidation(6 * 1024 * 1024)]
-        [ExtensionValidation(new string[] { ".jpg", ".png" })]
+        [MaxFileSizeValidation(6 * 1024 * 1024, ErrorMessage = ValidationErrorMessages.MaxFileSize)]
+        [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" }, ErrorMessage = ValidationErrorMessages.FileType)]
+        [Display(Name = "Attēls")]
         public IFormFile Image { set; get; }
     }
 }

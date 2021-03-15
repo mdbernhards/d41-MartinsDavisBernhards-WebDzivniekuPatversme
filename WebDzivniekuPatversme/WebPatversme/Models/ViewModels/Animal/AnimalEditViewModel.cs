@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using WebDzivniekuPatversme.Validation;
+using WebDzivniekuPatversme.Models.StaticModels;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
@@ -11,68 +12,68 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         [Key]
         public string Id { set; get; }
 
-        [StringLength(100, ErrorMessage = "Vārds par garu!")]
-        [Required(ErrorMessage = "Vārds ir obligāts!")]
+        [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Vārds")]
         public string Name { set; get; }
 
         [DataType(DataType.Date)]
-        [DateValidation(ErrorMessage = "Datums nevar būt nākotnē!")]
+        [DateValidation(ErrorMessage = ValidationErrorMessages.DateValidation)]
         [Display(Name = "Dzimšanas datums")]
         public DateTime BirthDate { set; get; }
 
-        [StringLength(20, ErrorMessage = "Dzimums par garu!")]
-        [Required(ErrorMessage = "Dzimums ir obligāta!")]
-        [GenderValidation(ErrorMessage = "Dzimums ir nepareizs!")]
+        [GenderValidation(ErrorMessage = ValidationErrorMessages.DoesNotExistInDb)]
+        [StringLength(20, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Dzimums")]
         public string Gender { set; get; }
 
-        [StringLength(100, ErrorMessage = "Sugas nosaukums par garu!")]
-        [Required(ErrorMessage = "Suga ir obligāta!")]
-        [SpeciesValidation(false, ErrorMessage = "Šī suga datubāzē neeksistē!")]
+        [SpeciesValidation(false, ErrorMessage = ValidationErrorMessages.DoesNotExistInDb)]
+        [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredF)]
         [Display(Name = "Suga")]
         public string Species { set; get; }
 
-        [StringLength(100, ErrorMessage = "Šķirnes nosaukums par garu!")]
-        [SpeciesTypeValidation(false, ErrorMessage = "Šī šķirne datubāzē neeksistē!")]
+        [SpeciesTypeValidation(false, ErrorMessage = ValidationErrorMessages.DoesNotExistInDb)]
+        [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Display(Name = "Šķirne")]
         public string SpeciesType { set; get; }
 
-        [StringLength(100, ErrorMessage = "Krāsas nosaukums par garu!")]
-        [ColourValidation(false, ErrorMessage = "Šī krāsa datubāzē neeksistē!")]
-        [Required(ErrorMessage = "Krāsa ir obligāta!")]
+        [ColourValidation(false, ErrorMessage = ValidationErrorMessages.DoesNotExistInDb)]
+        [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredF)]
         [Display(Name = "Krāsa")]
         public string Colour { set; get; }
 
-        [StringLength(100, ErrorMessage = "Sekundārās krāsas nosaukums par garu!")]
-        [ColourValidation(false, ErrorMessage = "Šī krāsa datubāzē neeksistē!")]
+        [ColourValidation(false, ErrorMessage = ValidationErrorMessages.DoesNotExistInDb)]
+        [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Display(Name = "Sekundārā krāsa")]
         public string SecondaryColour { set; get; }
 
-        [StringLength(5000, ErrorMessage = "Apraksts pārsniedz 5000 maksimālo garumu!")]
+        [StringLength(5000, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Display(Name = "Apraksts")]
         public string About { set; get; }
 
         public string ImagePath { set; get; }
 
-        [Display(Name = "Attēls")]
         [DataType(DataType.Upload)]
-        [MaxFileSizeValidation(6 * 1024 * 1024)]
-        [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" })]
+        [MaxFileSizeValidation(6 * 1024 * 1024, ErrorMessage = ValidationErrorMessages.MaxFileSize)]
+        [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" }, ErrorMessage = ValidationErrorMessages.FileType)]
+        [Display(Name = "Attēls")]
         public IFormFile Image { set; get; }
 
-        [Required(ErrorMessage = "Svars ir obligāts!")]
-        [Range(0.01, 250, ErrorMessage = "Svars Jābūt lielākam par 0 un mazākam par 250 Kg!")]
+        [Range(0.01, 250, ErrorMessage = ValidationErrorMessages.WeightRange)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Svars (Kg)")]
         public double Weight { set; get; }
 
-        [ShelterValidation(ErrorMessage = "Šī patversme neeksistē!")]
-        [Required(ErrorMessage = "Patversme ir obligāta!")]
+        [ShelterValidation(ErrorMessage = ValidationErrorMessages.DoesNotExistInDb)]
+        [Required(ErrorMessage = ValidationErrorMessages.RequiredF)]
         [Display(Name = "Patversme")]
         public string ShelterId { set; get; }
 
         [Display(Name = "Patversme")]
-        public string ShelterName {set; get; }
+        public string ShelterName { set; get; }
 
         public IEnumerable<Shelter> AnimalShelters { get; set; }
 

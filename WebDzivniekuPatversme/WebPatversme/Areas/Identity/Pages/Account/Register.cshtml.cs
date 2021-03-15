@@ -55,40 +55,40 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             [Display(Name = "Lietotājvārds")]
             public string UserName { get; set; }
 
-            [Required(ErrorMessage = "Vārds ir obligāts.")]
             [StringLength(50, ErrorMessage = "Vai jūsu vārds tiešām ir tik garš?")]
+            [Required(ErrorMessage = "Vārds ir obligāts!")]
             [Display(Name = "Vārds*")]
             public string Name { get; set; }
 
-            [Required(ErrorMessage = "Uzvārds ir obligāts.")]
             [StringLength(50, ErrorMessage = "Vai jūsu uzvārds tiešām ir tik garš?")]
+            [Required(ErrorMessage = "Uzvārds ir obligāts!")]
             [Display(Name = "Uzvārds*")]
             public string Surname { get; set; }
 
-            [Required(ErrorMessage = "E-pasts ir obligāts.")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Tas nav E-pasts!")]
+            [Required(ErrorMessage = "Ievadītais E-pasts nav derīgs!")]
             [Display(Name = "E-pasts*")]
             public string Email { get; set; }
 
-            [Phone]
+            [Phone(ErrorMessage = "Ievadītais telefona numurs nav derīgs!")]
             [Display(Name = "Telefona numurs")]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Attēls")]
             [DataType(DataType.Upload)]
             [MaxFileSizeValidation(6 * 1024 * 1024)]
             [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" })]
+            [Display(Name = "Attēls")]
             public IFormFile Image { set; get; }
 
-            [Required(ErrorMessage = "Parole ir obligāta.")]
-            [StringLength(100, ErrorMessage = "Parolei jābūt {2} līdz {1} rakstzīmju garumā.", MinimumLength = 6)]
             [DataType(DataType.Password)]
+            [StringLength(100, ErrorMessage = "Parolei jābūt {2} līdz {1} rakstzīmju garumā.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Parole ir obligāta.")]
             [Display(Name = "Parole*")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Apstiprināt paroli*")]
             [Compare("Password", ErrorMessage = "Paroles nesakrīt.")]
+            [Display(Name = "Apstiprināt paroli*")]
             public string ConfirmPassword { get; set; }
         }
 

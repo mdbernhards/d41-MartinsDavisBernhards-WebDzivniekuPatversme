@@ -20,16 +20,11 @@ namespace WebDzivniekuPatversme.Validation
             {
                 if (file.Length > _maxFileSize)
                 {
-                    return new ValidationResult(GetErrorMessage());
+                    return new ValidationResult(FormatErrorMessage(ErrorMessage));
                 }
             }
 
             return ValidationResult.Success;
-        }
-
-        public string GetErrorMessage()
-        {
-            return $"Maksimālais faila lielums ir 6 MB.";
         }
     }
 }

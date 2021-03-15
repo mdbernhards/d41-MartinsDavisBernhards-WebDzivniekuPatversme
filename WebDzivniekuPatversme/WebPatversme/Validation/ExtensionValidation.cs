@@ -24,16 +24,11 @@ namespace WebDzivniekuPatversme.Validation
 
                 if (!_extensions.Contains(extension.ToLower()))
                 {
-                    return new ValidationResult(GetErrorMessage());
+                    return new ValidationResult(FormatErrorMessage(ErrorMessage));
                 }
             }
 
             return ValidationResult.Success;
-        }
-
-        private static string GetErrorMessage()
-        {
-            return $"Šis faila tips nav atļauts!";
         }
     }
 }
