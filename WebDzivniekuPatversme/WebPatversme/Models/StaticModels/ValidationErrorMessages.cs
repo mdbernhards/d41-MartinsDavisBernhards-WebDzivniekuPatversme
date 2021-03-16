@@ -21,5 +21,11 @@
         public const string NotValid = "Ievadītais {0} nav derīgs!";
 
         public const string CapacityRange = "Kapacitāte nevar būt mazāka par {1} un lielāka par {2}!";
+
+        public const string NewPasswordStringLenght = "Jaunajai parolei jābūt garumā no {2} līdz {1}!";
+
+        public const string ComparePassword = "Paroles nesakrīt!";
+
+        public const string VerificationCodeStringLenght = "Verifikācijas kodam jābūt garumā no {2} līdz {1}!";
     }
 }

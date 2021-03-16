@@ -34,6 +34,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             }
 
             var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{userId}'.");
@@ -41,6 +42,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ChangeEmailAsync(user, email, code);
+
             if (!result.Succeeded)
             {
                 StatusMessage = "Kļūda mainot E-pastu.";
@@ -51,6 +53,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             // In our UI email and user name are one and the same, so when we update the email
             // we need to update the user name.
             var setUserNameResult = await _userManager.SetUserNameAsync(user, email);
+
             if (!setUserNameResult.Succeeded)
             {
                 StatusMessage = "Kļūda mainot Lietotājvārdu.";

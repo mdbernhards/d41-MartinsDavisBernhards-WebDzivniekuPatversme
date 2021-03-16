@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using System.Text.Encodings.Web;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 {
@@ -25,23 +25,16 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required(ErrorMessage = "E-pasts ir obligāts.")]
-            [EmailAddress]
-            public string Email { get; set; }
-        }
+        public ForgotPasswordViewModel Input { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
+
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 

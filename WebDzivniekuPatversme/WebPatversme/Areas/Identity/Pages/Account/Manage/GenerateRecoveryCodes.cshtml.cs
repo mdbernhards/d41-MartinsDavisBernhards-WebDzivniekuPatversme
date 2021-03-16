@@ -31,12 +31,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             var isTwoFactorEnabled = await _userManager.GetTwoFactorEnabledAsync(user);
+
             if (!isTwoFactorEnabled)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
@@ -49,6 +51,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -56,6 +59,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             var isTwoFactorEnabled = await _userManager.GetTwoFactorEnabledAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
+
             if (!isTwoFactorEnabled)
             {
                 throw new InvalidOperationException($"Nevar ielādēt lietotāju ar ID '{userId}', jo nav ieslēgta Divu-Soļu verifikācija.");
@@ -66,6 +70,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             _logger.LogInformation("Lietotājs ar ID '{UserId}' ģenerēja atjaunošanas kodus Divu-Soļu verifikācijai.", userId);
             StatusMessage = "Jūs esat ģenerējis atjaunošanas kodus.";
+
             return RedirectToPage("./ShowRecoveryCodes");
         }
     }

@@ -36,6 +36,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGet()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -52,6 +53,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPost()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -59,6 +61,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.ForgetTwoFactorClientAsync();
             StatusMessage = "Tagadējā pārlūkprogramma tika aizmirsta. Ja ienāksiet velreiz caur šo pārlūkprogrammu, tiks atkal pieprasīta Divu-Soļu verifikācija.";
+
             return RedirectToPage();
         }
     }

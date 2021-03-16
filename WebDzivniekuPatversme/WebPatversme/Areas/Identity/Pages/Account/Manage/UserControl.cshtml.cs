@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -22,32 +23,25 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         }
 
         [BindProperty]
-        public List<UserWithRole> UsersWithRole { get; set; }
+        public List<UserControlViewModel> UsersWithRole { get; set; }
 
         public List<ApplicationUser> Users { get; set; }
 
         public List<IdentityRole> Roles { get; set; }
-
-        public class UserWithRole
-        {
-            public ApplicationUser User { get; set; }
-
-            public string Role { get; set; }
-        }
 
         public async Task<IActionResult> OnGetAsync()
         {
             Users = _userManager.Users.ToList();
             Roles = _roleManager.Roles.ToList();
 
-            UsersWithRole = new List<UserWithRole>();
+            UsersWithRole = new List<UserControlViewModel>();
 
             foreach (var user in Users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
 
                 UsersWithRole.Add(
-                    new UserWithRole() 
+                    new UserControlViewModel() 
                     { 
                         Role = roles.First(), 
                         User = user,

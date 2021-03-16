@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -26,14 +26,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-        }
+        public DeletePersonalDataViewModel Input { get; set; }
 
         public bool RequirePassword { get; set; }
 

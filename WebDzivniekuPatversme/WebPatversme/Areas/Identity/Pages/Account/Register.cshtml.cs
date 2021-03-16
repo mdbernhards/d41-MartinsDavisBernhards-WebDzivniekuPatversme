@@ -4,9 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Encodings.Web;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +14,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Validation;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 {
@@ -44,53 +42,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public RegisterViewModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
-        public class InputModel
-        {
-            [Display(Name = "Lietotājvārds")]
-            public string UserName { get; set; }
-
-            [StringLength(50, ErrorMessage = "Vai jūsu vārds tiešām ir tik garš?")]
-            [Required(ErrorMessage = "Vārds ir obligāts!")]
-            [Display(Name = "Vārds*")]
-            public string Name { get; set; }
-
-            [StringLength(50, ErrorMessage = "Vai jūsu uzvārds tiešām ir tik garš?")]
-            [Required(ErrorMessage = "Uzvārds ir obligāts!")]
-            [Display(Name = "Uzvārds*")]
-            public string Surname { get; set; }
-
-            [EmailAddress(ErrorMessage = "Tas nav E-pasts!")]
-            [Required(ErrorMessage = "Ievadītais E-pasts nav derīgs!")]
-            [Display(Name = "E-pasts*")]
-            public string Email { get; set; }
-
-            [Phone(ErrorMessage = "Ievadītais telefona numurs nav derīgs!")]
-            [Display(Name = "Telefona numurs")]
-            public string PhoneNumber { get; set; }
-
-            [DataType(DataType.Upload)]
-            [MaxFileSizeValidation(6 * 1024 * 1024)]
-            [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" })]
-            [Display(Name = "Attēls")]
-            public IFormFile Image { set; get; }
-
-            [DataType(DataType.Password)]
-            [StringLength(100, ErrorMessage = "Parolei jābūt {2} līdz {1} rakstzīmju garumā.", MinimumLength = 6)]
-            [Required(ErrorMessage = "Parole ir obligāta.")]
-            [Display(Name = "Parole*")]
-            public string Password { get; set; }
-
-            [DataType(DataType.Password)]
-            [Compare("Password", ErrorMessage = "Paroles nesakrīt.")]
-            [Display(Name = "Apstiprināt paroli*")]
-            public string ConfirmPassword { get; set; }
-        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -102,6 +58,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 if (Input.UserName == null)
@@ -110,9 +67,10 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                 }
 
                 var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email, Name = Input.Name, Surname = Input.Surname, PhoneNumber = Input.PhoneNumber};
-
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 await _userManager.AddToRoleAsync(user, "user");
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("Lietotājs izveidoja jaunu profilu ar paroli.");

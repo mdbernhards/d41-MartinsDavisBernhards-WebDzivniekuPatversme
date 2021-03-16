@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 {
@@ -23,23 +23,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public LoginWithRecoveryCodeViewModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
 
-        public class InputModel
-        {
-            [BindProperty]
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Atjaunošanas kods")]
-            public string RecoveryCode { get; set; }
-        }
-
         public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
-            // Ensure the user has gone through the username & password screen first
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
             if (user == null)
             {
                 throw new InvalidOperationException($"Nevar ielādēt Divu-Soļu autentifikācijas lietotāju.");
@@ -58,13 +49,13 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             }
 
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
             if (user == null)
             {
                 throw new InvalidOperationException($"Nevar ielādēt Divu-Soļu autentifikācijas lietotāju.");
             }
 
             var recoveryCode = Input.RecoveryCode.Replace(" ", string.Empty);
-
             var result = await _signInManager.TwoFactorRecoveryCodeSignInAsync(recoveryCode);
 
             if (result.Succeeded)

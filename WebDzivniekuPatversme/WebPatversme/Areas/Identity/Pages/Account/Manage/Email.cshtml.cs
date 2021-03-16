@@ -1,13 +1,13 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using System.Text.Encodings.Web;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -24,8 +24,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
-        public string Username { get; set; }
-
         public string Email { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -34,22 +32,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Jaunais E-pasts")]
-            public string NewEmail { get; set; }
-        }
+        public EmailViewModel Input { get; set; }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var email = await _userManager.GetEmailAsync(user);
             Email = email;
 
-            Input = new InputModel
+            Input = new EmailViewModel
             {
                 NewEmail = email,
             };

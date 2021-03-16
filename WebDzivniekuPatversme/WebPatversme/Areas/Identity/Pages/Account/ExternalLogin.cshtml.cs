@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Text.Encodings.Web;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 {
@@ -35,7 +35,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public ExternalLoginViewModel Input { get; set; }
 
         public string ProviderDisplayName { get; set; }
 
@@ -43,13 +43,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-        }
 
         public IActionResult OnGetAsync()
         {
@@ -97,7 +90,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                 ProviderDisplayName = info.ProviderDisplayName;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
-                    Input = new InputModel
+                    Input = new ExternalLoginViewModel
                     {
                         Email = info.Principal.FindFirstValue(ClaimTypes.Email)
                     };

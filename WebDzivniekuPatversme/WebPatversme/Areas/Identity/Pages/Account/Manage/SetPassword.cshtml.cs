@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -21,28 +21,15 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public SetPasswordViewModel Input { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            [StringLength(100, ErrorMessage = "{0} jābūt garumā no {2} līdz {1}.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Jauna parole")]
-            public string NewPassword { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Atkārto jauno paroli")]
-            [Compare("NewPassword", ErrorMessage = "Paroles nesakrīt.")]
-            public string ConfirmPassword { get; set; }
-        }
-
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -66,12 +53,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             }
 
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             var addPasswordResult = await _userManager.AddPasswordAsync(user, Input.NewPassword);
+
             if (!addPasswordResult.Succeeded)
             {
                 foreach (var error in addPasswordResult.Errors)

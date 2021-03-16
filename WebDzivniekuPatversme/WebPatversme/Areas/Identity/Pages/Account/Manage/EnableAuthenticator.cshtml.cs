@@ -2,12 +2,12 @@
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Encodings.Web;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -40,20 +40,12 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
-        {
-            [Required]
-            [StringLength(7, ErrorMessage = "{0} jābūt garumā no {2} līdz {1}.", MinimumLength = 6)]
-            [DataType(DataType.Text)]
-            [Display(Name = "Verifikācijas kods")]
-            public string Code { get; set; }
-        }
+        public EnableAuthenticatorViewModel Input { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -67,6 +59,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -75,6 +68,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             if (!ModelState.IsValid)
             {
                 await LoadSharedKeyAndQrCodeUriAsync(user);
+
                 return Page();
             }
 
@@ -88,13 +82,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             {
                 ModelState.AddModelError("Input.Code", "Verifikācijas kods nav pareizs.");
                 await LoadSharedKeyAndQrCodeUriAsync(user);
+
                 return Page();
             }
 
             await _userManager.SetTwoFactorEnabledAsync(user, true);
             var userId = await _userManager.GetUserIdAsync(user);
-            _logger.LogInformation("Lietotājs ar ID '{UserId}' ir ieslēdzis Divu-Soļu verifikāciju.", userId);
 
+            _logger.LogInformation("Lietotājs ar ID '{UserId}' ir ieslēdzis Divu-Soļu verifikāciju.", userId);
             StatusMessage = "Jūsu autentifikācijas aplikācija tika verificēta.";
 
             if (await _userManager.CountRecoveryCodesAsync(user) == 0)
@@ -114,6 +109,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         {
             // Load the authenticator key & QR code URI to display on the form
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
+
             if (string.IsNullOrEmpty(unformattedKey))
             {
                 await _userManager.ResetAuthenticatorKeyAsync(user);
@@ -130,6 +126,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         {
             var result = new StringBuilder();
             int currentPosition = 0;
+
             while (currentPosition + 4 < unformattedKey.Length)
             {
                 result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");

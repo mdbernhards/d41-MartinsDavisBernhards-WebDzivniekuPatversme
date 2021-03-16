@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -25,29 +25,10 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public ChangePasswordViewModel Input { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
-
-        public class InputModel
-        {
-            [Required(ErrorMessage = "Vecā parole ir obligāta.")]
-            [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
-            public string OldPassword { get; set; }
-
-            [Required(ErrorMessage = "Jaunā parole ir obligāta.")]
-            [StringLength(100, ErrorMessage = "Parolei jābūt {2} līdz {1} rakstzīmju garumā.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "New password")]
-            public string NewPassword { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "Paroles nesakrīt.")]
-            public string ConfirmPassword { get; set; }
-        }
 
         public async Task<IActionResult> OnGetAsync()
         {

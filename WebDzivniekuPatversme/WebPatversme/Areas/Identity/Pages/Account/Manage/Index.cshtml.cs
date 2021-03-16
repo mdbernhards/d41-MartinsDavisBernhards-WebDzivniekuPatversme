@@ -1,14 +1,12 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
-using WebDzivniekuPatversme.Validation;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -35,48 +33,18 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public IndexViewModel Input { get; set; }
 
         [BindProperty]
-        public OutputModel Output { get; set; }
-
-        public class InputModel
-        {
-            [StringLength(50, ErrorMessage = "Vai jūsu vārds tiešām ir tik garš?")]
-            [Display(Name = "Vārds")]
-            public string Name { get; set; }
-
-            [StringLength(50, ErrorMessage = "Vai jūsu uzvārds tiešām ir tik garš?")]
-            [Display(Name = "Uzvārds")]
-            public string Surname { get; set; }
-
-            [Phone]
-            [Display(Name = "Telefona numurs")]
-            public string PhoneNumber { get; set; }
-
-            [Display(Name = "Attēls")]
-            [DataType(DataType.Upload)]
-            [MaxFileSizeValidation(6 * 1024 * 1024)]
-            [ExtensionValidation(new string[] { ".jpg", ".png", ".jpeg", ".gif", ".tif" })]
-            public IFormFile Image { set; get; }
-        }
-
-        public class OutputModel
-        {
-            public string ImageString { set; get; }
-        }
+        public IndexViewModel Output { get; set; }
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            Input = new InputModel
+            Input = new IndexViewModel
             {
                 PhoneNumber = user.PhoneNumber,
                 Name = user.Name,
                 Surname = user.Surname,
-            };
-
-            Output = new OutputModel
-            {
                 ImageString = user.ImagePath,
             };
         }
@@ -84,6 +52,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -97,6 +66,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -152,9 +122,9 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
                 return Page();
             }
+
             await _context.SaveChangesAsync();
             await _signInManager.RefreshSignInAsync(user);
-
             StatusMessage = "Jūsu profils tika atjaunots";
 
             return RedirectToPage();
