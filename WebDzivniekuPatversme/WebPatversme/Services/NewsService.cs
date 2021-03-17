@@ -18,7 +18,7 @@ namespace WebDzivniekuPatversme.Services
             _newsRepository = newsRepository;
         }
 
-        public List<News> GetAllNewsList()
+        public List<News> GetAllNews()
         {
             var newsList = _newsRepository.GetAllNews();
 
@@ -51,10 +51,11 @@ namespace WebDzivniekuPatversme.Services
             _newsRepository.EditNews(news);
         }
 
-        public List<NewsViewModel> SortNews(List<NewsViewModel> news, string sortOrder, string searchString)
+        public List<NewsViewModel> FilterAndSortNews(List<NewsViewModel> news, string sortOrder, string searchString)
         {
             news = FilterNews(news, searchString);
             news = OrderNews(news, sortOrder);
+
             return news;
         }
 
@@ -69,6 +70,7 @@ namespace WebDzivniekuPatversme.Services
                 "dateAdded_desc" => news.OrderByDescending(s => s.DateAdded).ToList(),
                 _ => news.OrderBy(s => s.Title).ToList(),
             };
+
             return news;
         }
 
@@ -78,6 +80,7 @@ namespace WebDzivniekuPatversme.Services
             {
                 news = news.Where(animal => animal.Title.ToLower().Contains(searchString.ToLower())).ToList();
             }
+
             return news;
         }
     }

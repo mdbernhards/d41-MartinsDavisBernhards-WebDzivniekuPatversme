@@ -28,10 +28,10 @@ namespace WebDzivniekuPatversme.Services
 
         public List<Shelter> GetAllShelters()
         {
-            return _shelterRepository.GetAllAnimalShelters();
+            return _shelterRepository.GetAllShelters();
         }
 
-        public List<Animal> GetAllAnimalList()
+        public List<Animal> GetAllAnimals()
         {
             return _animalsRepository.GetAllAnimals();
         }
@@ -51,17 +51,17 @@ namespace WebDzivniekuPatversme.Services
             return _animalsRepository.GetAllSpeciesTypes();
         }
 
-        public List<AnimalViewModel> AddAnimalShelterNames(List<AnimalViewModel> animals)
+        public List<AnimalViewModel> AddShelterNames(List<AnimalViewModel> animals)
         {
             foreach (var animal in animals)
             {
-                animal.ShelterName = GetAnimalShelterName(animal.ShelterId);
+                animal.ShelterName = GetShelterName(animal.ShelterId);
             }
 
             return animals;
         }
 
-        public string GetAnimalShelterName(string id)
+        public string GetShelterName(string id)
         {
             var ShelterList = GetAllShelters();
 
@@ -135,6 +135,7 @@ namespace WebDzivniekuPatversme.Services
         public DropDownItemListViewModel CreateAnimalDropDownListValues(List<AnimalViewModel> animalList, AnimalFilter filter)
         {
             var listItems = GetDropDownListValueNames(animalList);
+
             CountDropDownListValues(animalList, listItems, filter);
             OrderDropDownListValues(listItems);
 

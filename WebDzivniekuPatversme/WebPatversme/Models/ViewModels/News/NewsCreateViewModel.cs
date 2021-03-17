@@ -20,6 +20,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.News
         [Display(Name = "Attēls")]
         public IFormFile Image { set; get; }
 
+        [NewsTitleValidation(true, ErrorMessage = ValidationErrorMessages.AlreadyExists)]
         [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Tituls")]

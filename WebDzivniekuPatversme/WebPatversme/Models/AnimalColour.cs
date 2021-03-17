@@ -1,4 +1,6 @@
-﻿using WebDzivniekuPatversme.Validation;
+﻿using System.ComponentModel.DataAnnotations;
+using WebDzivniekuPatversme.Validation;
+using WebDzivniekuPatversme.Models.StaticModels;
 
 namespace WebDzivniekuPatversme.Models
 {
@@ -6,7 +8,8 @@ namespace WebDzivniekuPatversme.Models
     {
         public string Id { set; get; }
 
-        [ColourValidation(true, ErrorMessage = "Šī krāsa jau eksistē!")]
+        [ColourValidation(true, ErrorMessage = ValidationErrorMessages.AlreadyExists)]
+        [Display(Name = "Krāsa")]
         public string Name { set; get; }
     }
 }

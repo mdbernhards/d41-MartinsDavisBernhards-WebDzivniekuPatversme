@@ -51,7 +51,9 @@ namespace WebDzivniekuPatversme.Services.Other
                 var password = new PasswordHasher<IdentityUser>();
                 var hashed = password.HashPassword(user, "password");
                 user.PasswordHash = hashed;
+
                 var userStore = new UserStore<IdentityUser>(_context);
+
                 await userStore.CreateAsync(user);
                 await userStore.AddToRoleAsync(user, "administrator");
             }

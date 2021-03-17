@@ -27,5 +27,7 @@
         public const string ComparePassword = "Paroles nesakrīt!";
 
         public const string VerificationCodeStringLenght = "Verifikācijas kodam jābūt garumā no {2} līdz {1}!";
+
+        public const string AlreadyExists = "{0} jau datubāzē eksistē!";
     }
 }

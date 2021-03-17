@@ -15,7 +15,7 @@ namespace WebDzivniekuPatversme.Services.Other
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
 
-            this.AddRange(items);
+            AddRange(items);
         }
 
         public bool HasPreviousPage
@@ -38,6 +38,7 @@ namespace WebDzivniekuPatversme.Services.Other
         {
             var count = source.Count;
             var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
         }
     }

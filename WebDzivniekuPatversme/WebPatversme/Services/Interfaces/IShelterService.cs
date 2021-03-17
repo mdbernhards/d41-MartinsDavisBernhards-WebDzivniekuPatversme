@@ -6,7 +6,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface IShelterService
     {
-        List<Shelter> GetAllShelterList();
+        List<Shelter> GetAllShelters();
 
         void AddNewShelter(Shelter shelter);
 
@@ -16,6 +16,6 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         void EditShelter(Shelter shelter);
 
-        List<ShelterViewModel> SortShelters(List<ShelterViewModel> shelter, string sortOrder, string searchString);
+        List<ShelterViewModel> FilterAndSortShelters(List<ShelterViewModel> shelter, string sortOrder, string searchString);
     }
 }

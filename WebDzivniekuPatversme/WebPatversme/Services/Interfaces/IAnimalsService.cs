@@ -7,7 +7,7 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 {
     public interface IAnimalsService
     {
-        List<Animal> GetAllAnimalList();
+        List<Animal> GetAllAnimals();
 
         void AddNewAnimal(Animal animal);
 
@@ -21,9 +21,9 @@ namespace WebDzivniekuPatversme.Services.Interfaces
 
         List<AnimalSpeciesType> GetAllSpeciesTypes();
 
-        List<AnimalViewModel> AddAnimalShelterNames(List<AnimalViewModel> animals);
+        List<AnimalViewModel> AddShelterNames(List<AnimalViewModel> animals);
 
-        string GetAnimalShelterName(string id);
+        string GetShelterName(string id);
 
         List<AnimalViewModel> FilterAndSortAnimals(List<AnimalViewModel> animals, string sortOrder, AnimalFilter filter);
 

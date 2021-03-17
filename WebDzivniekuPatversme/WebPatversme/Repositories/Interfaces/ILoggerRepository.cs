@@ -5,10 +5,10 @@ namespace WebDzivniekuPatversme.Repositories.Interfaces
 {
     public interface ILoggerRepository
     {
-        List<Log> GetLogByID(int id);
+        List<Log> GetLogById(int id);
 
         void AddLog (Log log);
 
-        void DeleteItemLogsByID(int id);
+        void DeleteItemLogsById(int id);
     }
 }

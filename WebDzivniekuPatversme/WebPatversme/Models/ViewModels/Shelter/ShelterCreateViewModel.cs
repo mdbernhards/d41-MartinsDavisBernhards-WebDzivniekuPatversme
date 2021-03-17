@@ -8,6 +8,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
 {
     public class ShelterCreateViewModel
     {
+        [ShelterNameValidation(true, ErrorMessage = ValidationErrorMessages.AlreadyExists)]
         [StringLength(255, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Nosaukums")]

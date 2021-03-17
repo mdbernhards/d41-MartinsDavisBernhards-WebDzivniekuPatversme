@@ -57,9 +57,9 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["Shelter"] = shelter;
 
             var filter = _animalsServices.CreateAnimalFilter(name, age, species, speciesType, colour, shelter);
-            var animalList = _mapper.Map<List<AnimalViewModel>>(_animalsServices.GetAllAnimalList());
+            var animalList = _mapper.Map<List<AnimalViewModel>>(_animalsServices.GetAllAnimals());
 
-            animalList = _animalsServices.AddAnimalShelterNames(animalList);
+            animalList = _animalsServices.AddShelterNames(animalList);
 
             ViewData["DropDown"] = _animalsServices.CreateAnimalDropDownListValues(animalList, filter);
 
@@ -158,7 +158,7 @@ namespace WebDzivniekuPatversme.Controllers
             var animal = _animalsServices.GetAnimalById(id);
             var mappedAnimal = _mapper.Map<AnimalDetailsViewModel>(animal);
 
-            mappedAnimal.ShelterName = _animalsServices.GetAnimalShelterName(animal.ShelterId);
+            mappedAnimal.ShelterName = _animalsServices.GetShelterName(animal.ShelterId);
 
             return View(mappedAnimal);
         }

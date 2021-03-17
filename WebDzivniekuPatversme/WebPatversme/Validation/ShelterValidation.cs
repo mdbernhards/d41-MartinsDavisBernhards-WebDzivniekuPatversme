@@ -11,7 +11,7 @@ namespace WebDzivniekuPatversme.Validation
             var shelterId = shelterIdObject as string;
             var shelter = (IShelterService)validationContext.GetService(typeof(IShelterService));
 
-            if (shelter.GetAllShelterList().Select(x => x.Id).Contains(shelterId))
+            if (shelter.GetAllShelters().Select(x => x.Id).Contains(shelterId))
             {
                 return ValidationResult.Success;
             }

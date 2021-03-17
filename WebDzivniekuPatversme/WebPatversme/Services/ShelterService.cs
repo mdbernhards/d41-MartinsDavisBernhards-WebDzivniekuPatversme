@@ -18,16 +18,16 @@ namespace WebDzivniekuPatversme.Services
             _shelterRepository = shelterRepository;
         }
 
-        public List<Shelter> GetAllShelterList()
+        public List<Shelter> GetAllShelters()
         {
-            var shelterList = _shelterRepository.GetAllAnimalShelters();
+            var shelterList = _shelterRepository.GetAllShelters();
 
             return shelterList;
         }
 
         public Shelter GetShelterById(string Id)
         {
-            var shelterList = _shelterRepository.GetAllAnimalShelters();
+            var shelterList = _shelterRepository.GetAllShelters();
             var shelter = shelterList.Where(animal => animal.Id == Id).FirstOrDefault();
 
             return shelter;
@@ -35,7 +35,7 @@ namespace WebDzivniekuPatversme.Services
 
         public void DeleteShelter(Shelter shelter)
         {
-            _shelterRepository.DeleteShelters(shelter);
+            _shelterRepository.DeleteShelter(shelter);
         }
 
         public void AddNewShelter(Shelter shelter)
@@ -43,7 +43,7 @@ namespace WebDzivniekuPatversme.Services
             shelter.Id = Guid.NewGuid().ToString();
             shelter.DateAdded = DateTime.Now;
 
-            _shelterRepository.CreateNewAnimalShelter(shelter);
+            _shelterRepository.CreateNewShelter(shelter);
         }
 
         public void EditShelter(Shelter shelter)
@@ -51,7 +51,7 @@ namespace WebDzivniekuPatversme.Services
             _shelterRepository.EditShelter(shelter);
         }
 
-        public List<ShelterViewModel> SortShelters(List<ShelterViewModel> shelters, string sortOrder, string searchString)
+        public List<ShelterViewModel> FilterAndSortShelters(List<ShelterViewModel> shelters, string sortOrder, string searchString)
         {
             shelters = FilterShelters(shelters, searchString);
             shelters = OrderShelters(shelters, sortOrder);
@@ -74,6 +74,7 @@ namespace WebDzivniekuPatversme.Services
                 "dateAdded_desc" => shelters.OrderByDescending(s => s.DateAdded).ToList(),
                 _ => shelters.OrderBy(s => s.Name).ToList(),
             };
+
             return shelters;
         }
 
@@ -83,6 +84,7 @@ namespace WebDzivniekuPatversme.Services
             {
                 shelters = shelters.Where(animal => animal.Name.ToLower().Contains(searchString.ToLower())).ToList();
             }
+
             return shelters;
         }
     }

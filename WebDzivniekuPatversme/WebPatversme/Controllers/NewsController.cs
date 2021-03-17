@@ -39,10 +39,10 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["PageSize"] = pageSize;
 
-            var allNews = _newsServices.GetAllNewsList();
+            var allNews = _newsServices.GetAllNews();
             var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
 
-            mappedNews = _newsServices.SortNews(mappedNews, sortOrder, name);
+            mappedNews = _newsServices.FilterAndSortNews(mappedNews, sortOrder, name);
 
             ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedNews.Count / (decimal)pageSize)) + 1;
 

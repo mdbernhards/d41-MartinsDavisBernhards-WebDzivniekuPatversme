@@ -40,10 +40,10 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["PageSize"] = pageSize;
 
-            var allShelters = _sheltersServices.GetAllShelterList();
+            var allShelters = _sheltersServices.GetAllShelters();
             var mappedShelters = _mapper.Map<List<ShelterViewModel>>(allShelters);
 
-            mappedShelters = _sheltersServices.SortShelters(mappedShelters, sortOrder, name);
+            mappedShelters = _sheltersServices.FilterAndSortShelters(mappedShelters, sortOrder, name);
 
             ViewData["PageAmount"] = decimal.ToInt32(Math.Ceiling(mappedShelters.Count / (decimal)pageSize)) + 1;
 

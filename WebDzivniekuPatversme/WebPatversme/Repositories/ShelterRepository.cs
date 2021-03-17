@@ -22,7 +22,7 @@ namespace WebDzivniekuPatversme.Repositories
             _appEnvironment = appEnvironment;
         }
 
-        public List<Shelter> GetAllAnimalShelters()
+        public List<Shelter> GetAllShelters()
         {
             List<Shelter> list = new List<Shelter>();
 
@@ -51,7 +51,7 @@ namespace WebDzivniekuPatversme.Repositories
             return list;
         }
 
-        public void CreateNewAnimalShelter(Shelter shelter)
+        public void CreateNewShelter(Shelter shelter)
         {
             shelter.ImagePath = SaveImage(shelter);
 
@@ -76,7 +76,7 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public void DeleteShelters(Shelter shelter)
+        public void DeleteShelter(Shelter shelter)
         {
             DeleteAllSheltersAnimals(shelter);
 
@@ -89,20 +89,6 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@id", shelter.Id);
 
             var reader = cmd.ExecuteReader();
-        }
-
-        private void DeleteAllSheltersAnimals(Shelter shelter)
-        {
-            using MySqlConnection conn = _dbcontext.GetConnection();
-            var sqlQuerry = "DELETE FROM Animals WHERE ShelterId = @id;";
-
-            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
-            conn.Open();
-
-            cmd.Parameters.AddWithValue("@id", shelter.Id);
-
-            var reader = cmd.ExecuteReader();
-
         }
 
         public void EditShelter(Shelter shelter)
@@ -125,6 +111,20 @@ namespace WebDzivniekuPatversme.Repositories
             cmd.Parameters.AddWithValue("@description", shelter.Description);
 
             var reader = cmd.ExecuteReader();
+        }
+
+        private void DeleteAllSheltersAnimals(Shelter shelter)
+        {
+            using MySqlConnection conn = _dbcontext.GetConnection();
+            var sqlQuerry = "DELETE FROM Animals WHERE ShelterId = @id;";
+
+            MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
+            conn.Open();
+
+            cmd.Parameters.AddWithValue("@id", shelter.Id);
+
+            var reader = cmd.ExecuteReader();
+
         }
 
         private string SaveImage(Shelter shelters)

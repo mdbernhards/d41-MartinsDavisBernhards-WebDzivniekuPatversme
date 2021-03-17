@@ -17,7 +17,7 @@ namespace WebDzivniekuPatversme.Repositories
             _dbcontext = dbContext;
         }
 
-        public List<Log> GetLogByID(int id)
+        public List<Log> GetLogById(int id)
         {
             List<Log> list = new List<Log>();
 
@@ -64,7 +64,7 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public void DeleteItemLogsByID(int id)
+        public void DeleteItemLogsById(int id)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             string sqlQuerry = "DELETE FROM log WHERE Id = @id;";
