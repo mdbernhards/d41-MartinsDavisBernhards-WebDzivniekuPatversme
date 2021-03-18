@@ -23,7 +23,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         }
 
         [BindProperty]
-        public List<UserControlViewModel> UsersWithRole { get; set; }
+        public List<UserControlViewModel> Input { get; set; }
 
         public List<ApplicationUser> Users { get; set; }
 
@@ -34,13 +34,13 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             Users = _userManager.Users.ToList();
             Roles = _roleManager.Roles.ToList();
 
-            UsersWithRole = new List<UserControlViewModel>();
+            Input = new List<UserControlViewModel>();
 
             foreach (var user in Users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
 
-                UsersWithRole.Add(
+                Input.Add(
                     new UserControlViewModel() 
                     { 
                         Role = roles.First(), 
@@ -61,10 +61,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             var user = _userManager.FindByNameAsync(userName).Result;
             var usersRoles = _userManager.GetRolesAsync(user).Result;
 
-            await _userManager.RemoveFromRolesAsync(
-                user,
-                usersRoles);
-
+            await _userManager.RemoveFromRolesAsync(user, usersRoles);
             await _userManager.AddToRoleAsync(user, role);
 
             return RedirectToPage();

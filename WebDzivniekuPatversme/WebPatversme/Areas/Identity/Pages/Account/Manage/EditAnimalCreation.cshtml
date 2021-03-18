@@ -14,6 +14,7 @@
             <form method="post">
                 <label class="control-label">Krāsa</label>
                 <select name="colourId" class="form-control" asp-items="(Model
+                    .Input
                     .Colours
                     .GroupBy(t => t.Name)
                     .Select(g => g.First())
@@ -33,13 +34,14 @@
             <form style="padding: 1%" method="get" asp-page-handler="SpeciesId">
                 <label class="control-label">Suga</label>
                 <select name="speciesId" class="form-control" onchange="this.form.submit();" asp-items="(Model
+                    .Input
                     .Species
                     .GroupBy(t => t.Name)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {
                         Text = x.Name,
                         Value = x.Id,
-                        Selected = (x.Id == Model.SpeciesID ? true : false),
+                        Selected = (x.Id == Model.SpeciesId ? true : false),
                     })
                     .OrderBy(x => x.Text)
                     .AsEnumerable())">
@@ -47,7 +49,7 @@
             </form>
             <form method="post">
                 <div style="padding-top: 1%; float: right">
-                    <input name="speciesId" value="@Model.SpeciesID" type="hidden" />
+                    <input name="speciesId" value="@Model.SpeciesId" type="hidden" />
                     <button id="delete-species-button" type="submit" asp-page-handler="DeleteSpecies" class="btn btn-danger">Dzēst sugu</button>
                 </div>
             </form>
@@ -56,6 +58,7 @@
             <form method="post">
                 <label class="control-label">Šķirne</label>
                 <select name="speciesTypeId" class="form-control" asp-items="(Model
+                    .Input
                     .SpeciesTypes
                     .GroupBy(t => t.Name)
                     .Select(g => g.First())
@@ -92,7 +95,7 @@
         <div id="dataListItem" class="col-md-4">
             <form method="post">
                 <input name="speciesType.Name" class="form-control" />
-                <input type="hidden" name="speciesType.SpeciesId" class="form-control" value="@Model.SpeciesID" />
+                <input type="hidden" name="speciesType.SpeciesId" class="form-control" value="@CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper>()" />
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-speciesType-button" type="submit" asp-page-handler="AddSpeciesType" class="btn btn-primary">Pievienot šķirni</button>
                 </div>

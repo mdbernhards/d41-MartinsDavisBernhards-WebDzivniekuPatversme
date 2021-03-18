@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Repositories.Interfaces;
+using WebDzivniekuPatversme.Models.ViewModels.Animal;
+using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
@@ -17,48 +17,46 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             IAnimalsRepository animalsRepository)
         {
             _animalsRepository = animalsRepository;
+
+            Input = new EditAnimalCreationViewModel();
         }
 
-        [BindProperty]
-        public List<AnimalColour> Colours { get; set; }
+        public EditAnimalCreationViewModel Input { get; set; }
 
-        [BindProperty]
-        public List<AnimalSpecies> Species { get; set; }
-
-        [BindProperty]
-        public List<AnimalSpeciesType> SpeciesTypes { get; set; }
-
-        public string SpeciesID { get; set; }
+        public string SpeciesId { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string speciesId)
         {
-            Colours = _animalsRepository.GetAllColours();
-            Species = _animalsRepository.GetAllSpecies();
+            Input.Colours = _animalsRepository.GetAllColours();
+            Input.Species = _animalsRepository.GetAllSpecies();
 
             if (speciesId != null)
             {
-                SpeciesID = speciesId;
+                SpeciesId = speciesId;
             }
             else
             {
-                SpeciesID = Species.FirstOrDefault().Id;
+                SpeciesId = Input.Species.FirstOrDefault().Id;
             }
 
-            SpeciesTypes = _animalsRepository.GetAllSpeciesTypes()
-                .Where(x => x.SpeciesId == SpeciesID)
+            Input.SpeciesTypes = _animalsRepository
+                .GetAllSpeciesTypes()
+                .Where(x => x.SpeciesId == SpeciesId)
                 .ToList();
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddColourAsync(AnimalColour colour)
+        public async Task<IActionResult> OnPostAddColourAsync(AnimalColourViewModel colour)
         {
-            colour.Id = Guid.NewGuid().ToString();
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            colour.Id = Guid
+                .NewGuid()
+                .ToString();
 
             _animalsRepository.CreateNewColour(colour);
 
@@ -82,14 +80,17 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostAddSpeciesAsync(AnimalSpecies species)
+        public async Task<IActionResult> OnPostAddSpeciesAsync(AnimalSpeciesViewModel species)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            species.Id = Guid.NewGuid().ToString();
+            species.Id = Guid
+                .NewGuid()
+                .ToString();
+
             _animalsRepository.CreateNewSpecies(species);
 
             return RedirectToPage();
@@ -122,14 +123,17 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostAddSpeciesTypeAsync(AnimalSpeciesType speciesType)
+        public async Task<IActionResult> OnPostAddSpeciesTypeAsync(AnimalSpeciesTypeViewModel speciesType)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            speciesType.Id = Guid.NewGuid().ToString();
+            speciesType.Id = Guid
+                .NewGuid()
+                .ToString();
+
             _animalsRepository.CreateNewSpeciesType(speciesType);
 
             return RedirectToPage();

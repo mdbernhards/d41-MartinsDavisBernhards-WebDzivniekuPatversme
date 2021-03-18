@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebDzivniekuPatversme.Models;
+using WebDzivniekuPatversme.Models.ViewModels.Animal;
 
 namespace WebDzivniekuPatversme.Repositories.Interfaces
 {
@@ -13,22 +14,22 @@ namespace WebDzivniekuPatversme.Repositories.Interfaces
 
         void EditAnimal(Animal newAnimal);
 
-        void CreateNewColour(AnimalColour colour);
+        void CreateNewColour(AnimalColourViewModel colour);
 
-        List<AnimalColour> GetAllColours();
+        List<AnimalColourViewModel> GetAllColours();
 
-        void DeleteColour(AnimalColour colour);
+        void DeleteColour(AnimalColourViewModel colour);
 
-        void CreateNewSpecies(AnimalSpecies species);
+        void CreateNewSpecies(AnimalSpeciesViewModel species);
 
-        List<AnimalSpecies> GetAllSpecies();
+        List<AnimalSpeciesViewModel> GetAllSpecies();
 
-        void DeleteSpecies(AnimalSpecies species);
+        void DeleteSpecies(AnimalSpeciesViewModel species);
 
-        void CreateNewSpeciesType(AnimalSpeciesType speciesType);
+        void CreateNewSpeciesType(AnimalSpeciesTypeViewModel speciesType);
 
-        List<AnimalSpeciesType> GetAllSpeciesTypes();
+        List<AnimalSpeciesTypeViewModel> GetAllSpeciesTypes();
 
-        void DeleteSpeciesType(AnimalSpeciesType speciesType);
+        void DeleteSpeciesType(AnimalSpeciesTypeViewModel speciesType);
     }
 }

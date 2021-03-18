@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Repositories.Interfaces;
+using WebDzivniekuPatversme.Models.ViewModels.Animal;
 
 namespace WebDzivniekuPatversme.Repositories
 {
@@ -138,7 +139,7 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public void CreateNewColour(AnimalColour colour)
+        public void CreateNewColour(AnimalColourViewModel colour)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "INSERT INTO Colours (Id, Name) " +
@@ -153,9 +154,9 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public List<AnimalColour> GetAllColours()
+        public List<AnimalColourViewModel> GetAllColours()
         {
-            List<AnimalColour> colourList = new List<AnimalColour>();
+            List<AnimalColourViewModel> colourList = new List<AnimalColourViewModel>();
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "SELECT * FROM Colours;";
@@ -167,7 +168,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             while (reader.Read())
             {
-                var colour = new AnimalColour
+                var colour = new AnimalColourViewModel
                 {
                     Id = Convert.ToString(reader["Id"]),
                     Name = Convert.ToString(reader["Name"]),
@@ -181,7 +182,7 @@ namespace WebDzivniekuPatversme.Repositories
             return colourList;
         }
 
-        public void DeleteColour(AnimalColour colour)
+        public void DeleteColour(AnimalColourViewModel colour)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             string sqlQuerry = "DELETE FROM Colours WHERE Id = @id;";
@@ -194,7 +195,7 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public void CreateNewSpecies(AnimalSpecies species)
+        public void CreateNewSpecies(AnimalSpeciesViewModel species)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "INSERT INTO Species (Id, Name) " +
@@ -209,9 +210,9 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public List<AnimalSpecies> GetAllSpecies()
+        public List<AnimalSpeciesViewModel> GetAllSpecies()
         {
-            List<AnimalSpecies> speciesList = new List<AnimalSpecies>();
+            List<AnimalSpeciesViewModel> speciesList = new List<AnimalSpeciesViewModel>();
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "SELECT * FROM Species;";
@@ -223,7 +224,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             while (reader.Read())
             {
-                var species = new AnimalSpecies
+                var species = new AnimalSpeciesViewModel
                 {
                     Id = Convert.ToString(reader["Id"]),
                     Name = Convert.ToString(reader["Name"]),
@@ -235,7 +236,7 @@ namespace WebDzivniekuPatversme.Repositories
             return speciesList;
         }
 
-        public void DeleteSpecies(AnimalSpecies species)
+        public void DeleteSpecies(AnimalSpeciesViewModel species)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             string sqlQuerry = "DELETE FROM Species WHERE Id = @id;";
@@ -248,7 +249,7 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public void CreateNewSpeciesType(AnimalSpeciesType speciesType)
+        public void CreateNewSpeciesType(AnimalSpeciesTypeViewModel speciesType)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "INSERT INTO SpeciesTypes (Id, Name, SpeciesId) " +
@@ -264,9 +265,9 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        public List<AnimalSpeciesType> GetAllSpeciesTypes()
+        public List<AnimalSpeciesTypeViewModel> GetAllSpeciesTypes()
         {
-            List<AnimalSpeciesType> speciesList = new List<AnimalSpeciesType>();
+            List<AnimalSpeciesTypeViewModel> speciesList = new List<AnimalSpeciesTypeViewModel>();
 
             using MySqlConnection conn = _dbcontext.GetConnection();
             var sqlQuerry = "SELECT * FROM SpeciesTypes;";
@@ -278,7 +279,7 @@ namespace WebDzivniekuPatversme.Repositories
 
             while (reader.Read())
             {
-                var species = new AnimalSpeciesType
+                var species = new AnimalSpeciesTypeViewModel
                 {
                     Id = Convert.ToString(reader["Id"]),
                     Name = Convert.ToString(reader["Name"]),
@@ -291,7 +292,7 @@ namespace WebDzivniekuPatversme.Repositories
             return speciesList;
         }
 
-        public void DeleteSpeciesType(AnimalSpeciesType speciesType)
+        public void DeleteSpeciesType(AnimalSpeciesTypeViewModel speciesType)
         {
             using MySqlConnection conn = _dbcontext.GetConnection();
             string sqlQuerry = "DELETE FROM SpeciesTypes WHERE Id = @id;";
@@ -304,7 +305,7 @@ namespace WebDzivniekuPatversme.Repositories
             var reader = cmd.ExecuteReader();
         }
 
-        private static void RemoveNoColourOption(List<AnimalColour> colourList)
+        private static void RemoveNoColourOption(List<AnimalColourViewModel> colourList)
         {
             colourList
                 .Remove(colourList

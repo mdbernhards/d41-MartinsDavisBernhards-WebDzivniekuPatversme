@@ -2,9 +2,9 @@
 using WebDzivniekuPatversme.Validation;
 using WebDzivniekuPatversme.Models.StaticModels;
 
-namespace WebDzivniekuPatversme.Models
+namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
-    public class AnimalSpeciesType
+    public class AnimalSpeciesTypeViewModel
     {
         public string Id { set; get; }
 

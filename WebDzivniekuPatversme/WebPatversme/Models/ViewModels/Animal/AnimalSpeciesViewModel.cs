@@ -2,14 +2,14 @@
 using WebDzivniekuPatversme.Validation;
 using WebDzivniekuPatversme.Models.StaticModels;
 
-namespace WebDzivniekuPatversme.Models
+namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
-    public class AnimalColour
+    public class AnimalSpeciesViewModel
     {
         public string Id { set; get; }
 
-        [ColourValidation(true, ErrorMessage = ValidationErrorMessages.AlreadyExists)]
-        [Display(Name = "Krāsa")]
+        [SpeciesValidation(true, ErrorMessage = ValidationErrorMessages.AlreadyExists)]
+        [Display(Name = "Suga")]
         public string Name { set; get; }
     }
 }

@@ -42,6 +42,10 @@ Projektā izmantotie NuGet paplašinājumi:
 - [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) - Objektu pārveidošana Json formātā un atpakaļ
 - [Microsoft.AspNetCore.Identity.UI](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.UI/) - Profila izveidei, autorizācijas un piekļuves kontrolēšanai
 - [TinyMCE](https://www.nuget.org/packages/TinyMCE/) - Teksta redaktors
+- [Microsoft.AspNetCore.Authentication.Google](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google) - Autentifikācija ar Google servisiem
+
+Citi paplašinājumi:
+- [qrcode.js](https://davidshimjs.github.io/qrcodejs/) - QR kodu ģenerātors
 
 ## Izmantotie avoti
 - [Datubāzes pievienošana](https://www.c-sharpcorner.com/article/how-to-connect-mysql-with-asp-net-core/)
@@ -63,6 +67,11 @@ Projektā izmantotie NuGet paplašinājumi:
 - [TinyMCE teksta redaktora pievienošana](https://forums.asp.net/t/2100291.aspx?Using+HTML+editor+in+MVC+NET+core)
 - [Identity modeļu papildināšana un pielāgošana](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/customize-identity-model?view=aspnetcore-5.0)
 - [Relatīvi attēlu ceļi](https://stackoverflow.com/questions/317315/asp-net-mvc-relative-paths)
+- [QR koda ģenerācija](https://docs.microsoft.com/lv-lv/aspnet/core/security/authentication/identity-enable-qrcodes?view=aspnetcore-5.0)
+- [Autentifikācija ar ārējiem servisiem](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-5.0)
+- [Autentifikācija ar Google](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0)
+
+## Izmantoto tehnoloģiju dokumentācija
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
 
 ## Uzstādīšanas instrukcijas

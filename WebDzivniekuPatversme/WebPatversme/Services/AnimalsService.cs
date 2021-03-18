@@ -36,17 +36,17 @@ namespace WebDzivniekuPatversme.Services
             return _animalsRepository.GetAllAnimals();
         }
 
-        public List<AnimalColour> GetAllColours()
+        public List<AnimalColourViewModel> GetAllColours()
         {
             return _animalsRepository.GetAllColours();
         }
 
-        public List<AnimalSpecies> GetAllSpecies()
+        public List<AnimalSpeciesViewModel> GetAllSpecies()
         {
             return _animalsRepository.GetAllSpecies();
         }
 
-        public List<AnimalSpeciesType> GetAllSpeciesTypes()
+        public List<AnimalSpeciesTypeViewModel> GetAllSpeciesTypes()
         {
             return _animalsRepository.GetAllSpeciesTypes();
         }

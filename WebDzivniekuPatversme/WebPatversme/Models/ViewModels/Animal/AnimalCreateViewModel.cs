@@ -77,10 +77,10 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 
         public IEnumerable<Shelter> AnimalShelters { get; set; }
 
-        public IEnumerable<AnimalColour> AnimalColours { get; set; }
+        public IEnumerable<AnimalColourViewModel> AnimalColours { get; set; }
 
-        public IEnumerable<AnimalSpecies> AnimalSpecies { get; set; }
+        public IEnumerable<AnimalSpeciesViewModel> AnimalSpecies { get; set; }
 
-        public IEnumerable<AnimalSpeciesType> AnimalSpeciesTypes { get; set; }
+        public IEnumerable<AnimalSpeciesTypeViewModel> AnimalSpeciesTypes { get; set; }
     }
 }
