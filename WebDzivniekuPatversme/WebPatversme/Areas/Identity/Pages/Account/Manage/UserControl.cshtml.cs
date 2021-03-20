@@ -33,15 +33,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         {
             Users = _userManager.Users.ToList();
             Roles = _roleManager.Roles.ToList();
-
             Input = new List<UserControlViewModel>();
 
             foreach (var user in Users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
 
-                Input.Add(
-                    new UserControlViewModel() 
+                Input
+                    .Add(new UserControlViewModel() 
                     { 
                         Role = roles.First(), 
                         User = user,
@@ -75,6 +74,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             }
 
             var user = _userManager.FindByNameAsync(userName).Result;
+
             await _userManager.DeleteAsync(user);
 
             return RedirectToPage();

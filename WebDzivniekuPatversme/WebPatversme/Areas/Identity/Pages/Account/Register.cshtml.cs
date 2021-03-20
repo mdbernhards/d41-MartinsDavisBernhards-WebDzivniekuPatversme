@@ -51,13 +51,17 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager
+                .GetExternalAuthenticationSchemesAsync())
+                .ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager
+                .GetExternalAuthenticationSchemesAsync())
+                .ToList();
 
             if (ModelState.IsValid)
             {
@@ -78,7 +82,10 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                     SaveImageAsync();
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    code = WebEncoders
+                        .Base64UrlEncode(Encoding.UTF8
+                        .GetBytes(code));
+
                     var callbackUrl = (Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
@@ -116,10 +123,16 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
             if (Input.Image != null && Input.Image.Length > 0)
             {
-                var fileName = Path.GetFileName(user.Name + user.Id + Path.GetExtension(Input.Image.FileName));
+                var fileName = Path
+                    .GetFileName(user.Name + user.Id + Path
+                    .GetExtension(Input.Image.FileName));
+
                 var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create);
 
-                System.IO.File.Delete(Path.Combine(uploads, fileName));
+                System.IO.File
+                    .Delete(Path
+                    .Combine(uploads, fileName));
+
                 Input.Image.CopyTo(fileStream);
                 fileStream.Close();
 

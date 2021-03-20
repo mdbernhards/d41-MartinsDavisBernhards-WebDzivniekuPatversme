@@ -49,6 +49,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             await _userManager.SetTwoFactorEnabledAsync(user, false);
             await _userManager.ResetAuthenticatorKeyAsync(user);
+
             _logger.LogInformation("Lietotājs ar ID '{UserId}' atjaunoja savas autentifikācijas aplikācijas atslēgu.", user.Id);
             
             await _signInManager.RefreshSignInAsync(user);

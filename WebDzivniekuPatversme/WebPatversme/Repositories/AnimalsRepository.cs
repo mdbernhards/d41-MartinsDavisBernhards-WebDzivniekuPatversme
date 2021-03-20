@@ -35,6 +35,7 @@ namespace WebDzivniekuPatversme.Repositories
             conn.Open();
 
             using var reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
                 Animal animal = new Animal()
@@ -56,9 +57,9 @@ namespace WebDzivniekuPatversme.Repositories
                 };
 
                 animal.Age = CalculateAge(animal.BirthDate);
-
                 list.Add(animal);
             }
+
             return list;
         }
 
@@ -394,7 +395,9 @@ namespace WebDzivniekuPatversme.Repositories
             if (animal.Image != null && animal.Image.Length > 0)
             {
                 var uploads = Path.Combine(_appEnvironment.WebRootPath, "uploads\\images\\animals");
-                var fileName = Path.GetFileName(animal.Name + animal.Id + Path.GetExtension(animal.Image.FileName));
+                var fileName = Path
+                    .GetFileName(animal.Name + animal.Id + Path
+                    .GetExtension(animal.Image.FileName));
 
                 File.Delete(Path.Combine(uploads, fileName));
 

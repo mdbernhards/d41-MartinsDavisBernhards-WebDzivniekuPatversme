@@ -21,11 +21,15 @@ namespace WebDzivniekuPatversme.Validation
 
             if (_successfulIfUnique)
             {
-                isValid = !shelterService.GetAllShelters().Select(x => x.Name).Contains(shelterName);
+                isValid = !shelterService.GetAllShelters()
+                    .Select(x => x.Name)
+                    .Contains(shelterName);
             }
             else
             {
-                isValid = shelterService.GetAllShelters().Select(x => x.Name).Contains(shelterName);
+                isValid = shelterService.GetAllShelters()
+                    .Select(x => x.Name)
+                    .Contains(shelterName);
             }
 
             if (isValid)

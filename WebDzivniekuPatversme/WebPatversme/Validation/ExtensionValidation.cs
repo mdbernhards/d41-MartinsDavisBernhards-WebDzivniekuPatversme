@@ -9,6 +9,7 @@ namespace WebDzivniekuPatversme.Validation
     public class ExtensionValidation : ValidationAttribute
     {
         private readonly string[] _extensions;
+
         public ExtensionValidation(string[] extensions)
         {
             _extensions = extensions;

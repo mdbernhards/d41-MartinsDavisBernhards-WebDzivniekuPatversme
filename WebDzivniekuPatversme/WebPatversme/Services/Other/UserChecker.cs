@@ -49,10 +49,10 @@ namespace WebDzivniekuPatversme.Services.Other
             if (!_context.Users.Any(u => u.Email == user.Email))
             {
                 var password = new PasswordHasher<IdentityUser>();
-                var hashed = password.HashPassword(user, "password");
-                user.PasswordHash = hashed;
-
                 var userStore = new UserStore<IdentityUser>(_context);
+                var hashed = password.HashPassword(user, "password");
+
+                user.PasswordHash = hashed;
 
                 await userStore.CreateAsync(user);
                 await userStore.AddToRoleAsync(user, "administrator");

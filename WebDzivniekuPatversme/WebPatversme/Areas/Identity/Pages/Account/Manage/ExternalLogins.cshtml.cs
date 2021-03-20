@@ -35,15 +35,19 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID 'user.Id'.");
             }
 
             CurrentLogins = await _userManager.GetLoginsAsync(user);
-            OtherLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
-                .Where(auth => CurrentLogins.All(ul => auth.Name != ul.LoginProvider))
+            OtherLogins = (await _signInManager
+                .GetExternalAuthenticationSchemesAsync())
+                .Where(auth => CurrentLogins
+                .All(ul => auth.Name != ul.LoginProvider))
                 .ToList();
+
             ShowRemoveButton = user.PasswordHash != null || CurrentLogins.Count > 1;
 
             return Page();
@@ -52,12 +56,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostRemoveLoginAsync(string loginProvider, string providerKey)
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID 'user.Id'.");
             }
 
             var result = await _userManager.RemoveLoginAsync(user, loginProvider, providerKey);
+
             if (!result.Succeeded)
             {
                 StatusMessage = "The external login was not removed.";

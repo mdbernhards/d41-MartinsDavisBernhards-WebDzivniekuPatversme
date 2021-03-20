@@ -50,18 +50,21 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostChangeEmailAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -70,10 +73,12 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
+
                 return Page();
             }
 
             var email = await _userManager.GetEmailAsync(user);
+
             if (Input.NewEmail != email)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
@@ -83,22 +88,26 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                     pageHandler: null,
                     values: new { userId, email = Input.NewEmail, code },
                     protocol: Request.Scheme);
+
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
                     "Apstiprini savu E-pastu",
                     $"Lūdzu apstiprini savu E-pastu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>.");
 
                 StatusMessage = "Nosūtīta apstiprināšanas saite, lai mainītu E-pastu. Lūdzu pārbaudiet savu E-pastu.";
+
                 return RedirectToPage();
             }
 
             StatusMessage = "Tavs E-pasts netika mainīts.";
+
             return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -107,6 +116,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
+
                 return Page();
             }
 
@@ -119,12 +129,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 pageHandler: null,
                 values: new { area = "Identity", userId, code },
                 protocol: Request.Scheme);
+
             await _emailSender.SendEmailAsync(
                 email,
                 "Apstiprini savu E-pastu",
                 $"Lūdzu apstiprini savu E-pastu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>.");
 
             StatusMessage = "Verifikācijas E-pasts nosūtīts. Lūdzu pārbaudiet savu E-pastu.";
+
             return RedirectToPage();
         }
     }

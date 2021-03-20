@@ -30,6 +30,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             }
 
             var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{userId}'.");
@@ -37,6 +38,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
+
             StatusMessage = result.Succeeded ? "Paldies, ka apstiprināji savu E-pastu." : "Kļūda apstiprinot E-pastu.";
 
             return Page();

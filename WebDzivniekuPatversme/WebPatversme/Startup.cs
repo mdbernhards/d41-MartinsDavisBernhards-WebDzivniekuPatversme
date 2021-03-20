@@ -19,7 +19,8 @@ namespace WebDzivniekuPatversme
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(
+            IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -28,7 +29,8 @@ namespace WebDzivniekuPatversme
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Add(new ServiceDescriptor(typeof(WebShelterDbContext), new WebShelterDbContext(Configuration.GetConnectionString("ShelterConnection"))));
+            services.Add(new ServiceDescriptor(typeof(WebShelterDbContext), new WebShelterDbContext(Configuration
+                .GetConnectionString("ShelterConnection"))));
 
             services.AddScoped<IAnimalsService, AnimalsService>();
             services.AddScoped<IAnimalsRepository, AnimalsRepository>();
@@ -66,8 +68,8 @@ namespace WebDzivniekuPatversme
             });
 
             IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
 
+            services.AddSingleton(mapper);
             services.AddMvc();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -85,14 +87,12 @@ namespace WebDzivniekuPatversme
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -21,11 +21,15 @@ namespace WebDzivniekuPatversme.Validation
 
             if (_successfulIfUnique)
             {
-                isValid = !animalService.GetAllSpeciesTypes().Select(x => x.Name).Contains(speciesType);
+                isValid = !animalService.GetAllSpeciesTypes()
+                    .Select(x => x.Name)
+                    .Contains(speciesType);
             }
             else
             {
-                isValid = animalService.GetAllSpeciesTypes().Select(x => x.Name).Contains(speciesType);
+                isValid = animalService.GetAllSpeciesTypes()
+                    .Select(x => x.Name)
+                    .Contains(speciesType);
             }
 
             if (isValid)

@@ -21,11 +21,15 @@ namespace WebDzivniekuPatversme.Validation
 
             if (_successfulIfUnique)
             {
-                isValid = !animalService.GetAllColours().Select(x => x.Name).Contains(colour);
+                isValid = !animalService.GetAllColours()
+                    .Select(x => x.Name)
+                    .Contains(colour);
             }
             else
             {
-                isValid = animalService.GetAllColours().Select(x => x.Name).Contains(colour);
+                isValid = animalService.GetAllColours()
+                    .Select(x => x.Name)
+                    .Contains(colour);
             }
 
             if (isValid)

@@ -8,7 +8,8 @@ namespace WebDzivniekuPatversme.Validation
     {
         private readonly bool _successfulIfUnique;
 
-        public SpeciesValidation(bool successfulIfUnique)
+        public SpeciesValidation(
+            bool successfulIfUnique)
         {
             _successfulIfUnique = successfulIfUnique;
         }
@@ -21,11 +22,15 @@ namespace WebDzivniekuPatversme.Validation
 
             if (_successfulIfUnique)
             {
-                isValid = !animalService.GetAllSpecies().Select(x => x.Name).Contains(species);
+                isValid = !animalService.GetAllSpecies()
+                    .Select(x => x.Name)
+                    .Contains(species);
             }
             else
             {
-                isValid = animalService.GetAllSpecies().Select(x => x.Name).Contains(species);
+                isValid = animalService.GetAllSpecies()
+                    .Select(x => x.Name)
+                    .Contains(species);
             }
 
             if (isValid)

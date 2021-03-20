@@ -33,35 +33,41 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGet()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             RequirePassword = await _userManager.HasPasswordAsync(user);
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             RequirePassword = await _userManager.HasPasswordAsync(user);
+
             if (RequirePassword)
             {
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
                     ModelState.AddModelError(string.Empty, "Nepareiza parole.");
+
                     return Page();
                 }
             }
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
+
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Negaidīta kļūda notika mēģinot dzēst lietotāju ar ID '{userId}'.");

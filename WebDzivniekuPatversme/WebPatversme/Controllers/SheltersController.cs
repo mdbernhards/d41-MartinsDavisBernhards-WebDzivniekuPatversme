@@ -42,10 +42,11 @@ namespace WebDzivniekuPatversme.Controllers
 
             var allShelters = _sheltersServices.GetAllShelters();
             var mappedShelters = _mapper.Map<List<ShelterViewModel>>(allShelters);
-
             mappedShelters = _sheltersServices.FilterAndSortShelters(mappedShelters, sortOrder, name);
 
-            ViewData["PageAmount"] = decimal.ToInt32(Math.Ceiling(mappedShelters.Count / (decimal)pageSize)) + 1;
+            ViewData["PageAmount"] = decimal
+                .ToInt32(Math
+                .Ceiling(mappedShelters.Count / (decimal)pageSize)) + 1;
 
             return View(PaginatedList<ShelterViewModel>.Create(mappedShelters, pageNumber ?? 1, pageSize));
         }

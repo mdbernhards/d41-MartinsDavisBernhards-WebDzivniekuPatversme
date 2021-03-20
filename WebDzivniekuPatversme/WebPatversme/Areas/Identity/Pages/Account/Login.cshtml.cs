@@ -66,10 +66,12 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
                     return LocalRedirect(returnUrl);
                 }
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
                 }
+
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("Lietotāja profils atslēgts.");

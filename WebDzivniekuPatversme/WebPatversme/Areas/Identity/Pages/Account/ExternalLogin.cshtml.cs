@@ -54,31 +54,40 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
             // Request a redirect to the external login provider.
             var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
             return new ChallengeResult(provider, properties);
         }
 
         public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
         {
             returnUrl ??= Url.Content("~/");
+
             if (remoteError != null)
             {
                 ErrorMessage = $"Kļūda ārējā servisā: {remoteError}";
+
                 return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
             }
+
             var info = await _signInManager.GetExternalLoginInfoAsync();
+
             if (info == null)
             {
                 ErrorMessage = "Kļūda ielādējot ārējo servisu informāciju.";
+
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
             // Sign in the user with this external login provider if the user already has a login.
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} ienāca ar {LoginProvider}.", info.Principal.Identity.Name, info.LoginProvider);
+
                 return LocalRedirect(returnUrl);
             }
+
             if (result.IsLockedOut)
             {
                 return RedirectToPage("./Lockout");
@@ -88,6 +97,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                 // If the user does not have an account, then ask the user to create an account.
                 ReturnUrl = returnUrl;
                 ProviderDisplayName = info.ProviderDisplayName;
+
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
                     Input = new ExternalLoginViewModel
@@ -102,22 +112,24 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            // Get the information about the user from the external login provider
             var info = await _signInManager.GetExternalLoginInfoAsync();
+
             if (info == null)
             {
                 ErrorMessage = "Kļūda ielādējot ārējo servisu informāciju apstiprināšanas laikā.";
+
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
-
                 var result = await _userManager.CreateAsync(user);
+
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
+
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("Lietotājs izveidoja profilu izmantojot {Name}.", info.LoginProvider);
@@ -131,10 +143,9 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId, code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Apstiprini savu E-pastu",
-                            $"Apstiprini savu profilu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>.");
+                        await _emailSender
+                            .SendEmailAsync(Input.Email, "Apstiprini savu E-pastu", $"Apstiprini savu profilu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>.");
 
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {
                             return RedirectToPage("./RegisterConfirmation", new { Input.Email });
@@ -145,6 +156,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -153,6 +165,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
 
             ProviderDisplayName = info.ProviderDisplayName;
             ReturnUrl = returnUrl;
+
             return Page();
         }
     }

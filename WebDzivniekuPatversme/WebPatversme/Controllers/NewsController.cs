@@ -41,10 +41,11 @@ namespace WebDzivniekuPatversme.Controllers
 
             var allNews = _newsServices.GetAllNews();
             var mappedNews = _mapper.Map<List<NewsViewModel>>(allNews);
-
             mappedNews = _newsServices.FilterAndSortNews(mappedNews, sortOrder, name);
 
-            ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(mappedNews.Count / (decimal)pageSize)) + 1;
+            ViewData["PageAmount"] = Decimal
+                .ToInt32(Math
+                .Ceiling(mappedNews.Count / (decimal)pageSize)) + 1;
 
             return View(PaginatedList<NewsViewModel>.Create(mappedNews, pageNumber ?? 1, pageSize));
         }
@@ -62,7 +63,6 @@ namespace WebDzivniekuPatversme.Controllers
             if (ModelState.IsValid)
             {
                 var mappedNews = _mapper.Map<News>(news);
-
                 mappedNews.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 _newsServices.AddNewNews(mappedNews);

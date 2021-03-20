@@ -42,6 +42,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             if (!isTwoFactorEnabled)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
+
                 throw new InvalidOperationException($"Nevar ielādēt lietotāju ar ID '{userId}', jo nav ieslēgta Divu-Soļu verifikācija.");
             }
 
@@ -66,8 +67,8 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             }
 
             var recoveryCodes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
-            RecoveryCodes = recoveryCodes.ToArray();
 
+            RecoveryCodes = recoveryCodes.ToArray();
             _logger.LogInformation("Lietotājs ar ID '{UserId}' ģenerēja atjaunošanas kodus Divu-Soļu verifikācijai.", userId);
             StatusMessage = "Jūs esat ģenerējis atjaunošanas kodus.";
 

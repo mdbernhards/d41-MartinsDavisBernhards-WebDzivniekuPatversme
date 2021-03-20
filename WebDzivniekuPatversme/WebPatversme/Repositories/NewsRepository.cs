@@ -33,6 +33,7 @@ namespace WebDzivniekuPatversme.Repositories
             conn.Open();
 
             using var reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
                 list.Add(new News()
@@ -44,6 +45,7 @@ namespace WebDzivniekuPatversme.Repositories
                     ImagePath = Convert.ToString(reader["ImagePath"])
                 });
             }
+
             return list;
         }
 

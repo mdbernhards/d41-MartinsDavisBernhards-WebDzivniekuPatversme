@@ -33,12 +33,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
+
             if (!hasPassword)
             {
                 return RedirectToPage("./SetPassword");
@@ -55,12 +57,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             }
 
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
+
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)
@@ -71,8 +75,9 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("Lietotājs savu paroli nomainija veiksmīgi.");
+
+            await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Jūsu parole tika nomainīta.";
 
             return RedirectToPage();

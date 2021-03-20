@@ -33,6 +33,7 @@ namespace WebDzivniekuPatversme.Repositories
             conn.Open();
 
             using var reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
                 list.Add(new Shelter()
@@ -48,6 +49,7 @@ namespace WebDzivniekuPatversme.Repositories
                     Description = Convert.ToString(reader["Description"]),
                 });
             }
+
             return list;
         }
 

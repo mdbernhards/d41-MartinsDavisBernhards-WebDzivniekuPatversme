@@ -72,7 +72,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            // Strip spaces and hypens
             var verificationCode = Input.Code.Replace(" ", string.Empty).Replace("-", string.Empty);
 
             var is2faTokenValid = await _userManager.VerifyTwoFactorTokenAsync(
@@ -129,7 +128,11 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             while (currentPosition + 4 < unformattedKey.Length)
             {
-                result.Append(unformattedKey.Substring(currentPosition, 4)).Append(' ');
+                result
+                    .Append(unformattedKey
+                    .Substring(currentPosition, 4))
+                    .Append(' ');
+
                 currentPosition += 4;
             }
             if (currentPosition < unformattedKey.Length)

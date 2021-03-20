@@ -27,6 +27,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nevar ielādēt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
@@ -34,16 +35,19 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             _logger.LogInformation("Lietotājs ar ID '{UserId}' pieprasija savus personālos datus.", _userManager.GetUserId(User));
 
-            // Only include personal data for download
             var personalData = new Dictionary<string, string>();
-            var personalDataProps = typeof(ApplicationUser).GetProperties().Where(
-                            prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
+            var personalDataProps = typeof(ApplicationUser)
+                .GetProperties()
+                .Where(prop => Attribute
+                .IsDefined(prop, typeof(PersonalDataAttribute)));
+
             foreach (var p in personalDataProps)
             {
                 personalData.Add(p.Name, p.GetValue(user)?.ToString() ?? "null");
             }
 
             var logins = await _userManager.GetLoginsAsync(user);
+
             foreach (var l in logins)
             {
                 personalData.Add($"{l.LoginProvider} ārējās ienākšanas piedāvātā atslēga", l.ProviderKey);

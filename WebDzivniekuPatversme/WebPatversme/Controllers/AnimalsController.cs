@@ -34,8 +34,7 @@ namespace WebDzivniekuPatversme.Controllers
             string speciesType,
             string colour,
             string shelter,
-            int pageSize = 3
-            )
+            int pageSize = 3)
         {
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["AgeSortParm"] = sortOrder == "age" ? "age_desc" : "age";
@@ -57,14 +56,18 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["Shelter"] = shelter;
 
             var filter = _animalsServices.CreateAnimalFilter(name, age, species, speciesType, colour, shelter);
-            var animalList = _mapper.Map<List<AnimalViewModel>>(_animalsServices.GetAllAnimals());
+            var animalList = _mapper
+                .Map<List<AnimalViewModel>>(_animalsServices
+                .GetAllAnimals());
 
             animalList = _animalsServices.AddShelterNames(animalList);
 
             ViewData["DropDown"] = _animalsServices.CreateAnimalDropDownListValues(animalList, filter);
 
             animalList = _animalsServices.FilterAndSortAnimals(animalList, sortOrder, filter);
-            ViewData["PageAmount"] = Decimal.ToInt32(Math.Ceiling(animalList.Count / (decimal)pageSize)) + 1;
+            ViewData["PageAmount"] = Decimal
+                .ToInt32(Math
+                .Ceiling(animalList.Count / (decimal)pageSize)) + 1;
 
             return View(PaginatedList<AnimalViewModel>.Create(animalList, pageNumber ?? 1, pageSize));
         }

@@ -8,7 +8,8 @@ namespace WebDzivniekuPatversme.Validation
     {
         private readonly bool _successfulIfUnique;
 
-        public NewsTitleValidation(bool successfulIfUnique)
+        public NewsTitleValidation(
+            bool successfulIfUnique)
         {
             _successfulIfUnique = successfulIfUnique;
         }
@@ -21,11 +22,17 @@ namespace WebDzivniekuPatversme.Validation
 
             if (_successfulIfUnique)
             {
-                isValid = !animalService.GetAllNews().Select(x => x.Title).Contains(newsTitle);
+                isValid = !animalService
+                    .GetAllNews()
+                    .Select(x => x.Title)
+                    .Contains(newsTitle);
             }
             else
             {
-                isValid = animalService.GetAllNews().Select(x => x.Title).Contains(newsTitle);
+                isValid = animalService
+                    .GetAllNews()
+                    .Select(x => x.Title)
+                    .Contains(newsTitle);
             }
 
             if (isValid)

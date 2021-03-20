@@ -28,6 +28,7 @@ namespace WebDzivniekuPatversme.Repositories
             conn.Open();
 
             using var reader = cmd.ExecuteReader();
+
             while (reader.Read())
             {
                 list.Add(new Log()
