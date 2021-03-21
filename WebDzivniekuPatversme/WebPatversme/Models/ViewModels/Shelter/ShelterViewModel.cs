@@ -20,6 +20,9 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Shelters
         [Display(Name = "Dzīvnieku kapacitāte")]
         public int AnimalCapacity { set; get; }
 
+        [Display(Name = "Dzīvnieku skaits")]
+        public int AnimalCount { set; get; }
+
         [Display(Name = "Izveidošanas datums")]
         public DateTime DateAdded { set; get; }
 

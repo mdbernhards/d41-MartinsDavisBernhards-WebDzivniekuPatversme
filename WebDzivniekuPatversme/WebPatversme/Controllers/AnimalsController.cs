@@ -56,9 +56,7 @@ namespace WebDzivniekuPatversme.Controllers
             ViewData["Shelter"] = shelter;
 
             var filter = _animalsServices.CreateAnimalFilter(name, age, species, speciesType, colour, shelter);
-            var animalList = _mapper
-                .Map<List<AnimalViewModel>>(_animalsServices
-                .GetAllAnimals());
+            var animalList = _mapper.Map<List<AnimalViewModel>>(_animalsServices.GetAllAnimals());
 
             animalList = _animalsServices.AddShelterNames(animalList);
 

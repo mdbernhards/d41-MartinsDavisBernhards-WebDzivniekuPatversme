@@ -32,7 +32,7 @@ namespace WebDzivniekuPatversme.Controllers
             int pageSize = 3)
         { 
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["CapacitySortParm"] = sortOrder == "capacity" ? "capacity_desc" : "capacity";
+            ViewData["CountSortParm"] = sortOrder == "count" ? "count_desc" : "count";
             ViewData["AddressSortParm"] = sortOrder == "address" ? "address_desc" : "address";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
@@ -42,6 +42,7 @@ namespace WebDzivniekuPatversme.Controllers
 
             var allShelters = _sheltersServices.GetAllShelters();
             var mappedShelters = _mapper.Map<List<ShelterViewModel>>(allShelters);
+
             mappedShelters = _sheltersServices.FilterAndSortShelters(mappedShelters, sortOrder, name);
 
             ViewData["PageAmount"] = decimal

@@ -217,7 +217,8 @@ namespace WebDzivniekuPatversme.Services
             listItems.Age = CountIndividualDropDownListValues(
                 FilterAnimals(
                     animals, 
-                    new AnimalFilter { 
+                    new AnimalFilter 
+                    { 
                         Colour = filter.Colour,
                         Species = filter.Species,
                         SpeciesType = filter.SpeciesType,
@@ -255,7 +256,8 @@ namespace WebDzivniekuPatversme.Services
             listItems.Species = CountIndividualDropDownListValues(
                 FilterAnimals(
                     animals, 
-                    new AnimalFilter { 
+                    new AnimalFilter 
+                    { 
                         Age = filter.Age,
                         Colour = filter.Colour,
                         SpeciesType = filter.SpeciesType,
@@ -282,7 +284,8 @@ namespace WebDzivniekuPatversme.Services
             listItems.Shelter = CountIndividualDropDownListValues(
                 FilterAnimals(
                     animals, 
-                    new AnimalFilter { 
+                    new AnimalFilter 
+                    { 
                         Age = filter.Age,
                         Colour = filter.Colour,
                         Species = filter.Species,
@@ -295,14 +298,13 @@ namespace WebDzivniekuPatversme.Services
 
         private static List<DropDownItem> CountIndividualDropDownListValues (List<string> filteredItem, List<DropDownItem> listItem)
         {
+            listItem.Remove(listItem.Where(x => x.Item == "").FirstOrDefault());
+
             foreach (var item in filteredItem)
             {
                 if (listItem.Where(x => x.Item == item.ToString()).FirstOrDefault() != null) 
                 {
-                    listItem
-                        .Where(x => x.Item == item
-                        .ToString())
-                        .FirstOrDefault().Count++;
+                    listItem.Where(x => x.Item == item.ToString()).FirstOrDefault().Count++;
                 }
             }
 

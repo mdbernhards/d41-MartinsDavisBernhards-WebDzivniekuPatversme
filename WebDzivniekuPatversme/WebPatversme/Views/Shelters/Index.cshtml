@@ -40,7 +40,7 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Nosaukums</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["CapacitySortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Dzīvnieku kapacitāte</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CountSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Dzīvnieku skaits</a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["AddressSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Adrese</a>
@@ -69,6 +69,8 @@
                     @Html.DisplayTextFor(modelItem => item.Name)
                 </td>
                 <td>
+                    @Html.DisplayTextFor(modelItem => item.AnimalCount)
+                    @Html.Raw("/")
                     @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
                 </td>
                 <td>

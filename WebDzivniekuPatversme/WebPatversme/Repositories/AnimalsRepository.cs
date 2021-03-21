@@ -74,8 +74,8 @@ namespace WebDzivniekuPatversme.Repositories
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            string birthDateString = animal.BirthDate.Value.ToString("yyyy-MM-dd");
-            string birthDateRangeToString = animal.BirthDateRangeTo.Value.ToString("yyyy-MM-dd");
+            string birthDateString = animal.BirthDate.HasValue ? animal.BirthDate.Value.ToString("yyyy-MM-dd") : "1000-10-10";
+            string birthDateRangeToString = animal.BirthDateRangeTo.HasValue ? animal.BirthDateRangeTo.Value.ToString("yyyy-MM-dd") : "1000-10-10";
             string dateAddedString = animal.DateAdded.ToString("yyyy-MM-dd HH:MM:ss");
 
             cmd.Parameters.AddWithValue("@weight", animal.Weight);
@@ -120,8 +120,8 @@ namespace WebDzivniekuPatversme.Repositories
             MySqlCommand cmd = new MySqlCommand(sqlQuerry, conn);
             conn.Open();
 
-            string birthDateString = animal.BirthDate.Value.ToString("yyyy-MM-dd");
-            string birthDateRangeToString = animal.BirthDateRangeTo.Value.ToString("yyyy-MM-dd");
+            string birthDateString = animal.BirthDate.HasValue ? animal.BirthDate.Value.ToString("yyyy-MM-dd") : "1000-10-10";
+            string birthDateRangeToString = animal.BirthDateRangeTo.HasValue ? animal.BirthDateRangeTo.Value.ToString("yyyy-MM-dd") : "1000-10-10";
 
             cmd.Parameters.AddWithValue("@weight", animal.Weight);
             cmd.Parameters.AddWithValue("@birthDate", birthDateString);
@@ -316,11 +316,10 @@ namespace WebDzivniekuPatversme.Repositories
 
         private static string CalculateAge(DateTime? birthDate)
         {
-            string Age;
-
             int Years = DateTime.Now.Year - birthDate.Value.Year;
             int Months;
             int Days;
+            string Age;
 
             if (DateTime.Now.Year == birthDate.Value.Year)
             {

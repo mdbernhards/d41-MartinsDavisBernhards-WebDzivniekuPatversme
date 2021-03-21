@@ -26,20 +26,13 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account
         {
         }
 
-        public async Task<IActionResult> OnPost(string returnUrl = null)
+        public async Task<IActionResult> OnPost()
         {
             await _signInManager.SignOutAsync();
 
             _logger.LogInformation("Lietotājs atslēdzās.");
 
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToPage();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

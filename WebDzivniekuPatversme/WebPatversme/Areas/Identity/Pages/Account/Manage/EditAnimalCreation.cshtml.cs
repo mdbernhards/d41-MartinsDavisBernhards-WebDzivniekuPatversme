@@ -17,6 +17,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             IAnimalsRepository animalsRepository)
         {
             _animalsRepository = animalsRepository;
+
             Input = new EditAnimalCreationViewModel();
         }
 

@@ -11,23 +11,27 @@ namespace WebDzivniekuPatversme.Services
     public class ShelterService : IShelterService
     {
         private readonly IShelterRepository _shelterRepository;
+        private readonly IAnimalsRepository _animalRepository;
 
         public ShelterService(
-            IShelterRepository shelterRepository)
+            IShelterRepository shelterRepository,
+            IAnimalsRepository animalRepository)
         {
             _shelterRepository = shelterRepository;
+            _animalRepository = animalRepository;
         }
 
         public List<Shelter> GetAllShelters()
         {
             var shelterList = _shelterRepository.GetAllShelters();
+            AddAnimalCount(shelterList);
 
             return shelterList;
         }
 
         public Shelter GetShelterById(string Id)
         {
-            var shelterList = _shelterRepository.GetAllShelters();
+            var shelterList = GetAllShelters();
             var shelter = shelterList
                 .Where(animal => animal.Id == Id)
                 .FirstOrDefault();
@@ -68,11 +72,11 @@ namespace WebDzivniekuPatversme.Services
                 "name_desc" => shelters
                     .OrderByDescending(s => s.Name)
                     .ToList(),
-                "capacity" => shelters
-                    .OrderBy(s => s.AnimalCapacity)
+                "count" => shelters
+                    .OrderBy(s => s.AnimalCount)
                     .ToList(),
-                "capacity_desc" => shelters
-                    .OrderByDescending(s => s.AnimalCapacity)
+                "count_desc" => shelters
+                    .OrderByDescending(s => s.AnimalCount)
                     .ToList(),
                 "address" => shelters
                     .OrderBy(s => s.Address)
@@ -113,6 +117,17 @@ namespace WebDzivniekuPatversme.Services
             }
 
             return shelters;
+        }
+
+        private void AddAnimalCount(List<Shelter> shelterList)
+        {
+            foreach (var shelter in shelterList)
+            {
+                shelter.AnimalCount = _animalRepository
+                    .GetAllAnimals()
+                    .Where(x => x.ShelterId == shelter.Id)
+                    .Count();
+            }
         }
     }
 }

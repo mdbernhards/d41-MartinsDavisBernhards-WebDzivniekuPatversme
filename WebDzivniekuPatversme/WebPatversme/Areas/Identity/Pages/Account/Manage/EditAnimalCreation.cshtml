@@ -1,7 +1,7 @@
 ﻿@page
 @model EditAnimalCreationModel
 @{
-    ViewData["Title"] = "Lietotāju pārvalde";
+    ViewData["Title"] = "Dzīvnieku izveides opcijas";
     ViewData["ActivePage"] = ManageNavPages.EditAnimalCreation;
 }
 
@@ -95,7 +95,7 @@
         <div id="dataListItem" class="col-md-4">
             <form method="post">
                 <input name="speciesType.Name" class="form-control" />
-                <input type="hidden" name="speciesType.SpeciesId" class="form-control" value="@CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper>()" />
+                <input type="hidden" name="speciesType.SpeciesId" class="form-control" value="@Model.SpeciesId" />
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-speciesType-button" type="submit" asp-page-handler="AddSpeciesType" class="btn btn-primary">Pievienot šķirni</button>
                 </div>
