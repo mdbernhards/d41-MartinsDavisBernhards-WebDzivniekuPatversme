@@ -9,12 +9,12 @@ using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
-    public class UserControlModel : PageModel
+    public class RoleControlModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserControlModel(
+        public RoleControlModel(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {

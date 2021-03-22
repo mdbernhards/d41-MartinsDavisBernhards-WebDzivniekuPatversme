@@ -19,7 +19,8 @@
 
     @if (ViewContext.HttpContext.User.IsInRole("administrator"))
     {
-        <li class="nav-item"><a class="nav-link @ManageNavPages.UserControlNavClass(ViewContext)" id="user-control" asp-page="./UserControl">Lomu Pārvalde</a></li>
+        <li class="nav-item"><a class="nav-link @ManageNavPages.UserControlNavClass(ViewContext)" id="user-control" asp-page="./UserControl">Lietotāju Pārvalde</a></li>
+        <li class="nav-item"><a class="nav-link @ManageNavPages.RoleControlNavClass(ViewContext)" id="role-control" asp-page="./RoleControl">Lomu Pārvalde</a></li>
         <li class="nav-item"><a class="nav-link @ManageNavPages.EditAnimalCreationNavClass(ViewContext)" id="edit-animal-creation" asp-page="./EditAnimalCreation">Dzīvnieku izveides opcijas</a></li>
     }
 </ul>

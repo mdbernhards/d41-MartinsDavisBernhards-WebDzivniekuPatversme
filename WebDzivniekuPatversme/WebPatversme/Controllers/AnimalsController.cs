@@ -59,7 +59,6 @@ namespace WebDzivniekuPatversme.Controllers
             var animalList = _mapper.Map<List<AnimalViewModel>>(_animalsServices.GetAllAnimals());
 
             animalList = _animalsServices.AddShelterNames(animalList);
-
             ViewData["DropDown"] = _animalsServices.CreateAnimalDropDownListValues(animalList, filter);
 
             animalList = _animalsServices.FilterAndSortAnimals(animalList, sortOrder, filter);

@@ -18,17 +18,15 @@ namespace WebDzivniekuPatversme.Services.Other
 
         public async void RoleChecker()
         {
-            var user = new ApplicationUser
-            {
-                UserName = "martinsdavisbernhards@gmail.com",
-                NormalizedUserName = "martinsdavisbernhards@gmail.com",
-                Email = "martinsdavisbernhards@gmail.com",
-                NormalizedEmail = "martinsdavisbernhards@gmail.com",
-                EmailConfirmed = true,
-                LockoutEnabled = false,
-                SecurityStamp = Guid.NewGuid().ToString()
-            };
+            CheckIfAllRolesExist();
+            CheckIfAdministratorExists();
+            CheckIfAllUsersHaveRoles();
 
+            await _context.SaveChangesAsync();
+        }
+
+        private async void CheckIfAllRolesExist()
+        {
             var roleStore = new RoleStore<IdentityRole>(_context);
 
             if (!_context.Roles.Any(r => r.Name == "administrator"))
@@ -45,6 +43,20 @@ namespace WebDzivniekuPatversme.Services.Other
             {
                 await roleStore.CreateAsync(new IdentityRole { Name = "user", NormalizedName = "user" });
             }
+        }
+
+        private async void CheckIfAdministratorExists()
+        {
+            var user = new ApplicationUser
+            {
+                UserName = "martinsdavisbernhards@gmail.com",
+                NormalizedUserName = "martinsdavisbernhards@gmail.com",
+                Email = "martinsdavisbernhards@gmail.com",
+                NormalizedEmail = "martinsdavisbernhards@gmail.com",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
 
             if (!_context.Users.Any(u => u.Email == user.Email))
             {
@@ -57,8 +69,22 @@ namespace WebDzivniekuPatversme.Services.Other
                 await userStore.CreateAsync(user);
                 await userStore.AddToRoleAsync(user, "administrator");
             }
+        }
 
-            await _context.SaveChangesAsync();
+        private async void CheckIfAllUsersHaveRoles()
+        {
+            var users = _context.Users.ToList();
+            var userStore = new UserStore<IdentityUser>(_context);
+
+            foreach (var user in users)
+            {
+                var role = userStore.GetRolesAsync(user).Result.ToList().FirstOrDefault();
+
+                if (string.IsNullOrEmpty(role))
+                {
+                    await userStore.AddToRoleAsync(user, "user");
+                }
+            }
         }
     }
 }

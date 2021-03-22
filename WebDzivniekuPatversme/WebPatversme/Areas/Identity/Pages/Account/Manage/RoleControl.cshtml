@@ -1,0 +1,62 @@
+﻿@page
+@model RoleControlModel
+@{
+    ViewData["Title"] = "Lomu pārvalde";
+    ViewData["ActivePage"] = ManageNavPages.RoleControl;
+}
+
+@if (ViewContext.HttpContext.User.IsInRole("administrator"))
+{
+    <h4>@ViewData["Title"]</h4>
+
+    <div style="padding-left: 1%">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        E-pasts
+                    </th>
+                    <th>
+                        Loma
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+       @foreach (var item in Model.Input)
+       {
+            <form method="post">
+                <table class="table table-striped table-bordered bootstrap-datatable " style="overflow:auto;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 35%">
+                                @item.User.Email
+                            </td>
+                            <td style="width: 27%">
+                                <div>
+                                    <select class="form-control" name="role" asp-items="((IEnumerable<IdentityRole>)Model.Roles)
+                                        .Select(x => new SelectListItem { Text = x.Name, Value = x.Name })
+                                        .AsEnumerable()">
+                                        <option value="@item.Role"> @item.Role </option>
+                                    </select>
+                                    <input type="hidden" name="userName" value="@item.User.UserName" />
+                                </div>
+                            </td>
+                            <td>
+                                <button id="change-roles-button" type="submit" asp-page-handler="ChangeRoles" class="btn btn-primary">Mainīt Lomu</button>
+                            </td>
+                            <td>
+                                <button id="delete-user-button" type="submit" asp-page-handler="DeleteUser" class="btn btn-danger">Dzēst lietotāju</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        }
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

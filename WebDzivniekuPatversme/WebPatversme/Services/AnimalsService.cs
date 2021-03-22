@@ -246,6 +246,7 @@ namespace WebDzivniekuPatversme.Services
 
             filteredColours
                 .AddRange(colourFilter
+                .Where(x => x.Colour != x.SecondaryColour)
                 .Select(x => x.SecondaryColour)
                 .ToList());
 
