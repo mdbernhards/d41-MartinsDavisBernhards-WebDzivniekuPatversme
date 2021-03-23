@@ -1,0 +1,52 @@
+﻿@page
+@model UserEditModel
+@{
+    ViewData["Title"] = "Labot Lietotāju";
+    ViewData["ActivePage"] = ManageNavPages.UserControl;
+}
+
+@if (ViewContext.HttpContext.User.IsInRole("administrator"))
+{
+    <h4>@ViewData["Title"]</h4>
+
+    <div style="padding-left: 1%">
+        <table class="table table-striped table-bordered bootstrap-datatable " style="overflow:auto;">
+            <thead>
+                <tr>
+                    <th>
+                        Vārds
+                    </th>
+                    <th>
+                        Uzvārds
+                    </th>
+                    <th>
+                        E-pasts
+                    </th>
+                    <th>
+                        Loma
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.Input.User.Name
+                    </td>
+                    <td>
+                        @Model.Input.User.Surname
+                    </td>
+                    <td>
+                        @Model.Input.User.Email
+                    </td>
+                    <td>
+                        @Model.Input.Role
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>   
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

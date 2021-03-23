@@ -4,7 +4,7 @@ using WebDzivniekuPatversme.Models.StaticModels;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Identity
 {
-    public class RoleControlViewModel
+    public class UserControlViewModel
     {
         public ApplicationUser User { get; set; }
 

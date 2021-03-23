@@ -31,49 +31,52 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Users = _userManager.Users.ToList();
+            var users = _userManager.Users.ToList();
+
             Roles = _roleManager.Roles.ToList();
             Input = new List<RoleControlViewModel>();
 
-            foreach (var user in Users)
+            foreach (var user in users)
             {
-                var roles = await _userManager.GetRolesAsync(user);
+                var role = _userManager
+                    .GetRolesAsync(user).Result
+                    .FirstOrDefault()
+                    .ToString();
 
-                Input
-                    .Add(new RoleControlViewModel() 
-                    { 
-                        Role = roles.First(), 
-                        User = user,
-                    });
+                Input.Add(new RoleControlViewModel()
+                {
+                    Role = role,
+                    User = user,
+                });
             }
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostChangeRolesAsync(string role, string userName)
+        public async Task<IActionResult> OnPostChangeRolesAsync(RoleControlViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var user = _userManager.FindByNameAsync(userName).Result;
+            var user = _userManager.FindByNameAsync(model.User.UserName).Result;
             var usersRoles = _userManager.GetRolesAsync(user).Result;
 
             await _userManager.RemoveFromRolesAsync(user, usersRoles);
-            await _userManager.AddToRoleAsync(user, role);
+            await _userManager.AddToRoleAsync(user, model.Role);
 
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostDeleteUserAsync(string userName)
+        public async Task<IActionResult> OnPostDeleteUserAsync(RoleControlViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var user = _userManager.FindByNameAsync(userName).Result;
+            var user = _userManager.FindByNameAsync(model.User.UserName).Result;
 
             await _userManager.DeleteAsync(user);
 

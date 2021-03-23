@@ -9,44 +9,40 @@ using WebDzivniekuPatversme.Models.ViewModels.Identity;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
-    public class UserControlModel : PageModel
+    public class UserEditModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserControlModel(
+        public UserEditModel(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+
+            Input = new UserEditViewModel();
         }
 
         [BindProperty]
-        public List<UserControlViewModel> Input { get; set; }
+        public UserEditViewModel Input { get; set; }
 
         public List<IdentityRole> Roles { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string userName)
         {
-            var users = _userManager.Users.ToList();
+            Input.User = _userManager.Users
+                .Where(x => x.UserName == userName)
+                .FirstOrDefault();
 
-            Roles = _roleManager.Roles.ToList();
-            Input = new List<UserControlViewModel>();
+            Input.Roles = _roleManager.Roles
+                .Select(x => x.Name)
+                .ToList();
 
-            foreach (var user in users)
-            {
-                var role = _userManager
-                    .GetRolesAsync(user).Result
-                    .FirstOrDefault()
-                    .ToString();
-
-                Input.Add(new UserControlViewModel() 
-                { 
-                    Role = role, 
-                    User = user,
-                });
-            }
+            Input.Role = _userManager
+                .GetRolesAsync(Input.User).Result
+                .FirstOrDefault()
+                .ToString();
 
             return Page();
         }
