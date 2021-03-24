@@ -11,14 +11,14 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 @Html.HiddenFor(model => model.Id)
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
@@ -26,6 +26,7 @@
                     <option value="Vīrietis">Vīrietis</option>
                     <option value="Sieviete">Sieviete</option>
                 </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 @if (Model.AnimalSpecies != null)
@@ -41,6 +42,7 @@
                             })
                             .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="Species" class="text-danger"></span>
                 }
             </div>
             <div class="form-group">
@@ -57,17 +59,18 @@
                             })
                             .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="SpeciesType" class="text-danger"></span>
                 }
             </div>
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label"></label>
                 <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Weight" class="control-label"></label>
                 <input asp-for="Weight" class="form-control" />
-                <span asp-validation-for="Weight" class="text-danger" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
             </div>
             <div class="form-group">
                 @if (Model.AnimalColours != null)
@@ -82,6 +85,7 @@
                             })
                             .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="Colour" class="text-danger"></span>
                 }
             </div>
             <div class="form-group">
@@ -97,17 +101,18 @@
                             })
                             .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="SecondaryColour" class="text-danger"></span>
                 }
             </div>
             <div class="form-group">
                 <label asp-for="About" class="control-label"></label>
                 <textarea asp-for="About"></textarea>
-                <span asp-validation-for="About" class="text-danger" />
+                <span asp-validation-for="About" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" />
-                <span asp-validation-for="Image" class="text-danger" />
+                <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="col-sm-9">
                 <img src="~/uploads/images/animals/@Model.ImagePath" alt="@Model.Name bilde" onerror="this.onerror = null;this.src = '/uploads/images/animals/defaultanimal.png'" asp-append-version="true"
@@ -133,6 +138,7 @@
                         })
                         .OrderBy(x => x.Text)">
                     </select>
+                    <span asp-validation-for="ShelterName" class="text-danger"></span>
                 }
             </div>
             <div class="form-group">

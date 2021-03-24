@@ -27,8 +27,8 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync(string speciesId)
         {
-            Input.Colours = _animalsRepository.GetAllColours();
-            Input.Species = _animalsRepository.GetAllSpecies();
+            Input.ColourList = _animalsRepository.GetAllColours();
+            Input.SpeciesList = _animalsRepository.GetAllSpecies();
 
             if (speciesId != null)
             {
@@ -36,10 +36,10 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             }
             else
             {
-                SpeciesId = Input.Species.FirstOrDefault().Id;
+                SpeciesId = Input.SpeciesList.FirstOrDefault().Id;
             }
 
-            Input.SpeciesTypes = _animalsRepository
+            Input.SpeciesTypesList = _animalsRepository
                 .GetAllSpeciesTypes()
                 .Where(x => x.SpeciesId == SpeciesId)
                 .ToList();

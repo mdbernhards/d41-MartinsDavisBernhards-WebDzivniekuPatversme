@@ -15,7 +15,7 @@
                 <label class="control-label">Krāsa</label>
                 <select name="colourId" class="form-control" asp-items="(Model
                     .Input
-                    .Colours
+                    .ColourList
                     .GroupBy(t => t.Name)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {
@@ -35,7 +35,7 @@
                 <label class="control-label">Suga</label>
                 <select name="speciesId" class="form-control" onchange="this.form.submit();" asp-items="(Model
                     .Input
-                    .Species
+                    .SpeciesList
                     .GroupBy(t => t.Name)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {
@@ -59,7 +59,7 @@
                 <label class="control-label">Šķirne</label>
                 <select name="speciesTypeId" class="form-control" asp-items="(Model
                     .Input
-                    .SpeciesTypes
+                    .SpeciesTypesList
                     .GroupBy(t => t.Name)
                     .Select(g => g.First())
                     .Select(x => new SelectListItem {
@@ -79,6 +79,7 @@
         <div id="dataListItem" class="col-md-4">
             <form method="post">
                 <input name="colour.Name" class="form-control" />
+                <span asp-validation-for="Input.Colour.Name" class="text-danger"></span>
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-colour-button" type="submit" asp-page-handler="AddColour" class="btn btn-primary">Pievienot krāsu</button>
                 </div>
@@ -94,8 +95,9 @@
         </div>
         <div id="dataListItem" class="col-md-4">
             <form method="post">
-                <input name="speciesType.Name" class="form-control" />
                 <input type="hidden" name="speciesType.SpeciesId" class="form-control" value="@Model.SpeciesId" />
+                <input name="speciesType.Name" class="form-control" />
+                <span asp-validation-for="Input.SpeciesType.Name" class="text-danger"></span>
                 <div style="padding-top: 1%; float: right">
                     <button id="delete-speciesType-button" type="submit" asp-page-handler="AddSpeciesType" class="btn btn-primary">Pievienot šķirni</button>
                 </div>

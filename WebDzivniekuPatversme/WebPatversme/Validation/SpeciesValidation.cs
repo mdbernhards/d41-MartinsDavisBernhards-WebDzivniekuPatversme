@@ -38,7 +38,7 @@ namespace WebDzivniekuPatversme.Validation
                 return ValidationResult.Success;
             }
 
-            return new ValidationResult(FormatErrorMessage(ErrorMessage));
+            return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
         }
     }
 }

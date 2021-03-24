@@ -36,6 +36,7 @@
                                         .AsEnumerable()">
                                         <option value="@item.Role"> @item.Role </option>
                                     </select>
+                                    <span asp-validation-for="@item.Role" class="text-danger"></span>
                                     <input type="hidden" name="User.UserName" value="@item.User.UserName" />
                                 </div>
                             </td>

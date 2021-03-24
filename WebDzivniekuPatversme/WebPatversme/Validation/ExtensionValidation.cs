@@ -25,7 +25,7 @@ namespace WebDzivniekuPatversme.Validation
 
                 if (!_extensions.Contains(extension.ToLower()))
                 {
-                    return new ValidationResult(FormatErrorMessage(ErrorMessage));
+                    return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
                 }
             }
 

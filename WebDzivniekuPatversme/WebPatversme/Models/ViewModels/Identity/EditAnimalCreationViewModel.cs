@@ -7,12 +7,18 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Identity
     public class EditAnimalCreationViewModel
     {
         [BindProperty]
-        public List<AnimalColourViewModel> Colours { get; set; }
+        public List<AnimalColourViewModel> ColourList { get; set; }
 
         [BindProperty]
-        public List<AnimalSpeciesViewModel> Species { get; set; }
+        public List<AnimalSpeciesViewModel> SpeciesList { get; set; }
 
         [BindProperty]
-        public List<AnimalSpeciesTypeViewModel> SpeciesTypes { get; set; }
+        public List<AnimalSpeciesTypeViewModel> SpeciesTypesList { get; set; }
+
+        public AnimalColourViewModel Colour { get; set; }
+
+        public AnimalSpeciesViewModel Species { get; set; }
+
+        public AnimalSpeciesTypeViewModel SpeciesType { get; set; }
     }
 }

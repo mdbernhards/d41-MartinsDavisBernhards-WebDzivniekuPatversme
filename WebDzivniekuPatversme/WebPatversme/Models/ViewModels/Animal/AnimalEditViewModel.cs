@@ -18,7 +18,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         public string Name { set; get; }
 
         [DataType(DataType.Date)]
-        [DateValidation(ErrorMessage = ValidationErrorMessages.DateValidation)]
+        [DateValidation(ErrorMessage = "{0} nevar būt nākotnē!")]
         [Display(Name = "Dzimšanas datums")]
         public DateTime BirthDate { set; get; }
 

@@ -9,9 +9,9 @@ namespace WebDzivniekuPatversme.Validation
         {
             var dateValue = dateObject as DateTime? ?? new DateTime();
 
-            if (dateValue.Date > DateTime.Now.Date)
+            if (dateValue.Date < DateTime.Now.Date)
             {
-                return new ValidationResult(FormatErrorMessage(ErrorMessage));
+                return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
             }
 
             return ValidationResult.Success;

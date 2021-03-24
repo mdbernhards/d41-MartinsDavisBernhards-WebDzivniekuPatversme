@@ -10,23 +10,23 @@
 <hr />
 <form asp-action="Create" enctype="multipart/form-data">
     <div class="col-md-4">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Title" class="control-label"></label>
             <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger" />
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <div style="padding: 1%">
         <div class="form-group">
             <label asp-for="Text" class="control-label"></label>
             <textarea asp-for="Text"></textarea>
-            <span asp-validation-for="Text" class="text-danger" />
+            <span asp-validation-for="Text" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Image" class="control-label"></label>
             <input asp-for="Image" />
-            <span asp-validation-for="Image" class="text-danger" />
+            <span asp-validation-for="Image" class="text-danger"></span>
         </div>
         <div class="form-group">
             <input type="submit" value="Pievienot" class="btn btn-primary" />

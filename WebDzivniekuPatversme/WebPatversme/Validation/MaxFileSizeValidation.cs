@@ -20,7 +20,7 @@ namespace WebDzivniekuPatversme.Validation
             {
                 if (file.Length > _maxFileSize)
                 {
-                    return new ValidationResult(FormatErrorMessage(ErrorMessage));
+                    return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
                 }
             }
 
