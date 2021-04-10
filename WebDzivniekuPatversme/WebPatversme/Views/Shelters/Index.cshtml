@@ -69,9 +69,18 @@
                     @Html.DisplayTextFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayTextFor(modelItem => item.AnimalCount)
-                    @Html.Raw("/")
-                    @Html.DisplayTextFor(modelItem => item.AnimalCapacity)
+                    @if (item.AnimalCount < item.AnimalCapacity)
+                    {
+                        <div>
+                            @Html.ActionLink( item.AnimalCount + " / " + item.AnimalCapacity , "Index", "Animals", new { Shelter = item.Name })
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="color: red">
+                            @Html.ActionLink(item.AnimalCount + " / " + item.AnimalCapacity, "Index", "Animals", new { Shelter = item.Name }, new { @style = "color: red" })
+                        </div>
+                    }
                 </td>
                 <td>
                     @Html.DisplayTextFor(modelItem => item.Address)

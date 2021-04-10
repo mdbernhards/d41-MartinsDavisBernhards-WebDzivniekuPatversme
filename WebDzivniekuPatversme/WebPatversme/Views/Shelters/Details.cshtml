@@ -49,13 +49,18 @@
             @Html.DisplayNameFor(model => model.AnimalCount)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnimalCount)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AnimalCapacity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnimalCapacity)
+            @if (@Model.AnimalCount < @Model.AnimalCapacity)
+            {
+                <div>
+                    @Html.ActionLink(@Model.AnimalCount + " / " + @Model.AnimalCapacity, "Index", "Animals", new { Shelter = @Model.Name })
+                </div>
+            }
+            else
+            {
+                <div style="color: red">
+                    @Html.ActionLink(@Model.AnimalCount + " / " + @Model.AnimalCapacity, "Index", "Animals", new { Shelter = @Model.Name }, new { @style = "color: red" })
+                </div>
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateAdded)
