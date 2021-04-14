@@ -60,6 +60,23 @@ namespace WebDzivniekuPatversme
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddErrorDescriber<IdentityErrorDescriberLV>();
 
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "619227943562-v605it2qhn6n15ggdsb4kt0tnfieii6d.apps.googleusercontent.com";
+                    options.ClientSecret = "mIWytuZ8nrJ9wEp1-b2CwMVL";
+                })
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = "1397549057297167";
+                    facebookOptions.AppSecret = "e5364442a8ddf9231232730157d0ac66";
+                })
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = "26422fa8-13d1-463a-8633-110c5c1c2e51";
+                    microsoftOptions.ClientSecret = "UNWdsN-J96-xIiI_r3dIkvYqr-9t6~3Efm";
+                });
+
             services.AddTransient<IEmailSender, EmailSender>();
 
             var mapperConfig = new MapperConfiguration(mc =>

@@ -37,19 +37,21 @@ Projektā izmantotās tehnoloģijas:
 - CSS
 
 Projektā izmantotie NuGet paplašinājumi:
-- [AutoMapper](https://www.nuget.org/packages/AutoMapper/) - ViewModel un Model savienošanai (mapping)
-- [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/) - Projekta savienošana ar MySql datubāzi
-- [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) - Objektu pārveidošana Json formātā un atpakaļ
-- [Microsoft.AspNetCore.Identity.UI](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.UI/) - Profila izveidei, autorizācijas un piekļuves kontrolēšanai
-- [TinyMCE](https://www.nuget.org/packages/TinyMCE/) - Teksta redaktors
+- [AutoMapper](https://www.nuget.org/packages/AutoMapper) - ViewModel un Model savienošanai (mapping)
+- [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql) - Projekta savienošana ar MySql datubāzi
+- [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json) - Objektu pārveidošana Json formātā un atpakaļ
+- [Microsoft.AspNetCore.Identity.UI](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.UI) - Profila izveidei, autorizācijas un piekļuves kontrolēšanai
+- [TinyMCE](https://www.nuget.org/packages/TinyMCE) - Teksta redaktors
 - [Microsoft.AspNetCore.Authentication.Google](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google) - Autentifikācija ar Google servisiem
+- [Microsoft.AspNetCore.Authentication.Facebook](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Facebook) - Autentifikācija ar Facebook
+- [Microsoft.AspNetCore.Authentication.MicrosoftAccount](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount) - Autentifikācija ar Microsoft servisiem
 
 Citi paplašinājumi:
 - [qrcode.js](https://davidshimjs.github.io/qrcodejs/) - QR kodu ģenerātors
 
 ## Izmantotie avoti
-- [Datubāzes pievienošana](https://www.c-sharpcorner.com/article/how-to-connect-mysql-with-asp-net-core/)
-- [ASP.NET Identity savienošana ar MySQL Datubāzi](https://www.c-sharpcorner.com/article/using-asp-net-core-3-0-identity-with-mysql/)
+- [Datubāzes pievienošana](https://www.c-sharpcorner.com/article/how-to-connect-mysql-with-asp-net-core)
+- [ASP.NET Identity savienošana ar MySQL Datubāzi](https://www.c-sharpcorner.com/article/using-asp-net-core-3-0-identity-with-mysql)
 - ['Scaffolding' izveidošana priekš ASP.NET Core Identity](https://stackoverflow.com/questions/50802781/where-are-the-login-and-register-pages-in-an-aspnet-core-scaffolded-app)
 - [Profila apstiprināšana ar nosūtītu E-pastu](https://docs.microsoft.com/lv-lv/aspnet/core/security/authentication/accconfirm?view=aspnetcore-5.0&tabs=visual-studio)
 - [Lietotājam redzamo Identity paziņojumu un kļūmju tulkošana](https://stackoverflow.com/questions/19961648/how-to-localize-asp-net-identity-username-and-password-error-messages)
@@ -69,10 +71,12 @@ Citi paplašinājumi:
 - [Relatīvi attēlu ceļi](https://stackoverflow.com/questions/317315/asp-net-mvc-relative-paths)
 - [QR koda ģenerācija](https://docs.microsoft.com/lv-lv/aspnet/core/security/authentication/identity-enable-qrcodes?view=aspnetcore-5.0)
 - [Autentifikācija ar ārējiem servisiem](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-5.0)
-- [Autentifikācija ar Google](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0)
+- [Autentifikācija ar Google servisiem](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0)
+- [Autentifikācija ar Facebook](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/facebook-logins?view=aspnetcore-5.0)
+- [Autentifikācija ar Microsoft servisiem](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins?view=aspnetcore-5.0)
 
 ## Izmantoto tehnoloģiju dokumentācija
-- [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet/)
+- [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet)
 
 ## Uzstādīšanas instrukcijas
 - Vel nav
