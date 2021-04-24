@@ -9,42 +9,52 @@
 {
     <h4>@ViewData["Title"]</h4>
 
-    <div style="padding-left: 1%">
-        <table class="table table-striped table-bordered bootstrap-datatable " style="overflow:auto;">
-            <thead>
-                <tr>
-                    <th>
-                        Vārds
-                    </th>
-                    <th>
-                        Uzvārds
-                    </th>
-                    <th>
-                        E-pasts
-                    </th>
-                    <th>
-                        Loma
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @Model.Input.User.Name
-                    </td>
-                    <td>
-                        @Model.Input.User.Surname
-                    </td>
-                    <td>
-                        @Model.Input.User.Email
-                    </td>
-                    <td>
-                        @Model.Input.Role
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>   
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div class="form-group">
+                    <label class="control-label">Vārds</label>
+                    <input value="@Model.Input.User.Name" name="User.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Uzvārds</label>
+                    <input value="@Model.Input.User.Surname" name="User.Surname" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.Surname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">E-pasts</label>
+                    <input value="@Model.Input.User.Email" name="User.Email" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Telefona numurs</label>
+                    <input value="@Model.Input.User.PhoneNumber" name="User.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Loma</label>
+                    <select class="form-control" name="role" asp-items="((IEnumerable<IdentityRole>)Model.Roles)
+                                        .Select(x => new SelectListItem { Text = x.Name, Value = x.Name })
+                                        .AsEnumerable()">
+                        <option value="@Model.Input.Role"> @Model.Input.Role </option>
+                    </select>
+                    <span asp-validation-for="@Model.Input.Role" class="text-danger"></span>
+                    <input type="hidden" name="User.UserName" value="@Model.Input.User.UserName" />
+                </div>
+                <div class="form-group">
+                    <button id="edit-user-button" type="submit" asp-page-handler="EditUser" class="btn btn-primary">Labot</button>
+                    <button id="delete-user-button" type="submit" asp-page-handler="DeleteUser" class="btn btn-danger">Dzēst</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Atpakaļ uz sarakstu</a>
+    </div>
 }
 
 @section Scripts {
