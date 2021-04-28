@@ -18,5 +18,7 @@ namespace WebDzivniekuPatversme.Models
         public string Title { set; get; }
 
         public string UserId { set; get; }
+
+        public string UsersName { set; get; }
     }
 }

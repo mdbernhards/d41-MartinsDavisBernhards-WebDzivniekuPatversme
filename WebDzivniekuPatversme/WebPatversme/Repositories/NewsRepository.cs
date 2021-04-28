@@ -42,7 +42,8 @@ namespace WebDzivniekuPatversme.Repositories
                     DateAdded = Convert.ToDateTime(reader["DateAdded"]),
                     Title = Convert.ToString(reader["Title"]),
                     Text = Convert.ToString(reader["Text"]),
-                    ImagePath = Convert.ToString(reader["ImagePath"])
+                    ImagePath = Convert.ToString(reader["ImagePath"]),
+                    UserId = Convert.ToString(reader["UserId"]),
                 });
             }
 

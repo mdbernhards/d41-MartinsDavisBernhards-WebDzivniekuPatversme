@@ -40,6 +40,9 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Tituls</a>
             </th>
             <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["UsersNameSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Autors</a>
+            </th>
+            <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateAddedSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Izveidošanas datums</a>
             </th>
             <th></th>
@@ -55,12 +58,15 @@
                          height="75"
                          width="75"
                          style="
-                            object-fit: cover;
-                            box-shadow: 0px 0px 10px #888;
-                            padding: 4px;" />
+                                object-fit: cover;
+                                box-shadow: 0px 0px 10px #888;
+                                padding: 4px;" />
                 </td>
                 <td>
                     @Html.DisplayTextFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.UsersName)
                 </td>
                 <td>
                     @Html.DisplayTextFor(modelItem => item.DateAdded)

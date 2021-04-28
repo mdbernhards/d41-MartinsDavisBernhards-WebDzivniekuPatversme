@@ -45,8 +45,6 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
         public static string UserControlNavClass(ViewContext viewContext) => PageNavClass(viewContext, UserControl);
 
-        public static string RoleControlNavClass(ViewContext viewContext) => PageNavClass(viewContext, RoleControl);
-
         public static string EditAnimalCreationNavClass(ViewContext viewContext) => PageNavClass(viewContext, EditAnimalCreation);
 
         private static string PageNavClass(ViewContext viewContext, string page)

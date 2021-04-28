@@ -74,6 +74,7 @@ Citi paplašinājumi:
 - [Autentifikācija ar Google servisiem](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0)
 - [Autentifikācija ar Facebook](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/facebook-logins?view=aspnetcore-5.0)
 - [Autentifikācija ar Microsoft servisiem](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins?view=aspnetcore-5.0)
+- [Paroles ģenerācija](https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings)
 
 ## Izmantoto tehnoloģiju dokumentācija
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet)

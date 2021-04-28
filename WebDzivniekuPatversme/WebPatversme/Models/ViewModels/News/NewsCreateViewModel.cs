@@ -25,7 +25,5 @@ namespace WebDzivniekuPatversme.Models.ViewModels.News
         [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Tituls")]
         public string Title { set; get; }
-
-        public string UserId { set; get; }
     }
 }

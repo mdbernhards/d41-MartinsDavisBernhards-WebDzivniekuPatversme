@@ -1,0 +1,60 @@
+﻿@page
+@model AddUserModel
+@{
+    ViewData["Title"] = "Labot Lietotāju";
+    ViewData["ActivePage"] = ManageNavPages.UserControl;
+}
+
+@if (ViewContext.HttpContext.User.IsInRole("administrator"))
+{
+    <h4>@ViewData["Title"]</h4>
+
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div class="form-group">
+                    <label class="control-label">Vārds</label>
+                    <input name="User.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Uzvārds</label>
+                    <input name="User.Surname" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.Surname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">E-pasts</label>
+                    <input name="User.Email" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Telefona numurs</label>
+                    <input name="User.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="@Model.Input.User.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Loma</label>
+                    <select class="form-control" name="role" asp-items="((IEnumerable<IdentityRole>)Model.Roles)
+                                        .Select(x => new SelectListItem { Text = x.Name, Value = x.Name })
+                                        .AsEnumerable()">
+                        <option value="@Model.Input.Role"> @Model.Input.Role </option>
+                    </select>
+                    <span asp-validation-for="@Model.Input.Role" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button id="edit-user-button" type="submit" asp-page-handler="AddUser" class="btn btn-primary">Pievienot</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Atpakaļ uz sarakstu</a>
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

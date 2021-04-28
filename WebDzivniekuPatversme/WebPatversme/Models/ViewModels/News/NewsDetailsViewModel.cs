@@ -17,6 +17,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.News
         [Display(Name = "Tituls")]
         public string Title { set; get; }
 
-        public string UserId { set; get; }
+        [Display(Name = "Autors")]
+        public string UsersName { set; get; }
     }
 }

@@ -5,32 +5,37 @@ using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Services.Interfaces;
 using WebDzivniekuPatversme.Repositories.Interfaces;
 using WebDzivniekuPatversme.Models.ViewModels.News;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebDzivniekuPatversme.Services
 {
     public class NewsService : INewsService
     {
         private readonly INewsRepository _newsRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public NewsService(
-            INewsRepository newsRepository)
+            INewsRepository newsRepository,
+            UserManager<ApplicationUser> userManager)
         {
             _newsRepository = newsRepository;
+            _userManager = userManager;
         }
 
         public List<News> GetAllNews()
         {
             var newsList = _newsRepository.GetAllNews();
 
+            GetUserFullNames(newsList);
+
             return newsList;
         }
 
         public News GetNewsById(string Id)
         {
-            var newsList = _newsRepository.GetAllNews();
+            var newsList = GetAllNews();
             var news = newsList
-                .Where(animal => animal.Id == Id)
-                .FirstOrDefault();
+                .Where(animal => animal.Id == Id).FirstOrDefault();
 
             return news;
         }
@@ -63,6 +68,18 @@ namespace WebDzivniekuPatversme.Services
             return news;
         }
 
+        private void GetUserFullNames(List<News> newsList)
+        {
+            var users = _userManager.Users.ToList();
+
+            foreach (var news in newsList)
+            {
+                var user = users.Where(x => x.Id == news.UserId).FirstOrDefault();
+
+                news.UsersName = user.Name + " " + user.Surname;
+            }
+        }
+
         private static List<NewsViewModel> OrderNews(List<NewsViewModel> news, string sortOrder)
         {
             news = sortOrder switch
@@ -81,6 +98,12 @@ namespace WebDzivniekuPatversme.Services
                     .ToList(),
                 "dateAdded_desc" => news
                     .OrderByDescending(s => s.DateAdded)
+                    .ToList(),
+                "usersName" => news
+                    .OrderBy(s => s.UsersName)
+                    .ToList(),
+                "usersName_desc" => news
+                    .OrderByDescending(s => s.UsersName)
                     .ToList(),
                 _ => news
                     .OrderBy(s => s.Title)
