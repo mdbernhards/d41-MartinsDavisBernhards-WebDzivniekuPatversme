@@ -98,7 +98,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 
             await _userManager.DeleteAsync(user);
 
-            return RedirectToPage();
+            return RedirectToPage("UserControl");
         }
     }
 }

@@ -9,6 +9,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         public string Id { set; get; }
 
         [ColourValidation(true, ErrorMessage = ValidationErrorMessages.AlreadyExists)]
+        [StringLength(50, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Display(Name = "Krāsa")]
         public string Name { set; get; }
     }

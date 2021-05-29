@@ -9,7 +9,6 @@
 {
     <h4>@ViewData["Title"]</h4>
 
-
     <form method="get">
         <div class="row">
             <div id="dataListItem" class="col-md-4">
@@ -22,55 +21,58 @@
     </form>
 
     <p>
-        <a asp-page="./AddUser" >+ Pievienot Lietotāju</a>
+        <a asp-page="./AddUser">+ Pievienot Lietotāju</a>
     </p>
 
-    <div>
-        <table class="table table-striped table-bordered bootstrap-datatable" style="overflow:auto;">
-            <thead>
-                <tr>
-                    <th>
-                        Vārds
-                    </th>
-                    <th>
-                        Uzvārds
-                    </th>
-                    <th>
-                        E-pasts
-                    </th>
-                    <th>
-                        Loma
-                    </th>
-                    <th>
-                        Opcijas
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Input)
-                {
+    <form method="post">
+        <div>
+            <table class="table table-striped table-bordered bootstrap-datatable" style="overflow:auto;">
+                <thead>
                     <tr>
-                        <td>
-                            @item.User.Name
-                        </td>
-                        <td>
-                            @item.User.Surname
-                        </td>
-                        <td>
-                            @item.User.Email
-                        </td>
-                        <td>
-                            @item.Role
-                        </td>
-                        <td>
-                            <a asp-page="./UserEdit" asp-route-userName="@item.User.UserName" class="btn btn-primary">Vairāk</a>
-                            <button id="delete-user-button" type="submit" asp-page-handler="DeleteUser" class="btn btn-danger">Dzēst</button>
-                        </td>
+                        <th>
+                            Vārds
+                        </th>
+                        <th>
+                            Uzvārds
+                        </th>
+                        <th>
+                            E-pasts
+                        </th>
+                        <th>
+                            Loma
+                        </th>
+                        <th>
+                            Opcijas
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Input)
+                    {
+                        <tr>
+                            <td>
+                                @item.User.Name
+                            </td>
+                            <td>
+                                @item.User.Surname
+                            </td>
+                            <td>
+                                @item.User.Email
+                            </td>
+                            <td>
+                                @item.Role
+                            </td>
+                            <td>
+                                <a asp-page="./UserEdit" asp-route-userName="@item.User.UserName" class="btn btn-primary">Vairāk</a>
+                                <input type="hidden" name="userName" value="@item.User.UserName" />
+                                <button id="delete-user-button" type="submit" asp-page-handler="DeleteUser" class="btn btn-danger">Dzēst</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
 }
 
 @section Scripts {

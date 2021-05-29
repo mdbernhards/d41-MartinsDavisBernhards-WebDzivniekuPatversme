@@ -33,7 +33,6 @@ namespace WebDzivniekuPatversme.Controllers
         { 
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CountSortParm"] = sortOrder == "count" ? "count_desc" : "count";
-            ViewData["AddressSortParm"] = sortOrder == "address" ? "address_desc" : "address";
             ViewData["DateAddedSortParm"] = sortOrder == "dateAdded" ? "dateAdded_desc" : "dateAdded";
 
             ViewData["Name"] = name;
@@ -42,7 +41,6 @@ namespace WebDzivniekuPatversme.Controllers
 
             var allShelters = _sheltersServices.GetAllShelters();
             var mappedShelters = _mapper.Map<List<ShelterViewModel>>(allShelters);
-
             mappedShelters = _sheltersServices.FilterAndSortShelters(mappedShelters, sortOrder, name);
 
             ViewData["PageAmount"] = decimal
@@ -65,7 +63,6 @@ namespace WebDzivniekuPatversme.Controllers
             if (ModelState.IsValid)
             {
                 var mappedShelter = _mapper.Map<Shelter>(shelter);
-
                 _sheltersServices.AddNewShelter(mappedShelter);
 
                 return RedirectToAction("Index");
@@ -89,7 +86,6 @@ namespace WebDzivniekuPatversme.Controllers
             if (ModelState.IsValid)
             {
                 var mappedShelter = _mapper.Map<Shelter>(shelter);
-
                 _sheltersServices.EditShelter(mappedShelter);
 
                 return RedirectToAction("Index");
@@ -102,7 +98,6 @@ namespace WebDzivniekuPatversme.Controllers
         public IActionResult Delete(ShelterDetailsViewModel shelter)
         {
             var mappedShelter = _mapper.Map<Shelter>(shelter);
-
             _sheltersServices.DeleteShelter(mappedShelter);
 
             return RedirectToAction("Index");

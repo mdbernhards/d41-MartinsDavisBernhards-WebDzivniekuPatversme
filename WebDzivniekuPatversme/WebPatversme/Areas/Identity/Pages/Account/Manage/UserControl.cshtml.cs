@@ -40,7 +40,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             foreach (var user in users)
             {
                 var role = _userManager
-                    .GetRolesAsync(user).Result.FirstOrDefault().ToString();
+                    .GetRolesAsync(user).Result?.FirstOrDefault().ToString();
 
                 Input.Add(new UserControlViewModel() 
                 { 
@@ -52,14 +52,14 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDeleteUserAsync(UserEditViewModel model)
+        public async Task<IActionResult> OnPostDeleteUserAsync(string userName)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var user = _userManager.FindByNameAsync(model.User.UserName).Result;
+            var user = _userManager.FindByNameAsync(userName).Result;
 
             await _userManager.DeleteAsync(user);
 

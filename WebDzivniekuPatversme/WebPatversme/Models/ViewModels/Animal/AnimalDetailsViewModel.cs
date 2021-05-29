@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WebDzivniekuPatversme.Models.StaticModels;
 
 namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
@@ -50,9 +51,11 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         public string ShelterName {set; get; }
 
         [Display(Name = "E-pasts")]
+        [StringLength(10000, ErrorMessage = ValidationErrorMessages.StringLength)]
         public string EmailMessage { get; set; }
 
         [Display(Name = "E-pasta tituls")]
+        [StringLength(150, ErrorMessage = ValidationErrorMessages.StringLength)]
         public string EmailTitle { get; set; }
     }
 }

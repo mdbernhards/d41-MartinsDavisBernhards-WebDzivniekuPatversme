@@ -1,30 +1,38 @@
-﻿using System.Linq;
+﻿using System;
+using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using WebDzivniekuPatversme.Data;
 using WebDzivniekuPatversme.Models;
 using WebDzivniekuPatversme.Models.ViewModels.Identity;
-using System;
+
+using System.Text.Encodings.Web;
 
 namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
 {
     public class AddUserModel : PageModel
     {
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ApplicationDbContext _context;
+        private readonly IEmailSender _emailSender;
 
         public AddUserModel(
+            SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            ApplicationDbContext context)
+            IEmailSender emailSender)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
-            _context = context;
+            _emailSender = emailSender;
 
             Input = new UserEditViewModel();
         }
@@ -54,12 +62,46 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var user = new ApplicationUser { UserName = model.User.UserName, Email = model.User.Email, Name = model.User.Name, Surname = model.User.Surname, PhoneNumber = model.User.PhoneNumber };
-            var result = await _userManager.CreateAsync(user, GeneratePassword());
+            string returnUrl = Url.Content("~/");
+
+            var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email, Name = model.User.Name, Surname = model.User.Surname, PhoneNumber = model.User.PhoneNumber };
+            var pass = GeneratePassword();
+            var result = await _userManager.CreateAsync(user, pass);
 
             await _userManager.AddToRoleAsync(user, model.Role);
 
-            StatusMessage = "Jūsu profils tika atjaunots";
+            if (result.Succeeded)
+            {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders
+                    .Base64UrlEncode(Encoding.UTF8
+                    .GetBytes(code));
+
+                var callbackUrl = (Url.Page(
+                    "/Account/ConfirmEmail",
+                    pageHandler: null,
+                    values: new { area = "Identity", userId = user.Id, code, returnUrl },
+                    protocol: Request.Scheme));
+
+                await _emailSender.SendEmailAsync(user.Email, "Apstiprināšanas E-pasts WebPatversme",
+                    $"Lūdzu apstipriniet savu profilu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spiežot šeit</a>. Jūsu parole ir: " + pass);
+
+                if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                {
+                    return RedirectToPage("RegisterConfirmation", new { email = user.Email, returnUrl });
+                }
+                else
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return LocalRedirect(returnUrl);
+                }
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
 
             return RedirectToPage("UserControl");
         }
@@ -71,7 +113,7 @@ namespace WebDzivniekuPatversme.Areas.Identity.Pages.Account.Manage
             const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
             return new string(Enumerable.Repeat(chars, 8)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[random.Next(s.Length)]).ToArray()) + "2@";
         }
     }
 }

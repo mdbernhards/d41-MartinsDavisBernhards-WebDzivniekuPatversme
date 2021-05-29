@@ -6,7 +6,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Patversmes!</h1>
+    <h1 class="display-4">Patversmes</h1>
 </div>
 
 @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
@@ -43,7 +43,7 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["CountSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Dzīvnieku skaits</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["AddressSortParm"]" asp-route-name="@ViewData["Name"]" asp-route-pageSize="@ViewData["PageSize"]">Adrese</a>
+                Adrese
             </th>
             <th>
                 Telefona numurs

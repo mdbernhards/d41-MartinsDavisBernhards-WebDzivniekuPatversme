@@ -12,7 +12,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
         [Key]
         public string Id { set; get; }
 
-        [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [StringLength(50, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Vārds")]
         public string Name { set; get; }

@@ -1,11 +1,11 @@
 ﻿@model WebDzivniekuPatversme.Models.ViewModels.News.NewsCreateViewModel
 
 @{
-    ViewData["Title"] = "Pievienot ziņas";
+    ViewData["Title"] = "Publicēt rakstu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Pievienot Rakstu</h1>
+<h1>Publicēt Rakstu</h1>
 
 <hr />
 <form asp-action="Create" enctype="multipart/form-data">
@@ -28,7 +28,7 @@
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" value="Pievienot" class="btn btn-primary" />
+            <input type="submit" value="Publicēt" class="btn btn-primary" />
         </div>
     </div>
 </form>

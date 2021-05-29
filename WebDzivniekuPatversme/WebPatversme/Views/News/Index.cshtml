@@ -6,13 +6,13 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Ziņas!</h1>
+    <h1 class="display-4">Raksti</h1>
 </div>
 
 @if (ViewContext.HttpContext.User.IsInRole("administrator") || ViewContext.HttpContext.User.IsInRole("worker"))
 {
     <p>
-        <a asp-action="Create">+ Pievienot ziņas</a>
+        <a asp-action="Create">+ Publicēt jaunu rakstu</a>
     </p>
 }
 

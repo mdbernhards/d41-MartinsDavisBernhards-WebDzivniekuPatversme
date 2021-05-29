@@ -27,6 +27,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Identity
         public string Email { get; set; }
 
         [Phone(ErrorMessage = ValidationErrorMessages.NotValid)]
+        [StringLength(25, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Display(Name = "Telefona numurs")]
         public string PhoneNumber { get; set; }
 

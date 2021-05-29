@@ -9,7 +9,7 @@ namespace WebDzivniekuPatversme.Models.ViewModels.Animal
 {
     public class AnimalCreateViewModel
     {
-        [StringLength(100, ErrorMessage = ValidationErrorMessages.StringLength)]
+        [StringLength(50, ErrorMessage = ValidationErrorMessages.StringLength)]
         [Required(ErrorMessage = ValidationErrorMessages.RequiredM)]
         [Display(Name = "Vārds")]
         public string Name { set; get; }
