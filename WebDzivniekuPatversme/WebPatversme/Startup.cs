@@ -35,19 +35,11 @@ namespace WebDzivniekuPatversme
             services.AddScoped<IAnimalsService, AnimalsService>();
             services.AddScoped<IAnimalsRepository, AnimalsRepository>();
 
-            services.AddScoped<IContactsService, ContactsService>();
-            services.AddScoped<IContactsRepository, ContactsRepository>();
-
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<INewsRepository, NewsRepository>();
 
             services.AddScoped<IShelterService, ShelterService>();
             services.AddScoped<IShelterRepository, ShelterRepository>();
-
-            services.AddScoped<IHomeService, HomeService>();
-            services.AddScoped<IHomeRepository, HomeRepository>();
-
-            services.AddScoped<ILoggerRepository, LoggerRepository>();
 
             services.AddTransient<UserChecker>();
 
