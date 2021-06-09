@@ -1,18 +1,21 @@
 # Dzivnieku patversmes mājaslapa
 
 ## Projekta apraksts
-Šis projekts veidots PIKC "Rīgas Valsts tehnikums" kvalifikācijas darbam. Viegli izmantojama un loģiska mājaslapa ar datubāzi domāta dzivnieku patversmēm, to darbiniekiem un lietotājiem, kas potencjāli vēlas adoptēt dzivnieku. Mājaslapā var saglabāt informāciju par dzivniekiem, viņu raksturu un slimības, informāciju var mainīt.
+Šis projekts veidots PIKC "Rīgas Valsts tehnikums" kvalifikācijas darbam. Viegli izmantojama un loģiska mājaslapa ar datubāzi. Domāta dzivnieku patversmēm, to darbiniekiem un lietotājiem, kas potencjāli vēlas adoptēt dzivnieku. Mājaslapā tiek parādīta informāciju par patversmēm, dzīvniekiem tajās un publicētajiem rakstiem.
 Lietotājs var apskatīt šos dzivniekus, kontaktēt patversmi par kādu no tiem nosūtot ziņu. Var iegūt informāciju par patversmēm, to atrašanās vietu, telefona numuru.
+Administrātori var viegli kontrolēt visu patversmju sistēmu.
 
 Funkcijas:
-- Dzivnieku informācijas saglabāšana datubāzē
-- Patversmes informācijas saglabāšana datubāzē
-- Saglabātās informācijas rediģēšana
+- Dzivnieku informācijas saglabāšana, labošana un dzēšana
+- Patversmes informācijas saglabāšana, labošana un dzēšana
+- Rakstu publicēšana, labošana un dzēšana
 - Dzivnieku meklēšana ar filtriem, kā: suga, krāsa, vecums, patversme kurā atrodās
-- Lietotāji var apskatīt informāciju par dzivniekiem un patversmēm nereģistrējoties
-- Reģistrējoties var aizsūtīt Epastu noteiktajai patversmei par dzīvnieku
-- Dažādas mājaslapas kontroles opcijas, kā Administratoram un kā Lietotājam
-- Darbinieki var veidot rakstus saistītus ar patversmēm, dzīvniekiem
+- Lietotāji var apskatīt informāciju par dzivniekiem, patversmēm un lasīt rakstus nereģistrējoties
+- Reģistrējoties var aizsūtīt e-pastu noteiktajai patversmei par intresējošu dzīvnieku
+- Dažādas mājaslapas un profila kontroles opcijas, kā Administratoram un kā parastam lietotājam
+- Darbinieki var publicēt rakstus saistītus ar patversmēm un dzīvniekiem
+- Administratori var mainīt dzīvnieku izveides opcijas
+- Administratori var pievienot un dzēst lietotājus, kā arī labot to datus 
 
 ## Izmantotās valodas
 Angļu valoda:
@@ -80,4 +83,19 @@ Citi paplašinājumi:
 - [ASP .NET dokumentācija](https://docs.microsoft.com/en-us/aspnet)
 
 ## Uzstādīšanas instrukcijas
-- Vel nav
+- Lejuplādēt jebkuru [Visual Studios 2019](https://visualstudio.microsoft.com/downloads/) versiju un to ieinstalēt.
+- Instalācijas laikā izvēlēties "ASP.NET and web development" un ".NET desktop development" Workloads.
+- Lejuplādēt šī projekta GitHub repozitoriju.
+- Iekš Visual Studios izvēlēties File -> Open -> Project/Solution.. tad atvērt lejupielādētā projekta Solution, kas atrodās mapē WebDzivniekuPatversme.
+- Lejuplādē [MySQL Installer](https://dev.mysql.com/downloads/installer/) un to ieinstalē.
+- Caur MySQL Installer ieinstalē: MySQL Server, MySQL for Visual Studio, Connector/NET, MySQL Workbench un tos ieinstalē.
+- Atver MySQL Workbench un izveido local host serveri un shēmu ar nosaukumu shelterdb
+- Izveidojot norādīt datus: lietotājvārds: root, parole: 1234, ports: 3306
+- Tad MySQL Workbench importē diagrammu File -> Open Model.. un tad atver webpatversme.mwb, kas tika lejupielādēta ar projektu no GitHub repozitorijas
+- Tad jāizvēlās opcija Database -> Forward Engineer.. un tad spied next līdz process ir pabeigts
+- Ja process izdevās, datubāze ir uzstādīta
+- Tad Visual Studios, ja esi tēmēts uz pareizo Solution spied F5 vai pogu ar zaļo "play button" un programmai vajadzētu būt gatavaj lietošanai
+- Ja programma neatverās, tad iespējams norādīta nepareiza informācija izveidojot datubāzi, to var labot projekta root mapē failā appsettings.json
+- Ja programma beidz strādāt pēc pirmās palaižšanas, palaid to velreiz (iespējama pirmās reizes problēma).
+- Lai ienāktu, kā administratoram tiek izveidots default profils datubaze: e-pasts: admin@gmail.com parole: Password1!
+- Ja e-pasts netiek nosūtīts uz jūsu e-pastu (iespējams G-mail atslēdza sistēmas izmantoto e-pastu), nosūtiet man ziņu, kā arī ja rodas citas problēmas

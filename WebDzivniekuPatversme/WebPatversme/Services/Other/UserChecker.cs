@@ -49,10 +49,10 @@ namespace WebDzivniekuPatversme.Services.Other
         {
             var user = new ApplicationUser
             {
-                UserName = "martinsdavisbernhards@gmail.com",
-                NormalizedUserName = "martinsdavisbernhards@gmail.com",
-                Email = "martinsdavisbernhards@gmail.com",
-                NormalizedEmail = "martinsdavisbernhards@gmail.com",
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "admin@gmail.com",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "admin@gmail.com",
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 SecurityStamp = Guid.NewGuid().ToString()
@@ -62,7 +62,7 @@ namespace WebDzivniekuPatversme.Services.Other
             {
                 var password = new PasswordHasher<IdentityUser>();
                 var userStore = new UserStore<IdentityUser>(_context);
-                var hashed = password.HashPassword(user, "password");
+                var hashed = password.HashPassword(user, "Password1!");
 
                 user.PasswordHash = hashed;
 
