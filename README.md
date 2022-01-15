@@ -1,5 +1,7 @@
 # Dzivnieku patversmes mājaslapa
 
+### Creator: Mārtiņš Dāvis Bernhards
+
 ## Projekta apraksts
 Šis projekts veidots PIKC "Rīgas Valsts tehnikums" kvalifikācijas darbam. Viegli izmantojama un loģiska mājaslapa ar datubāzi. Domāta dzivnieku patversmēm, to darbiniekiem un lietotājiem, kas potencjāli vēlas adoptēt dzivnieku. Mājaslapā tiek parādīta informāciju par patversmēm, dzīvniekiem tajās un publicētajiem rakstiem.
 Lietotājs var apskatīt šos dzivniekus, kontaktēt patversmi par kādu no tiem nosūtot ziņu. Var iegūt informāciju par patversmēm, to atrašanās vietu, telefona numuru.
